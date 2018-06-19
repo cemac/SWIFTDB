@@ -1,0 +1,28 @@
+D-C1.0	WP-C1	Baseline skills assessment	7	6		0
+D-C1.1	WP-C1	Pre-testbed training: 0-120h	7	6		0
+D-C1.2	WP-C1	Pre-testbed training: S2S	7	12		0
+D-C1.3	WP-C1	Pre-testbed training: nowcasting	7	30		0
+D-C1.4	WP-C1	Summer School 1	1	21		0
+D-C1.5	WP-C1	Summer School 2	1	45		0
+D-C1.6	WP-C1	8 Secondments	1	51		0
+D-C1.7	WP-C1	Ongoing skills monitoring and final assessment	7	48		0
+D-C2.0	WP-C2	Baseline assessment of researcher-forecaster links	7	6		0
+D-C2.1	WP-C2	Testbed 1: 0-48h	1	9		0
+D-C2.2	WP-C2	T1 washup	1	12		0
+D-C2.3	WP-C2	Testbed 2: S2S	1	22		0
+D-C2.4	WP-C2	T2 washup	1	27		0
+D-C2.5	WP-C2	Testbed 3: 0h-60d	1	33		0
+D-C2.6	WP-C2	T3 washup	1	36		0
+D-C2.7	WP-C2	Ongoing assessment of researcher-forecaster links	7	48		0
+D-R1.1	WP-R1	National case study reports on user needs for forecasts at different timescales	NULL	18		0
+D-R1.2	WP-R1	A priority list of user needs for quantitative forecast products for different timescales and sectors co-produced by users, weather services and academic partners.	NULL	24		0
+D-R1.3	WP-R1	Development and testing of strategies for communicating forecasts to users in different sectors, resulting in a set of communication tools, and recommendations for good practice.	NULL	40		0
+D-R2.1	WP-R2	Reports describing the applicability of storm statistics tools using the Accra radar and using satellite microwave observations over Africa.	4	24		0
+D-R2.2	WP-R2	Reports on nowcasting evaluation and CP ensemble evaluation against microwave satellite data (joint with WP-R7) using new metrics and on model sensitivity to microphysics choices.	4	24		0
+D-R2.3	WP-R2	Report on S2S evaluation of probabilistic forecasts and developments towards seamless evaluation methodology.	8	24		0
+D-R2.4	WP-R2	Training school and documentation on best practice for forecast evaluation over Africa.	4	12		0
+D-R2.5	WP-R2	Baseline evaluation of weather forecast skill, and updates as the project evolves, for M&E.	4	12		0
+D-R5.1	WP-R5	Assessment of convective variability within AEW structures in West Africa.	3	NULL		0
+D-R5.2	WP-R5	New conceptual synoptic models for East Africa, for use in forecaster and user training.	3	NULL		0
+D-R6.1	WP-R6	Scientific papers on the analysis of operational prediction systems and their skill. 	2	NULL		0
+D-R6.2	WP-R6	Training materials on S2S prediction including updated chapter(s) on sub-seasonal prediction for the Forecasters Handbook	2	NULL		0

@@ -36,7 +36,7 @@ CREATE TABLE work_packages(
 );
 CREATE TABLE deliverables(
   deliverable_id TEXT PRIMARY KEY,
-  work_package TEXT
+  work_package TEXT,
   description TEXT,
   responsible_partner INTEGER,
   month_due INTEGER,
@@ -105,6 +105,19 @@ PRAGMA foreign_keys = OFF;
 UPDATE temp SET africa_leader = NULL WHERE africa_leader = 'NULL';
 PRAGMA foreign_keys = ON;
 INSERT INTO work_packages SELECT * FROM temp;
+DROP TABLE temp;
+EOF
+fi
+
+if [ -f deliverables.tsv ]; then
+sqlite3 SWIFT.db <<EOF
+CREATE TABLE temp AS SELECT * FROM deliverables WHERE 0;
+PRAGMA foreign_keys = OFF;
+.separator "\t"
+.import deliverables.tsv temp
+UPDATE temp SET responsible_partner = NULL WHERE responsible_partner = 'NULL';
+PRAGMA foreign_keys = ON;
+INSERT INTO deliverables SELECT * FROM temp;
 DROP TABLE temp;
 EOF
 fi

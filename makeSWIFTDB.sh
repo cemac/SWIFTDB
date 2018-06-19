@@ -87,3 +87,11 @@ PRAGMA foreign_keys = ON;
 .import staff.tsv staff
 EOF
 fi
+
+if [ -f partner_leads.tsv ]; then
+sqlite3 SWIFT.db <<EOF
+PRAGMA foreign_keys = ON;
+.separator "\t"
+.import partner_leads.tsv partner_leads
+EOF
+fi

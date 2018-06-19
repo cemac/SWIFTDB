@@ -1,0 +1,12 @@
+WG1	NWP	72	19
+WP-C1	Training	6	NULL
+WP-C2	Testbeds	6	NULL
+WP-M1	Management	4	1
+WP-M2	Legacy	6	19
+WP-R1	Users	10	49
+WP-R2	Eval	1	29
+WP-R3	Satellite	4	48
+WP-R4	Nowcast	5	23
+WP-R5	Synoptic	8	64
+WP-R6	S2S	15	83
+WP-R7	CP ensembles	9	NULL

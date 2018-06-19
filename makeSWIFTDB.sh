@@ -95,3 +95,16 @@ PRAGMA foreign_keys = ON;
 .import partner_leads.tsv partner_leads
 EOF
 fi
+
+if [ -f work_packages.tsv ]; then
+sqlite3 SWIFT.db <<EOF
+CREATE TABLE temp AS SELECT * FROM work_packages WHERE 0;
+PRAGMA foreign_keys = OFF;
+.separator "\t"
+.import work_packages.tsv temp
+UPDATE temp SET africa_leader = NULL WHERE africa_leader = 'NULL';
+PRAGMA foreign_keys = ON;
+INSERT INTO work_packages SELECT * FROM temp;
+DROP TABLE temp;
+EOF
+fi

@@ -10,12 +10,14 @@ CREATE TABLE partners(
 );
 CREATE TABLE staff(
   staff_id INTEGER PRIMARY KEY, 
-  name TEXT UNIQUE,
+  name TEXT,
   partner INTEGER,
   position TEXT,
   role TEXT,
   email TEXT,
+  notes TEXT,
   FOREIGN KEY(partner) REFERENCES partners(partner_id)
+  CONSTRAINT unique_partner_name UNIQUE (partner, name)
 );
 CREATE TABLE partner_leads(
   partner INTEGER PRIMARY KEY,
@@ -72,7 +74,16 @@ EOF
 
 if [ -f partners.tsv ]; then
 sqlite3 SWIFT.db <<EOF
+PRAGMA foreign_keys = ON;
 .separator "\t"
 .import partners.tsv partners
+EOF
+fi
+
+if [ -f staff.tsv ]; then
+sqlite3 SWIFT.db <<EOF
+PRAGMA foreign_keys = ON;
+.separator "\t"
+.import staff.tsv staff
 EOF
 fi

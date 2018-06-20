@@ -8,31 +8,9 @@ CREATE TABLE partners(
   country TEXT,
   role TEXT
 );
-CREATE TABLE staff(
-  staff_id INTEGER PRIMARY KEY, 
-  name TEXT,
-  partner INTEGER,
-  position TEXT,
-  role TEXT,
-  email TEXT,
-  notes TEXT,
-  FOREIGN KEY(partner) REFERENCES partners(partner_id)
-  CONSTRAINT unique_partner_name UNIQUE (partner, name)
-);
-CREATE TABLE partner_leads(
-  partner INTEGER PRIMARY KEY,
-  lead INTEGER,
-  FOREIGN KEY(partner) REFERENCES partners(partner_id),
-  FOREIGN KEY(lead) REFERENCES staff(staff_id),
-  CONSTRAINT unique_leads UNIQUE (partner, lead)
-);
 CREATE TABLE work_packages(
   wp_id TEXT PRIMARY KEY, 
-  name TEXT,
-  uk_leader INTEGER,
-  africa_leader INTEGER,
-  FOREIGN KEY(uk_leader) REFERENCES staff(staff_id),
-  FOREIGN KEY(africa_leader) REFERENCES staff(staff_id)
+  name TEXT
 );
 CREATE TABLE deliverables(
   deliverable_id TEXT PRIMARY KEY,
@@ -46,7 +24,7 @@ CREATE TABLE deliverables(
   FOREIGN KEY(responsible_partner) REFERENCES partners(partner_id)
 );
 CREATE TABLE tasks(
-  task_id TEXT PRIMARY KEY,
+  task_id INTEGER PRIMARY KEY,
   description TEXT
 );
 CREATE TABLE tasks2deliverables(
@@ -80,32 +58,11 @@ PRAGMA foreign_keys = ON;
 EOF
 fi
 
-if [ -f staff.tsv ]; then
-sqlite3 SWIFT.db <<EOF
-PRAGMA foreign_keys = ON;
-.separator "\t"
-.import staff.tsv staff
-EOF
-fi
-
-if [ -f partner_leads.tsv ]; then
-sqlite3 SWIFT.db <<EOF
-PRAGMA foreign_keys = ON;
-.separator "\t"
-.import partner_leads.tsv partner_leads
-EOF
-fi
-
 if [ -f work_packages.tsv ]; then
 sqlite3 SWIFT.db <<EOF
-CREATE TABLE temp AS SELECT * FROM work_packages WHERE 0;
-PRAGMA foreign_keys = OFF;
-.separator "\t"
-.import work_packages.tsv temp
-UPDATE temp SET africa_leader = NULL WHERE africa_leader = 'NULL';
 PRAGMA foreign_keys = ON;
-INSERT INTO work_packages SELECT * FROM temp;
-DROP TABLE temp;
+.separator "\t"
+.import work_packages.tsv work_packages
 EOF
 fi
 

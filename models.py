@@ -10,7 +10,8 @@ class Partners(db.Model):
     Deliverables_Rel = db.relationship('Deliverables')
     # Partners2Tasks_Rel = db.relationship('Partners2Tasks')
 
-    def __init__(self, name, country, role):
+    def __init__(self, partner_id, name, country, role):
+        self.partner_id = partner_id
         self.name = name
         self.country = country
         self.role = role

@@ -7,13 +7,12 @@
       {% block styles %}{% endblock %}
   </head>
   <body>
-    {% with subd=subd %}
-      {% include 'includes/_navbar.html' %}
-    {% endwith %}
+    {% include 'includes/_navbar.html' %}
     <div class="container">
       {% include 'includes/_messages.html' %}
       {% block body %}{% endblock %}
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     {% block scripts %}{% endblock %}
   </body>

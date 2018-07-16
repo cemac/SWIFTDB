@@ -1,14 +1,26 @@
 <nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href={{subd}}/>African-SWIFT PM Hub</a>
+      <a class="navbar-brand" href="/">African-SWIFT PM Hub</a>
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add to tables<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/add-partner">Add partner</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View tables<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/view-partners">View partners</a></li>
+          </ul>
+        </li>
         {% if session.logged_in %}
-          <li><a href={{subd}}/logout>Logout</a></li>
+          <li><a href="/logout">Logout</a></li>
         {% else %}
-          <li><a href={{subd}}/login>Login</a></li>
+          <li><a href="/login">Login</a></li>
         {% endif %}
       </ul>
     </div>

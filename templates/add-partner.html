@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>Add partner</h1>
+  <hr>
+  <form action="/add-partner" method="POST">
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" name="name" class="form-control" placeholder="e.g. Leeds" required>
+    </div>
+    <div class="form-group">
+      <label>Country</label>
+      <input type="text" name="country" class="form-control" placeholder="e.g. UK">
+    </div>
+    <div class="form-group">
+      <label>Role</label>
+      <input type="text" name="role" class="form-control" placeholder="e.g. 'Academic' or 'Operational'">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <hr>
+{% endblock %}

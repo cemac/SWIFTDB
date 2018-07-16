@@ -18,15 +18,6 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 from models import Partners, Work_Packages, Deliverables #, Tasks, Tasks2Deliverables, Partners2Tasks
 
-#Set subdomain...
-#If running locally (or index is the domain) set to blank, i.e. subd=""
-#If index is a subdomain, set as appropriate *including* leading slash, e.g. subd="/SWIFTDB"
-#Routes in @app.route() should NOT include subd, but all other references should...
-#Use redirect(subd + '/route') rather than redirect(url_for(route))
-#Pass subd=subd into every render_template so that it can be used to set the links appropriately
-#
-subd=""
-
 ########## PSQL FUNCTIONS ##########
 def psql_to_pandas(query):
     df = pd.read_sql(query.statement,db.session.bind)
@@ -35,7 +26,7 @@ def psql_to_pandas(query):
 def psql_insert(row):
     db.session.add(row)
     db.session.commit()
-    return row.id
+    return
 
 def psql_delete(row):
     db.session.delete(row)
@@ -52,14 +43,37 @@ def is_logged_in(f):
             return f(*args, **kwargs)
         else:
             flash('Unauthorised, please login', 'danger')
-            return redirect(subd+'/')
+            return redirect(url_for('index'))
     return wrap
 #########################################
 
 #Index
 @app.route('/')
 def index():
-    return render_template('home.html',subd=subd)
+    return render_template('home.html')
+
+#Add partner
+@app.route('/add-partner', methods=["GET","POST"])
+def add_partner():
+    if request.method == 'POST':
+        #Get form fields
+        name = request.form['name']
+        country = request.form['country']
+        role = request.form['role']
+        #Add to DB:
+        max_id = Partners.query.order_by(Partners.partner_id.desc()).first().partner_id
+        db_row = Partners(partner_id=max_id+1,name=name,country=country,role=role)
+        psql_insert(db_row)
+        #Return with success
+        flash('Added to database', 'success')
+        return redirect(url_for('add_partner'))
+    return render_template('add-partner.html')
+
+#View partner
+@app.route('/view-partners')
+def view_partners():
+    partnersData = psql_to_pandas(Partners.query)
+    return render_template('view-partners.html',partnersData=partnersData)
 
 #Login
 @app.route('/login', methods=["GET","POST"])
@@ -67,8 +81,8 @@ def login():
     if request.method == 'POST':
         session['logged_in'] = True
         flash('You are now logged in', 'success')
-        return redirect(subd+'/')
-    return render_template('login.html',subd=subd)
+        return redirect(url_for('index'))
+    return render_template('login.html')
 
 #Logout
 @app.route('/logout')
@@ -76,7 +90,7 @@ def login():
 def logout():
     session.clear()
     flash('You are now logged out', 'success')
-    return redirect(subd+'/')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)

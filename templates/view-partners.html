@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>View partners</h1>
+  <hr>
+  <table class="table table-striped">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Country</th>
+      <th>Role</th>
+    </tr>
+    {% for index, row in partnersData.iterrows() %}
+      <tr>
+        <td>{{row['partner_id']}}</td>
+        <td>{{row['name']}}</td>
+        <td>{{row['country']}}</td>
+        <td>{{row['role']}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  <hr>
+{% endblock %}

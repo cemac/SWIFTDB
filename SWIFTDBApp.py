@@ -57,6 +57,14 @@ class PartnerForm(Form):
         render_kw={"placeholder": "e.g. UK"})
     role = StringField(u'Role',
         render_kw={"placeholder": "e.g. 'Academic' or 'Operational'"})
+
+class WorkPackageForm(Form):
+    wp_id = StringField(u'Work Package Code / ID',
+        [validators.InputRequired()],
+        render_kw={"placeholder": "e.g. WP-C1"})
+    name = StringField(u'Name',
+        [validators.InputRequired()],
+        render_kw={"placeholder": "e.g. Training"})
 #########################################
 
 #Index
@@ -82,7 +90,7 @@ def add_partner():
         return redirect(url_for('add_partner'))
     return render_template('add-partner.html',form=form)
 
-#View partner
+#View partners
 @app.route('/view-partners')
 def view_partners():
     partnersData = psql_to_pandas(Partners.query)
@@ -122,6 +130,61 @@ def edit_partner(partner_id):
     form.country.data = db_row.country
     form.role.data = db_row.role
     return render_template('edit-partner.html',form=form,partner_id=partner_id)
+
+
+#Add work package
+@app.route('/add-work-package', methods=["GET","POST"])
+def add_work_package():
+    form = WorkPackageForm(request.form)
+    if request.method == 'POST' and form.validate():
+        #Get form fields
+        wp_id = form.wp_id.data
+        name = form.name.data
+        #Add to DB:
+        db_row = Work_Packages(wp_id=wp_id,name=name)
+        psql_insert(db_row)
+        #Return with success
+        flash('Added to database', 'success')
+        return redirect(url_for('add_work_package'))
+    return render_template('add-work-package.html',form=form)
+
+#View work packages
+@app.route('/view-work-packages')
+def view_work_packages():
+    wpData = psql_to_pandas(Work_Packages.query)
+    return render_template('view-work-packages.html',wpData=wpData)
+
+#Delete work package
+@app.route('/delete-work-package/<string:wp_id>', methods=['POST'])
+def delete_work_package(wp_id):
+    db_row = Work_Packages.query.filter_by(wp_id=wp_id).first()
+    if db_row is None:
+        abort(404)
+    psql_delete(db_row)
+    flash('Entry deleted', 'success')
+    return redirect(url_for('view_work_packages'))
+
+#Edit work package
+@app.route('/edit-work-package/<string:wp_id>', methods=['GET','POST'])
+def edit_work_package(wp_id):
+    form = WorkPackageForm(request.form)
+    db_row = Work_Packages.query.filter_by(wp_id=wp_id).first()
+    if db_row is None:
+        abort(404)
+    if request.method == 'POST' and form.validate():
+        #Get form info:
+        name = form.name.data
+        #Update DB:
+        db_row.name = name
+        db.session.commit()
+        #Return with success:
+        flash('Edits successful', 'success')
+        return redirect(url_for('view_work_packages'))
+    form.wp_id.render_kw = {'disabled': 'disabled'}
+    form.wp_id.data = db_row.wp_id
+    form.name.data = db_row.name
+    return render_template('edit-work-package.html',form=form,wp_id=wp_id)
+
 
 #Login
 @app.route('/login', methods=["GET","POST"])

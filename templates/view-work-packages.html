@@ -1,26 +1,22 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <h1>View Partners</h1>
+  <h1>View Work Packages</h1>
   <hr>
   <table class="table table-striped">
     <tr>
       <th>ID</th>
       <th>Name</th>
-      <th>Country</th>
-      <th>Role</th>
       <th></th>
       <th></th>
     </tr>
-    {% for index, row in partnersData.iterrows() %}
+    {% for index, row in wpData.iterrows() %}
       <tr>
-        <td>{{row['partner_id']}}</td>
+        <td>{{row['wp_id']}}</td>
         <td>{{row['name']}}</td>
-        <td>{{row['country']}}</td>
-        <td>{{row['role']}}</td>
-        <td><a href="/edit-partner/{{row['partner_id']}}" class="btn btn-primary pull-right">Edit</a></td>
+        <td><a href="/edit-work-package/{{row['wp_id']}}" class="btn btn-primary pull-right">Edit</a></td>
         <td>
-          <form action="/delete-partner/{{row['partner_id']}}" method="post" onsubmit="return confirm('Are you sure?');">
+          <form action="/delete-work-package/{{row['wp_id']}}" method="post" onsubmit="return confirm('Are you sure?');">
             <input type="hidden" name="_method" value="DELETE">
             <input type="submit" value="Delete" class="btn btn-danger">
           </form>

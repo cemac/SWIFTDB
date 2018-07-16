@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <h1>Edit partner</h1>
+  <h1>Edit Partner</h1>
   <hr>
   {% from "includes/_formhelpers.html" import render_field %}
   <form action="/edit-partner/{{partner_id}}" method="POST">

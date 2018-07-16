@@ -16,7 +16,7 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 
 #Configure postgresql database:
 db = SQLAlchemy(app)
-from models import Partners, Work_Packages, Deliverables, Tasks, Tasks2Deliverables, Partners2Tasks
+from models import Partners, Work_Packages, Deliverables #, Tasks, Tasks2Deliverables, Partners2Tasks
 
 #Set subdomain...
 #If running locally (or index is the domain) set to blank, i.e. subd=""

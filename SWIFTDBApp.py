@@ -1,4 +1,5 @@
-from flask import Flask, render_template, flash, redirect, url_for, request, g, session
+from flask import Flask, render_template, flash, redirect, url_for, request, g, session, abort
+from wtforms import Form, validators, StringField
 import datetime as dt
 import os
 import pandas as pd
@@ -47,6 +48,17 @@ def is_logged_in(f):
     return wrap
 #########################################
 
+########## FORM CLASSES ##########
+class PartnerForm(Form):
+    name = StringField(u'Name',
+        [validators.InputRequired()],
+        render_kw={"placeholder": "e.g. Leeds"})
+    country = StringField(u'Country',
+        render_kw={"placeholder": "e.g. UK"})
+    role = StringField(u'Role',
+        render_kw={"placeholder": "e.g. 'Academic' or 'Operational'"})
+#########################################
+
 #Index
 @app.route('/')
 def index():
@@ -55,11 +67,12 @@ def index():
 #Add partner
 @app.route('/add-partner', methods=["GET","POST"])
 def add_partner():
-    if request.method == 'POST':
+    form = PartnerForm(request.form)
+    if request.method == 'POST' and form.validate():
         #Get form fields
-        name = request.form['name']
-        country = request.form['country']
-        role = request.form['role']
+        name = form.name.data
+        country = form.country.data
+        role = form.role.data
         #Add to DB:
         max_id = Partners.query.order_by(Partners.partner_id.desc()).first().partner_id
         db_row = Partners(partner_id=max_id+1,name=name,country=country,role=role)
@@ -67,13 +80,48 @@ def add_partner():
         #Return with success
         flash('Added to database', 'success')
         return redirect(url_for('add_partner'))
-    return render_template('add-partner.html')
+    return render_template('add-partner.html',form=form)
 
 #View partner
 @app.route('/view-partners')
 def view_partners():
     partnersData = psql_to_pandas(Partners.query)
     return render_template('view-partners.html',partnersData=partnersData)
+
+#Delete partner
+@app.route('/delete-partner/<string:partner_id>', methods=['POST'])
+def delete_partner(partner_id):
+    db_row = Partners.query.filter_by(partner_id=partner_id).first()
+    if db_row is None:
+        abort(404)
+    psql_delete(db_row)
+    flash('Entry deleted', 'success')
+    return redirect(url_for('view_partners'))
+
+#Edit partner
+@app.route('/edit-partner/<string:partner_id>', methods=['GET','POST'])
+def edit_partner(partner_id):
+    form = PartnerForm(request.form)
+    db_row = Partners.query.filter_by(partner_id=partner_id).first()
+    if db_row is None:
+        abort(404)
+    if request.method == 'POST' and form.validate():
+        #Get form info:
+        name = form.name.data
+        country = form.country.data
+        role = form.role.data
+        #Update DB:
+        db_row.name = name
+        db_row.country = country
+        db_row.role = role
+        db.session.commit()
+        #Return with success:
+        flash('Edits successful', 'success')
+        return redirect(url_for('view_partners'))
+    form.name.data = db_row.name
+    form.country.data = db_row.country
+    form.role.data = db_row.role
+    return render_template('edit-partner.html',form=form,partner_id=partner_id)
 
 #Login
 @app.route('/login', methods=["GET","POST"])

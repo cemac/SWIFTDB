@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <h1>Add partner</h1>
+  <h1>Edit partner</h1>
   <hr>
   {% from "includes/_formhelpers.html" import render_field %}
-  <form action="/add-partner" method="POST">
+  <form action="/edit-partner/{{partner_id}}" method="POST">
     <div class="form-group">
       {{render_field(form.name, class_="form-control")}}
     </div>

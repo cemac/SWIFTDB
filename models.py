@@ -26,7 +26,8 @@ class Work_Packages(db.Model):
     name = db.Column(db.String(), nullable=False)
     Deliverables_Rel = db.relationship('Deliverables')
 
-    def __init__(self, name):
+    def __init__(self, wp_id, name):
+        self.wp_id = wp_id
         self.name = name
 
     def __repr__(self):
@@ -45,7 +46,8 @@ class Deliverables(db.Model):
     # Tasks2Deliverables_Rel = db.relationship('Tasks2Deliverables')
     # Partners2Tasks_Rel = db.relationship('Partners2Tasks')
 
-    def __init__(self, work_package, description, responsible_partner, month_due, progress, percent):
+    def __init__(self, deliverable_id, work_package, description, responsible_partner, month_due, progress, percent):
+        self.deliverable_id = deliverable_id
         self.work_package = work_package
         self.description = description
         self.responsible_partner = responsible_partner

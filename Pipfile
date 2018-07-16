@@ -1,0 +1,18 @@
+[[source]]
+verify_ssl = true
+url = "https://pypi.org/simple"
+name = "pypi"
+
+[dev-packages]
+
+[requires]
+python_version = "3.4"
+
+[packages]
+flask-script = "*"
+flask-migrate = "*"
+wtforms = "*"
+gunicorn = "*"
+passlib = "*"
+pandas = "<0.21"
+"psycopg2" = "*"

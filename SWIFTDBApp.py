@@ -123,7 +123,7 @@ def add_partner():
         #Return with success
         flash('Added to database', 'success')
         return redirect(url_for('add_partner'))
-    return render_template('add-partner.html',form=form)
+    return render_template('add.html',title="Add Partner",postlink="/add-partner",form=form)
 
 #View partners
 @app.route('/view-partners')
@@ -179,7 +179,7 @@ def add_work_package():
         #Return with success
         flash('Added to database', 'success')
         return redirect(url_for('add_work_package'))
-    return render_template('add-work-package.html',form=form)
+    return render_template('add.html',title="Add Work Package",postlink="/add-work-package",form=form)
 
 #View work packages
 @app.route('/view-work-packages')
@@ -241,7 +241,7 @@ def add_deliverable():
         #Return with success
         flash('Added to database', 'success')
         return redirect(url_for('add_deliverable'))
-    return render_template('add-deliverable.html',form=form)
+    return render_template('add.html',title="Add Deliverable",postlink="/add-deliverable",form=form)
 
 #View deliverables
 @app.route('/view-deliverables')

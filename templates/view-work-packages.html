@@ -14,7 +14,7 @@
       <tr>
         <td>{{row['code']}}</td>
         <td>{{row['name']}}</td>
-        <td><a href="/edit-work-package/{{row['code']}}" class="btn btn-primary pull-right">Edit</a></td>
+        <td><a href="/edit-work-package/{{row['id']}}" class="btn btn-primary pull-right">Edit</a></td>
         <td>
           <form action="/delete-work-package/{{row['code']}}" method="post" onsubmit="return confirm('Are you sure?');">
             <input type="hidden" name="_method" value="DELETE">

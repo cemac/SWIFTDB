@@ -16,7 +16,7 @@
         <td>{{row['name']}}</td>
         <td>{{row['country']}}</td>
         <td>{{row['role']}}</td>
-        <td><a href="/edit-partner/{{row['name']}}" class="btn btn-primary pull-right">Edit</a></td>
+        <td><a href="/edit-partner/{{row['id']}}" class="btn btn-primary pull-right">Edit</a></td>
         <td>
           <form action="/delete-partner/{{row['name']}}" method="post" onsubmit="return confirm('Are you sure?');">
             <input type="hidden" name="_method" value="DELETE">

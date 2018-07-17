@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <h1>Edit Work Package</h1>
+  <h1>{{title}}</h1>
   <hr>
   {% from "includes/_formhelpers.html" import render_field %}
-  <form action="/edit-work-package/{{code}}" method="POST">
+  <form action={{postlink}} method="POST">
     {% for field in form %}
       <div class="form-group">
         {{render_field(field, class_="form-control")}}

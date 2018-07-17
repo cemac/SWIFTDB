@@ -142,10 +142,10 @@ def delete_partner(name):
     return redirect(url_for('view_partners'))
 
 #Edit partner
-@app.route('/edit-partner/<string:name>', methods=['GET','POST'])
-def edit_partner(name):
+@app.route('/edit-partner/<string:id>', methods=['GET','POST'])
+def edit_partner(id):
     form = PartnerForm(request.form)
-    db_row = Partners.query.filter_by(name=name).first()
+    db_row = Partners.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
     if request.method == 'POST' and form.validate():
@@ -163,7 +163,7 @@ def edit_partner(name):
     form.name.data = db_row.name
     form.country.data = db_row.country
     form.role.data = db_row.role
-    return render_template('edit-partner.html',form=form,name=name)
+    return render_template('edit.html',title="Edit Partner",postlink="/edit-partner/"+id,form=form)
 
 #Add work package
 @app.route('/add-work-package', methods=["GET","POST"])
@@ -198,10 +198,10 @@ def delete_work_package(code):
     return redirect(url_for('view_work_packages'))
 
 #Edit work package
-@app.route('/edit-work-package/<string:code>', methods=['GET','POST'])
-def edit_work_package(code):
+@app.route('/edit-work-package/<string:id>', methods=['GET','POST'])
+def edit_work_package(id):
     form = WorkPackageForm(request.form)
-    db_row = Work_Packages.query.filter_by(code=code).first()
+    db_row = Work_Packages.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
     if request.method == 'POST' and form.validate():
@@ -216,7 +216,7 @@ def edit_work_package(code):
     form.code.render_kw = {'readonly': 'readonly'}
     form.code.data = db_row.code
     form.name.data = db_row.name
-    return render_template('edit-work-package.html',form=form,code=code)
+    return render_template('edit.html',title="Edit Work Package",postlink="/edit-work-package/"+id,form=form)
 
 #Add deliverable
 @app.route('/add-deliverable', methods=["GET","POST"])
@@ -260,12 +260,12 @@ def delete_deliverable(code):
     return redirect(url_for('view_deliverables'))
 
 #Edit deliverable
-@app.route('/edit-deliverable/<string:code>', methods=['GET','POST'])
-def edit_deliverable(code):
+@app.route('/edit-deliverable/<string:id>', methods=['GET','POST'])
+def edit_deliverable(id):
     form = DeliverableForm(request.form)
     form.work_package.choices = wp_list()
     form.responsible_partner.choices = partner_list()
-    db_row = Deliverables.query.filter_by(code=code).first()
+    db_row = Deliverables.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
     if request.method == 'POST' and form.validate():
@@ -295,7 +295,7 @@ def edit_deliverable(code):
     form.month_due.data = db_row.month_due
     form.progress.data = db_row.progress
     form.percent.data = db_row.percent
-    return render_template('edit-deliverable.html',form=form,code=code)
+    return render_template('edit.html',title="Edit Deliverable",postlink="/edit-deliverable/"+id,form=form)
 
 #Login
 @app.route('/login', methods=["GET","POST"])

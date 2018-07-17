@@ -24,7 +24,7 @@
         <td>{{row['month_due']}}</td>
         <td>{{row['progress']}}</td>
         <td>{{row['percent']}}</td>
-        <td><a href="/edit-deliverable/{{row['code']}}" class="btn btn-primary pull-right">Edit</a></td>
+        <td><a href="/edit-deliverable/{{row['id']}}" class="btn btn-primary pull-right">Edit</a></td>
         <td>
           <form action="/delete-deliverable/{{row['code']}}" method="post" onsubmit="return confirm('Are you sure?');">
             <input type="hidden" name="_method" value="DELETE">

@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>View Deliverables</h1>
+  <hr>
+  <table class="table table-striped">
+    <tr>
+      <th>Code / ID</th>
+      <th>Work Package</th>
+      <th>Description</th>
+      <th>Responsible Partner</th>
+      <th>Month Due</th>
+      <th>Progress</th>
+      <th>% Complete</th>
+      <th></th>
+      <th></th>
+    </tr>
+    {% for index, row in deliverablesData.iterrows() %}
+      <tr>
+        <td>{{row['deliverable_id']}}</td>
+        <td>{{row['work_package']}}</td>
+        <td>{{row['description']}}</td>
+        <td>{{row['responsible_partner']}}</td>
+        <td>{{row['month_due']}}</td>
+        <td>{{row['progress']}}</td>
+        <td>{{row['percent']}}</td>
+        <td><a href="/edit-deliverable/{{row['deliverable_id']}}" class="btn btn-primary pull-right">Edit</a></td>
+        <td>
+          <form action="/delete-deliverable/{{row['deliverable_id']}}" method="post" onsubmit="return confirm('Are you sure?');">
+            <input type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="Delete" class="btn btn-danger">
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+  <hr>
+{% endblock %}

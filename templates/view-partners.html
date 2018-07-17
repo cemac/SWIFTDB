@@ -5,7 +5,6 @@
   <hr>
   <table class="table table-striped">
     <tr>
-      <th>ID</th>
       <th>Name</th>
       <th>Country</th>
       <th>Role</th>
@@ -14,13 +13,12 @@
     </tr>
     {% for index, row in partnersData.iterrows() %}
       <tr>
-        <td>{{row['partner_id']}}</td>
         <td>{{row['name']}}</td>
         <td>{{row['country']}}</td>
         <td>{{row['role']}}</td>
-        <td><a href="/edit-partner/{{row['partner_id']}}" class="btn btn-primary pull-right">Edit</a></td>
+        <td><a href="/edit-partner/{{row['name']}}" class="btn btn-primary pull-right">Edit</a></td>
         <td>
-          <form action="/delete-partner/{{row['partner_id']}}" method="post" onsubmit="return confirm('Are you sure?');">
+          <form action="/delete-partner/{{row['name']}}" method="post" onsubmit="return confirm('Are you sure?');">
             <input type="hidden" name="_method" value="DELETE">
             <input type="submit" value="Delete" class="btn btn-danger">
           </form>

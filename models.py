@@ -3,27 +3,25 @@ from SWIFTDBApp import db
 class Partners(db.Model):
     __tablename__ = 'partners'
 
-    partner_id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(),unique=True, nullable=False)
+    name = db.Column(db.String(),nullable=False,primary_key=True)
     country = db.Column(db.String())
     role = db.Column(db.String())
     Deliverables_Rel = db.relationship('Deliverables')
     # Partners2Tasks_Rel = db.relationship('Partners2Tasks')
 
-    def __init__(self, partner_id, name, country, role):
-        self.partner_id = partner_id
+    def __init__(self, name, country, role):
         self.name = name
         self.country = country
         self.role = role
 
     def __repr__(self):
-        return '<partner_id {}>'.format(self.partner_id)
+        return '<name {}>'.format(self.name)
 
 class Work_Packages(db.Model):
     __tablename__ = 'work_packages'
 
-    wp_id = db.Column(db.String(), primary_key=True)
-    name = db.Column(db.String(), nullable=False)
+    wp_id = db.Column(db.String(),nullable=False,primary_key=True)
+    name = db.Column(db.String(),nullable=False)
     Deliverables_Rel = db.relationship('Deliverables')
 
     def __init__(self, wp_id, name):
@@ -36,13 +34,13 @@ class Work_Packages(db.Model):
 class Deliverables(db.Model):
     __tablename__ = 'deliverables'
 
-    deliverable_id = db.Column(db.String(), primary_key=True)
-    work_package = db.Column(db.String(), db.ForeignKey('work_packages.wp_id'), nullable=False)
-    description = db.Column(db.String(), nullable=False)
-    responsible_partner = db.Column(db.Integer, db.ForeignKey('partners.partner_id'), nullable=False)
+    deliverable_id = db.Column(db.String(),nullable=False,primary_key=True)
+    work_package = db.Column(db.String(),db.ForeignKey('work_packages.wp_id'),nullable=False)
+    description = db.Column(db.String(),nullable=False)
+    responsible_partner = db.Column(db.String(),db.ForeignKey('partners.name'),nullable=False)
     month_due = db.Column(db.Integer)
     progress = db.Column(db.String())
-    percent = db.Column(db.Integer, nullable=False)
+    percent = db.Column(db.Integer,nullable=False)
     # Tasks2Deliverables_Rel = db.relationship('Tasks2Deliverables')
     # Partners2Tasks_Rel = db.relationship('Partners2Tasks')
 
@@ -90,7 +88,7 @@ class Deliverables(db.Model):
 #     __tablename__ = 'partners2tasks'
 #
 #     p2td_id = db.Column(db.Integer, primary_key=True)
-#     partner = db.Column(db.Integer, db.ForeignKey('partners.partner_id'))
+#     partner = db.Column(db.String(), db.ForeignKey('partners.name'))
 #     task_or_deliverable = db.Column(db.Boolean)
 #     task = db.Column(db.String(),db.ForeignKey('tasks.task_id'))
 #     deliverable = db.Column(db.String(),db.ForeignKey('deliverbles.deliverable_id'))

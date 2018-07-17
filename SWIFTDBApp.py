@@ -49,11 +49,18 @@ def is_logged_in(f):
 #########################################
 
 ########## MISC FUNCTIONS ##########
-#Check if user is logged in
-def zeroTo100():
-    list = []
-    for i in range(101):
-        list.append((i,i))
+def wp_list():
+    wp_DF = psql_to_pandas(Work_Packages.query)
+    list = [('blank','--Please select--')]
+    for wp in wp_DF['wp_id']:
+        list.append((wp,wp))
+    return list
+
+def partner_list():
+    partner_DF = psql_to_pandas(Partners.query)
+    list = [('blank','--Please select--')]
+    for partner in partner_DF['name']:
+        list.append((partner,partner))
     return list
 #########################################
 
@@ -80,21 +87,20 @@ class DeliverableForm(Form):
         [validators.InputRequired()],
         render_kw={"placeholder": "e.g. D-R1.1"})
     work_package = SelectField(u'*Work Package',
-        [validators.NoneOf(('blank'),message='Please select')],
-        choices=[('blank','--Please select--')])
+        [validators.NoneOf(('blank'),message='Please select')])
     description = TextAreaField(u'*Description',
         [validators.InputRequired()],
-        render_kw={"placeholder": "e.g. Report on current state\
-         of knowledge regarding user needs for forecasts at \
-         different timescales in each sector"})
+        render_kw={"placeholder": "e.g. Report on current state \
+of knowledge regarding user needs for forecasts at \
+different timescales in each sector."})
     responsible_partner = SelectField(u'*Responsible Partner',
-        [validators.NoneOf(('blank'),message='Please select')],
-        choices=[('blank','--Please select--')])
-    month_due = IntegerField(u'Month Due')
-    progress = TextAreaField(u'Progress')
-    percent = SelectField(u'*Percentage Complete',
-        choices=zeroTo100())
-
+        [validators.NoneOf(('blank'),message='Please select')])
+    month_due = IntegerField(u'Month Due',
+        validators=[validators.Optional()])
+    progress = TextAreaField(u'Progress',
+        validators=[validators.Optional()])
+    percent = IntegerField(u'*Percentage Complete',
+        [validators.NumberRange(min=0,max=100,message="Must be between 0 and 100")])
 #########################################
 
 #Index
@@ -112,8 +118,7 @@ def add_partner():
         country = form.country.data
         role = form.role.data
         #Add to DB:
-        max_id = Partners.query.order_by(Partners.partner_id.desc()).first().partner_id
-        db_row = Partners(partner_id=max_id+1,name=name,country=country,role=role)
+        db_row = Partners(name=name,country=country,role=role)
         psql_insert(db_row)
         #Return with success
         flash('Added to database', 'success')
@@ -127,9 +132,9 @@ def view_partners():
     return render_template('view-partners.html',partnersData=partnersData)
 
 #Delete partner
-@app.route('/delete-partner/<string:partner_id>', methods=['POST'])
-def delete_partner(partner_id):
-    db_row = Partners.query.filter_by(partner_id=partner_id).first()
+@app.route('/delete-partner/<string:name>', methods=['POST'])
+def delete_partner(name):
+    db_row = Partners.query.filter_by(name=name).first()
     if db_row is None:
         abort(404)
     psql_delete(db_row)
@@ -137,30 +142,28 @@ def delete_partner(partner_id):
     return redirect(url_for('view_partners'))
 
 #Edit partner
-@app.route('/edit-partner/<string:partner_id>', methods=['GET','POST'])
-def edit_partner(partner_id):
+@app.route('/edit-partner/<string:name>', methods=['GET','POST'])
+def edit_partner(name):
     form = PartnerForm(request.form)
-    db_row = Partners.query.filter_by(partner_id=partner_id).first()
+    db_row = Partners.query.filter_by(name=name).first()
     if db_row is None:
         abort(404)
     if request.method == 'POST' and form.validate():
         #Get form info:
-        name = form.name.data
         country = form.country.data
         role = form.role.data
         #Update DB:
-        db_row.name = name
         db_row.country = country
         db_row.role = role
         db.session.commit()
         #Return with success:
         flash('Edits successful', 'success')
         return redirect(url_for('view_partners'))
+    form.name.render_kw = {'readonly': 'readonly'}
     form.name.data = db_row.name
     form.country.data = db_row.country
     form.role.data = db_row.role
-    return render_template('edit-partner.html',form=form,partner_id=partner_id)
-
+    return render_template('edit-partner.html',form=form,name=name)
 
 #Add work package
 @app.route('/add-work-package', methods=["GET","POST"])
@@ -210,7 +213,7 @@ def edit_work_package(wp_id):
         #Return with success:
         flash('Edits successful', 'success')
         return redirect(url_for('view_work_packages'))
-    form.wp_id.render_kw = {'disabled': 'disabled'}
+    form.wp_id.render_kw = {'readonly': 'readonly'}
     form.wp_id.data = db_row.wp_id
     form.name.data = db_row.name
     return render_template('edit-work-package.html',form=form,wp_id=wp_id)
@@ -219,6 +222,8 @@ def edit_work_package(wp_id):
 @app.route('/add-deliverable', methods=["GET","POST"])
 def add_deliverable():
     form = DeliverableForm(request.form)
+    form.work_package.choices = wp_list()
+    form.responsible_partner.choices = partner_list()
     if request.method == 'POST' and form.validate():
         #Get form fields
         deliverable_id = form.deliverable_id.data
@@ -229,7 +234,7 @@ def add_deliverable():
         progress = form.progress.data
         percent = form.percent.data
         #Add to DB:
-        db_row = Deliverable(deliverable_id=deliverable_id,work_package=work_package,
+        db_row = Deliverables(deliverable_id=deliverable_id,work_package=work_package,
           description=description,responsible_partner=responsible_partner,
           month_due=month_due,progress=progress,percent=percent)
         psql_insert(db_row)
@@ -237,6 +242,60 @@ def add_deliverable():
         flash('Added to database', 'success')
         return redirect(url_for('add_deliverable'))
     return render_template('add-deliverable.html',form=form)
+
+#View deliverables
+@app.route('/view-deliverables')
+def view_deliverables():
+    deliverablesData = psql_to_pandas(Deliverables.query)
+    return render_template('view-deliverables.html',deliverablesData=deliverablesData)
+
+#Delete deliverable
+@app.route('/delete-deliverable/<string:deliverable_id>', methods=['POST'])
+def delete_deliverable(deliverable_id):
+    db_row = Deliverables.query.filter_by(deliverable_id=deliverable_id).first()
+    if db_row is None:
+        abort(404)
+    psql_delete(db_row)
+    flash('Entry deleted', 'success')
+    return redirect(url_for('view_deliverables'))
+
+#Edit deliverable
+@app.route('/edit-deliverable/<string:deliverable_id>', methods=['GET','POST'])
+def edit_deliverable(deliverable_id):
+    form = DeliverableForm(request.form)
+    form.work_package.choices = wp_list()
+    form.responsible_partner.choices = partner_list()
+    db_row = Deliverables.query.filter_by(deliverable_id=deliverable_id).first()
+    if db_row is None:
+        abort(404)
+    if request.method == 'POST' and form.validate():
+        #Get form info:
+        work_package = form.work_package.data
+        description = form.description.data
+        responsible_partner = form.responsible_partner.data
+        month_due=form.month_due.data
+        progress = form.progress.data
+        percent = form.percent.data
+        #Update DB:
+        db_row.work_package = work_package
+        db_row.description = description
+        db_row.responsible_partner = responsible_partner
+        db_row.month_due = month_due
+        db_row.progress = progress
+        db_row.percent = percent
+        db.session.commit()
+        #Return with success:
+        flash('Edits successful', 'success')
+        return redirect(url_for('view_deliverables'))
+    form.deliverable_id.render_kw = {'readonly': 'readonly'}
+    form.deliverable_id.data = db_row.deliverable_id
+    form.work_package.data = db_row.work_package
+    form.description.data = db_row.description
+    form.responsible_partner.data = db_row.responsible_partner
+    form.month_due.data = db_row.month_due
+    form.progress.data = db_row.progress
+    form.percent.data = db_row.percent
+    return render_template('edit-deliverable.html',form=form,deliverable_id=deliverable_id)
 
 #Login
 @app.route('/login', methods=["GET","POST"])
@@ -256,4 +315,4 @@ def logout():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

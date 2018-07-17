@@ -1,90 +1,90 @@
-D-R1.1	WP-R1	Report on current state of knowledge regarding user needs for forecasts at different timescales in each sector.	3			0
-D-R1.2	WP-R1	A report on user perceptions and needs for forecast products for different timescales and sectors in each country.	12			0
-D-R1.3	WP-R1	Coproduced forecast communication tools that have been iteratively tested and refined with user groups, and recommendations for good practice. 	12			0
-D-R1.4	WP-R1	Joint deliverable  with WP-R2: User evaluation of forecast utility developed through direct provider/user interaction and user feedback in 1.2.2a-d, and guide to impact based forecasting 	3			0
-D-R2.1	WP-R2	Reports describing the implementation of eye-witness reports, radar and satellite observations over Africa for verification of severe weather forecasts (both synoptic and NWP).	12			0
-D-R2.2	WP-R2	Joint deliverable with WP-R4: Reports on nowcasting evaluation against satellite data using new metrics.	10			0
-D-R2.3	WP-R2	Reports describing implementation of new metrics for CP ensemble evaluation against satellite data.	14			0
-D-R2.4	WP-R2	Reports on design and implementation of verification metrics for S2S and probabilistic forecasts and developments to seamless evaluation methodology.	8			0
-D-R2.5	WP-R2	Documentation on best practice for forecast evaluation over Africa.	14			0
-D-R2.6	WP-R2	Training school on best practice for forecast evaluation over Africa.	4			0
-D-R2.7	WP-R2	Baseline evaluation of weather forecast skill and updates as the project evolves, for M&E.	4			0
-D-R2.8	WP-R2	Joint deliverable  with WP-R2: User evaluation of forecast utility, and guide to impact based forecasting	3			0
-D-R3.1	WP-R3	Establish a new UK research capability in satellite remote sensing of clouds	1			0
-D-R3.2	WP-R3	Report on current status of satellite and radar products used in operational centres and universities. Baseline exercise	10			0
-D-R3.3	WP-R3	Make satellite products available to African centres	1			0
-D-R3.4	WP-R3	Enhanced capacity in African centres for analysing satellite data (all relevant channels) and using satellite products  -- as evidenced by good access to products, trained users, training material, use in interpretation of convective rainfall and how best to use in nowcasting.	7			0
-D-R3.5	WP-R3	Phase 1. Case/satistical studies of evolution of storms using satellite products. 	1			0
-D-R3.6	WP-R3	New well-tested satellite product for improved nowcasting capability	3			0
-D-R3.7	WP-R3	Phase 2.  In-depth study of physical processes (dynamics and microphysics) in storms using more advanced satellite data	1			0
-D-R3.8	WP-R3	Land-surface analysis	5			0
-D-R4.1	WP-R4	Access to an automated satellite-based storm nowcasting tool/product in SWIFT centres	9			0
-D-R4.2	WP-R4	Documented evaluation of selected automated Nowcasting tool	10			0
-D-R4.3	WP-R4	Documented new scientific understanding of: (i) behaviour of convective storms in West and East Africa & dependence on local environment, (ii) the observed relationships between remotely-sensed storm properties and in-situ observations of high-impact weather, with peer-reviewed publications	1			0
-D-R4.4	WP-R4	Recommendations on best storm nowcasting practise for the SWIFT region, with appropriate training products and activities	15			0
-D-R5.1	WP-R5	Benchmark current operational practice (project document)	3			0
-D-R5.2	WP-R5	Benchmark current state of knowledge on synoptic systems and HIW over West Africa (project document)	13			0
-D-R5.3	WP-R5	Benchmark current state of knowledge on synoptic systems and HIW over East Africa (project document)	3			0
-D-R5.4	WP-R5	Investigate and evaluate physical processes of synoptic systems in reanalysis	3			0
-D-R5.5	WP-R5	Evaluate representation of synoptic system in models, i.e. in global and convection-permitting deterministic and ensemble simulations with the MetUM, as well as other operatinally used models such as WRF and COSMO  to determine the predictability of deep convection in different synoptic environments in Africa	3			0
-D-R5.6	WP-R5	Develop new training material on the realtionship between the synoptic and the meso-scale (e.g. case studies)	14			0
-D-R6.1	WP-R6	Scientific papers on sub-seasonal drivers of variability	2			0
-D-R6.2	WP-R6	Scientific papers on S2S model evaluation	2			0
-D-R6.3	WP-R6	Document(s) on assessment of forecast skill	8			0
-D-R6.4	WP-R6	New documented operational products and tools	7			0
-D-R6.5	WP-R6	Documentation on operational best practice	9			0
-D-R6.6	WP-R6	Training materials for summer schools	2			0
-D-R6.7	WP-R6	Updated chapter(s) for forecasters handbook	2			0
-D-R6.8	WP-R6	S2S forecast testbed	8			0
-D-R7.1	WP-R7	Benchmark current state of knowledge and best practice in convection-permitting ensemble forecasting (project document)	3			0
-D-R7.2	WP-R7	Creation of a set of CP ensemble forecasts over tropical Africa and prototype post-processed products for research and training. For use by Africa-SWIFT academics and African partners. The forecast data will be available on the Met Office MASS archive for UK academics and will be packaged up appropriately to send to partners as needed. Post-processed products will be provided for the testbeds and other training activities. 	6			0
-D-R7.3	WP-R7	Report on evaluation of ensemble forecast skill and optimal model configuration	3			0
-D-R7.4	WP-R7	Report on storm predictability under different synoptic conditions in the context of CP ensemble forecasting 	3			0
-D-C1.1	WP-C1	Report on skills development in SWIFT	7			0
-D-C1.2	WP-C1	Collate and compare syllabuses (universities and RTCs) and analyse against subject benchmarks. Write a paper on the conclusions and recommendations.	3			0
-D-C1.3	WP-C1	Support 8 Secondments	1			0
-D-C1.4	WP-C1	Generate new training materials for use in Africa, based on and supporting new research.	7			0
-D-C1.5	WP-C1	Forecaster training event Synoptic	3			0
-D-C1.6	WP-C1	Forecaster training event S2S	8			0
-D-C1.7	WP-C1	Forecaster training event Nowcasting	3			0
-D-C1.8	WP-C1	Summer school 1: many sub-tasks	3			0
-D-C1.9	WP-C1	Summer school 2: many sub-tasks	3			0
-D-C1.10	WP-C1	Fellowships: advertise, assess and appoint.	1			0
-D-C2.1	WP-C2	Carry out Testbed 1	3			0
-D-C2.2	WP-C2	Documentation on Testbed 1 including a paper.	3			0
-D-C2.3	WP-C2	Carry out Testbed 2 (S2S)	8			0
-D-C2.4	WP-C2	Documentation on Testbed 2. Papers.	8			0
-D-C2.5	WP-C2	Carry out Testbed 3 (nowcasting to synoptic)	3			0
-D-C2.6	WP-C2	Documentation on Testbed 3. Papers.	3			0
-D-M1.1	WP-M1	Kick-off meeting	3			0
-D-M1.2	WP-M1	Assurance Documentation	1			0
-D-M1.3	WP-M1	Due Diligence	1			0
-D-M1.4	WP-M1	Collaboration Agreement	1			0
-D-M1.5	WP-M1	Risk Register	1			0
-D-M1.6	WP-M1	Financial Management Plan	1			0
-D-M1.7	WP-M1	Recruitment	3			0
-D-M1.8	WP-M1	Budgeting & Finance	1			0
-D-M1.9	WP-M1	Meetings: Exec, Advisory, WPs	1			0
-D-M1.10	WP-M1	Leadership of cross-cutting activities such as fellowships, secondments, summer schools, etc.	1			0
-D-M1.11	WP-M1	SWIFT 4-Year Plan	1			0
-D-M1.12	WP-M1	Scientific reporting	3			0
-D-M1.13	WP-M1	Monitoring indicators (MEL) and MEL protocol	1			0
-D-M1.14	WP-M1	LogFrame and ToC	1			0
-D-M1.15	WP-M1	Communications Strategy	1			0
-D-M1.16	WP-M1	Data protocol plan	1			0
-D-M1.17	WP-M1	Communications: website, promotional materials, advertising, coordination of articles published, logo, etc.	1			0
-D-M1.18	WP-M1	Stage Gate Review	1			0
-D-M1.19	WP-M1	Annual reporting to RCUK/GCRF	1			0
-D-M1.20	WP-M1	Whole project meeting	1			0
-D-M1.21	WP-M1	Documentation workshop	1			0
-D-M1.22	WP-M1	Lead Scientist and Programme Manager travel to partner institutions	1			0
-D-M1.23	WP-M1	Science Programme Director to travel to African Partner Institutions	7			0
-D-M1.24	WP-M1	Aligning the WPs (cross-cutting activities)	3			0
-D-M1.25	WP-M1	Development of best practice for university funded GCRF programmes	3			0
-D-M2.1	WP-M2	Partnerships: a coordinated set of partnerships which contribute to the SWIFT outcomes.	7			0
-D-M2.2	WP-M2	Documentation of user-needs methodologies. This could be a new Forecasters' Handbook chapter - to be discussed.	7			0
-D-M2.3	WP-M2	New Handbook chapter on Forecast Evaluation	7			0
-D-M2.4	WP-M2	Updated Handbook material on Nowcasting for Africa.	7			0
-D-M2.5	WP-M2	Updated Handbook material on ensemble prediction for Africa.	7			0
-D-M2.6	WP-M2	Updated Handbook material on S2S forecasting for West Africa.	7			0
-D-M2.7	WP-M2	Produce a Forecasters' Handbook for East Africa.	7			0
+D-R1.1	WP-R1	Report on current state of knowledge regarding user needs for forecasts at different timescales in each sector.	Leeds			0
+D-R1.2	WP-R1	A report on user perceptions and needs for forecast products for different timescales and sectors in each country.	KNUST			0
+D-R1.3	WP-R1	Coproduced forecast communication tools that have been iteratively tested and refined with user groups, and recommendations for good practice. 	KNUST			0
+D-R1.4	WP-R1	Joint deliverable  with WP-R2: User evaluation of forecast utility developed through direct provider/user interaction and user feedback in 1.2.2a-d, and guide to impact based forecasting 	Leeds			0
+D-R2.1	WP-R2	Reports describing the implementation of eye-witness reports, radar and satellite observations over Africa for verification of severe weather forecasts (both synoptic and NWP).	KNUST			0
+D-R2.2	WP-R2	Joint deliverable with WP-R4: Reports on nowcasting evaluation against satellite data using new metrics.	UCAD			0
+D-R2.3	WP-R2	Reports describing implementation of new metrics for CP ensemble evaluation against satellite data.	FUTA			0
+D-R2.4	WP-R2	Reports on design and implementation of verification metrics for S2S and probabilistic forecasts and developments to seamless evaluation methodology.	ICPAC			0
+D-R2.5	WP-R2	Documentation on best practice for forecast evaluation over Africa.	FUTA			0
+D-R2.6	WP-R2	Training school on best practice for forecast evaluation over Africa.	Reading			0
+D-R2.7	WP-R2	Baseline evaluation of weather forecast skill and updates as the project evolves, for M&E.	Reading			0
+D-R2.8	WP-R2	Joint deliverable  with WP-R2: User evaluation of forecast utility, and guide to impact based forecasting	Leeds			0
+D-R3.1	WP-R3	Establish a new UK research capability in satellite remote sensing of clouds	NCAS-AP			0
+D-R3.2	WP-R3	Report on current status of satellite and radar products used in operational centres and universities. Baseline exercise	UCAD			0
+D-R3.3	WP-R3	Make satellite products available to African centres	NCAS-AP			0
+D-R3.4	WP-R3	Enhanced capacity in African centres for analysing satellite data (all relevant channels) and using satellite products  -- as evidenced by good access to products, trained users, training material, use in interpretation of convective rainfall and how best to use in nowcasting.	ACMAD			0
+D-R3.5	WP-R3	Phase 1. Case/satistical studies of evolution of storms using satellite products. 	NCAS-AP			0
+D-R3.6	WP-R3	New well-tested satellite product for improved nowcasting capability	Leeds			0
+D-R3.7	WP-R3	Phase 2.  In-depth study of physical processes (dynamics and microphysics) in storms using more advanced satellite data	NCAS-AP			0
+D-R3.8	WP-R3	Land-surface analysis	CEH			0
+D-R4.1	WP-R4	Access to an automated satellite-based storm nowcasting tool/product in SWIFT centres	ANACIM			0
+D-R4.2	WP-R4	Documented evaluation of selected automated Nowcasting tool	UCAD			0
+D-R4.3	WP-R4	Documented new scientific understanding of: (i) behaviour of convective storms in West and East Africa & dependence on local environment, (ii) the observed relationships between remotely-sensed storm properties and in-situ observations of high-impact weather, with peer-reviewed publications	NCAS-AP			0
+D-R4.4	WP-R4	Recommendations on best storm nowcasting practise for the SWIFT region, with appropriate training products and activities	KMD			0
+D-R5.1	WP-R5	Benchmark current operational practice (project document)	Leeds			0
+D-R5.2	WP-R5	Benchmark current state of knowledge on synoptic systems and HIW over West Africa (project document)	NiMet			0
+D-R5.3	WP-R5	Benchmark current state of knowledge on synoptic systems and HIW over East Africa (project document)	Leeds			0
+D-R5.4	WP-R5	Investigate and evaluate physical processes of synoptic systems in reanalysis	Leeds			0
+D-R5.5	WP-R5	Evaluate representation of synoptic system in models, i.e. in global and convection-permitting deterministic and ensemble simulations with the MetUM, as well as other operatinally used models such as WRF and COSMO  to determine the predictability of deep convection in different synoptic environments in Africa	Leeds			0
+D-R5.6	WP-R5	Develop new training material on the realtionship between the synoptic and the meso-scale (e.g. case studies)	FUTA			0
+D-R6.1	WP-R6	Scientific papers on sub-seasonal drivers of variability	NCAS-C			0
+D-R6.2	WP-R6	Scientific papers on S2S model evaluation	NCAS-C			0
+D-R6.3	WP-R6	Document(s) on assessment of forecast skill	ICPAC			0
+D-R6.4	WP-R6	New documented operational products and tools	ACMAD			0
+D-R6.5	WP-R6	Documentation on operational best practice	ANACIM			0
+D-R6.6	WP-R6	Training materials for summer schools	NCAS-C			0
+D-R6.7	WP-R6	Updated chapter(s) for forecasters handbook	NCAS-C			0
+D-R6.8	WP-R6	S2S forecast testbed	ICPAC			0
+D-R7.1	WP-R7	Benchmark current state of knowledge and best practice in convection-permitting ensemble forecasting (project document)	Leeds			0
+D-R7.2	WP-R7	Creation of a set of CP ensemble forecasts over tropical Africa and prototype post-processed products for research and training. For use by Africa-SWIFT academics and African partners. The forecast data will be available on the Met Office MASS archive for UK academics and will be packaged up appropriately to send to partners as needed. Post-processed products will be provided for the testbeds and other training activities. 	MetOffice			0
+D-R7.3	WP-R7	Report on evaluation of ensemble forecast skill and optimal model configuration	Leeds			0
+D-R7.4	WP-R7	Report on storm predictability under different synoptic conditions in the context of CP ensemble forecasting 	Leeds			0
+D-C1.1	WP-C1	Report on skills development in SWIFT	ACMAD			0
+D-C1.2	WP-C1	Collate and compare syllabuses (universities and RTCs) and analyse against subject benchmarks. Write a paper on the conclusions and recommendations.	Leeds			0
+D-C1.3	WP-C1	Support 8 Secondments	NCAS-AP			0
+D-C1.4	WP-C1	Generate new training materials for use in Africa, based on and supporting new research.	ACMAD			0
+D-C1.5	WP-C1	Forecaster training event Synoptic	Leeds			0
+D-C1.6	WP-C1	Forecaster training event S2S	ICPAC			0
+D-C1.7	WP-C1	Forecaster training event Nowcasting	Leeds			0
+D-C1.8	WP-C1	Summer school 1: many sub-tasks	Leeds			0
+D-C1.9	WP-C1	Summer school 2: many sub-tasks	Leeds			0
+D-C1.10	WP-C1	Fellowships: advertise, assess and appoint.	NCAS-AP			0
+D-C2.1	WP-C2	Carry out Testbed 1	Leeds			0
+D-C2.2	WP-C2	Documentation on Testbed 1 including a paper.	Leeds			0
+D-C2.3	WP-C2	Carry out Testbed 2 (S2S)	ICPAC			0
+D-C2.4	WP-C2	Documentation on Testbed 2. Papers.	ICPAC			0
+D-C2.5	WP-C2	Carry out Testbed 3 (nowcasting to synoptic)	Leeds			0
+D-C2.6	WP-C2	Documentation on Testbed 3. Papers.	Leeds			0
+D-M1.1	WP-M1	Kick-off meeting	Leeds			0
+D-M1.2	WP-M1	Assurance Documentation	NCAS-AP			0
+D-M1.3	WP-M1	Due Diligence	NCAS-AP			0
+D-M1.4	WP-M1	Collaboration Agreement	NCAS-AP			0
+D-M1.5	WP-M1	Risk Register	NCAS-AP			0
+D-M1.6	WP-M1	Financial Management Plan	NCAS-AP			0
+D-M1.7	WP-M1	Recruitment	Leeds			0
+D-M1.8	WP-M1	Budgeting & Finance	NCAS-AP			0
+D-M1.9	WP-M1	Meetings: Exec, Advisory, WPs	NCAS-AP			0
+D-M1.10	WP-M1	Leadership of cross-cutting activities such as fellowships, secondments, summer schools, etc.	NCAS-AP			0
+D-M1.11	WP-M1	SWIFT 4-Year Plan	NCAS-AP			0
+D-M1.12	WP-M1	Scientific reporting	Leeds			0
+D-M1.13	WP-M1	Monitoring indicators (MEL) and MEL protocol	NCAS-AP			0
+D-M1.14	WP-M1	LogFrame and ToC	NCAS-AP			0
+D-M1.15	WP-M1	Communications Strategy	NCAS-AP			0
+D-M1.16	WP-M1	Data protocol plan	NCAS-AP			0
+D-M1.17	WP-M1	Communications: website, promotional materials, advertising, coordination of articles published, logo, etc.	NCAS-AP			0
+D-M1.18	WP-M1	Stage Gate Review	NCAS-AP			0
+D-M1.19	WP-M1	Annual reporting to RCUK/GCRF	NCAS-AP			0
+D-M1.20	WP-M1	Whole project meeting	NCAS-AP			0
+D-M1.21	WP-M1	Documentation workshop	NCAS-AP			0
+D-M1.22	WP-M1	Lead Scientist and Programme Manager travel to partner institutions	NCAS-AP			0
+D-M1.23	WP-M1	Science Programme Director to travel to African Partner Institutions	ACMAD			0
+D-M1.24	WP-M1	Aligning the WPs (cross-cutting activities)	Leeds			0
+D-M1.25	WP-M1	Development of best practice for university funded GCRF programmes	Leeds			0
+D-M2.1	WP-M2	Partnerships: a coordinated set of partnerships which contribute to the SWIFT outcomes.	ACMAD			0
+D-M2.2	WP-M2	Documentation of user-needs methodologies. This could be a new Forecasters' Handbook chapter - to be discussed.	ACMAD			0
+D-M2.3	WP-M2	New Handbook chapter on Forecast Evaluation	ACMAD			0
+D-M2.4	WP-M2	Updated Handbook material on Nowcasting for Africa.	ACMAD			0
+D-M2.5	WP-M2	Updated Handbook material on ensemble prediction for Africa.	ACMAD			0
+D-M2.6	WP-M2	Updated Handbook material on S2S forecasting for West Africa.	ACMAD			0
+D-M2.7	WP-M2	Produce a Forecasters' Handbook for East Africa.	ACMAD			0

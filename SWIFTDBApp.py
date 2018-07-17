@@ -58,7 +58,7 @@ def table_list(tableClass,col):
 #########################################
 
 ########## FORM CLASSES ##########
-class PartnerForm(Form):
+class Partners_Form(Form):
     name = StringField(u'*Partner Name',
         [validators.InputRequired()],
         render_kw={"placeholder": "e.g. Leeds"})
@@ -67,7 +67,7 @@ class PartnerForm(Form):
     role = StringField(u'Role',
         render_kw={"placeholder": "e.g. 'Academic' or 'Operational'"})
 
-class WorkPackageForm(Form):
+class Work_Packages_Form(Form):
     code = StringField(u'*Work Package Code',
         [validators.InputRequired()],
         render_kw={"placeholder": "e.g. WP-C1"})
@@ -75,7 +75,7 @@ class WorkPackageForm(Form):
         [validators.InputRequired()],
         render_kw={"placeholder": "e.g. Training"})
 
-class DeliverableForm(Form):
+class Deliverables_Form(Form):
     code = StringField(u'*Deliverable Code',
         [validators.InputRequired()],
         render_kw={"placeholder": "e.g. D-R1.1"})
@@ -101,22 +101,50 @@ different timescales in each sector."})
 def index():
     return render_template('home.html')
 
-#Add partner
-@app.route('/add-partner', methods=["GET","POST"])
-def add_partner():
-    form = PartnerForm(request.form)
+# #Add partner
+# @app.route('/add-partner', methods=["GET","POST"])
+# def add_partner():
+#     form = PartnerForm(request.form)
+#     if request.method == 'POST' and form.validate():
+#         #Get form fields
+#         name = form.name.data
+#         country = form.country.data
+#         role = form.role.data
+#         #Add to DB:
+#         db_row = Partners(name=name,country=country,role=role)
+#         psql_insert(db_row)
+#         #Return with success
+#         flash('Added to database', 'success')
+#         return redirect(url_for('add_partner'))
+#     return render_template('add.html',title="Add Partner",postlink="/add-partner",form=form)
+
+#Add entry
+@app.route('/add/<string:tableClass>', methods=["GET","POST"])
+def add(tableClass):
+    form = eval(tableClass+"_Form")(request.form)
     if request.method == 'POST' and form.validate():
-        #Get form fields
-        name = form.name.data
-        country = form.country.data
-        role = form.role.data
+        #Get names/values of form fields:
+        formnames=[]
+        formdata=[]
+        for field in form:
+            formnames.append(field.name)
+            formdata.append(field.data)
         #Add to DB:
-        db_row = Partners(name=name,country=country,role=role)
-        psql_insert(db_row)
+        db_row = tableClass+()
+        # db_row = Partners(name=name,country=country,role=role)
+        # psql_insert(db_row)
+
+        # name = form.name.data
+        # country = form.country.data
+        # role = form.role.data
+        #Add to DB:
+        # db_row = Partners(name=name,country=country,role=role)
+        # psql_insert(db_row)
         #Return with success
         flash('Added to database', 'success')
-        return redirect(url_for('add_partner'))
-    return render_template('add.html',title="Add Partner",postlink="/add-partner",form=form)
+        return "hi"
+        # return redirect(url_for('add_partner'))
+    return render_template('add.html',title="Add Partner",postlink="/add/Partners",form=form)
 
 #View table
 @app.route('/view/<string:tableClass>')

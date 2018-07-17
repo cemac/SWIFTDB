@@ -50,14 +50,14 @@ def is_logged_in(f):
 
 ########## MISC FUNCTIONS ##########
 def wp_list():
-    wp_DF = psql_to_pandas(Work_Packages.query)
+    wp_DF = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     list = [('blank','--Please select--')]
-    for wp in wp_DF['wp_id']:
+    for wp in wp_DF['code']:
         list.append((wp,wp))
     return list
 
 def partner_list():
-    partner_DF = psql_to_pandas(Partners.query)
+    partner_DF = psql_to_pandas(Partners.query.order_by(Partners.id))
     list = [('blank','--Please select--')]
     for partner in partner_DF['name']:
         list.append((partner,partner))
@@ -66,7 +66,7 @@ def partner_list():
 
 ########## FORM CLASSES ##########
 class PartnerForm(Form):
-    name = StringField(u'*Name',
+    name = StringField(u'*Partner Name',
         [validators.InputRequired()],
         render_kw={"placeholder": "e.g. Leeds"})
     country = StringField(u'Country',
@@ -75,7 +75,7 @@ class PartnerForm(Form):
         render_kw={"placeholder": "e.g. 'Academic' or 'Operational'"})
 
 class WorkPackageForm(Form):
-    wp_id = StringField(u'*Work Package Code / ID',
+    code = StringField(u'*Work Package Code',
         [validators.InputRequired()],
         render_kw={"placeholder": "e.g. WP-C1"})
     name = StringField(u'*Name',
@@ -83,7 +83,7 @@ class WorkPackageForm(Form):
         render_kw={"placeholder": "e.g. Training"})
 
 class DeliverableForm(Form):
-    deliverable_id = StringField(u'*Deliverable Code / ID',
+    code = StringField(u'*Deliverable Code',
         [validators.InputRequired()],
         render_kw={"placeholder": "e.g. D-R1.1"})
     work_package = SelectField(u'*Work Package',
@@ -128,7 +128,7 @@ def add_partner():
 #View partners
 @app.route('/view-partners')
 def view_partners():
-    partnersData = psql_to_pandas(Partners.query)
+    partnersData = psql_to_pandas(Partners.query.order_by(Partners.id))
     return render_template('view-partners.html',partnersData=partnersData)
 
 #Delete partner
@@ -171,10 +171,10 @@ def add_work_package():
     form = WorkPackageForm(request.form)
     if request.method == 'POST' and form.validate():
         #Get form fields
-        wp_id = form.wp_id.data
+        code = form.code.data
         name = form.name.data
         #Add to DB:
-        db_row = Work_Packages(wp_id=wp_id,name=name)
+        db_row = Work_Packages(code=code,name=name)
         psql_insert(db_row)
         #Return with success
         flash('Added to database', 'success')
@@ -184,13 +184,13 @@ def add_work_package():
 #View work packages
 @app.route('/view-work-packages')
 def view_work_packages():
-    wpData = psql_to_pandas(Work_Packages.query)
+    wpData = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     return render_template('view-work-packages.html',wpData=wpData)
 
 #Delete work package
-@app.route('/delete-work-package/<string:wp_id>', methods=['POST'])
-def delete_work_package(wp_id):
-    db_row = Work_Packages.query.filter_by(wp_id=wp_id).first()
+@app.route('/delete-work-package/<string:code>', methods=['POST'])
+def delete_work_package(code):
+    db_row = Work_Packages.query.filter_by(code=code).first()
     if db_row is None:
         abort(404)
     psql_delete(db_row)
@@ -198,10 +198,10 @@ def delete_work_package(wp_id):
     return redirect(url_for('view_work_packages'))
 
 #Edit work package
-@app.route('/edit-work-package/<string:wp_id>', methods=['GET','POST'])
-def edit_work_package(wp_id):
+@app.route('/edit-work-package/<string:code>', methods=['GET','POST'])
+def edit_work_package(code):
     form = WorkPackageForm(request.form)
-    db_row = Work_Packages.query.filter_by(wp_id=wp_id).first()
+    db_row = Work_Packages.query.filter_by(code=code).first()
     if db_row is None:
         abort(404)
     if request.method == 'POST' and form.validate():
@@ -213,10 +213,10 @@ def edit_work_package(wp_id):
         #Return with success:
         flash('Edits successful', 'success')
         return redirect(url_for('view_work_packages'))
-    form.wp_id.render_kw = {'readonly': 'readonly'}
-    form.wp_id.data = db_row.wp_id
+    form.code.render_kw = {'readonly': 'readonly'}
+    form.code.data = db_row.code
     form.name.data = db_row.name
-    return render_template('edit-work-package.html',form=form,wp_id=wp_id)
+    return render_template('edit-work-package.html',form=form,code=code)
 
 #Add deliverable
 @app.route('/add-deliverable', methods=["GET","POST"])
@@ -226,7 +226,7 @@ def add_deliverable():
     form.responsible_partner.choices = partner_list()
     if request.method == 'POST' and form.validate():
         #Get form fields
-        deliverable_id = form.deliverable_id.data
+        code = form.code.data
         work_package = form.work_package.data
         description = form.description.data
         responsible_partner = form.responsible_partner.data
@@ -234,7 +234,7 @@ def add_deliverable():
         progress = form.progress.data
         percent = form.percent.data
         #Add to DB:
-        db_row = Deliverables(deliverable_id=deliverable_id,work_package=work_package,
+        db_row = Deliverables(code=code,work_package=work_package,
           description=description,responsible_partner=responsible_partner,
           month_due=month_due,progress=progress,percent=percent)
         psql_insert(db_row)
@@ -246,13 +246,13 @@ def add_deliverable():
 #View deliverables
 @app.route('/view-deliverables')
 def view_deliverables():
-    deliverablesData = psql_to_pandas(Deliverables.query)
+    deliverablesData = psql_to_pandas(Deliverables.query.order_by(Deliverables.id))
     return render_template('view-deliverables.html',deliverablesData=deliverablesData)
 
 #Delete deliverable
-@app.route('/delete-deliverable/<string:deliverable_id>', methods=['POST'])
-def delete_deliverable(deliverable_id):
-    db_row = Deliverables.query.filter_by(deliverable_id=deliverable_id).first()
+@app.route('/delete-deliverable/<string:code>', methods=['POST'])
+def delete_deliverable(code):
+    db_row = Deliverables.query.filter_by(code=code).first()
     if db_row is None:
         abort(404)
     psql_delete(db_row)
@@ -260,12 +260,12 @@ def delete_deliverable(deliverable_id):
     return redirect(url_for('view_deliverables'))
 
 #Edit deliverable
-@app.route('/edit-deliverable/<string:deliverable_id>', methods=['GET','POST'])
-def edit_deliverable(deliverable_id):
+@app.route('/edit-deliverable/<string:code>', methods=['GET','POST'])
+def edit_deliverable(code):
     form = DeliverableForm(request.form)
     form.work_package.choices = wp_list()
     form.responsible_partner.choices = partner_list()
-    db_row = Deliverables.query.filter_by(deliverable_id=deliverable_id).first()
+    db_row = Deliverables.query.filter_by(code=code).first()
     if db_row is None:
         abort(404)
     if request.method == 'POST' and form.validate():
@@ -287,15 +287,15 @@ def edit_deliverable(deliverable_id):
         #Return with success:
         flash('Edits successful', 'success')
         return redirect(url_for('view_deliverables'))
-    form.deliverable_id.render_kw = {'readonly': 'readonly'}
-    form.deliverable_id.data = db_row.deliverable_id
+    form.code.render_kw = {'readonly': 'readonly'}
+    form.code.data = db_row.code
     form.work_package.data = db_row.work_package
     form.description.data = db_row.description
     form.responsible_partner.data = db_row.responsible_partner
     form.month_due.data = db_row.month_due
     form.progress.data = db_row.progress
     form.percent.data = db_row.percent
-    return render_template('edit-deliverable.html',form=form,deliverable_id=deliverable_id)
+    return render_template('edit-deliverable.html',form=form,code=code)
 
 #Login
 @app.route('/login', methods=["GET","POST"])

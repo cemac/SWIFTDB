@@ -4,7 +4,7 @@
   <h1>Edit Work Package</h1>
   <hr>
   {% from "includes/_formhelpers.html" import render_field %}
-  <form action="/edit-work-package/{{wp_id}}" method="POST">
+  <form action="/edit-work-package/{{code}}" method="POST">
     {% for field in form %}
       <div class="form-group">
         {{render_field(field, class_="form-control")}}

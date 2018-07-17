@@ -128,13 +128,14 @@ def add_partner():
 #View partners
 @app.route('/view-partners')
 def view_partners():
-    partnersData = psql_to_pandas(Partners.query.order_by(Partners.id))
-    return render_template('view-partners.html',partnersData=partnersData)
+    data = psql_to_pandas(Partners.query.order_by(Partners.id))
+    colnames=['Partner Name','Country','Role']
+    return render_template('view.html',title="View Partners",colnames=colnames,editlink="/edit-partner/",dellink="/delete-partner/",data=data)
 
 #Delete partner
-@app.route('/delete-partner/<string:name>', methods=['POST'])
-def delete_partner(name):
-    db_row = Partners.query.filter_by(name=name).first()
+@app.route('/delete-partner/<string:id>', methods=['POST'])
+def delete_partner(id):
+    db_row = Partners.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
     psql_delete(db_row)
@@ -184,13 +185,14 @@ def add_work_package():
 #View work packages
 @app.route('/view-work-packages')
 def view_work_packages():
-    wpData = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
-    return render_template('view-work-packages.html',wpData=wpData)
+    data = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
+    colnames=['Code','Name']
+    return render_template('view.html',title="View Work Packages",colnames=colnames,editlink="/edit-work-package/",dellink="/delete-work-package/",data=data)
 
 #Delete work package
-@app.route('/delete-work-package/<string:code>', methods=['POST'])
-def delete_work_package(code):
-    db_row = Work_Packages.query.filter_by(code=code).first()
+@app.route('/delete-work-package/<string:id>', methods=['POST'])
+def delete_work_package(id):
+    db_row = Work_Packages.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
     psql_delete(db_row)
@@ -246,13 +248,14 @@ def add_deliverable():
 #View deliverables
 @app.route('/view-deliverables')
 def view_deliverables():
-    deliverablesData = psql_to_pandas(Deliverables.query.order_by(Deliverables.id))
-    return render_template('view-deliverables.html',deliverablesData=deliverablesData)
+    data = psql_to_pandas(Deliverables.query.order_by(Deliverables.id))
+    colnames=['Code','Work Package','Description','Responsible Partner','Month Due','Progress','% Complete']
+    return render_template('view.html',title="View Deliverables",colnames=colnames,editlink="/edit-deliverable/",dellink="/delete-deliverable/",data=data)
 
 #Delete deliverable
-@app.route('/delete-deliverable/<string:code>', methods=['POST'])
-def delete_deliverable(code):
-    db_row = Deliverables.query.filter_by(code=code).first()
+@app.route('/delete-deliverable/<string:id>', methods=['POST'])
+def delete_deliverable(id):
+    db_row = Deliverables.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
     psql_delete(db_row)

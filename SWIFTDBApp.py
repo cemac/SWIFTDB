@@ -1,5 +1,5 @@
 from flask import Flask, render_template, flash, redirect, url_for, request, g, session, abort
-from wtforms import Form, validators, StringField
+from wtforms import Form, validators, StringField, SelectField, TextAreaField, IntegerField
 import datetime as dt
 import os
 import pandas as pd
@@ -48,9 +48,18 @@ def is_logged_in(f):
     return wrap
 #########################################
 
+########## MISC FUNCTIONS ##########
+#Check if user is logged in
+def zeroTo100():
+    list = []
+    for i in range(101):
+        list.append((i,i))
+    return list
+#########################################
+
 ########## FORM CLASSES ##########
 class PartnerForm(Form):
-    name = StringField(u'Name',
+    name = StringField(u'*Name',
         [validators.InputRequired()],
         render_kw={"placeholder": "e.g. Leeds"})
     country = StringField(u'Country',
@@ -59,12 +68,33 @@ class PartnerForm(Form):
         render_kw={"placeholder": "e.g. 'Academic' or 'Operational'"})
 
 class WorkPackageForm(Form):
-    wp_id = StringField(u'Work Package Code / ID',
+    wp_id = StringField(u'*Work Package Code / ID',
         [validators.InputRequired()],
         render_kw={"placeholder": "e.g. WP-C1"})
-    name = StringField(u'Name',
+    name = StringField(u'*Name',
         [validators.InputRequired()],
         render_kw={"placeholder": "e.g. Training"})
+
+class DeliverableForm(Form):
+    deliverable_id = StringField(u'*Deliverable Code / ID',
+        [validators.InputRequired()],
+        render_kw={"placeholder": "e.g. D-R1.1"})
+    work_package = SelectField(u'*Work Package',
+        [validators.NoneOf(('blank'),message='Please select')],
+        choices=[('blank','--Please select--')])
+    description = TextAreaField(u'*Description',
+        [validators.InputRequired()],
+        render_kw={"placeholder": "e.g. Report on current state\
+         of knowledge regarding user needs for forecasts at \
+         different timescales in each sector"})
+    responsible_partner = SelectField(u'*Responsible Partner',
+        [validators.NoneOf(('blank'),message='Please select')],
+        choices=[('blank','--Please select--')])
+    month_due = IntegerField(u'Month Due')
+    progress = TextAreaField(u'Progress')
+    percent = SelectField(u'*Percentage Complete',
+        choices=zeroTo100())
+
 #########################################
 
 #Index
@@ -185,6 +215,28 @@ def edit_work_package(wp_id):
     form.name.data = db_row.name
     return render_template('edit-work-package.html',form=form,wp_id=wp_id)
 
+#Add deliverable
+@app.route('/add-deliverable', methods=["GET","POST"])
+def add_deliverable():
+    form = DeliverableForm(request.form)
+    if request.method == 'POST' and form.validate():
+        #Get form fields
+        deliverable_id = form.deliverable_id.data
+        work_package = form.work_package.data
+        description = form.description.data
+        responsible_partner = form.responsible_partner.data
+        month_due=form.month_due.data
+        progress = form.progress.data
+        percent = form.percent.data
+        #Add to DB:
+        db_row = Deliverable(deliverable_id=deliverable_id,work_package=work_package,
+          description=description,responsible_partner=responsible_partner,
+          month_due=month_due,progress=progress,percent=percent)
+        psql_insert(db_row)
+        #Return with success
+        flash('Added to database', 'success')
+        return redirect(url_for('add_deliverable'))
+    return render_template('add-deliverable.html',form=form)
 
 #Login
 @app.route('/login', methods=["GET","POST"])

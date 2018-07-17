@@ -49,18 +49,11 @@ def is_logged_in(f):
 #########################################
 
 ########## MISC FUNCTIONS ##########
-def wp_list():
-    wp_DF = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
+def table_list(tableClass,col):
+    DF = psql_to_pandas(eval(tableClass).query.order_by(eval(tableClass).id))
     list = [('blank','--Please select--')]
-    for wp in wp_DF['code']:
-        list.append((wp,wp))
-    return list
-
-def partner_list():
-    partner_DF = psql_to_pandas(Partners.query.order_by(Partners.id))
-    list = [('blank','--Please select--')]
-    for partner in partner_DF['name']:
-        list.append((partner,partner))
+    for element in DF[col]:
+        list.append((element,element))
     return list
 #########################################
 
@@ -130,17 +123,17 @@ def add_partner():
 def view_partners():
     data = psql_to_pandas(Partners.query.order_by(Partners.id))
     colnames=['Partner Name','Country','Role']
-    return render_template('view.html',title="View Partners",colnames=colnames,editlink="/edit-partner/",dellink="/delete-partner/",data=data)
+    return render_template('view.html',title="View Partners",colnames=colnames,editlink="/edit-partner/",tableClass="Partners",data=data)
 
-#Delete partner
-@app.route('/delete-partner/<string:id>', methods=['POST'])
-def delete_partner(id):
-    db_row = Partners.query.filter_by(id=id).first()
+#Delete entry
+@app.route('/delete/<string:tableClass>/<string:id>', methods=['POST'])
+def delete(tableClass,id):
+    db_row = eval(tableClass).query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
     psql_delete(db_row)
     flash('Entry deleted', 'success')
-    return redirect(url_for('view_partners'))
+    return redirect(url_for('view_'+tableClass.lower()))
 
 #Edit partner
 @app.route('/edit-partner/<string:id>', methods=['GET','POST'])
@@ -187,17 +180,7 @@ def add_work_package():
 def view_work_packages():
     data = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     colnames=['Code','Name']
-    return render_template('view.html',title="View Work Packages",colnames=colnames,editlink="/edit-work-package/",dellink="/delete-work-package/",data=data)
-
-#Delete work package
-@app.route('/delete-work-package/<string:id>', methods=['POST'])
-def delete_work_package(id):
-    db_row = Work_Packages.query.filter_by(id=id).first()
-    if db_row is None:
-        abort(404)
-    psql_delete(db_row)
-    flash('Entry deleted', 'success')
-    return redirect(url_for('view_work_packages'))
+    return render_template('view.html',title="View Work Packages",colnames=colnames,editlink="/edit-work-package/",tableClass="Work_Packages",data=data)
 
 #Edit work package
 @app.route('/edit-work-package/<string:id>', methods=['GET','POST'])
@@ -224,8 +207,8 @@ def edit_work_package(id):
 @app.route('/add-deliverable', methods=["GET","POST"])
 def add_deliverable():
     form = DeliverableForm(request.form)
-    form.work_package.choices = wp_list()
-    form.responsible_partner.choices = partner_list()
+    form.work_package.choices = table_list('Work_Packages','code')
+    form.responsible_partner.choices = table_list('Partners','name')
     if request.method == 'POST' and form.validate():
         #Get form fields
         code = form.code.data
@@ -250,24 +233,14 @@ def add_deliverable():
 def view_deliverables():
     data = psql_to_pandas(Deliverables.query.order_by(Deliverables.id))
     colnames=['Code','Work Package','Description','Responsible Partner','Month Due','Progress','% Complete']
-    return render_template('view.html',title="View Deliverables",colnames=colnames,editlink="/edit-deliverable/",dellink="/delete-deliverable/",data=data)
-
-#Delete deliverable
-@app.route('/delete-deliverable/<string:id>', methods=['POST'])
-def delete_deliverable(id):
-    db_row = Deliverables.query.filter_by(id=id).first()
-    if db_row is None:
-        abort(404)
-    psql_delete(db_row)
-    flash('Entry deleted', 'success')
-    return redirect(url_for('view_deliverables'))
+    return render_template('view.html',title="View Deliverables",colnames=colnames,editlink="/edit-deliverable/",tableClass="Deliverables",data=data)
 
 #Edit deliverable
 @app.route('/edit-deliverable/<string:id>', methods=['GET','POST'])
 def edit_deliverable(id):
     form = DeliverableForm(request.form)
-    form.work_package.choices = wp_list()
-    form.responsible_partner.choices = partner_list()
+    form.work_package.choices = table_list('Work_Packages','code')
+    form.responsible_partner.choices = table_list('Partners','name')
     db_row = Deliverables.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)

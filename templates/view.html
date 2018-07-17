@@ -18,7 +18,7 @@
         {% endfor %}
         <td><a href={{editlink}}{{row['id']}} class="btn btn-primary pull-right">Edit</a></td>
         <td>
-          <form action={{dellink}}{{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
+          <form action=/delete/{{tableClass}}/{{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
             <input type="hidden" name="_method" value="DELETE">
             <input type="submit" value="Delete" class="btn btn-danger">
           </form>

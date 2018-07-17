@@ -118,12 +118,23 @@ def add_partner():
         return redirect(url_for('add_partner'))
     return render_template('add.html',title="Add Partner",postlink="/add-partner",form=form)
 
-#View partners
-@app.route('/view-partners')
-def view_partners():
-    data = psql_to_pandas(Partners.query.order_by(Partners.id))
-    colnames=['Partner Name','Country','Role']
-    return render_template('view.html',title="View Partners",colnames=colnames,editlink="/edit-partner/",tableClass="Partners",data=data)
+#View table
+@app.route('/view/<string:tableClass>')
+def view(tableClass):
+    data = psql_to_pandas(eval(tableClass).query.order_by(eval(tableClass).id))
+    if tableClass=='Partners':
+        title = "View Partners"
+        colnames=['Partner Name','Country','Role']
+        editlink="/edit-partner/"
+    elif tableClass=='Work_Packages':
+        title = "View Work Packages"
+        colnames=['Code','Name']
+        editlink="/edit-work-package/"
+    elif tableClass=='Deliverables':
+        title = "View Deliverables"
+        colnames=['Code','Work Package','Description','Responsible Partner','Month Due','Progress','% Complete']
+        editlink="/edit-deliverable/"
+    return render_template('view.html',title=title,colnames=colnames,editlink=editlink,tableClass=tableClass,data=data)
 
 #Delete entry
 @app.route('/delete/<string:tableClass>/<string:id>', methods=['POST'])
@@ -133,7 +144,7 @@ def delete(tableClass,id):
         abort(404)
     psql_delete(db_row)
     flash('Entry deleted', 'success')
-    return redirect(url_for('view_'+tableClass.lower()))
+    return redirect(url_for('view',tableClass=tableClass))
 
 #Edit partner
 @app.route('/edit-partner/<string:id>', methods=['GET','POST'])
@@ -152,7 +163,7 @@ def edit_partner(id):
         db.session.commit()
         #Return with success:
         flash('Edits successful', 'success')
-        return redirect(url_for('view_partners'))
+        return redirect(url_for('view',tableClass='Partners'))
     form.name.render_kw = {'readonly': 'readonly'}
     form.name.data = db_row.name
     form.country.data = db_row.country
@@ -175,13 +186,6 @@ def add_work_package():
         return redirect(url_for('add_work_package'))
     return render_template('add.html',title="Add Work Package",postlink="/add-work-package",form=form)
 
-#View work packages
-@app.route('/view-work-packages')
-def view_work_packages():
-    data = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
-    colnames=['Code','Name']
-    return render_template('view.html',title="View Work Packages",colnames=colnames,editlink="/edit-work-package/",tableClass="Work_Packages",data=data)
-
 #Edit work package
 @app.route('/edit-work-package/<string:id>', methods=['GET','POST'])
 def edit_work_package(id):
@@ -197,7 +201,7 @@ def edit_work_package(id):
         db.session.commit()
         #Return with success:
         flash('Edits successful', 'success')
-        return redirect(url_for('view_work_packages'))
+        return redirect(url_for('view',tableClass='Work_Packages'))
     form.code.render_kw = {'readonly': 'readonly'}
     form.code.data = db_row.code
     form.name.data = db_row.name
@@ -228,13 +232,6 @@ def add_deliverable():
         return redirect(url_for('add_deliverable'))
     return render_template('add.html',title="Add Deliverable",postlink="/add-deliverable",form=form)
 
-#View deliverables
-@app.route('/view-deliverables')
-def view_deliverables():
-    data = psql_to_pandas(Deliverables.query.order_by(Deliverables.id))
-    colnames=['Code','Work Package','Description','Responsible Partner','Month Due','Progress','% Complete']
-    return render_template('view.html',title="View Deliverables",colnames=colnames,editlink="/edit-deliverable/",tableClass="Deliverables",data=data)
-
 #Edit deliverable
 @app.route('/edit-deliverable/<string:id>', methods=['GET','POST'])
 def edit_deliverable(id):
@@ -262,7 +259,7 @@ def edit_deliverable(id):
         db.session.commit()
         #Return with success:
         flash('Edits successful', 'success')
-        return redirect(url_for('view_deliverables'))
+        return redirect(url_for('view',tableClass='Deliverables'))
     form.code.render_kw = {'readonly': 'readonly'}
     form.code.data = db_row.code
     form.work_package.data = db_row.work_package

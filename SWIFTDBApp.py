@@ -101,50 +101,38 @@ different timescales in each sector."})
 def index():
     return render_template('home.html')
 
-# #Add partner
-# @app.route('/add-partner', methods=["GET","POST"])
-# def add_partner():
-#     form = PartnerForm(request.form)
-#     if request.method == 'POST' and form.validate():
-#         #Get form fields
-#         name = form.name.data
-#         country = form.country.data
-#         role = form.role.data
-#         #Add to DB:
-#         db_row = Partners(name=name,country=country,role=role)
-#         psql_insert(db_row)
-#         #Return with success
-#         flash('Added to database', 'success')
-#         return redirect(url_for('add_partner'))
-#     return render_template('add.html',title="Add Partner",postlink="/add-partner",form=form)
-
 #Add entry
 @app.route('/add/<string:tableClass>', methods=["GET","POST"])
 def add(tableClass):
     form = eval(tableClass+"_Form")(request.form)
+    #Set title and tweak form
+    if tableClass=='Partners':
+        title = "Add Partner"
+    elif tableClass=='Work_Packages':
+        title = "Add Work Package"
+    elif tableClass=='Deliverables':
+        title = "Add Deliverable"
+        form.work_package.choices = table_list('Work_Packages','code')
+        form.responsible_partner.choices = table_list('Partners','name')
     if request.method == 'POST' and form.validate():
-        #Get names/values of form fields:
-        formnames=[]
+        #Get form fields:
         formdata=[]
         for field in form:
-            formnames.append(field.name)
             formdata.append(field.data)
         #Add to DB:
-        db_row = tableClass+()
-        # db_row = Partners(name=name,country=country,role=role)
-        # psql_insert(db_row)
-
-        # name = form.name.data
-        # country = form.country.data
-        # role = form.role.data
-        #Add to DB:
-        # db_row = Partners(name=name,country=country,role=role)
-        # psql_insert(db_row)
+        if tableClass=='Partners':
+            db_row = Partners(name=formdata[0],country=formdata[1],role=formdata[2])
+        elif tableClass=='Work_Packages':
+            db_row = Work_Packages(code=formdata[0],name=formdata[1])
+        elif tableClass=='Deliverables':
+            db_row = db_row = Deliverables(code=formdata[0],work_package=formdata[1],
+              description=formdata[2],responsible_partner=formdata[3],
+              month_due=formdata[4],progress=formdata[5],percent=formdata[6])
+        psql_insert(db_row)
         #Return with success
         flash('Added to database', 'success')
-        return "hi"
-        # return redirect(url_for('add_partner'))
-    return render_template('add.html',title="Add Partner",postlink="/add/Partners",form=form)
+        return redirect(url_for('add',tableClass=tableClass))
+    return render_template('add.html',title=title,tableClass=tableClass,form=form)
 
 #View table
 @app.route('/view/<string:tableClass>')
@@ -162,7 +150,7 @@ def view(tableClass):
         title = "View Deliverables"
         colnames=['Code','Work Package','Description','Responsible Partner','Month Due','Progress','% Complete']
         editlink="/edit-deliverable/"
-    return render_template('view.html',title=title,colnames=colnames,editlink=editlink,tableClass=tableClass,data=data)
+    return render_template('view.html',title=title,colnames=colnames,tableClass=tableClass,data=data)
 
 #Delete entry
 @app.route('/delete/<string:tableClass>/<string:id>', methods=['POST'])
@@ -174,129 +162,36 @@ def delete(tableClass,id):
     flash('Entry deleted', 'success')
     return redirect(url_for('view',tableClass=tableClass))
 
-#Edit partner
-@app.route('/edit-partner/<string:id>', methods=['GET','POST'])
-def edit_partner(id):
-    form = PartnerForm(request.form)
-    db_row = Partners.query.filter_by(id=id).first()
+#Edit entry
+@app.route('/edit/<string:tableClass>/<string:id>', methods=['GET','POST'])
+def edit(tableClass,id):
+    form = eval(tableClass+"_Form")(request.form)
+    db_row = eval(tableClass).query.filter_by(id=id).first()
+    #Set title and tweak form
+    if tableClass=='Partners':
+        title = "Edit Partner"
+    elif tableClass=='Work_Packages':
+        title = "Edit Work Package"
+    elif tableClass=='Deliverables':
+        title = "Edit Deliverable"
+        form.work_package.choices = table_list('Work_Packages','code')
+        form.responsible_partner.choices = table_list('Partners','name')
     if db_row is None:
         abort(404)
     if request.method == 'POST' and form.validate():
-        #Get form info:
-        country = form.country.data
-        role = form.role.data
-        #Update DB:
-        db_row.country = country
-        db_row.role = role
+        #Get each form field and update DB:
+        for field in form:
+            exec("db_row."+field.name+" = field.data")
         db.session.commit()
         #Return with success:
         flash('Edits successful', 'success')
-        return redirect(url_for('view',tableClass='Partners'))
-    form.name.render_kw = {'readonly': 'readonly'}
-    form.name.data = db_row.name
-    form.country.data = db_row.country
-    form.role.data = db_row.role
-    return render_template('edit.html',title="Edit Partner",postlink="/edit-partner/"+id,form=form)
-
-#Add work package
-@app.route('/add-work-package', methods=["GET","POST"])
-def add_work_package():
-    form = WorkPackageForm(request.form)
-    if request.method == 'POST' and form.validate():
-        #Get form fields
-        code = form.code.data
-        name = form.name.data
-        #Add to DB:
-        db_row = Work_Packages(code=code,name=name)
-        psql_insert(db_row)
-        #Return with success
-        flash('Added to database', 'success')
-        return redirect(url_for('add_work_package'))
-    return render_template('add.html',title="Add Work Package",postlink="/add-work-package",form=form)
-
-#Edit work package
-@app.route('/edit-work-package/<string:id>', methods=['GET','POST'])
-def edit_work_package(id):
-    form = WorkPackageForm(request.form)
-    db_row = Work_Packages.query.filter_by(id=id).first()
-    if db_row is None:
-        abort(404)
-    if request.method == 'POST' and form.validate():
-        #Get form info:
-        name = form.name.data
-        #Update DB:
-        db_row.name = name
-        db.session.commit()
-        #Return with success:
-        flash('Edits successful', 'success')
-        return redirect(url_for('view',tableClass='Work_Packages'))
-    form.code.render_kw = {'readonly': 'readonly'}
-    form.code.data = db_row.code
-    form.name.data = db_row.name
-    return render_template('edit.html',title="Edit Work Package",postlink="/edit-work-package/"+id,form=form)
-
-#Add deliverable
-@app.route('/add-deliverable', methods=["GET","POST"])
-def add_deliverable():
-    form = DeliverableForm(request.form)
-    form.work_package.choices = table_list('Work_Packages','code')
-    form.responsible_partner.choices = table_list('Partners','name')
-    if request.method == 'POST' and form.validate():
-        #Get form fields
-        code = form.code.data
-        work_package = form.work_package.data
-        description = form.description.data
-        responsible_partner = form.responsible_partner.data
-        month_due=form.month_due.data
-        progress = form.progress.data
-        percent = form.percent.data
-        #Add to DB:
-        db_row = Deliverables(code=code,work_package=work_package,
-          description=description,responsible_partner=responsible_partner,
-          month_due=month_due,progress=progress,percent=percent)
-        psql_insert(db_row)
-        #Return with success
-        flash('Added to database', 'success')
-        return redirect(url_for('add_deliverable'))
-    return render_template('add.html',title="Add Deliverable",postlink="/add-deliverable",form=form)
-
-#Edit deliverable
-@app.route('/edit-deliverable/<string:id>', methods=['GET','POST'])
-def edit_deliverable(id):
-    form = DeliverableForm(request.form)
-    form.work_package.choices = table_list('Work_Packages','code')
-    form.responsible_partner.choices = table_list('Partners','name')
-    db_row = Deliverables.query.filter_by(id=id).first()
-    if db_row is None:
-        abort(404)
-    if request.method == 'POST' and form.validate():
-        #Get form info:
-        work_package = form.work_package.data
-        description = form.description.data
-        responsible_partner = form.responsible_partner.data
-        month_due=form.month_due.data
-        progress = form.progress.data
-        percent = form.percent.data
-        #Update DB:
-        db_row.work_package = work_package
-        db_row.description = description
-        db_row.responsible_partner = responsible_partner
-        db_row.month_due = month_due
-        db_row.progress = progress
-        db_row.percent = percent
-        db.session.commit()
-        #Return with success:
-        flash('Edits successful', 'success')
-        return redirect(url_for('view',tableClass='Deliverables'))
-    form.code.render_kw = {'readonly': 'readonly'}
-    form.code.data = db_row.code
-    form.work_package.data = db_row.work_package
-    form.description.data = db_row.description
-    form.responsible_partner.data = db_row.responsible_partner
-    form.month_due.data = db_row.month_due
-    form.progress.data = db_row.progress
-    form.percent.data = db_row.percent
-    return render_template('edit.html',title="Edit Deliverable",postlink="/edit-deliverable/"+id,form=form)
+        return redirect(url_for('view',tableClass=tableClass))
+    #Pre-populate form fields with existing data
+    for i,field in enumerate(form):
+        if i==0: #Grey out first (immutable) field
+            field.render_kw = {'readonly': 'readonly'}
+        exec("field.data = db_row."+field.name)
+    return render_template('edit.html',title=title,tableClass=tableClass,id=id,form=form)
 
 #Login
 @app.route('/login', methods=["GET","POST"])

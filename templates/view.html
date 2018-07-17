@@ -16,7 +16,7 @@
         {% for i in range(1,row|length) %}
           <td>{{row[i]}}</td>
         {% endfor %}
-        <td><a href={{editlink}}{{row['id']}} class="btn btn-primary pull-right">Edit</a></td>
+        <td><a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a></td>
         <td>
           <form action=/delete/{{tableClass}}/{{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
             <input type="hidden" name="_method" value="DELETE">

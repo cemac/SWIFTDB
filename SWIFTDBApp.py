@@ -221,6 +221,7 @@ def wp_summary(id):
         abort(404)
     #Retrieve all deliverables belonging to this work package:
     data = psql_to_pandas(Deliverables.query.filter_by(work_package=db_row.code).order_by(Deliverables.id))
+    del data['work_package']
     data.fillna(value="", inplace=True)
     #Set title:
     title = "Deliverables for Work Package "+db_row.code+" ("+db_row.name+")"

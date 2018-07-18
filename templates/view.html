@@ -16,16 +16,25 @@
         {% for i in range(1,row|length) %}
           <td>{{row[i]}}</td>
         {% endfor %}
-        <td><a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a></td>
         <td>
-          <form action=/delete/{{tableClass}}/{{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
-            <input type="hidden" name="_method" value="DELETE">
-            <input type="submit" value="Delete" class="btn btn-danger">
-          </form>
+          {% if admin %}
+            <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a></td>
+          {% else %}
+            <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Edit</a></td>
+          {% endif %}
+        <td>
+          {% if admin %}
+            <form action=/delete/{{tableClass}}/{{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
+              <input type="hidden" name="_method" value="DELETE">
+              <input type="submit" value="Delete" class="btn btn-danger">
+            </form>
+          {% endif %}
         </td>
       </tr>
     {% endfor %}
   </table>
-  <a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>
+  {% if admin %}
+    <a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>
+  {% endif %}
   <hr>
 {% endblock %}

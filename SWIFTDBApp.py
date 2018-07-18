@@ -94,6 +94,18 @@ different timescales in each sector."})
         validators=[validators.Optional()])
     percent = IntegerField(u'*Percentage Complete',
         [validators.NumberRange(min=0,max=100,message="Must be between 0 and 100")])
+
+class WP_Deliverables_Form(Form):
+    code = StringField(u'Deliverable Code')
+    work_package = StringField(u'Work Package')
+    description = TextAreaField(u'Description')
+    responsible_partner = StringField(u'Responsible Partner')
+    month_due = IntegerField(u'Month Due',
+        validators=[validators.Optional()])
+    progress = TextAreaField(u'Progress',
+        validators=[validators.Optional()])
+    percent = IntegerField(u'*Percentage Complete',
+        [validators.NumberRange(min=0,max=100,message="Must be between 0 and 100")])
 #########################################
 
 #Index
@@ -137,7 +149,7 @@ def view(tableClass):
     title = "View "+tableClass.replace("_"," ")
     #Set table column names:
     colnames=[s.replace("_"," ").title() for s in data.columns.values[1:]]
-    return render_template('view.html',title=title,colnames=colnames,tableClass=tableClass,data=data)
+    return render_template('view.html',title=title,colnames=colnames,tableClass=tableClass,admin=True,data=data)
 
 #Delete entry
 @app.route('/delete/<string:tableClass>/<string:id>', methods=['POST'])
@@ -179,8 +191,52 @@ def edit(tableClass,id):
     for i,field in enumerate(form):
         if i==0: #Grey out first (immutable) field
             field.render_kw = {'readonly': 'readonly'}
-        exec("field.data = db_row."+field.name)
+        if not request.method == 'POST':
+            exec("field.data = db_row."+field.name)
     return render_template('edit.html',title=title,tableClass=tableClass,id=id,form=form)
+
+#WP summary
+@app.route('/wp-summary/<string:id>')
+def wp_summary(id):
+    #Retrieve DB entry:
+    db_row = Work_Packages.query.filter_by(id=id).first()
+    if db_row is None:
+        abort(404)
+    #Retrieve all deliverables belonging to this work package:
+    data = psql_to_pandas(Deliverables.query.filter_by(work_package=db_row.code).order_by(Deliverables.id))
+    #Set title:
+    title = "Deliverables for Work Package "+db_row.code+" ("+db_row.name+")"
+    #Set table column names:
+    colnames=[s.replace("_"," ").title() for s in data.columns.values[1:]]
+    return render_template('view.html',title=title,colnames=colnames,tableClass='Deliverables',admin=False,data=data)
+
+#Edit deliverable as WP-leader
+@app.route('/wp-edit/<string:id>', methods=['GET','POST'])
+def wp_edit(id):
+    #Retrieve DB entry:
+    db_row = Deliverables.query.filter_by(id=id).first()
+    if db_row is None:
+        abort(404)
+    #Get form:
+    form = WP_Deliverables_Form(request.form)
+    #If user submits edit entry form:
+    if request.method == 'POST' and form.validate():
+        #Get each form field and update DB:
+        for field in form:
+            exec("db_row."+field.name+" = field.data")
+        db.session.commit()
+        #Retrive id of work package this deliverable belongs to:
+        wp_id = Work_Packages.query.filter_by(code=db_row.work_package).first().id
+        #Return with success:
+        flash('Edits successful', 'success')
+        return redirect(url_for('wp_summary',id=wp_id))
+    #Pre-populate form fields with existing data:
+    for i,field in enumerate(form):
+        if i<=4: #Grey out immutable fields
+            field.render_kw = {'readonly': 'readonly'}
+        if not request.method == 'POST':
+             exec("field.data = db_row."+field.name)
+    return render_template('wp-edit.html',id=id,form=form)
 
 #Login
 @app.route('/login', methods=["GET","POST"])

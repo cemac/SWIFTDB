@@ -5,6 +5,7 @@ import os
 import pandas as pd
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
+from sqlalchemy.exc import IntegrityError
 
 app = Flask(__name__)
 
@@ -28,13 +29,23 @@ def psql_to_pandas(query):
     return df
 
 def psql_insert(row):
-    db.session.add(row)
-    db.session.commit()
+    try:
+        db.session.add(row)
+        db.session.commit()
+        flash('Added to database', 'success')
+    except IntegrityError:
+        db.session.rollback()
+        flash('Integrity Error: Violation of unique constraint(s)', 'danger')
     return
 
 def psql_delete(row):
-    db.session.delete(row)
-    db.session.commit()
+    try:
+        db.session.delete(row)
+        db.session.commit()
+        flash('Entry deleted', 'success')
+    except:
+        db.session.rollback()
+        flash('Integrity Error: Cannot delete, other database entries likely reference this one', 'danger')
     return
 ####################################
 
@@ -137,8 +148,6 @@ def add(tableClass):
         db_string = tableClass+"("+db_string[:-1]+")"
         db_row = eval(db_string)
         psql_insert(db_row)
-        #Return with success
-        flash('Added to database', 'success')
         return redirect(url_for('add',tableClass=tableClass))
     return render_template('add.html',title=title,tableClass=tableClass,form=form)
 
@@ -163,8 +172,6 @@ def delete(tableClass,id):
         abort(404)
     #Delete from DB:
     psql_delete(db_row)
-    #Return with success:
-    flash('Entry deleted', 'success')
     return redirect(url_for('view',tableClass=tableClass))
 
 #Edit entry

@@ -18,10 +18,11 @@
         {% endfor %}
         <td>
           {% if admin %}
-            <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a></td>
+            <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
           {% else %}
-            <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Edit</a></td>
+            <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
           {% endif %}
+        </td>
         <td>
           {% if admin %}
             <form action=/delete/{{tableClass}}/{{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">

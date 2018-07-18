@@ -195,7 +195,14 @@ def edit(tableClass,id):
             exec("field.data = db_row."+field.name)
     return render_template('edit.html',title=title,tableClass=tableClass,id=id,form=form)
 
-#WP summary
+#WP list for WP leaders
+@app.route('/wp-list')
+def wp_list():
+    #Retrieve all work packages (for now):
+    data = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
+    return render_template('wp-list.html',data=data)
+
+#WP deliverables summary for WP leaders
 @app.route('/wp-summary/<string:id>')
 def wp_summary(id):
     #Retrieve DB entry:
@@ -210,7 +217,7 @@ def wp_summary(id):
     colnames=[s.replace("_"," ").title() for s in data.columns.values[1:]]
     return render_template('view.html',title=title,colnames=colnames,tableClass='Deliverables',admin=False,data=data)
 
-#Edit deliverable as WP-leader
+#Edit deliverable as WP leader
 @app.route('/wp-edit/<string:id>', methods=['GET','POST'])
 def wp_edit(id):
     #Retrieve DB entry:

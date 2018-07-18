@@ -104,30 +104,24 @@ def index():
 #Add entry
 @app.route('/add/<string:tableClass>', methods=["GET","POST"])
 def add(tableClass):
+    #Get form (and tweak where necessary):
     form = eval(tableClass+"_Form")(request.form)
-    #Set title and tweak form
-    if tableClass=='Partners':
-        title = "Add Partner"
-    elif tableClass=='Work_Packages':
-        title = "Add Work Package"
-    elif tableClass=='Deliverables':
-        title = "Add Deliverable"
+    if tableClass=='Deliverables':
         form.work_package.choices = table_list('Work_Packages','code')
         form.responsible_partner.choices = table_list('Partners','name')
+    #Set title:
+    title="Add to "+tableClass.replace("_"," ")
+    #If user submits add entry form:
     if request.method == 'POST' and form.validate():
         #Get form fields:
         formdata=[]
-        for field in form:
+        db_string = ""
+        for f,field in enumerate(form):
             formdata.append(field.data)
+            db_string += str(field.name) + "=formdata["+str(f)+"],"
         #Add to DB:
-        if tableClass=='Partners':
-            db_row = Partners(name=formdata[0],country=formdata[1],role=formdata[2])
-        elif tableClass=='Work_Packages':
-            db_row = Work_Packages(code=formdata[0],name=formdata[1])
-        elif tableClass=='Deliverables':
-            db_row = db_row = Deliverables(code=formdata[0],work_package=formdata[1],
-              description=formdata[2],responsible_partner=formdata[3],
-              month_due=formdata[4],progress=formdata[5],percent=formdata[6])
+        db_string = tableClass+"("+db_string[:-1]+")"
+        db_row = eval(db_string)
         psql_insert(db_row)
         #Return with success
         flash('Added to database', 'success')
@@ -137,47 +131,40 @@ def add(tableClass):
 #View table
 @app.route('/view/<string:tableClass>')
 def view(tableClass):
+    #Retrieve all DB data for given table:
     data = psql_to_pandas(eval(tableClass).query.order_by(eval(tableClass).id))
-    if tableClass=='Partners':
-        title = "View Partners"
-        colnames=['Partner Name','Country','Role']
-        editlink="/edit-partner/"
-    elif tableClass=='Work_Packages':
-        title = "View Work Packages"
-        colnames=['Code','Name']
-        editlink="/edit-work-package/"
-    elif tableClass=='Deliverables':
-        title = "View Deliverables"
-        colnames=['Code','Work Package','Description','Responsible Partner','Month Due','Progress','% Complete']
-        editlink="/edit-deliverable/"
+    #Set title:
+    title = "View "+tableClass.replace("_"," ")
+    #Set table column names:
+    colnames=[s.replace("_"," ").title() for s in data.columns.values[1:]]
     return render_template('view.html',title=title,colnames=colnames,tableClass=tableClass,data=data)
 
 #Delete entry
 @app.route('/delete/<string:tableClass>/<string:id>', methods=['POST'])
 def delete(tableClass,id):
+    #Retrieve DB entry:
     db_row = eval(tableClass).query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
+    #Delete from DB:
     psql_delete(db_row)
+    #Return with success:
     flash('Entry deleted', 'success')
     return redirect(url_for('view',tableClass=tableClass))
 
 #Edit entry
 @app.route('/edit/<string:tableClass>/<string:id>', methods=['GET','POST'])
 def edit(tableClass,id):
-    form = eval(tableClass+"_Form")(request.form)
+    #Retrieve DB entry:
     db_row = eval(tableClass).query.filter_by(id=id).first()
-    #Set title and tweak form
-    if tableClass=='Partners':
-        title = "Edit Partner"
-    elif tableClass=='Work_Packages':
-        title = "Edit Work Package"
-    elif tableClass=='Deliverables':
-        title = "Edit Deliverable"
-        form.work_package.choices = table_list('Work_Packages','code')
-        form.responsible_partner.choices = table_list('Partners','name')
     if db_row is None:
         abort(404)
+    #Get form (and tweak where necessary):
+    form = eval(tableClass+"_Form")(request.form)
+    if tableClass=='Deliverables':
+        form.work_package.choices = table_list('Work_Packages','code')
+        form.responsible_partner.choices = table_list('Partners','name')
+    #If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         #Get each form field and update DB:
         for field in form:
@@ -186,7 +173,9 @@ def edit(tableClass,id):
         #Return with success:
         flash('Edits successful', 'success')
         return redirect(url_for('view',tableClass=tableClass))
-    #Pre-populate form fields with existing data
+    #Set title:
+    title = "Edit "+tableClass[:-1].replace("_"," ")
+    #Pre-populate form fields with existing data:
     for i,field in enumerate(form):
         if i==0: #Grey out first (immutable) field
             field.render_kw = {'readonly': 'readonly'}

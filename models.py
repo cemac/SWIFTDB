@@ -40,7 +40,7 @@ class Deliverables(db.Model):
     work_package = db.Column(db.String(),db.ForeignKey('work_packages.code'),nullable=False)
     description = db.Column(db.String(),nullable=False)
     responsible_partner = db.Column(db.String(),db.ForeignKey('partners.name'),nullable=False)
-    month_due = db.Column(db.Integer)
+    month_due = db.Column(db.Integer,nullable=False)
     progress = db.Column(db.String())
     percent = db.Column(db.Integer,nullable=False)
 

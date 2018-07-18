@@ -17,7 +17,10 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 
 #Configure postgresql database:
 db = SQLAlchemy(app)
-from models import Partners, Work_Packages, Deliverables #, Tasks, Tasks2Deliverables, Partners2Tasks
+from models import Partners, Work_Packages, Deliverables
+
+#Set any other parameters:
+endMonth = 51 #End month (from project start month)
 
 ########## PSQL FUNCTIONS ##########
 def psql_to_pandas(query):
@@ -89,7 +92,7 @@ different timescales in each sector."})
     responsible_partner = SelectField(u'*Responsible Partner',
         [validators.NoneOf(('blank'),message='Please select')])
     month_due = IntegerField(u'Month Due',
-        validators=[validators.Optional()])
+        [validators.NumberRange(min=0,max=endMonth,message="Must be between 0 and "+str(endMonth))])
     progress = TextAreaField(u'Progress',
         validators=[validators.Optional()])
     percent = IntegerField(u'*Percentage Complete',
@@ -100,8 +103,7 @@ class WP_Deliverables_Form(Form):
     work_package = StringField(u'Work Package')
     description = TextAreaField(u'Description')
     responsible_partner = StringField(u'Responsible Partner')
-    month_due = IntegerField(u'Month Due',
-        validators=[validators.Optional()])
+    month_due = IntegerField(u'Month Due')
     progress = TextAreaField(u'Progress',
         validators=[validators.Optional()])
     percent = IntegerField(u'*Percentage Complete',

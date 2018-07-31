@@ -1,11 +1,12 @@
 from flask import Flask, render_template, flash, redirect, url_for, request, g, session, abort
-from wtforms import Form, validators, StringField, SelectField, TextAreaField, IntegerField
+from wtforms import Form, validators, StringField, SelectField, TextAreaField, IntegerField, PasswordField
 import datetime as dt
 import os
 import pandas as pd
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 from sqlalchemy.exc import IntegrityError
+from passlib.hash import sha256_crypt
 
 app = Flask(__name__)
 
@@ -18,7 +19,7 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 
 #Configure postgresql database:
 db = SQLAlchemy(app)
-from models import Partners, Work_Packages, Deliverables
+from models import Partners, Work_Packages, Deliverables, Users
 
 #Set any other parameters:
 endMonth = 51 #End month (from project start month)
@@ -130,6 +131,13 @@ class WP_Deliverables_Form(Form):
         validators=[validators.Optional()])
     percent = IntegerField(u'*Percentage Complete',
         [validators.NumberRange(min=0,max=100,message="Must be between 0 and 100")])
+
+class Users_Form(Form):
+    username = StringField('Username',[validators.Length(min=4, max=25)])
+    password = PasswordField('Password',
+        [validators.Regexp('^([a-zA-Z0-9]{8,})$',
+        message='Password must be mimimum 8 characters and contain only uppercase letters, \
+        lowercase letters and numbers')])
 #########################################
 
 #Index
@@ -151,6 +159,8 @@ def add(tableClass):
     #If user submits add entry form:
     if request.method == 'POST' and form.validate():
         #Get form fields:
+        if tableClass=='Users':
+            form.password.data = sha256_crypt.encrypt(str(form.password.data))
         formdata=[]
         db_string = ""
         for f,field in enumerate(form):
@@ -170,6 +180,8 @@ def view(tableClass):
     #Retrieve all DB data for given table:
     data = psql_to_pandas(eval(tableClass).query.order_by(eval(tableClass).id))
     data.fillna(value="", inplace=True)
+    if tableClass=='Users':
+        data['password'] = '********'
     #Set title:
     title = "View "+tableClass.replace("_"," ")
     #Set table column names:
@@ -204,6 +216,8 @@ def edit(tableClass,id):
     #If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         #Get each form field and update DB:
+        if tableClass=='Users':
+            form.password.data = sha256_crypt.encrypt(str(form.password.data))
         for field in form:
             exec("db_row."+field.name+" = field.data")
         db.session.commit()
@@ -278,6 +292,7 @@ def wp_edit(id):
 #Login
 @app.route('/login', methods=["GET","POST"])
 def login():
+    #Attempt to log in:
     if request.method == 'POST':
         #Get form fields
         username = request.form['username']
@@ -293,9 +308,27 @@ def login():
             else:
                 flash('Incorrect password', 'danger')
                 return redirect(url_for('login'))
+        #Check user accounts:
+        user = Users.query.filter_by(username=username).first()
+        if user is not None:
+            password = user.password
+            #Compare passwords
+            if sha256_crypt.verify(password_candidate, password):
+                session['logged_in'] = True
+                session['usertype'] = 'non-admin'
+                flash('You are now logged in', 'success')
+                return redirect(url_for('index'))
+            else:
+                flash('Incorrect password', 'danger')
+                return redirect(url_for('login'))
         #Username not found:
         flash('Username not found', 'danger')
         return redirect(url_for('login'))
+    #Already logged in:
+    if 'logged_in' in session:
+        flash('Already logged in', 'warning')
+        return redirect(url_for('index'))
+    #Not yet logged in:
     return render_template('login.html')
 
 #Logout

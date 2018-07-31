@@ -29,21 +29,23 @@ def psql_to_pandas(query):
     df = pd.read_sql(query.statement,db.session.bind)
     return df
 
-def psql_insert(row):
+def psql_insert(row,flash=True):
     try:
         db.session.add(row)
         db.session.commit()
-        flash('Added to database', 'success')
+        if flash:
+            flash('Added to database', 'success')
     except IntegrityError:
         db.session.rollback()
         flash('Integrity Error: Violation of unique constraint(s)', 'danger')
     return
 
-def psql_delete(row):
+def psql_delete(row,flash=True):
     try:
         db.session.delete(row)
         db.session.commit()
-        flash('Entry deleted', 'success')
+        if flash:
+            flash('Entry deleted', 'success')
     except:
         db.session.rollback()
         flash('Integrity Error: Cannot delete, other database entries likely reference this one', 'danger')
@@ -319,16 +321,30 @@ def access(id):
         abort(404)
     #Retrieve all relevant entries in users2work_packages:
     data = psql_to_pandas(Users2Work_Packages.query.filter_by(username=user.username))
+    current_work_packages = []
+    for wp in data['work_package']:
+        current_work_packages.append(wp)
     #If user submits edit entry form:
     if request.method == 'POST' and form.validate():
-        print(form.data)
+        new_work_packages = form.work_packages.data
+        #Delete relevant rows from DB:
+        wps_to_delete = list(set(current_work_packages)-set(new_work_packages))
+        for wp in wps_to_delete:
+            db_row = Users2Work_Packages.query.filter_by(username=user.username,work_package=wp).first()
+            psql_delete(db_row,flash=False)
+        #Add relevant rows to DB:
+        wps_to_add = list(set(new_work_packages)-set(current_work_packages))
+        for wp in wps_to_add:
+            db_row = Users2Work_Packages(username=user.username,work_package=wp)
+            psql_insert(db_row,flash=False)
+        #Return with success
+        flash('Edits successful', 'success')
+        redirect(url_for('access',id=id))
     #Pre-populate form fields with existing data:
     form.username.render_kw = {'readonly': 'readonly'}
-    form.username.data = user.username
-    work_packages = []
-    for wp in data['work_package']:
-        work_packages.append(wp)
-    form.work_packages.data = work_packages
+    if not request.method == 'POST':
+        form.username.data = user.username
+        form.work_packages.data = current_work_packages
     return render_template('access.html',form=form,id=id)
 
 #Login

@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>User Access Settings</h1>
+  <hr>
+  {% from "includes/_formhelpers.html" import render_field %}
+  <form action=/access/{{id}} method="POST">
+    <div class="form-group">
+      {{render_field(form.username, class_="form-control")}}
+    </div>
+    <br>
+    <div class="form-group">
+      {{form.work_packages.label}}
+      <br>
+      {% for subfield in form.work_packages %}
+        <td>{{ subfield }}</td>
+        <td>{{ subfield.label }}</td>
+        <br>
+      {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <hr>
+{% endblock %}

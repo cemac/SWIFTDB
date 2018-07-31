@@ -1,5 +1,5 @@
 from flask import Flask, render_template, flash, redirect, url_for, request, g, session, abort
-from wtforms import Form, validators, StringField, SelectField, TextAreaField, IntegerField, PasswordField
+from wtforms import Form, validators, StringField, SelectField, TextAreaField, IntegerField, PasswordField, SelectMultipleField, widgets
 import datetime as dt
 import os
 import pandas as pd
@@ -19,7 +19,7 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 
 #Configure postgresql database:
 db = SQLAlchemy(app)
-from models import Partners, Work_Packages, Deliverables, Users, Users2Work_Packages 
+from models import Partners, Work_Packages, Deliverables, Users, Users2Work_Packages
 
 #Set any other parameters:
 endMonth = 51 #End month (from project start month)
@@ -148,6 +148,14 @@ class ChangePwdForm(Form):
         lowercase letters and numbers')])
     confirm = PasswordField('Confirm new password',
         [validators.EqualTo('new', message='Passwords do no match')])
+
+class MultiCheckboxField(SelectMultipleField):
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
+
+class AccessForm(Form):
+    username = StringField('Username')
+    work_packages = MultiCheckboxField('Work Package Leader Access:')
 #########################################
 
 #Index
@@ -298,6 +306,30 @@ def wp_edit(id):
         if not request.method == 'POST':
              exec("field.data = db_row."+field.name)
     return render_template('wp-edit.html',id=id,form=form)
+
+#Access settings for a given user
+@app.route('/access/<string:id>', methods=['GET','POST'])
+@is_logged_in_as_admin
+def access(id):
+    form = AccessForm(request.form)
+    form.work_packages.choices = table_list('Work_Packages','code')[1:]
+    #Retrieve user DB entry:
+    user = Users.query.filter_by(id=id).first()
+    if user is None:
+        abort(404)
+    #Retrieve all relevant entries in users2work_packages:
+    data = psql_to_pandas(Users2Work_Packages.query.filter_by(username=user.username))
+    #If user submits edit entry form:
+    if request.method == 'POST' and form.validate():
+        print(form.data)
+    #Pre-populate form fields with existing data:
+    form.username.render_kw = {'readonly': 'readonly'}
+    form.username.data = user.username
+    work_packages = []
+    for wp in data['work_package']:
+        work_packages.append(wp)
+    form.work_packages.data = work_packages
+    return render_template('access.html',form=form,id=id)
 
 #Login
 @app.route('/login', methods=["GET","POST"])

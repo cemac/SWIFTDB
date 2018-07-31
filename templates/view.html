@@ -10,6 +10,7 @@
       {% endfor %}
       <th></th>
       <th></th>
+      <th></th>
     </tr>
     {% for index, row in data.iterrows() %}
       <tr>
@@ -29,6 +30,11 @@
               <input type="hidden" name="_method" value="DELETE">
               <input type="submit" value="Delete" class="btn btn-danger">
             </form>
+          {% endif %}
+        </td>
+        <td>
+          {% if tableClass == 'Users' %}
+            <a href=/access/{{row['id']}} class="btn btn-primary pull-right">Access Settings</a>
           {% endif %}
         </td>
       </tr>

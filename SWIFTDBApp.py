@@ -66,7 +66,7 @@ def is_logged_in(f):
 def is_logged_in_as_admin(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if 'logged_in' in session and session['usertype']=='admin':
+        if 'logged_in' in session and session['username']=='admin':
             return f(*args, **kwargs)
         else:
             flash('Unauthorised, please login as admin', 'danger')
@@ -138,6 +138,16 @@ class Users_Form(Form):
         [validators.Regexp('^([a-zA-Z0-9]{8,})$',
         message='Password must be mimimum 8 characters and contain only uppercase letters, \
         lowercase letters and numbers')])
+
+class ChangePwdForm(Form):
+    current = PasswordField('Current password',
+        [validators.DataRequired()])
+    new = PasswordField('New password',
+        [validators.Regexp('^([a-zA-Z0-9]{8,})$',
+        message='Password must be mimimum 8 characters and contain only uppercase letters, \
+        lowercase letters and numbers')])
+    confirm = PasswordField('Confirm new password',
+        [validators.EqualTo('new', message='Passwords do no match')])
 #########################################
 
 #Index
@@ -302,7 +312,7 @@ def login():
             password = app.config['ADMIN_PWD']
             if password_candidate == password:
                 session['logged_in'] = True
-                session['usertype'] = 'admin'
+                session['username'] = username
                 flash('You are now logged in', 'success')
                 return redirect(url_for('index'))
             else:
@@ -312,10 +322,9 @@ def login():
         user = Users.query.filter_by(username=username).first()
         if user is not None:
             password = user.password
-            #Compare passwords
             if sha256_crypt.verify(password_candidate, password):
                 session['logged_in'] = True
-                session['usertype'] = 'non-admin'
+                session['username'] = username
                 flash('You are now logged in', 'success')
                 return redirect(url_for('index'))
             else:
@@ -338,6 +347,25 @@ def logout():
     session.clear()
     flash('You are now logged out', 'success')
     return redirect(url_for('index'))
+
+#Change password
+@app.route('/change-pwd', methods=["GET","POST"])
+@is_logged_in
+def change_pwd():
+    form = ChangePwdForm(request.form)
+    if request.method == 'POST' and form.validate():
+        user = Users.query.filter_by(username=session['username']).first()
+        password = user.password
+        current = form.current.data
+        if sha256_crypt.verify(current, password):
+            user.password = sha256_crypt.encrypt(str(form.new.data))
+            db.session.commit()
+            flash('Password changed', 'success')
+            return redirect(url_for('change_pwd'))
+        else:
+            flash('Current password incorrect', 'danger')
+            return redirect(url_for('change_pwd'))
+    return render_template('change-pwd.html',form=form)
 
 if __name__ == '__main__':
     app.run()

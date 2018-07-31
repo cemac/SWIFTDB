@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>Change password</h1>
+  <hr>
+  {% if session.username != 'admin' %}
+    {% from "includes/_formhelpers.html" import render_field %}
+    <form method="POST" action="">
+      <div class="form-group">
+        {{render_field(form.current, class_="form-control")}}
+        <br>
+        {{render_field(form.new, class_="form-control")}}
+        <br>
+        {{render_field(form.confirm, class_="form-control")}}
+      </div>
+      <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+    </form>
+  {% else %}
+    <p>You are logged in as admin. Change the password though updating the 'ADMIN_PWD' environment variable.</p>
+  {% endif %}
+{% endblock %}

@@ -60,6 +60,17 @@ def is_logged_in(f):
             flash('Unauthorised, please login', 'danger')
             return redirect(url_for('index'))
     return wrap
+
+#Check if user is logged in as admin
+def is_logged_in_as_admin(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session and session['usertype']=='admin':
+            return f(*args, **kwargs)
+        else:
+            flash('Unauthorised, please login as admin', 'danger')
+            return redirect(url_for('index'))
+    return wrap
 #########################################
 
 ########## MISC FUNCTIONS ##########
@@ -128,6 +139,7 @@ def index():
 
 #Add entry
 @app.route('/add/<string:tableClass>', methods=["GET","POST"])
+@is_logged_in_as_admin
 def add(tableClass):
     #Get form (and tweak where necessary):
     form = eval(tableClass+"_Form")(request.form)
@@ -153,6 +165,7 @@ def add(tableClass):
 
 #View table
 @app.route('/view/<string:tableClass>')
+@is_logged_in_as_admin
 def view(tableClass):
     #Retrieve all DB data for given table:
     data = psql_to_pandas(eval(tableClass).query.order_by(eval(tableClass).id))
@@ -165,6 +178,7 @@ def view(tableClass):
 
 #Delete entry
 @app.route('/delete/<string:tableClass>/<string:id>', methods=['POST'])
+@is_logged_in_as_admin
 def delete(tableClass,id):
     #Retrieve DB entry:
     db_row = eval(tableClass).query.filter_by(id=id).first()
@@ -176,6 +190,7 @@ def delete(tableClass,id):
 
 #Edit entry
 @app.route('/edit/<string:tableClass>/<string:id>', methods=['GET','POST'])
+@is_logged_in_as_admin
 def edit(tableClass,id):
     #Retrieve DB entry:
     db_row = eval(tableClass).query.filter_by(id=id).first()
@@ -207,6 +222,7 @@ def edit(tableClass,id):
 
 #WP list for WP leaders
 @app.route('/wp-list')
+@is_logged_in
 def wp_list():
     #Retrieve all work packages (for now):
     data = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
@@ -214,6 +230,7 @@ def wp_list():
 
 #WP deliverables summary for WP leaders
 @app.route('/wp-summary/<string:id>')
+@is_logged_in
 def wp_summary(id):
     #Retrieve DB entry:
     db_row = Work_Packages.query.filter_by(id=id).first()
@@ -231,6 +248,7 @@ def wp_summary(id):
 
 #Edit deliverable as WP leader
 @app.route('/wp-edit/<string:id>', methods=['GET','POST'])
+@is_logged_in
 def wp_edit(id):
     #Retrieve DB entry:
     db_row = Deliverables.query.filter_by(id=id).first()
@@ -261,9 +279,23 @@ def wp_edit(id):
 @app.route('/login', methods=["GET","POST"])
 def login():
     if request.method == 'POST':
-        session['logged_in'] = True
-        flash('You are now logged in', 'success')
-        return redirect(url_for('index'))
+        #Get form fields
+        username = request.form['username']
+        password_candidate = request.form['password']
+        #Check admin account:
+        if username == 'admin':
+            password = app.config['ADMIN_PWD']
+            if password_candidate == password:
+                session['logged_in'] = True
+                session['usertype'] = 'admin'
+                flash('You are now logged in', 'success')
+                return redirect(url_for('index'))
+            else:
+                flash('Incorrect password', 'danger')
+                return redirect(url_for('login'))
+        #Username not found:
+        flash('Username not found', 'danger')
+        return redirect(url_for('login'))
     return render_template('login.html')
 
 #Logout

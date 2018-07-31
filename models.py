@@ -24,6 +24,7 @@ class Work_Packages(db.Model):
     code = db.Column(db.String(),nullable=False,unique=True)
     name = db.Column(db.String(),nullable=False)
     Deliverables_Rel = db.relationship('Deliverables')
+    Users2Work_Packages_Rel = db.relationship('Users2Work_Packages')
 
     def __init__(self, code, name):
         self.code = code
@@ -60,12 +61,28 @@ class Users(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String())
+    username = db.Column(db.String(),unique=True)
     password = db.Column(db.String())
+    Users2Work_Packages_Rel = db.relationship('Users2Work_Packages')
 
     def __init__(self, username, password):
         self.username = username
         self.password = password
+
+    def __repr__(self):
+        return '<id {}>'.format(self.id)
+
+class Users2Work_Packages(db.Model):
+    __tablename__ = 'users2work_packages'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(),db.ForeignKey('users.username'),nullable=False)
+    work_package = db.Column(db.String(),db.ForeignKey('work_packages.code'),nullable=False)
+    __table_args__ = (db.UniqueConstraint('username', 'work_package', name='_username_work_package_uc'),)
+
+    def __init__(self, username, work_package):
+        self.username = username
+        self.work_package = work_package
 
     def __repr__(self):
         return '<id {}>'.format(self.id)

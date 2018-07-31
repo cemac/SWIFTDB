@@ -19,7 +19,7 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 
 #Configure postgresql database:
 db = SQLAlchemy(app)
-from models import Partners, Work_Packages, Deliverables, Users
+from models import Partners, Work_Packages, Deliverables, Users, Users2Work_Packages 
 
 #Set any other parameters:
 endMonth = 51 #End month (from project start month)

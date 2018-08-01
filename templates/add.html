@@ -10,6 +10,15 @@
         {{render_field(field, class_="form-control")}}
       </div>
     {% endfor %}
+    {% if tableClass == 'Users' %}
+      <p>
+        Use <a href="https://www.random.org/passwords/?num=1&len=8&format=html&rnd=new" target="_blank">
+        this link</a> to generate a temporary random 8-character password containing only uppercase letters,
+        lowercase letters and numbers. Email the username and password to the trainer and tell them to
+        log in and reset their password to something of their choice using the 'Change password' page
+        (under 'Account' on the menu bar).
+      </p>
+    {% endif %}
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
   <hr>

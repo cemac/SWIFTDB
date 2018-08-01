@@ -264,9 +264,15 @@ def edit(tableClass,id):
 @app.route('/wp-list')
 @is_logged_in
 def wp_list():
-    #Retrieve all work packages (for now):
-    data = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
-    return render_template('wp-list.html',data=data)
+    #Retrieve all work packages:
+    all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
+    #Select only the accessible work packages for this user:
+    if session['username'] == 'admin':
+        accessible_wps = all_wps
+    else:
+        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
+        accessible_wps = all_wps[all_wps.code.isin(user_wps)]
+    return render_template('wp-list.html',data=accessible_wps)
 
 #WP deliverables summary for WP leaders
 @app.route('/wp-summary/<string:id>')
@@ -276,6 +282,12 @@ def wp_summary(id):
     db_row = Work_Packages.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
+    #Check user has access to this wp:
+    if not session['username'] == 'admin':
+        wp_code = db_row.code
+        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
+        if wp_code not in user_wps:
+            abort(403)
     #Retrieve all deliverables belonging to this work package:
     data = psql_to_pandas(Deliverables.query.filter_by(work_package=db_row.code).order_by(Deliverables.id))
     del data['work_package']
@@ -294,6 +306,12 @@ def wp_edit(id):
     db_row = Deliverables.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
+    #Check user has access to this deliverable:
+    if not session['username'] == 'admin':
+        wp_code = db_row.work_package
+        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
+        if wp_code not in user_wps:
+            abort(403)
     #Get form:
     form = WP_Deliverables_Form(request.form)
     #If user submits edit entry form:
@@ -326,10 +344,7 @@ def access(id):
     if user is None:
         abort(404)
     #Retrieve all relevant entries in users2work_packages:
-    data = psql_to_pandas(Users2Work_Packages.query.filter_by(username=user.username))
-    current_work_packages = []
-    for wp in data['work_package']:
-        current_work_packages.append(wp)
+    current_work_packages = psql_to_pandas(Users2Work_Packages.query.filter_by(username=user.username))['work_package'].tolist()
     #If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         new_work_packages = form.work_packages.data

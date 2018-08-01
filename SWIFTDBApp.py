@@ -169,6 +169,8 @@ def index():
 @app.route('/add/<string:tableClass>', methods=["GET","POST"])
 @is_logged_in_as_admin
 def add(tableClass):
+    if tableClass not in ['Partners', 'Work_Packages', 'Deliverables', 'Users']:
+        abort(404)
     #Get form (and tweak where necessary):
     form = eval(tableClass+"_Form")(request.form)
     if tableClass=='Deliverables':
@@ -197,6 +199,8 @@ def add(tableClass):
 @app.route('/view/<string:tableClass>')
 @is_logged_in_as_admin
 def view(tableClass):
+    if tableClass not in ['Partners', 'Work_Packages', 'Deliverables', 'Users']:
+        abort(404)
     #Retrieve all DB data for given table:
     data = psql_to_pandas(eval(tableClass).query.order_by(eval(tableClass).id))
     data.fillna(value="", inplace=True)
@@ -224,6 +228,8 @@ def delete(tableClass,id):
 @app.route('/edit/<string:tableClass>/<string:id>', methods=['GET','POST'])
 @is_logged_in_as_admin
 def edit(tableClass,id):
+    if tableClass not in ['Partners', 'Work_Packages', 'Deliverables']:
+        abort(404)
     #Retrieve DB entry:
     db_row = eval(tableClass).query.filter_by(id=id).first()
     if db_row is None:
@@ -339,12 +345,11 @@ def access(id):
             psql_insert(db_row,flash=False)
         #Return with success
         flash('Edits successful', 'success')
-        redirect(url_for('access',id=id))
+        return redirect(url_for('access',id=id))
     #Pre-populate form fields with existing data:
     form.username.render_kw = {'readonly': 'readonly'}
-    if not request.method == 'POST':
-        form.username.data = user.username
-        form.work_packages.data = current_work_packages
+    form.username.data = user.username
+    form.work_packages.data = current_work_packages
     return render_template('access.html',form=form,id=id)
 
 #Login

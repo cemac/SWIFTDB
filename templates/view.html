@@ -10,7 +10,6 @@
       {% endfor %}
       <th></th>
       <th></th>
-      <th></th>
     </tr>
     {% for index, row in data.iterrows() %}
       <tr>
@@ -18,10 +17,14 @@
           <td>{{row[i]}}</td>
         {% endfor %}
         <td>
-          {% if admin %}
-            <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
+          {% if tableClass == 'Users' %}
+            <a href=/access/{{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
           {% else %}
-            <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
+            {% if admin %}
+              <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
+            {% else %}
+              <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
+            {% endif %}
           {% endif %}
         </td>
         <td>
@@ -30,11 +33,6 @@
               <input type="hidden" name="_method" value="DELETE">
               <input type="submit" value="Delete" class="btn btn-danger">
             </form>
-          {% endif %}
-        </td>
-        <td>
-          {% if tableClass == 'Users' %}
-            <a href=/access/{{row['id']}} class="btn btn-primary pull-right">Access Settings</a>
           {% endif %}
         </td>
       </tr>

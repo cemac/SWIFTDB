@@ -29,22 +29,22 @@ def psql_to_pandas(query):
     df = pd.read_sql(query.statement,db.session.bind)
     return df
 
-def psql_insert(row,flash=True):
+def psql_insert(row,flashMsg=True):
     try:
         db.session.add(row)
         db.session.commit()
-        if flash:
+        if flashMsg:
             flash('Added to database', 'success')
     except IntegrityError:
         db.session.rollback()
         flash('Integrity Error: Violation of unique constraint(s)', 'danger')
     return
 
-def psql_delete(row,flash=True):
+def psql_delete(row,flashMsg=True):
     try:
         db.session.delete(row)
         db.session.commit()
-        if flash:
+        if flashMsg:
             flash('Entry deleted', 'success')
     except:
         db.session.rollback()
@@ -352,12 +352,12 @@ def access(id):
         wps_to_delete = list(set(current_work_packages)-set(new_work_packages))
         for wp in wps_to_delete:
             db_row = Users2Work_Packages.query.filter_by(username=user.username,work_package=wp).first()
-            psql_delete(db_row,flash=False)
+            psql_delete(db_row,flashMsg=False)
         #Add relevant rows to DB:
         wps_to_add = list(set(new_work_packages)-set(current_work_packages))
         for wp in wps_to_add:
             db_row = Users2Work_Packages(username=user.username,work_package=wp)
-            psql_insert(db_row,flash=False)
+            psql_insert(db_row,flashMsg=False)
         #Return with success
         flash('Edits successful', 'success')
         return redirect(url_for('access',id=id))

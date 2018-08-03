@@ -2,9 +2,12 @@
 
 {% block body %}
   <div class="jumbotron text-center">
-    <h1>Welcome to the GCRF African SWIFT Project Magagement Hub</h1>
-    <p class="lead">
-      Here, team and work-package leaders can log and summarise their progress in key tasks/deliverables.
-    <p>
+    <h1>Welcome to the GCRF African SWIFT project magagement site</h1>
+    <p class="lead">Here, work-package leaders can update and review progress for all associated deliverables<p>
+    {% if session.logged_in %}
+      <p>You are currently logged in as <b>{{ session.username }}</b></p>
+    {% else %}
+      <p>Please <a href="/login">log in</a> to use this site</p>
+    {% endif %}
   </div>
 {% endblock %}

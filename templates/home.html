@@ -2,8 +2,11 @@
 
 {% block body %}
   <div class="jumbotron text-center">
-    <h1>Welcome to the GCRF African SWIFT project magagement site</h1>
-    <p class="lead">Here, work-package leaders can update and review progress for all associated deliverables<p>
+    <h1>Welcome to GCRF African SWIFT: Project Magagement</h1>
+    <p class="lead">
+      Here, work-package leaders can review and update progress for all associated deliverables,
+      and partner leaders can review and update progress for all associated tasks
+    <p>
     {% if session.logged_in %}
       <p>You are currently logged in as <b>{{ session.username }}</b></p>
     {% else %}

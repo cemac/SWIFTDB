@@ -1,2 +1,4 @@
 .directory
 .env
+*.csv
+SWIFTDB.accdb

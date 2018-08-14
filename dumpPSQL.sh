@@ -12,4 +12,6 @@ psql SWIFTDB <<EOF
 \copy work_packages to 'work_packages.csv' csv header;
 \copy deliverables to 'deliverables.csv' csv header;
 \copy users2work_packages to 'users2work_packages.csv' csv header;
+\copy tasks to 'tasks.csv' csv header;
+\copy users2partners to 'users2partners.csv' csv header;
 EOF

@@ -19,7 +19,7 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 
 #Configure postgresql database:
 db = SQLAlchemy(app)
-from models import Partners, Work_Packages, Deliverables, Users, Users2Work_Packages
+from models import Partners, Work_Packages, Deliverables, Users, Users2Work_Packages, Tasks, Users2Partners
 
 #Set any other parameters:
 endMonth = 51 #End month (from project start month)
@@ -157,7 +157,25 @@ class MultiCheckboxField(SelectMultipleField):
 
 class AccessForm(Form):
     username = StringField('Username')
-    work_packages = MultiCheckboxField('Work Package Leader Access:')
+    work_packages = MultiCheckboxField('User can update progress on deliverables belonging to the following work packages:')
+    partners = MultiCheckboxField('User can update progress on tasks belonging to the following responsible partner:')
+
+class Tasks_Form(Form):
+    code = StringField(u'*Task Code',
+        [validators.InputRequired()],
+        render_kw={"placeholder": "e.g. T-R1.1.1"})
+    description = TextAreaField(u'*Description',
+        [validators.InputRequired()],
+        render_kw={"placeholder": "e.g. Development of reporting \
+template for baselining the current provision of forecasts."})
+    responsible_partner = SelectField(u'*Responsible Partner',
+        [validators.NoneOf(('blank'),message='Please select')])
+    month_due = IntegerField(u'Month Due',
+        [validators.NumberRange(min=0,max=endMonth,message="Must be between 0 and "+str(endMonth))])
+    progress = TextAreaField(u'Progress',
+        validators=[validators.Optional()])
+    percent = IntegerField(u'*Percentage Complete',
+        [validators.NumberRange(min=0,max=100,message="Must be between 0 and 100")])
 #########################################
 
 #Index
@@ -169,12 +187,13 @@ def index():
 @app.route('/add/<string:tableClass>', methods=["GET","POST"])
 @is_logged_in_as_admin
 def add(tableClass):
-    if tableClass not in ['Partners', 'Work_Packages', 'Deliverables', 'Users']:
+    if tableClass not in ['Partners', 'Work_Packages', 'Deliverables', 'Users', 'Tasks']:
         abort(404)
     #Get form (and tweak where necessary):
     form = eval(tableClass+"_Form")(request.form)
     if tableClass=='Deliverables':
         form.work_package.choices = table_list('Work_Packages','code')
+    if tableClass=='Deliverables' or tableClass=='Tasks':
         form.responsible_partner.choices = table_list('Partners','name')
     #Set title:
     title="Add to "+tableClass.replace("_"," ")
@@ -199,7 +218,7 @@ def add(tableClass):
 @app.route('/view/<string:tableClass>')
 @is_logged_in_as_admin
 def view(tableClass):
-    if tableClass not in ['Partners', 'Work_Packages', 'Deliverables', 'Users']:
+    if tableClass not in ['Partners', 'Work_Packages', 'Deliverables', 'Users', 'Tasks']:
         abort(404)
     #Retrieve all DB data for given table:
     data = psql_to_pandas(eval(tableClass).query.order_by(eval(tableClass).id))
@@ -228,7 +247,7 @@ def delete(tableClass,id):
 @app.route('/edit/<string:tableClass>/<string:id>', methods=['GET','POST'])
 @is_logged_in_as_admin
 def edit(tableClass,id):
-    if tableClass not in ['Partners', 'Work_Packages', 'Deliverables']:
+    if tableClass not in ['Partners', 'Work_Packages', 'Deliverables', 'Tasks']:
         abort(404)
     #Retrieve DB entry:
     db_row = eval(tableClass).query.filter_by(id=id).first()
@@ -238,6 +257,7 @@ def edit(tableClass,id):
     form = eval(tableClass+"_Form")(request.form)
     if tableClass=='Deliverables':
         form.work_package.choices = table_list('Work_Packages','code')
+    if tableClass=='Deliverables' or tableClass=='Tasks':
         form.responsible_partner.choices = table_list('Partners','name')
     #If user submits edit entry form:
     if request.method == 'POST' and form.validate():
@@ -339,24 +359,37 @@ def wp_edit(id):
 def access(id):
     form = AccessForm(request.form)
     form.work_packages.choices = table_list('Work_Packages','code')[1:]
+    form.partners.choices = table_list('Partners','name')[1:]
     #Retrieve user DB entry:
     user = Users.query.filter_by(id=id).first()
     if user is None:
         abort(404)
-    #Retrieve all relevant entries in users2work_packages:
+    #Retrieve all relevant entries in users2work_packages and users2partners:
     current_work_packages = psql_to_pandas(Users2Work_Packages.query.filter_by(username=user.username))['work_package'].tolist()
+    current_partners = psql_to_pandas(Users2Partners.query.filter_by(username=user.username))['partner'].tolist()
     #If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         new_work_packages = form.work_packages.data
-        #Delete relevant rows from DB:
+        new_partners = form.partners.data
+        #Delete relevant rows from users2work_packages:
         wps_to_delete = list(set(current_work_packages)-set(new_work_packages))
         for wp in wps_to_delete:
             db_row = Users2Work_Packages.query.filter_by(username=user.username,work_package=wp).first()
             psql_delete(db_row,flashMsg=False)
-        #Add relevant rows to DB:
+        #Add relevant rows to users2work_packages:
         wps_to_add = list(set(new_work_packages)-set(current_work_packages))
         for wp in wps_to_add:
             db_row = Users2Work_Packages(username=user.username,work_package=wp)
+            psql_insert(db_row,flashMsg=False)
+        #Delete relevant rows from users2partners:
+        partners_to_delete = list(set(current_partners)-set(new_partners))
+        for partner in partners_to_delete:
+            db_row = Users2Partners.query.filter_by(username=user.username,partner=partner).first()
+            psql_delete(db_row,flashMsg=False)
+        #Add relevant rows to users2work_packages:
+        partners_to_add = list(set(new_partners)-set(current_partners))
+        for partner in partners_to_add:
+            db_row = Users2Partners(username=user.username,partner=partner)
             psql_insert(db_row,flashMsg=False)
         #Return with success
         flash('Edits successful', 'success')
@@ -365,6 +398,7 @@ def access(id):
     form.username.render_kw = {'readonly': 'readonly'}
     form.username.data = user.username
     form.work_packages.data = current_work_packages
+    form.partners.data = current_partners
     return render_template('access.html',form=form,id=id)
 
 #Login

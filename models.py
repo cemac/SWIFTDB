@@ -8,6 +8,8 @@ class Partners(db.Model):
     country = db.Column(db.String())
     role = db.Column(db.String())
     Deliverables_Rel = db.relationship('Deliverables')
+    Tasks_Rel = db.relationship('Tasks')
+    Users2Partners_Rel = db.relationship('Users2Partners')
 
     def __init__(self, name, country, role):
         self.name = name
@@ -64,6 +66,7 @@ class Users(db.Model):
     username = db.Column(db.String(),unique=True)
     password = db.Column(db.String())
     Users2Work_Packages_Rel = db.relationship('Users2Work_Packages')
+    Users2Partners_Rel = db.relationship('Users2Partners')
 
     def __init__(self, username, password):
         self.username = username
@@ -83,6 +86,43 @@ class Users2Work_Packages(db.Model):
     def __init__(self, username, work_package):
         self.username = username
         self.work_package = work_package
+
+    def __repr__(self):
+        return '<id {}>'.format(self.id)
+
+class Tasks(db.Model):
+    __tablename__ = 'tasks'
+
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    code = db.Column(db.String(),nullable=False,unique=True)
+    description = db.Column(db.String(),nullable=False)
+    responsible_partner = db.Column(db.String(),db.ForeignKey('partners.name'),nullable=False)
+    month_due = db.Column(db.Integer,nullable=False)
+    progress = db.Column(db.String())
+    percent = db.Column(db.Integer,nullable=False)
+
+    def __init__(self, code, description, responsible_partner, month_due, progress, percent):
+        self.code = code
+        self.description = description
+        self.responsible_partner = responsible_partner
+        self.month_due = month_due
+        self.progress = progress
+        self.percent = percent
+
+    def __repr__(self):
+        return '<id {}>'.format(self.id)
+
+class Users2Partners(db.Model):
+    __tablename__ = 'users2partners'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(),db.ForeignKey('users.username'),nullable=False)
+    partner = db.Column(db.String(),db.ForeignKey('partners.name'),nullable=False)
+    __table_args__ = (db.UniqueConstraint('username', 'partner', name='_username_partner_uc'),)
+
+    def __init__(self, username, partner):
+        self.username = username
+        self.partner = partner
 
     def __repr__(self):
         return '<id {}>'.format(self.id)

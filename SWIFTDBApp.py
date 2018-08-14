@@ -176,6 +176,16 @@ template for baselining the current provision of forecasts."})
         validators=[validators.Optional()])
     percent = IntegerField(u'*Percentage Complete',
         [validators.NumberRange(min=0,max=100,message="Must be between 0 and 100")])
+
+class Your_Tasks_Form(Form):
+    code = StringField(u'Task Code')
+    description = TextAreaField(u'Description')
+    responsible_partner = StringField(u'Responsible Partner')
+    month_due = IntegerField(u'Month Due')
+    progress = TextAreaField(u'Progress',
+        validators=[validators.Optional()])
+    percent = IntegerField(u'*Percentage Complete',
+        [validators.NumberRange(min=0,max=100,message="Must be between 0 and 100")])
 #########################################
 
 #Index
@@ -351,7 +361,7 @@ def wp_edit(id):
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
              exec("field.data = db_row."+field.name)
-    return render_template('wp-edit.html',id=id,form=form)
+    return render_template('alt-edit.html',id=id,form=form,title="Edit Deliverable",editLink="wp-edit")
 
 #Tasks for a given user
 @app.route('/task-list')
@@ -371,6 +381,39 @@ def task_list():
     #Set table column names:
     colnames=[s.replace("_"," ").title() for s in accessible_tasks.columns.values[1:]]
     return render_template('view.html',title=title,colnames=colnames,tableClass='Tasks',editLink="task-edit",data=accessible_tasks)
+
+#Edit task as non-admin
+@app.route('/task-edit/<string:id>', methods=['GET','POST'])
+@is_logged_in
+def task_edit(id):
+    #Retrieve DB entry:
+    db_row = Tasks.query.filter_by(id=id).first()
+    if db_row is None:
+        abort(404)
+    #Check user has access to this task:
+    if not session['username'] == 'admin':
+        partner_name = db_row.responsible_partner
+        user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
+        if partner_name not in user_partners:
+            abort(403)
+    #Get form:
+    form = Your_Tasks_Form(request.form)
+    #If user submits edit entry form:
+    if request.method == 'POST' and form.validate():
+        #Get each form field and update DB:
+        for field in form:
+            exec("db_row."+field.name+" = field.data")
+        db.session.commit()
+        flash('Edits successful', 'success')
+        return redirect(url_for('task_list'))
+    #Pre-populate form fields with existing data:
+    for i,field in enumerate(form):
+        if i<=3: #Grey out immutable fields
+            field.render_kw = {'readonly': 'readonly'}
+        if not request.method == 'POST':
+             exec("field.data = db_row."+field.name)
+    return render_template('alt-edit.html',id=id,form=form,title="Edit Task",editLink="task-edit")
+
 
 #Access settings for a given user
 @app.route('/access/<string:id>', methods=['GET','POST'])

@@ -20,15 +20,15 @@
           {% if tableClass == 'Users' %}
             <a href=/access/{{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
           {% else %}
-            {% if admin %}
+            {% if editLink == "edit" %}
               <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
             {% else %}
-              <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
+              <a href=/{{editLink}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
             {% endif %}
           {% endif %}
         </td>
         <td>
-          {% if admin %}
+          {% if editLink == "edit" %}
             <form action=/delete/{{tableClass}}/{{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
               <input type="hidden" name="_method" value="DELETE">
               <input type="submit" value="Delete" class="btn btn-danger">
@@ -38,7 +38,7 @@
       </tr>
     {% endfor %}
   </table>
-  {% if admin %}
+  {% if editLink == "edit" %}
     <a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>
   {% endif %}
   <hr>

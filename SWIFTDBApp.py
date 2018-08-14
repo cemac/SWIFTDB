@@ -229,7 +229,7 @@ def view(tableClass):
     title = "View "+tableClass.replace("_"," ")
     #Set table column names:
     colnames=[s.replace("_"," ").title() for s in data.columns.values[1:]]
-    return render_template('view.html',title=title,colnames=colnames,tableClass=tableClass,admin=True,data=data)
+    return render_template('view.html',title=title,colnames=colnames,tableClass=tableClass,editLink="edit",data=data)
 
 #Delete entry
 @app.route('/delete/<string:tableClass>/<string:id>', methods=['POST'])
@@ -316,7 +316,7 @@ def wp_summary(id):
     title = "Deliverables for Work Package "+db_row.code+" ("+db_row.name+")"
     #Set table column names:
     colnames=[s.replace("_"," ").title() for s in data.columns.values[1:]]
-    return render_template('view.html',title=title,colnames=colnames,tableClass='Deliverables',admin=False,data=data)
+    return render_template('view.html',title=title,colnames=colnames,tableClass='Deliverables',editLink="wp-edit",data=data)
 
 #Edit deliverable as WP leader
 @app.route('/wp-edit/<string:id>', methods=['GET','POST'])
@@ -352,6 +352,25 @@ def wp_edit(id):
         if not request.method == 'POST':
              exec("field.data = db_row."+field.name)
     return render_template('wp-edit.html',id=id,form=form)
+
+#Tasks for a given user
+@app.route('/task-list')
+@is_logged_in
+def task_list():
+    #Retrieve all tasks:
+    all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
+    #Select only the accessible tasks for this user:
+    if session['username'] == 'admin':
+        accessible_tasks = all_tasks
+    else:
+        user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
+        accessible_tasks = all_tasks[all_tasks.responsible_partner.isin(user_partners)]
+    accessible_tasks.fillna(value="", inplace=True)
+    #Set title:
+    title = "Your Tasks"
+    #Set table column names:
+    colnames=[s.replace("_"," ").title() for s in accessible_tasks.columns.values[1:]]
+    return render_template('view.html',title=title,colnames=colnames,tableClass='Tasks',editLink="task-edit",data=accessible_tasks)
 
 #Access settings for a given user
 @app.route('/access/<string:id>', methods=['GET','POST'])

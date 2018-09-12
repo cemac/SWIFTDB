@@ -12,3 +12,22 @@ Repository for the AfricanSWIFT Project Management Tool
    'Run' on each of the items in the Saved Imports list in turn.
    You may have to alter the paths to your csv files.
 5. Save the database file, which should now include populated tables
+
+## Requirements ##
+
+* pip3
+* pipenv
+* autoenv
+* python3
+* python-libs
+* Flaskr
+* postgresql-10.4
+
+## Usage ##
+
+must run
+```bash
+createdb SWIFTDB
+```
+before cding into directory first time else you will receive a missing database
+error

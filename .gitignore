@@ -2,3 +2,8 @@
 .env
 *.csv
 SWIFTDB.accdb
+new_excel_files
+venv
+.progress
+.old_tab_files
+*~

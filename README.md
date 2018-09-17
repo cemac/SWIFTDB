@@ -30,8 +30,9 @@ Repository for the AfricanSWIFT Project Management Tool
 ## Usage ##
 
 ** fist use **
-* initdb -D ~/postgresql_data/
-* postgres -D ~/postgresql_data/ &
+* `pipenv shell`
+* `initdb -D ~/postgresql_data/`
+* `postgres -D ~/postgresql_data/ &`
 * assign:
 ```bash
   export  APP_SETTINGS='config.DevelopmentConfig'
@@ -47,5 +48,17 @@ createdb DBname
 ```bash
 python populatePSQL.py
 python manage.py db upgrade
+```
+* run on localhost `python manage.py runserver`
+
+** thereafter **
+* `pipenv shell`
+* `postgres -D ~/postgresql_data/ &`
+* assign:
+```bash
+  export  APP_SETTINGS='config.DevelopmentConfig'
+  export SECRET_KEY='key'
+  export ADMIN_PWD='psswd'
+  export DATABASE_URL="postgresql://localhost/DBname"
 ```
 * run on localhost `python manage.py runserver`

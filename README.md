@@ -23,11 +23,29 @@ Repository for the AfricanSWIFT Project Management Tool
 * Flaskr
 * postgresql-10.4
 
+# Installation
+
+* `pipenv install --three`
+
 ## Usage ##
 
-must run
+** fist use **
+* initdb -D ~/postgresql_data/
+* postgres -D ~/postgresql_data/ &
+* assign:
 ```bash
-createdb SWIFTDB
+  export  APP_SETTINGS='config.DevelopmentConfig'
+  export SECRET_KEY='key'
+  export ADMIN_PWD='psswd'
+  export DATABASE_URL="postgresql://localhost/DBname"
 ```
-before cding into directory first time else you will receive a missing database
-error
+* create database
+```bash
+createdb DBname
+```
+* populate with
+```bash
+python populatePSQL.py
+python manage.py db upgrade
+```
+* run on localhost `python manage.py runserver`

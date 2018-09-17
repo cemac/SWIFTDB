@@ -530,6 +530,13 @@ def change_pwd():
             flash('Current password incorrect', 'danger')
             return redirect(url_for('change_pwd'))
     return render_template('change-pwd.html',form=form)
+# ssl
+@app.route('/.well-known/acme-challenge/0pQ9Y9nneRwz6xitl6qTxzdBRC38pHJYgw-ey0JMJgI
+')
+def letsencrypt_check():
+    return Response('0pQ9Y9nneRwz6xitl6qTxzdBRC38pHJYgw-ey0JMJgI.eo3R_jzJhz37owhBTH73qvPeAHxNjuWt8W-FQJOCpeg',
+ mimetype='text/plain')
+
 
 if __name__ == '__main__':
     app.run()

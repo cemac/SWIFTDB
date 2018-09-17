@@ -534,8 +534,8 @@ def change_pwd():
 @app.route('/.well-known/acme-challenge/0pQ9Y9nneRwz6xitl6qTxzdBRC38pHJYgw-ey0JMJgI
 ')
 def letsencrypt_check():
-    return Response('0pQ9Y9nneRwz6xitl6qTxzdBRC38pHJYgw-ey0JMJgI.eo3R_jzJhz37owhBTH73qvPeAHxNjuWt8W-FQJOCpeg',
- mimetype='text/plain')
+    return '0pQ9Y9nneRwz6xitl6qTxzdBRC38pHJYgw-ey0JMJgI.eo3R_jzJhz37owhBTH73qvPeAHxNjuWt8W-FQJOCpeg'
+
 
 
 if __name__ == '__main__':

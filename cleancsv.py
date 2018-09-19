@@ -37,10 +37,13 @@ Percent = df['Update August 2018'].str[0:4].str.extract('(\d+)')
 # However Lorraine has used completed instead of 100%
 Percent[df['Update August 2018'].str.contains('completed',flags=re.IGNORECASE,
                                                 regex=True)]= 100
+# She also has used phrase 'Final version recieved'
+Percent[df['Update August 2018'].str.contains('Final version received',flags=re.IGNORECASE,
+                                                regex=True)]= 100
 # Add in Percent
 df['Percent']= Percent
 # Rest are unknown so fill with zeros
 df = df.fillna(0)
-df['Percent'] = df['Percent'].astype(int) 
+df['Percent'] = df['Percent'].astype(int)
 # Save and overwrite removing index and header
 df.to_csv(file_name, sep='\t', index=False, header=False)

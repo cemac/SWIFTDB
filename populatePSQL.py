@@ -15,6 +15,7 @@ from SWIFTDBApp import db
 from SWIFTDBApp import Partners, Work_Packages, Deliverables, Users, Users2Work_Packages, Tasks, Users2Partners
 import csv
 
+
 def yes_or_no(question):
     reply = str(input(question+' (y/n): ')).lower().strip()
     if reply[0] == 'y':
@@ -43,17 +44,17 @@ if(ans):
     Work_Packages.query.delete()
     db.session.commit()
 
-    #Copy new data (in normal order):
+    # Copy new data (in normal order):
     print("Copying new data")
-    list = [['partners.tab',Partners],
-            ['work_packages.tab',Work_Packages],
-            ['deliverables.tab',Deliverables],
-            ['tasks.tab',Tasks]]
+    list = [['partners.tab', Partners],
+            ['work_packages.tab', Work_Packages],
+            ['deliverables.tab', Deliverables],
+            ['tasks.tab', Tasks]]
     for l in list:
         with open(l[0], 'r') as f:
             reader = csv.reader(f, delimiter='\t')
             for row in reader:
-                db_row=l[1](*row)
+                db_row = l[1](*row)
                 db.session.add(db_row)
                 db.session.commit()
 

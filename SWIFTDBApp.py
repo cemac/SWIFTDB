@@ -169,8 +169,8 @@ class MultiCheckboxField(SelectMultipleField):
 
 class AccessForm(Form):
     username = StringField('Username')
-    work_packages = MultiCheckboxField('This user is work package leader of (and can therefore update progress on deliverables belonging to the following:):')
-    partners = MultiCheckboxField('This user is partner leader of (and can therefore update progress on tasks for which they are the responsible parner):')
+    work_packages = MultiCheckboxField('This user is work package leader of and can therefore update progress on deliverables belonging to the following:')
+    partners = MultiCheckboxField('This user is partner leader of and can therefore update progress on tasks for which they are the responsible partner:')
 
 class Tasks_Form(Form):
     code = StringField(u'*Task Code',

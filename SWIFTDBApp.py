@@ -1,7 +1,5 @@
-from flask import (Flask, render_template, flash, redirect, url_for, request,
-                   g, session, abort)
-from wtforms import (Form, validators, StringField, SelectField, TextAreaField,
-                     IntegerField, PasswordField, SelectMultipleField, widgets)
+from flask import Flask, render_template, flash, redirect, url_for, request, g, session, abort
+from wtforms import Form, validators, StringField, SelectField, TextAreaField, IntegerField, PasswordField, SelectMultipleField, widgets
 import datetime as dt
 import os
 import pandas as pd
@@ -9,9 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 from sqlalchemy.exc import IntegrityError
 from passlib.hash import sha256_crypt
-from models import (Partners, Work_Packages, Deliverables, Users,
-                    Users2Work_Packages, Tasks, Users2Partners)
-
+from models import Partners, Work_Packages, Deliverables, Users, Users2Work_Packages, Tasks, Users2Partners
 app = Flask(__name__)
 
 # Set config variables:

@@ -1,9 +1,10 @@
 {% extends 'layout.html' %}
-<head runat="server">
-  <script type="text/javascript" language="javascript"> functionCheckall(Checkbox) { var GridView1 = document.getElementById("
-    <%=GridView1.ClientID %>"); for (i = 1; i < GridView1.rows.length; i++) { GridView1.rows[i].cells[3].getElementsByTagName( "INPUT")[0].checked=C heckbox.checked; } } </script>
-                      </head>
+
 {% block body %}
+  <head runat="server">
+    <script type="text/javascript" language="javascript"> functionCheckall(Checkbox) { var GridView1 = document.getElementById("
+      <%=GridView1.ClientID %>"); for (i = 1; i < GridView1.rows.length; i++) { GridView1.rows[i].cells[3].getElementsByTagName( "INPUT")[0].checked=C heckbox.checked; } } </script>
+                        </head>
   <h1>User Access Settings</h1>
   <hr>
   {% from "includes/_formhelpers.html" import render_field %}

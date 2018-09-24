@@ -1,5 +1,7 @@
-from flask import Flask, render_template, flash, redirect, url_for, request, g, session, abort
-from wtforms import Form, validators, StringField, SelectField, TextAreaField, IntegerField, PasswordField, SelectMultipleField, widgets
+from flask import (Flask, render_template, flash, redirect, url_for, request,
+                   g, session, abort)
+from wtforms import (Form, validators, StringField, SelectField, TextAreaField,
+                     IntegerField, PasswordField, SelectMultipleField, widgets)
 import datetime as dt
 import os
 import pandas as pd
@@ -7,29 +9,31 @@ from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 from sqlalchemy.exc import IntegrityError
 from passlib.hash import sha256_crypt
+from models import (Partners, Work_Packages, Deliverables, Users,
+                    Users2Work_Packages, Tasks, Users2Partners)
 
 app = Flask(__name__)
 
-#Set config variables:
+# Set config variables:
 assert "APP_SETTINGS" in os.environ, "APP_SETTINGS environment variable not set"
 assert "SECRET_KEY" in os.environ, "SECRET_KEY environment variable not set"
 assert "ADMIN_PWD" in os.environ, "ADMIN_PWD environment variable not set"
 assert "DATABASE_URL" in os.environ, "DATABASE_URL environment variable not set"
 app.config.from_object(os.environ['APP_SETTINGS'])
 
-#Configure postgresql database:
+# Configure postgresql database:
 db = SQLAlchemy(app)
-from models import Partners, Work_Packages, Deliverables, Users, Users2Work_Packages, Tasks, Users2Partners
+# Set any other parameters:
+endMonth = 51  # End month (from project start month)
+# ~~~~~~ PSQL FUNCTIONS ~~~~~~~ #
 
-#Set any other parameters:
-endMonth = 51 #End month (from project start month)
 
-########## PSQL FUNCTIONS ##########
 def psql_to_pandas(query):
-    df = pd.read_sql(query.statement,db.session.bind)
+    df = pd.read_sql(query.statement, db.session.bind)
     return df
 
-def psql_insert(row,flashMsg=True):
+
+def psql_insert(row, flashMsg=True):
     try:
         db.session.add(row)
         db.session.commit()
@@ -40,20 +44,23 @@ def psql_insert(row,flashMsg=True):
         flash('Integrity Error: Violation of unique constraint(s)', 'danger')
     return
 
-def psql_delete(row,flashMsg=True):
+
+def psql_delete(row, flashMsg=True):
     try:
         db.session.delete(row)
         db.session.commit()
         if flashMsg:
             flash('Entry deleted', 'success')
-    except:
+    except IntegrityError:
         db.session.rollback()
-        flash('Integrity Error: Cannot delete, other database entries likely reference this one', 'danger')
+        flash('Integrity Error: Cannot delete, other database entries likely' +
+              'reference this one', 'danger')
     return
 ####################################
+# ######### LOGGED-IN FUNCTIONS ##########
+# Check if user is logged in
 
-########## LOGGED-IN FUNCTIONS ##########
-#Check if user is logged in
+
 def is_logged_in(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -64,11 +71,13 @@ def is_logged_in(f):
             return redirect(url_for('index'))
     return wrap
 
-#Check if user is logged in as admin
+# Check if user is logged in as admin
+
+
 def is_logged_in_as_admin(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if 'logged_in' in session and session['username']=='admin':
+        if 'logged_in' in session and session['username'] == 'admin':
             return f(*args, **kwargs)
         else:
             flash('Unauthorised, please login as admin', 'danger')
@@ -76,32 +85,38 @@ def is_logged_in_as_admin(f):
     return wrap
 #########################################
 
-########## MISC FUNCTIONS ##########
+# ######### MISC FUNCTIONS ##########
+
+
 def table_list(tableClass,col):
     DF = psql_to_pandas(eval(tableClass).query.order_by(eval(tableClass).id))
-    list = [('blank','--Please select--')]
+    list = [('blank', '--Please select--')]
     for element in DF[col]:
-        list.append((element,element))
+        list.append((element, element))
     return list
 #########################################
 
-########## FORM CLASSES ##########
+# ######### FORM CLASSES ##########
+
+
 class Partners_Form(Form):
     name = StringField(u'*Partner Name',
-        [validators.InputRequired()],
-        render_kw={"placeholder": "e.g. Leeds"})
+                       [validators.InputRequired()],
+                       render_kw={"placeholder": "e.g. Leeds"})
     country = StringField(u'Country',
-        render_kw={"placeholder": "e.g. UK"})
-    role = StringField(u'Role',
-        render_kw={"placeholder": "e.g. 'Academic' or 'Operational'"})
+                          render_kw={"placeholder": "e.g. UK"})
+    role = StringField(u'Role', render_kw={"placeholder":
+                                           "e.g. 'Academic' or 'Operational'"})
+
 
 class Work_Packages_Form(Form):
     code = StringField(u'*Work Package Code',
-        [validators.InputRequired()],
-        render_kw={"placeholder": "e.g. WP-C1"})
+                       [validators.InputRequired()],
+                       render_kw={"placeholder": "e.g. WP-C1"})
     name = StringField(u'*Name',
-        [validators.InputRequired()],
-        render_kw={"placeholder": "e.g. Training"})
+                       [validators.InputRequired()],
+                       render_kw={"placeholder": "e.g. Training"})
+
 
 class Deliverables_Form(Form):
     code = StringField(u'*Deliverable Code',
@@ -157,8 +172,8 @@ class MultiCheckboxField(SelectMultipleField):
 
 class AccessForm(Form):
     username = StringField('Username')
-    work_packages = MultiCheckboxField('This user is work package leader of (and can therefore update progress on deliverables belonging to...):')
-    partners = MultiCheckboxField('This user is partner leader of (and can therefore update progress on tasks for which the responsible parner is...):')
+    work_packages = MultiCheckboxField('This user is work package leader of (and can therefore update progress on deliverables belonging to the following:):')
+    partners = MultiCheckboxField('This user is partner leader of (and can therefore update progress on tasks for which they are the responsible parner):')
 
 class Tasks_Form(Form):
     code = StringField(u'*Task Code',

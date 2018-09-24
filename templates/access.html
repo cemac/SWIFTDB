@@ -19,6 +19,7 @@
        }
      }
   }
+  </SCRIPT>
   <h1>User Access Settings</h1>
   <hr>
   {% from "includes/_formhelpers.html" import render_field %}
@@ -35,7 +36,6 @@
         <td>{{ subfield.label }}</td>
         <br>
       {% endfor %}
-      <th><INPUT type="checkbox" onchange="checkAll(this)" name="chk[]" /> </th>
     </div>
     <br>
     <div class="form-group">
@@ -46,6 +46,9 @@
         <td>{{ subfield.label }}</td>
         <br>
       {% endfor %}
+    <br>
+    <th><INPUT type="checkbox" onchange="checkAll(this)" name="chk[]" id="select all" /> </th>
+    <td><label for="select all">Select/Deselect All</label></td>
     </div>
     <button type="submit" class="btn btn-primary">Update</button>
   </form>

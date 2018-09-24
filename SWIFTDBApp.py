@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 from sqlalchemy.exc import IntegrityError
 from passlib.hash import sha256_crypt
-from models import Partners, Work_Packages, Deliverables, Users, Users2Work_Packages, Tasks, Users2Partners
+
 app = Flask(__name__)
 
 # Set config variables:
@@ -19,6 +19,7 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 
 # Configure postgresql database:
 db = SQLAlchemy(app)
+from models import Partners, Work_Packages, Deliverables, Users, Users2Work_Packages, Tasks, Users2Partners
 # Set any other parameters:
 endMonth = 51  # End month (from project start month)
 # ~~~~~~ PSQL FUNCTIONS ~~~~~~~ #

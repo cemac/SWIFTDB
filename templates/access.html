@@ -1,10 +1,24 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <head runat="server">
-    <script type="text/javascript" language="javascript"> functionCheckall(Checkbox) { var GridView1 = document.getElementById("
-      <%=GridView1.ClientID %>"); for (i = 1; i < GridView1.rows.length; i++) { GridView1.rows[i].cells[3].getElementsByTagName( "INPUT")[0].checked=C heckbox.checked; } } </script>
-                        </head>
+  <SCRIPT language="javascript">
+  function checkAll(ele) {
+   var checkboxes = document.getElementsByTagName('input');
+   if (ele.checked) {
+       for (var i = 0; i < checkboxes.length; i++) {
+           if (checkboxes[i].type == 'checkbox') {
+               checkboxes[i].checked = true;
+           }
+       }
+   } else {
+       for (var i = 0; i < checkboxes.length; i++) {
+           console.log(i)
+           if (checkboxes[i].type == 'checkbox') {
+               checkboxes[i].checked = false;
+           }
+       }
+     }
+  }
   <h1>User Access Settings</h1>
   <hr>
   {% from "includes/_formhelpers.html" import render_field %}
@@ -21,6 +35,7 @@
         <td>{{ subfield.label }}</td>
         <br>
       {% endfor %}
+      <th><INPUT type="checkbox" onchange="checkAll(this)" name="chk[]" /> </th>
     </div>
     <br>
     <div class="form-group">

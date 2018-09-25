@@ -3,6 +3,7 @@
 {% block body %}
   <h1>{{title}}</h1>
   <hr>
+  <div style="overflow-y:auto;">
   <table class="table table-striped">
     <tr>
       {% for col in colnames %}
@@ -38,6 +39,8 @@
       </tr>
     {% endfor %}
   </table>
+</div>
+
   {% if editLink == "edit" %}
     <a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>
   {% endif %}

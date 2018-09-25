@@ -12,7 +12,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if session.username == "admin" %}
-          <li class="dropdown">
+          <div class="dropdown">
+            <div class="dropdown-content">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View tables<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="/view/Partners">View Partners</a></li>
@@ -21,10 +22,12 @@
               <li><a href="/view/Tasks">View Tasks</a></li>
               <li><a href="/view/Users">View Users</a></li>
             </ul>
-          </li>
+          </div>
+        </div>
         {% endif %}
         {% if session.logged_in %}
-          <li class="dropdown">
+          <div class="dropdown">
+            <div class="dropdown-content">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li class="dropdown-header">Logged in as <b>{{session.username}}</b></li>
@@ -33,7 +36,8 @@
               {% endif %}
               <li><a href=/logout>Logout</a></li>
             </ul>
-          </li>
+            </div>
+          </div>
         {% else %}
           <li><a href="/login">Login</a></li>
         {% endif %}

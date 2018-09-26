@@ -5,6 +5,7 @@
   <hr>
   <div style="overflow-y:auto;">
   <table class="table table-striped">
+    <thead>
     <tr>
       {% for col in colnames %}
         <th>{{col}}</th>
@@ -12,6 +13,8 @@
       <th></th>
       <th></th>
     </tr>
+  </head>
+  <tbody>
     {% for index, row in data.iterrows() %}
       <tr>
         {% for i in range(1,row|length) %}
@@ -38,6 +41,7 @@
         </td>
       </tr>
     {% endfor %}
+  </tbody>
   </table>
 </div>
 

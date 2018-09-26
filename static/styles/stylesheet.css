@@ -106,9 +106,9 @@ tr:after {
 }
 
 thead th {
-    height: 35px;
+    height: 60px;
     width: 100%;
-
+    vertical-align: top;
     /*text-align: left;*/
 }
 

@@ -78,7 +78,7 @@ heroku run -a swift-pm python populatePSQL.py
 ```
 <hr>
 
-# To create copy of databse in MS Access:
+# To create copy of database in MS Access:
 
 1. Run script dumpPSQL.sh ($ bash dumpPSQL.sh) to dump data from
    the postgresql database tables into csv files
@@ -90,3 +90,35 @@ heroku run -a swift-pm python populatePSQL.py
    'Run' on each of the items in the Saved Imports list in turn.
    You may have to alter the paths to your csv files.
 5. Save the database file, which should now include populated tables
+
+<hr>
+
+# Web Page #
+
+Information on the web page template.
+
+## Flask ##
+
+The web app is built using python flask and thus the html file must adhere to the flask formatting rules. Each page builds on layout.html.
+
+## Styling ##
+The styling for this webpage uses [BOOTSTRAP](https://getbootstrap.com/docs/3.3/)
+
+### Custom features: ####
+To customise the bootstrap css a text css file is loaded in after the bootstrap library static/styles/stylesheet.css
+
+1. Navbar
+  * An additional div container is added to the nav bar in order to allow interaction with a text/css
+  * stylesheet.css then contains an update to navbar-default
+2. Tables
+  * For admin the tables are very long added scrolling with sticky headers
+
+## Scripting ##
+The following javascript libraries are loaded:
+* [jquery](https://api.jquery.com/jquery.ajax/)
+* [bootstrap javascript](https://getbootstrap.com/docs/3.3/javascript/)
+* A script is added to view.html to add in a select all check checkbox
+
+## Static ##
+
+Here the custom style sheets and logos must be changed. If this system is to be used on another site the SWIFTlogo would need to be swapped and the colour coding (hex codes) in style sheet altered.

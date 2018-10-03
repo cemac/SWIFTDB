@@ -16,10 +16,13 @@ database for the project Management of African SWIFT.
 # Installation
 
 * `pipenv install --three`
+
 <hr>
+
 ## Usage ##
 
-** first use **
+**first use**
+
 * `pipenv shell`
 * `initdb -D ~/postgresql_data/`
 * `postgres -D ~/postgresql_data/ &`
@@ -41,7 +44,8 @@ python manage.py db upgrade
 ```
 * run on localhost `python manage.py runserver`
 
-** thereafter **
+**thereafter**
+
 * `pipenv shell`
 * `postgres -D ~/postgresql_data/ &`
 * assign:

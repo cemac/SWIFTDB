@@ -1,6 +1,10 @@
 .navbar-default {
   background-color: #ffd600;
   border-color:  #ffd600;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 .navbar-default .navbar-brand {
   color: #006d03;
@@ -76,7 +80,7 @@
   background-color: #ffd600;
 }
 
-@media (max-width: 767px) {
+@media screen and (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #006d03;
   }

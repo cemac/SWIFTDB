@@ -1,3 +1,4 @@
+/* Nav Bar Themeing */
 .navbar-default {
   background-color: #ffd600;
   border-color:  #ffd600;
@@ -80,7 +81,12 @@
   background-color: #ffd600;
 }
 
-@media screen and (max-width: 767px) {
+/* Nav Bar Dropdowns in mobiles */
+.navbar-collapse.in {
+    height: auto !important;
+}
+
+@media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
     color: #006d03;
   }
@@ -95,7 +101,7 @@
     background-color: #006d03;
   }
 }
-
+/* Table Scrolling */
 table {
         width: 100%;
     }
@@ -117,9 +123,8 @@ thead th {
 }
 
 tbody {
-    height: 70%;
+    height: 600px;
     overflow-y: auto;
-    overflow-x: auto;
 }
 
 thead {

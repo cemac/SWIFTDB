@@ -10,6 +10,7 @@
           <li><a href="/task-list">Your Tasks</a></li>
         {% endif %}
       </ul>
+      <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
         {% if session.username == "admin" %}
           <li class="dropdown">
@@ -38,6 +39,7 @@
           <li><a href="/login">Login</a></li>
         {% endif %}
       </ul>
+      </div>
     </div>
   </div>
 </nav>

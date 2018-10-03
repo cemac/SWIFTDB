@@ -18,7 +18,7 @@ import re
 
 file_name = 'tasks.tab'
 # Read in tab deliminated file
-deliverables = pd.read_csv(file_name,sep='\t')
+deliverables = pd.read_csv(file_name, sep='\t')
 # Merges cells give NaNs so drop them
 df = deliverables.dropna()
 # In the format Jan 2018 Month XX
@@ -35,13 +35,13 @@ this will be changed to expand=True (return DataFrame)
 # Extract Percentage
 Percent = df['Update August 2018'].str[0:4].str.extract('(\d+)')
 # However Lorraine has used completed instead of 100%
-Percent[df['Update August 2018'].str.contains('completed',flags=re.IGNORECASE,
-                                                regex=True)]= 100
+Percent[df['Update August 2018'].str.contains('completed', flags=re.IGNORECASE,
+                                              regex=True)]= 100
 # She also has used phrase 'Final version recieved'
-Percent[df['Update August 2018'].str.contains('Final version received',flags=re.IGNORECASE,
-                                                regex=True)]= 100
+Percent[df['Update August 2018'].str.contains('Final version received', flags=re.IGNORECASE,
+                                              regex=True)]= 100
 # Add in Percent
-df['Percent']= Percent
+df['Percent'] = Percent
 # Rest are unknown so fill with zeros
 df = df.fillna(0)
 df['Percent'] = df['Percent'].astype(int)

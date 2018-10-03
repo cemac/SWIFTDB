@@ -1,3 +1,4 @@
+/* Navbar themeing */
 .navbar-default {
   background-color: #ffd600;
   border-color:  #ffd600;
@@ -92,6 +93,7 @@
   }
 }
 
+/* Table Scrolling */
 table {
         width: 100%;
     }
@@ -113,7 +115,7 @@ thead th {
 }
 
 tbody {
-    height: 600px;
+    height: 800px;
     overflow-y: auto;
 }
 

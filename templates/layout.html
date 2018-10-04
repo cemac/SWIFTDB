@@ -8,6 +8,16 @@
     <link rel= "stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stylesheetv1.css')}}">
       {% block styles %}{% endblock %}
   </head>
+  <!-- Force HTTPS -->
+  <script language="JavaScript">
+  function redirectHttpToHttps()
+  {
+    var httpURL= window.location.hostname + window.location.pathname + window.location.search;
+    var httpsURL= "https://" + httpURL;
+    window.location = httpsURL;
+  }
+  redirectHttpToHttps();
+  </script>
   <body>
     {% include 'includes/_header.html' %}
     {% include 'includes/_navbar.html' %}

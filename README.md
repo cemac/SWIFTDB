@@ -82,7 +82,21 @@ heroku run -a swift-pm python populatePSQL.py
 ```
 <hr>
 
-# To create copy of database in MS Access:
+# Back ups #
+
+For the SWIFT-pm app backups are scheduled daily at 00:00 (GMT) via
+```bash
+heroku pg:backups:schedule --at '00:00 Europe/London' --app <app name>
+```
+These are retained for 7 days with one weekly backup stored for one week.
+
+To obtain a local copy to merge or manipulate or put to MS Access:
+```bash
+createdb myapp_devel  # start with an empty database
+heroku run 'pg_dump -xO $DATABASE_URL' --app <app name> | psql myapp_devel
+```
+
+## To create copy of database in MS Access: ##
 
 1. Run script dumpPSQL.sh ($ bash dumpPSQL.sh) to dump data from
    the postgresql database tables into csv files
@@ -122,6 +136,7 @@ The following javascript libraries are loaded:
 * [jquery](https://api.jquery.com/jquery.ajax/)
 * [bootstrap javascript](https://getbootstrap.com/docs/3.3/javascript/)
 * A script is added to view.html to add in a select all check checkbox
+* A script has been added to redirect to https
 
 ## Static ##
 

@@ -8,3 +8,4 @@ venv
 .old_tab_files
 *~
 swiftprogess
+backups/

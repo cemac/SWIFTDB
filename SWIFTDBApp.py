@@ -1,5 +1,13 @@
-from flask import Flask, render_template, flash, redirect, url_for, request, g, session, abort
-from wtforms import Form, validators, StringField, SelectField, TextAreaField, IntegerField, PasswordField, SelectMultipleField, widgets
+'''
+SWIFTDBApp.py:
+
+Building swift-pm web app using python flask and sql
+'''
+
+from flask import Flask, render_template, flash, redirect, url_for, request
+from flask import g, session, abort
+from wtforms import Form, validators, StringField, SelectField, TextAreaField
+from wtforms import IntegerField, PasswordField, SelectMultipleField, widgets
 import datetime as dt
 import os
 import pandas as pd
@@ -7,6 +15,7 @@ from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 from sqlalchemy.exc import IntegrityError
 from passlib.hash import sha256_crypt
+
 
 app = Flask(__name__)
 
@@ -19,7 +28,8 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 
 # Configure postgresql database:
 db = SQLAlchemy(app)
-from models import Partners, Work_Packages, Deliverables, Users, Users2Work_Packages, Tasks, Users2Partners
+from models import Partners, Work_Packages, Deliverables, Users
+from models import Users2Work_Packages, Tasks, Users2Partners
 # Set any other parameters:
 endMonth = 51  # End month (from project start month)
 # ~~~~~~ PSQL FUNCTIONS ~~~~~~~ #
@@ -85,7 +95,7 @@ def is_logged_in_as_admin(f):
 # ######### MISC FUNCTIONS ##########
 
 
-def table_list(tableClass,col):
+def table_list(tableClass, col):
     DF = psql_to_pandas(eval(tableClass).query.order_by(eval(tableClass).id))
     list = [('blank', '--Please select--')]
     for element in DF[col]:
@@ -117,23 +127,27 @@ class Work_Packages_Form(Form):
 
 class Deliverables_Form(Form):
     code = StringField(u'*Deliverable Code',
-        [validators.InputRequired()],
-        render_kw={"placeholder": "e.g. D-R1.1"})
+                       [validators.InputRequired()],
+                       render_kw={"placeholder": "e.g. D-R1.1"})
     work_package = SelectField(u'*Work Package',
-        [validators.NoneOf(('blank'),message='Please select')])
+                               [validators.NoneOf(('blank'),
+                                message='Please select')])
     description = TextAreaField(u'*Description',
-        [validators.InputRequired()],
-        render_kw={"placeholder": "e.g. Report on current state \
-of knowledge regarding user needs for forecasts at \
-different timescales in each sector."})
+                                [validators.InputRequired()],
+                                render_kw={"placeholder": "e.g. Report on current state \
+                                of knowledge regarding user needs for forecasts at \
+                                different timescales in each sector."})
     responsible_partner = SelectField(u'*Responsible Partner',
-        [validators.NoneOf(('blank'),message='Please select')])
+                        [validators.NoneOf(('blank'),message='Please select')])
     month_due = IntegerField(u'Month Due',
-        [validators.NumberRange(min=0,max=endMonth,message="Must be between 0 and "+str(endMonth))])
+                             [validators.NumberRange(min=0, max=endMonth,
+                              message="Must be between 0 and "+str(endMonth))])
     progress = TextAreaField(u'Progress',
-        validators=[validators.Optional()])
+                             validators=[validators.Optional()])
     percent = IntegerField(u'*Percentage Complete',
-        [validators.NumberRange(min=0,max=100,message="Must be between 0 and 100")])
+                           [validators.NumberRange(min=0, max=100,
+                            message="Must be between 0 and 100")])
+
 
 class WP_Deliverables_Form(Form):
     code = StringField(u'Deliverable Code')
@@ -142,16 +156,18 @@ class WP_Deliverables_Form(Form):
     responsible_partner = StringField(u'Responsible Partner')
     month_due = IntegerField(u'Month Due')
     progress = TextAreaField(u'Progress',
-        validators=[validators.Optional()])
+                             validators=[validators.Optional()])
     percent = IntegerField(u'*Percentage Complete',
-        [validators.NumberRange(min=0,max=100,message="Must be between 0 and 100")])
+        [validators.NumberRange(min=0, max=100, message="Must be between 0 and 100")])
+
 
 class Users_Form(Form):
-    username = StringField('Username',[validators.Length(min=4, max=25)])
+    username = StringField('Username', [validators.Length(min=4, max=25)])
     password = PasswordField('Password',
-        [validators.Regexp('^([a-zA-Z0-9]{8,})$',
+                             [validators.Regexp('^([a-zA-Z0-9]{8,})$',
         message='Password must be mimimum 8 characters and contain only uppercase letters, \
         lowercase letters and numbers')])
+
 
 class ChangePwdForm(Form):
     current = PasswordField('Current password',
@@ -163,14 +179,17 @@ class ChangePwdForm(Form):
     confirm = PasswordField('Confirm new password',
         [validators.EqualTo('new', message='Passwords do no match')])
 
+
 class MultiCheckboxField(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)
     option_widget = widgets.CheckboxInput()
+
 
 class AccessForm(Form):
     username = StringField('Username')
     work_packages = MultiCheckboxField('This user is work package leader of and can therefore update progress on deliverables belonging to the following:')
     partners = MultiCheckboxField('This user is partner leader of and can therefore update progress on tasks for which they are the responsible partner:')
+
 
 class Tasks_Form(Form):
     code = StringField(u'*Task Code',
@@ -188,6 +207,7 @@ template for baselining the current provision of forecasts."})
         validators=[validators.Optional()])
     percent = IntegerField(u'*Percentage Complete',
         [validators.NumberRange(min=0,max=100,message="Must be between 0 and 100")])
+
 
 class Your_Tasks_Form(Form):
     code = StringField(u'Task Code')
@@ -236,7 +256,7 @@ def add(tableClass):
         return redirect(url_for('add',tableClass=tableClass))
     return render_template('add.html',title=title,tableClass=tableClass,form=form)
 
-#View table
+# View table
 @app.route('/view/<string:tableClass>')
 @is_logged_in_as_admin
 def view(tableClass):
@@ -253,7 +273,7 @@ def view(tableClass):
     colnames=[s.replace("_"," ").title() for s in data.columns.values[1:]]
     return render_template('view.html',title=title,colnames=colnames,tableClass=tableClass,editLink="edit",data=data)
 
-#Delete entry
+# Delete entry
 @app.route('/delete/<string:tableClass>/<string:id>', methods=['POST'])
 @is_logged_in_as_admin
 def delete(tableClass,id):
@@ -265,7 +285,7 @@ def delete(tableClass,id):
     psql_delete(db_row)
     return redirect(url_for('view',tableClass=tableClass))
 
-#Edit entry
+# Edit entry
 @app.route('/edit/<string:tableClass>/<string:id>', methods=['GET','POST'])
 @is_logged_in_as_admin
 def edit(tableClass,id):
@@ -302,7 +322,7 @@ def edit(tableClass,id):
             exec("field.data = db_row."+field.name)
     return render_template('edit.html',title=title,tableClass=tableClass,id=id,form=form)
 
-#WP list for WP leaders
+# WP list for WP leaders
 @app.route('/wp-list')
 @is_logged_in
 def wp_list():
@@ -314,68 +334,73 @@ def wp_list():
     else:
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
         accessible_wps = all_wps[all_wps.code.isin(user_wps)]
-    return render_template('wp-list.html',data=accessible_wps)
+    return render_template('wp-list.html', data=accessible_wps)
 
-#WP deliverables summary for WP leaders
+# WP deliverables summary for WP leaders
 @app.route('/wp-summary/<string:id>')
 @is_logged_in
 def wp_summary(id):
-    #Retrieve DB entry:
+    # Retrieve DB entry:
     db_row = Work_Packages.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
-    #Check user has access to this wp:
+    # Check user has access to this wp:
     if not session['username'] == 'admin':
         wp_code = db_row.code
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
         if wp_code not in user_wps:
             abort(403)
-    #Retrieve all deliverables belonging to this work package:
+    # Retrieve all deliverables belonging to this work package:
     data = psql_to_pandas(Deliverables.query.filter_by(work_package=db_row.code).order_by(Deliverables.id))
     del data['work_package']
     data.fillna(value="", inplace=True)
-    #Set title:
+    # Set title:
     title = "Deliverables for Work Package "+db_row.code+" ("+db_row.name+")"
-    #Set table column names:
-    colnames=[s.replace("_"," ").title() for s in data.columns.values[1:]]
-    return render_template('view.html',title=title,colnames=colnames,tableClass='Deliverables',editLink="wp-edit",data=data)
+    # Set table column names:
+    colnames = [s.replace("_", " ").title() for s in data.columns.values[1:]]
+    return render_template('view.html', title=title, colnames=colnames,
+                           tableClass='Deliverables', editLink="wp-edit",
+                           data=data)
 
-#Edit deliverable as WP leader
+
+# Edit deliverable as WP leader
 @app.route('/wp-edit/<string:id>', methods=['GET','POST'])
 @is_logged_in
 def wp_edit(id):
-    #Retrieve DB entry:
+    # Retrieve DB entry:
     db_row = Deliverables.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
-    #Check user has access to this deliverable:
+    # Check user has access to this deliverable:
     if not session['username'] == 'admin':
         wp_code = db_row.work_package
-        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
+        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username'])
+                                  )['work_package'].tolist()
         if wp_code not in user_wps:
             abort(403)
-    #Get form:
+    # Get form:
     form = WP_Deliverables_Form(request.form)
-    #If user submits edit entry form:
+    # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
-        #Get each form field and update DB:
+        # Get each form field and update DB:
         for field in form:
             exec("db_row."+field.name+" = field.data")
         db.session.commit()
-        #Retrive id of work package this deliverable belongs to:
+        # Retrive id of work package this deliverable belongs to:
         wp_id = Work_Packages.query.filter_by(code=db_row.work_package).first().id
-        #Return with success:
+        # Return with success:
         flash('Edits successful', 'success')
-        return redirect(url_for('wp_summary',id=wp_id))
-    #Pre-populate form fields with existing data:
-    for i,field in enumerate(form):
-        if i<=4: #Grey out immutable fields
+        return redirect(url_for('wp_summary', id=wp_id))
+    # Pre-populate form fields with existing data:
+    for i, field in enumerate(form):
+        if i <= 4:  # Grey out immutable fields
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
-             exec("field.data = db_row."+field.name)
-    return render_template('alt-edit.html',id=id,form=form,title="Edit Deliverable",editLink="wp-edit")
+            exec("field.data = db_row." + field.name)
+    return render_template('alt-edit.html', id=id, form=form,
+                           title="Edit Deliverable", editLink="wp-edit")
 
-#Tasks for a given user
+# Tasks for a given user
 @app.route('/task-list')
 @is_logged_in
 def task_list():
@@ -388,46 +413,71 @@ def task_list():
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
         accessible_tasks = all_tasks[all_tasks.responsible_partner.isin(user_partners)]
     accessible_tasks.fillna(value="", inplace=True)
-    #Set title:
+    # Set title:
     title = "Your Tasks"
-    #Set table column names:
+    # Set table column names:
     colnames=[s.replace("_"," ").title() for s in accessible_tasks.columns.values[1:]]
     return render_template('view.html',title=title,colnames=colnames,tableClass='Tasks',editLink="task-edit",data=accessible_tasks)
 
-#Edit task as non-admin
+# Edit task as non-admin
 @app.route('/task-edit/<string:id>', methods=['GET','POST'])
 @is_logged_in
 def task_edit(id):
-    #Retrieve DB entry:
+    # Retrieve DB entry:
     db_row = Tasks.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
-    #Check user has access to this task:
+    # Check user has access to this task:
     if not session['username'] == 'admin':
         partner_name = db_row.responsible_partner
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
         if partner_name not in user_partners:
             abort(403)
-    #Get form:
+    # Get form:
     form = Your_Tasks_Form(request.form)
-    #If user submits edit entry form:
+    # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
-        #Get each form field and update DB:
+        # Get each form field and update DB:
         for field in form:
             exec("db_row."+field.name+" = field.data")
         db.session.commit()
         flash('Edits successful', 'success')
         return redirect(url_for('task_list'))
-    #Pre-populate form fields with existing data:
-    for i,field in enumerate(form):
-        if i<=3: #Grey out immutable fields
+    # Pre-populate form fields with existing data:
+    for i, field in enumerate(form):
+        if i<=3:  # Grey out immutable fields
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
-             exec("field.data = db_row."+field.name)
+            exec("field.data = db_row."+field.name)
     return render_template('alt-edit.html',id=id,form=form,title="Edit Task",editLink="task-edit")
 
+# Tasks for a given user
+@app.route('/deliverables-list/')
+@is_logged_in
+def deliverables_list():
+    # Retrieve all work packages:
+    all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
+    # Retrieve all tasks:
+    all_tasks = psql_to_pandas(Deliverables.query.order_by(Deliverables.id))
+    # Select only the accessible tasks for this user:
+    if session['username'] == 'admin':
+        accessible_data = all_tasks
+    else:
+        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
+        accessible_wps = all_tasks[all_tasks.work_package.isin(user_wps)]
+        user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
+        accessible_tasks = all_tasks[all_tasks.responsible_partner.isin(user_partners)]
+        accessible_wps.fillna(value="", inplace=True)
+        accessible_data = pd.concat([accessible_tasks, accessible_wps],
+                                    join="inner")
+    accessible_data.fillna(value="", inplace=True)
+    data = accessible_data.drop_duplicates(keep='first', inplace=False)
+    title = "Your Deliverables"
+    # Set table column names:
+    colnames = [s.replace("_", " ").title() for s in accessible_data.columns.values[1:]]
+    return render_template('view.html', title=title, colnames=colnames, tableClass='Deliverables', editLink="deliverables-edit", data=data)
 
-#Access settings for a given user
+# Access settings for a given user
 @app.route('/access/<string:id>', methods=['GET','POST'])
 @is_logged_in_as_admin
 def access(id):
@@ -438,10 +488,10 @@ def access(id):
     user = Users.query.filter_by(id=id).first()
     if user is None:
         abort(404)
-    #Retrieve all relevant entries in users2work_packages and users2partners:
+    # Retrieve all relevant entries in users2work_packages and users2partners:
     current_work_packages = psql_to_pandas(Users2Work_Packages.query.filter_by(username=user.username))['work_package'].tolist()
     current_partners = psql_to_pandas(Users2Partners.query.filter_by(username=user.username))['partner'].tolist()
-    #If user submits edit entry form:
+    # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         new_work_packages = form.work_packages.data
         new_partners = form.partners.data
@@ -468,14 +518,14 @@ def access(id):
         #Return with success
         flash('Edits successful', 'success')
         return redirect(url_for('access',id=id))
-    #Pre-populate form fields with existing data:
+    # Pre-populate form fields with existing data:
     form.username.render_kw = {'readonly': 'readonly'}
     form.username.data = user.username
     form.work_packages.data = current_work_packages
     form.partners.data = current_partners
     return render_template('access.html',form=form,id=id)
 
-#Login
+# Login
 @app.route('/login', methods=["GET","POST"])
 def login():
     #Attempt to log in:

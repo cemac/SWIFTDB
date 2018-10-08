@@ -1,21 +1,20 @@
-"""
-Run locally using:
-$ python populatePSQL.py
-Run on Heroku using:
-$ heroku run python populatePSQL.py
+'''
+This will populate the database with initial data contained within the .tab
+files, thus avoiding the administrator having to input all this data via the
+web forms.
 
-This will populate the database with initial data contained within the .tab files, thus avoiding the
-administrator having to input all this data via the web forms.
-
-***NB***: Running this script will first clear the tables, including any modifications that have been
-made to the data via the web app (e.g. updates to the progress and percent fields).
-"""
+***NB***: Running this script will first clear the tables, including any
+modifications that have been made to the data via the web app
+(e.g. updates to the progress and percent fields).
+'''
 
 from SWIFTDBApp import db
-from SWIFTDBApp import Partners, Work_Packages, Deliverables, Users, Users2Work_Packages, Tasks, Users2Partners
+from SWIFTDBApp import Partners, Work_Packages, Deliverables, Users
+from SWIFTDBApp import Users2Work_Packages, Tasks, Users2Partners
 import csv
 
 
+# Confim potential data deleation
 def yes_or_no(question):
     reply = str(input(question+' (y/n): ')).lower().strip()
     if reply[0] == 'y':
@@ -25,13 +24,16 @@ def yes_or_no(question):
     else:
         return yes_or_no("You did not enter one of 'y' or 'n'. Assumed 'n'.")
 
-ans = yes_or_no("***WARNING***: Running this script will populate the database with initial \
-data contained within the .tab files. IT WILL FIRST CLEAR THE TABLES, including any \
-modifications that have been made to the data via the web app (e.g. updates to the \
-progress and percent fields. Proceed?")
+
+ans = yes_or_no(('***WARNING***: Running this script will populate the \
+database with initial data contained within the .tab \
+files. IT WILL FIRST CLEAR THE TABLES, including any \
+modifications that have been made to the data via the web \
+app (e.g. updates to the progress and percent fields. \
+Proceed?'))
 
 if(ans):
-    #Delete current data (in reverse order of foreign key relationships):
+    # Delete current data (in reverse order of foreign key relationships):
     print("Deleting current data")
     Tasks.query.delete()
     db.session.commit()

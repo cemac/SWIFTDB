@@ -680,5 +680,16 @@ def letsencrypt_check():
     return '0pQ9Y9nneRwz6xitl6qTxzdBRC38pHJYgw-ey0JMJgI.eo3R_jzJhz37owhBTH73qvPeAHxNjuWt8W-FQJOCpeg'
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(403)
+def page_not_found(e):
+    # note that we set the 404 status explicitly
+    return render_template('403.html'), 403
+
 if __name__ == '__main__':
     app.run()

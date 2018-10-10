@@ -138,7 +138,8 @@ class Deliverables_Form(Form):
                                 of knowledge regarding user needs for forecasts at \
                                 different timescales in each sector."})
     responsible_partner = SelectField(u'*Responsible Partner',
-                        [validators.NoneOf(('blank'),message='Please select')])
+                                      [validators.NoneOf(('blank'),
+                                       message='Please select')])
     month_due = IntegerField(u'Month Due',
                              [validators.NumberRange(min=0, max=endMonth,
                               message="Must be between 0 and "+str(endMonth))])
@@ -158,26 +159,40 @@ class WP_Deliverables_Form(Form):
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
     percent = IntegerField(u'*Percentage Complete',
-        [validators.NumberRange(min=0, max=100, message="Must be between 0 and 100")])
+                           [validators.NumberRange(min=0, max=100,
+                            message="Must be between 0 and 100")])
+
+
+class Your_Deliverables_Form(Form):
+    code = StringField(u'Deliverable Code')
+    work_package = StringField(u'Work Package')
+    description = TextAreaField(u'Description')
+    responsible_partner = StringField(u'Responsible Partner')
+    month_due = IntegerField(u'Month Due')
+    progress = TextAreaField(u'Progress',
+                             validators=[validators.Optional()])
+    percent = IntegerField(u'*Percentage Complete',
+                           [validators.NumberRange(min=0, max=100,
+                            message="Must be between 0 and 100")])
 
 
 class Users_Form(Form):
     username = StringField('Username', [validators.Length(min=4, max=25)])
     password = PasswordField('Password',
                              [validators.Regexp('^([a-zA-Z0-9]{8,})$',
-        message='Password must be mimimum 8 characters and contain only uppercase letters, \
+                              message='Password must be mimimum 8 characters and contain only uppercase letters, \
         lowercase letters and numbers')])
 
 
 class ChangePwdForm(Form):
-    current = PasswordField('Current password',
-        [validators.DataRequired()])
+    current = PasswordField('Current password', [validators.DataRequired()])
     new = PasswordField('New password',
-        [validators.Regexp('^([a-zA-Z0-9]{8,})$',
-        message='Password must be mimimum 8 characters and contain only uppercase letters, \
+                        [validators.Regexp('^([a-zA-Z0-9]{8,})$',
+                         message='Password must be mimimum 8 characters and contain only uppercase letters, \
         lowercase letters and numbers')])
     confirm = PasswordField('Confirm new password',
-        [validators.EqualTo('new', message='Passwords do no match')])
+                            [validators.EqualTo('new',
+                             message='Passwords do no match')])
 
 
 class MultiCheckboxField(SelectMultipleField):
@@ -193,20 +208,23 @@ class AccessForm(Form):
 
 class Tasks_Form(Form):
     code = StringField(u'*Task Code',
-        [validators.InputRequired()],
-        render_kw={"placeholder": "e.g. T-R1.1.1"})
+                       [validators.InputRequired()],
+                       render_kw={"placeholder": "e.g. T-R1.1.1"})
     description = TextAreaField(u'*Description',
-        [validators.InputRequired()],
-        render_kw={"placeholder": "e.g. Development of reporting \
+                                [validators.InputRequired()],
+                                render_kw={"placeholder": "e.g. Development of reporting \
 template for baselining the current provision of forecasts."})
     responsible_partner = SelectField(u'*Responsible Partner',
-        [validators.NoneOf(('blank'),message='Please select')])
+                                      [validators.NoneOf(('blank'),
+                                       message='Please select')])
     month_due = IntegerField(u'Month Due',
-        [validators.NumberRange(min=0,max=endMonth,message="Must be between 0 and "+str(endMonth))])
+                             [validators.NumberRange(min=0, max=endMonth,
+                              message="Must be between 0 and "+str(endMonth))])
     progress = TextAreaField(u'Progress',
-        validators=[validators.Optional()])
+                             validators=[validators.Optional()])
     percent = IntegerField(u'*Percentage Complete',
-        [validators.NumberRange(min=0,max=100,message="Must be between 0 and 100")])
+                           [validators.NumberRange(min=0, max=100,
+                            message="Must be between 0 and 100")])
 
 
 class Your_Tasks_Form(Form):
@@ -215,46 +233,50 @@ class Your_Tasks_Form(Form):
     responsible_partner = StringField(u'Responsible Partner')
     month_due = IntegerField(u'Month Due')
     progress = TextAreaField(u'Progress',
-        validators=[validators.Optional()])
+                             validators=[validators.Optional()])
     percent = IntegerField(u'*Percentage Complete',
-        [validators.NumberRange(min=0,max=100,message="Must be between 0 and 100")])
-#########################################
+                           [validators.NumberRange(min=0, max=100,
+                            message="Must be between 0 and 100")])
 
-#Index
+
+# Index
 @app.route('/')
 def index():
     return render_template('home.html')
 
-#Add entry
-@app.route('/add/<string:tableClass>', methods=["GET","POST"])
+
+# Add entry
+@app.route('/add/<string:tableClass>', methods=["GET", "POST"])
 @is_logged_in_as_admin
 def add(tableClass):
     if tableClass not in ['Partners', 'Work_Packages', 'Deliverables', 'Users', 'Tasks']:
         abort(404)
-    #Get form (and tweak where necessary):
+    # Get form (and tweak where necessary):
     form = eval(tableClass+"_Form")(request.form)
-    if tableClass=='Deliverables':
-        form.work_package.choices = table_list('Work_Packages','code')
-    if tableClass=='Deliverables' or tableClass=='Tasks':
-        form.responsible_partner.choices = table_list('Partners','name')
-    #Set title:
-    title="Add to "+tableClass.replace("_"," ")
-    #If user submits add entry form:
+    if tableClass == 'Deliverables':
+        form.work_package.choices = table_list('Work_Packages', 'code')
+    if tableClass == 'Deliverables' or tableClass == 'Tasks':
+        form.responsible_partner.choices = table_list('Partners', 'name')
+    # Set title:
+    title = "Add to "+tableClass.replace("_", " ")
+    # If user submits add entry form:
     if request.method == 'POST' and form.validate():
-        #Get form fields:
-        if tableClass=='Users':
+        # Get form fields:
+        if tableClass == 'Users':
             form.password.data = sha256_crypt.encrypt(str(form.password.data))
-        formdata=[]
+        formdata = []
         db_string = ""
-        for f,field in enumerate(form):
+        for f, field in enumerate(form):
             formdata.append(field.data)
             db_string += str(field.name) + "=formdata["+str(f)+"],"
-        #Add to DB:
+        # Add to DB:
         db_string = tableClass+"("+db_string[:-1]+")"
         db_row = eval(db_string)
         psql_insert(db_row)
-        return redirect(url_for('add',tableClass=tableClass))
-    return render_template('add.html',title=title,tableClass=tableClass,form=form)
+        return redirect(url_for('add', tableClass=tableClass))
+    return render_template('add.html', title=title, tableClass=tableClass,
+                           form=form)
+
 
 # View table
 @app.route('/view/<string:tableClass>')
@@ -262,79 +284,85 @@ def add(tableClass):
 def view(tableClass):
     if tableClass not in ['Partners', 'Work_Packages', 'Deliverables', 'Users', 'Tasks']:
         abort(404)
-    #Retrieve all DB data for given table:
+    # Retrieve all DB data for given table:
     data = psql_to_pandas(eval(tableClass).query.order_by(eval(tableClass).id))
     data.fillna(value="", inplace=True)
-    if tableClass=='Users':
+    if tableClass == 'Users':
         data['password'] = '********'
-    #Set title:
-    title = "View "+tableClass.replace("_"," ")
-    #Set table column names:
-    colnames=[s.replace("_"," ").title() for s in data.columns.values[1:]]
-    return render_template('view.html',title=title,colnames=colnames,tableClass=tableClass,editLink="edit",data=data)
+    # Set title:
+    title = "View "+tableClass.replace("_", " ")
+    # Set table column names:
+    colnames = [s.replace("_", " ").title() for s in data.columns.values[1:]]
+    return render_template('view.html', title=title, colnames=colnames,
+                           tableClass=tableClass, editLink="edit", data=data)
+
 
 # Delete entry
 @app.route('/delete/<string:tableClass>/<string:id>', methods=['POST'])
 @is_logged_in_as_admin
-def delete(tableClass,id):
-    #Retrieve DB entry:
+def delete(tableClass, id):
+    # Retrieve DB entry:
     db_row = eval(tableClass).query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
-    #Delete from DB:
+    # Delete from DB:
     psql_delete(db_row)
-    return redirect(url_for('view',tableClass=tableClass))
+    return redirect(url_for('view', tableClass=tableClass))
+
 
 # Edit entry
-@app.route('/edit/<string:tableClass>/<string:id>', methods=['GET','POST'])
+@app.route('/edit/<string:tableClass>/<string:id>', methods=['GET', 'POST'])
 @is_logged_in_as_admin
-def edit(tableClass,id):
+def edit(tableClass, id):
     if tableClass not in ['Partners', 'Work_Packages', 'Deliverables', 'Tasks']:
         abort(404)
-    #Retrieve DB entry:
+    # Retrieve DB entry:
     db_row = eval(tableClass).query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
-    #Get form (and tweak where necessary):
+    # Get form (and tweak where necessary):
     form = eval(tableClass+"_Form")(request.form)
-    if tableClass=='Deliverables':
-        form.work_package.choices = table_list('Work_Packages','code')
-    if tableClass=='Deliverables' or tableClass=='Tasks':
-        form.responsible_partner.choices = table_list('Partners','name')
-    #If user submits edit entry form:
+    if tableClass == 'Deliverables':
+        form.work_package.choices = table_list('Work_Packages', 'code')
+    if tableClass == 'Deliverables' or tableClass == 'Tasks':
+        form.responsible_partner.choices = table_list('Partners', 'name')
+    # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
-        #Get each form field and update DB:
-        if tableClass=='Users':
+        # Get each form field and update DB:
+        if tableClass == 'Users':
             form.password.data = sha256_crypt.encrypt(str(form.password.data))
         for field in form:
             exec("db_row."+field.name+" = field.data")
         db.session.commit()
-        #Return with success:
+        # Return with success:
         flash('Edits successful', 'success')
-        return redirect(url_for('view',tableClass=tableClass))
-    #Set title:
-    title = "Edit "+tableClass[:-1].replace("_"," ")
-    #Pre-populate form fields with existing data:
-    for i,field in enumerate(form):
-        if i==0: #Grey out first (immutable) field
+        return redirect(url_for('view', tableClass=tableClass))
+    # Set title:
+    title = "Edit "+tableClass[:-1].replace("_", " ")
+    # Pre-populate form fields with existing data:
+    for i, field in enumerate(form):
+        if i == 0:  # Grey out first (immutable) field
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row."+field.name)
-    return render_template('edit.html',title=title,tableClass=tableClass,id=id,form=form)
+    return render_template('edit.html', title=title, tableClass=tableClass,
+                           id=id, form=form)
+
 
 # WP list for WP leaders
 @app.route('/wp-list')
 @is_logged_in
 def wp_list():
-    #Retrieve all work packages:
+    # Retrieve all work packages:
     all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
-    #Select only the accessible work packages for this user:
+    # Select only the accessible work packages for this user:
     if session['username'] == 'admin':
         accessible_wps = all_wps
     else:
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
         accessible_wps = all_wps[all_wps.code.isin(user_wps)]
     return render_template('wp-list.html', data=accessible_wps)
+
 
 # WP deliverables summary for WP leaders
 @app.route('/wp-summary/<string:id>')
@@ -364,7 +392,7 @@ def wp_summary(id):
 
 
 # Edit deliverable as WP leader
-@app.route('/wp-edit/<string:id>', methods=['GET','POST'])
+@app.route('/wp-edit/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
 def wp_edit(id):
     # Retrieve DB entry:
@@ -400,13 +428,14 @@ def wp_edit(id):
     return render_template('alt-edit.html', id=id, form=form,
                            title="Edit Deliverable", editLink="wp-edit")
 
+
 # Tasks for a given user
 @app.route('/task-list')
 @is_logged_in
 def task_list():
-    #Retrieve all tasks:
+    # Retrieve all tasks:
     all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
-    #Select only the accessible tasks for this user:
+    # Select only the accessible tasks for this user:
     if session['username'] == 'admin':
         accessible_tasks = all_tasks
     else:
@@ -416,11 +445,14 @@ def task_list():
     # Set title:
     title = "Your Tasks"
     # Set table column names:
-    colnames=[s.replace("_"," ").title() for s in accessible_tasks.columns.values[1:]]
-    return render_template('view.html',title=title,colnames=colnames,tableClass='Tasks',editLink="task-edit",data=accessible_tasks)
+    colnames = [s.replace("_", " ").title() for s in accessible_tasks.columns.values[1:]]
+    return render_template('view.html', title=title, colnames=colnames,
+                           tableClass='Tasks', editLink="task-edit",
+                           data=accessible_tasks)
+
 
 # Edit task as non-admin
-@app.route('/task-edit/<string:id>', methods=['GET','POST'])
+@app.route('/task-edit/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
 def task_edit(id):
     # Retrieve DB entry:
@@ -445,11 +477,13 @@ def task_edit(id):
         return redirect(url_for('task_list'))
     # Pre-populate form fields with existing data:
     for i, field in enumerate(form):
-        if i<=3:  # Grey out immutable fields
+        if i <= 3:  # Grey out immutable fields
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row."+field.name)
-    return render_template('alt-edit.html',id=id,form=form,title="Edit Task",editLink="task-edit")
+    return render_template('alt-edit.html', id=id, form=form,
+                           title="Edit Task", editLink="task-edit")
+
 
 # Tasks for a given user
 @app.route('/deliverables-list/')
@@ -474,17 +508,60 @@ def deliverables_list():
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     title = "Your Deliverables"
     # Set table column names:
-    colnames = [s.replace("_", " ").title() for s in accessible_data.columns.values[1:]]
-    return render_template('view.html', title=title, colnames=colnames, tableClass='Deliverables', editLink="deliverables-edit", data=data)
+    colnames = [s.replace("_", " ").title() for s in
+                accessible_data.columns.values[1:]]
+    return render_template('view.html', title=title, colnames=colnames,
+                           tableClass='Deliverables',
+                           editLink="deliverables-edit", data=data)
+
+
+# Edit deliverable as WP leader
+@app.route('/deliverables-edit/<string:id>', methods=['GET', 'POST'])
+@is_logged_in
+def deliverables_edit(id):
+    # Retrieve DB entry:
+    db_row = Deliverables.query.filter_by(id=id).first()
+    if db_row is None:
+        abort(404)
+    # Check user has access to this deliverable:
+    if not session['username'] == 'admin':
+        wp_code = db_row.work_package
+        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username'])
+                                  )['work_package'].tolist()
+        partner_name = db_row.responsible_partner
+        user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
+        if wp_code not in user_wps and partner_name not in user_partners:
+            abort(403)
+    # Get form:
+    form = Your_Deliverables_Form(request.form)
+    # If user submits edit entry form:
+    if request.method == 'POST' and form.validate():
+        # Get each form field and update DB:
+        for field in form:
+            exec("db_row."+field.name+" = field.data")
+        db.session.commit()
+        # Return with success:
+        flash('Edits successful', 'success')
+        return redirect(url_for('deliverables_list', id=id))
+    # Pre-populate form fields with existing data:
+    for i, field in enumerate(form):
+        if i <= 4:  # Grey out immutable fields
+            field.render_kw = {'readonly': 'readonly'}
+        if not request.method == 'POST':
+            exec("field.data = db_row." + field.name)
+    return render_template('alt-edit.html', id=id, form=form,
+                           title="Edit Deliverable",
+                           editLink="deliverables-edit")
+
 
 # Access settings for a given user
-@app.route('/access/<string:id>', methods=['GET','POST'])
+@app.route('/access/<string:id>', methods=['GET', 'POST'])
 @is_logged_in_as_admin
 def access(id):
     form = AccessForm(request.form)
-    form.work_packages.choices = table_list('Work_Packages','code')[1:]
-    form.partners.choices = table_list('Partners','name')[1:]
-    #Retrieve user DB entry:
+    form.work_packages.choices = table_list('Work_Packages', 'code')[1:]
+    form.partners.choices = table_list('Partners', 'name')[1:]
+    # Retrieve user DB entry:
     user = Users.query.filter_by(id=id).first()
     if user is None:
         abort(404)
@@ -495,45 +572,46 @@ def access(id):
     if request.method == 'POST' and form.validate():
         new_work_packages = form.work_packages.data
         new_partners = form.partners.data
-        #Delete relevant rows from users2work_packages:
+        # Delete relevant rows from users2work_packages:
         wps_to_delete = list(set(current_work_packages)-set(new_work_packages))
         for wp in wps_to_delete:
-            db_row = Users2Work_Packages.query.filter_by(username=user.username,work_package=wp).first()
-            psql_delete(db_row,flashMsg=False)
-        #Add relevant rows to users2work_packages:
+            db_row = Users2Work_Packages.query.filter_by(username=user.username, work_package=wp).first()
+            psql_delete(db_row, flashMsg=False)
+        # Add relevant rows to users2work_packages:
         wps_to_add = list(set(new_work_packages)-set(current_work_packages))
         for wp in wps_to_add:
-            db_row = Users2Work_Packages(username=user.username,work_package=wp)
-            psql_insert(db_row,flashMsg=False)
-        #Delete relevant rows from users2partners:
+            db_row = Users2Work_Packages(username=user.username, work_package=wp)
+            psql_insert(db_row, flashMsg=False)
+        # Delete relevant rows from users2partners:
         partners_to_delete = list(set(current_partners)-set(new_partners))
         for partner in partners_to_delete:
-            db_row = Users2Partners.query.filter_by(username=user.username,partner=partner).first()
-            psql_delete(db_row,flashMsg=False)
-        #Add relevant rows to users2work_packages:
+            db_row = Users2Partners.query.filter_by(username=user.username, partner=partner).first()
+            psql_delete(db_row, flashMsg=False)
+        # Add relevant rows to users2work_packages:
         partners_to_add = list(set(new_partners)-set(current_partners))
         for partner in partners_to_add:
-            db_row = Users2Partners(username=user.username,partner=partner)
-            psql_insert(db_row,flashMsg=False)
-        #Return with success
+            db_row = Users2Partners(username=user.username, partner=partner)
+            psql_insert(db_row, flashMsg=False)
+        # Return with success
         flash('Edits successful', 'success')
-        return redirect(url_for('access',id=id))
+        return redirect(url_for('access', id=id))
     # Pre-populate form fields with existing data:
     form.username.render_kw = {'readonly': 'readonly'}
     form.username.data = user.username
     form.work_packages.data = current_work_packages
     form.partners.data = current_partners
-    return render_template('access.html',form=form,id=id)
+    return render_template('access.html', form=form, id=id)
+
 
 # Login
-@app.route('/login', methods=["GET","POST"])
+@app.route('/login', methods=["GET", "POST"])
 def login():
-    #Attempt to log in:
+    # Attempt to log in:
     if request.method == 'POST':
-        #Get form fields
+        # Get form fields
         username = request.form['username']
         password_candidate = request.form['password']
-        #Check admin account:
+        # Check admin account:
         if username == 'admin':
             password = app.config['ADMIN_PWD']
             if password_candidate == password:
@@ -544,7 +622,7 @@ def login():
             else:
                 flash('Incorrect password', 'danger')
                 return redirect(url_for('login'))
-        #Check user accounts:
+        # Check user accounts:
         user = Users.query.filter_by(username=username).first()
         if user is not None:
             password = user.password
@@ -556,17 +634,18 @@ def login():
             else:
                 flash('Incorrect password', 'danger')
                 return redirect(url_for('login'))
-        #Username not found:
+        # Username not found:
         flash('Username not found', 'danger')
         return redirect(url_for('login'))
-    #Already logged in:
+    # Already logged in:
     if 'logged_in' in session:
         flash('Already logged in', 'warning')
         return redirect(url_for('index'))
-    #Not yet logged in:
+    # Not yet logged in:
     return render_template('login.html')
 
-#Logout
+
+# Logout
 @app.route('/logout')
 @is_logged_in
 def logout():
@@ -574,8 +653,9 @@ def logout():
     flash('You are now logged out', 'success')
     return redirect(url_for('index'))
 
-#Change password
-@app.route('/change-pwd', methods=["GET","POST"])
+
+# Change password
+@app.route('/change-pwd', methods=["GET", "POST"])
 @is_logged_in
 def change_pwd():
     form = ChangePwdForm(request.form)
@@ -591,12 +671,13 @@ def change_pwd():
         else:
             flash('Current password incorrect', 'danger')
             return redirect(url_for('change_pwd'))
-    return render_template('change-pwd.html',form=form)
+    return render_template('change-pwd.html', form=form)
+
+
 # ssl
 @app.route('/.well-known/acme-challenge/0pQ9Y9nneRwz6xitl6qTxzdBRC38pHJYgw-ey0JMJgI')
 def letsencrypt_check():
     return '0pQ9Y9nneRwz6xitl6qTxzdBRC38pHJYgw-ey0JMJgI.eo3R_jzJhz37owhBTH73qvPeAHxNjuWt8W-FQJOCpeg'
-
 
 
 if __name__ == '__main__':

@@ -1,4 +1,10 @@
-# SWIFTDB
+<div align="center">
+<a href="https://swift-pm.herokuapp.com/">
+  <img src="https://github.com/cemac/SWIFTDB/blob/master/static/pageview.png"></a>
+  <br>
+</div>
+
+# SWIFT Project Management Database #
 
 Repository for the [AfricanSWIFT](https://africanswift.org/) Project Management Tool [(swift-pm)](https://swift-pm.herokuapp.com/). A web app that hosts an editable
 database for the project Management of African SWIFT.

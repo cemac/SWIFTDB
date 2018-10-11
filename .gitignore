@@ -9,3 +9,4 @@ venv
 *~
 swiftprogess
 backups/
+__pycache__ 

@@ -11,13 +11,15 @@ database for the project Management of African SWIFT.
 
 ## Requirements ##
 
-* pip3
+* pip3 >= 18.0
 * pipenv
 * autoenv
 * python3
 * python-libs
 * Flaskr
 * postgresql-10.4
+
+*Individual python modules are managed in the pip lock file and installed as per installation instructions*
 
 # Installation
 

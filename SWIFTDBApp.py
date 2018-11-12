@@ -1,7 +1,19 @@
 '''
 SWIFTDBApp.py:
 
-Building swift-pm web app using python flask and sql
+This module was developed by CEMAC as part of the AFRICAN SWIFT Project.
+This is the data base managment tool and flask web app used to run the SWIFT
+project managment website hosted on heroku.
+
+Example:
+    To use::
+        python manage.py
+
+Attributes:
+    endMonth(int): Project length in months
+
+.. CEMAC_stomtracking:
+   https://github.com/cemac/SWIFTDB
 '''
 
 from flask import Flask, render_template, flash, redirect, url_for, request

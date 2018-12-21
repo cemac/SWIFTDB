@@ -98,7 +98,7 @@ def is_logged_in_as_admin(f):
     def wrap(*args, **kwargs):
         if 'logged_in' in session and session['username'] == 'admin':
             return f(*args, **kwargs)
-        elif 'logged_in' in session and session['username'] == 'lorraine':
+        elif 'logged_in' in session and session['username'] == 'wsdlhy':
             return f(*args, **kwargs)
         else:
             flash('Unauthorised, please login as admin', 'danger')
@@ -370,7 +370,7 @@ def wp_list():
     # Retrieve all work packages:
     all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     # Select only the accessible work packages for this user:
-    if session['username'] == 'admin' or 'lorraine':
+    if session['username'] == 'admin' or 'wsdlhy':
         accessible_wps = all_wps
     else:
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
@@ -387,7 +387,7 @@ def wp_summary(id):
     if db_row is None:
         abort(404)
     # Check user has access to this wp:
-    if not session['username'] == 'admin' or 'lorraine':
+    if not session['username'] == 'admin' or 'wsdlhy':
         wp_code = db_row.code
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
         if wp_code not in user_wps:
@@ -414,7 +414,7 @@ def wp_edit(id):
     if db_row is None:
         abort(404)
     # Check user has access to this deliverable:
-    if not session['username'] == 'admin' or 'lorraine':
+    if not session['username'] == 'admin' or 'wsdlhy':
         wp_code = db_row.work_package
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username'])
                                   )['work_package'].tolist()
@@ -450,7 +450,7 @@ def task_list():
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
     # Select only the accessible tasks for this user:
-    if session['username'] == 'admin' or 'lorraine':
+    if session['username'] == 'admin' or 'wsdlhy':
         accessible_tasks = all_tasks
     else:
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
@@ -474,7 +474,7 @@ def task_edit(id):
     if db_row is None:
         abort(404)
     # Check user has access to this task:
-    if not session['username'] == 'admin' or 'lorraine':
+    if not session['username'] == 'admin' or 'wsdlhy':
         partner_name = db_row.responsible_partner
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
         if partner_name not in user_partners:
@@ -508,7 +508,7 @@ def deliverables_list():
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Deliverables.query.order_by(Deliverables.id))
     # Select only the accessible tasks for this user:
-    if session['username'] == 'admin' or 'lorraine':
+    if session['username'] == 'admin' or 'wsdlhy':
         accessible_data = all_tasks
     else:
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
@@ -538,7 +538,7 @@ def deliverables_edit(id):
     if db_row is None:
         abort(404)
     # Check user has access to this deliverable:
-    if not session['username'] == 'admin' or 'lorraine':
+    if not session['username'] == 'admin' or 'wsdlhy':
         wp_code = db_row.work_package
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username'])
                                   )['work_package'].tolist()
@@ -570,7 +570,7 @@ def deliverables_edit(id):
 
 # Access settings for a given user
 @app.route('/access/<string:id>', methods=['GET', 'POST'])
-@is_logged_in_as_
+@is_logged_in_as_admin
 def access(id):
     form = AccessForm(request.form)
     form.work_packages.choices = table_list('Work_Packages', 'code')[1:]

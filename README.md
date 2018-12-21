@@ -32,7 +32,9 @@ or Via anaconda
 # Installation
 
 * `pipenv install --three`
-or
+
+**or**
+
 * `conda env create -f swift.yaml`
 * `conda activate swift`
 

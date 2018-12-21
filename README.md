@@ -13,6 +13,8 @@ database for the project Management of African SWIFT.
 
 ## Requirements ##
 
+Via Pip
+
 * pip3 >= 18.0
 * pipenv
 * autoenv
@@ -21,11 +23,18 @@ database for the project Management of African SWIFT.
 * Flaskr
 * postgresql-10.4
 
+or Via anaconda
+
+* anaconda
+
 *Individual python modules are managed in the pip lock file and installed as per installation instructions*
 
 # Installation
 
 * `pipenv install --three`
+or
+* `conda env create -f swift.yaml`
+* `conda activate swift`
 
 <hr>
 

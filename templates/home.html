@@ -9,7 +9,7 @@
       <p> Work package leaders can review and update progress for all associated deliverables</p>
       <p> Parnter leaders can review and update progress for all associated tasks and deliverables </p>
       <p>You are currently logged in as <b>{{ session.username }}</b></p>
-      {% if session.username == "admin" %}
+      {% if session.username == "admin" or session.username == "wsdlhy" %}
       <p> Use the <b>view tables menu</b> for full edit access</p>
       {% else %}
       <p> Your Deliverables tab will display <b>all</b> deliverables associated with your username.</b></p>

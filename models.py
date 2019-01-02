@@ -29,6 +29,7 @@ class Work_Packages(db.Model):
     name = db.Column(db.String(), nullable=False)
     status = db.Column(db.String(), nullable=False)
     Deliverables_Rel = db.relationship('Deliverables')
+    Tasks_Rel = db.relationship('Tasks')
     Users2Work_Packages_Rel = db.relationship('Users2Work_Packages')
 
     def __init__(self, code, name, status):
@@ -114,15 +115,18 @@ class Tasks(db.Model):
     responsible_partner = db.Column(db.String(),
                                     db.ForeignKey('partners.name'),
                                     nullable=False)
+    work_package = db.Column(db.String(), db.ForeignKey('work_packages.code'),
+                                    nullable=False)
     month_due = db.Column(db.Integer, nullable=False)
     progress = db.Column(db.String())
     percent = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, code, description, responsible_partner, month_due,
-                 progress, percent):
+    def __init__(self, code, description, responsible_partner, work_package,
+                 month_due, progress, percent):
         self.code = code
         self.description = description
         self.responsible_partner = responsible_partner
+        self.work_package = work_package
         self.month_due = month_due
         self.progress = progress
         self.percent = percent

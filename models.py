@@ -31,7 +31,7 @@ class Work_Packages(db.Model):
     Deliverables_Rel = db.relationship('Deliverables')
     Users2Work_Packages_Rel = db.relationship('Users2Work_Packages')
 
-    def __init__(self, code, name):
+    def __init__(self, code, name, status):
         self.code = code
         self.name = name
         self.status = status

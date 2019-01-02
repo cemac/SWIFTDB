@@ -151,7 +151,7 @@ class Deliverables_Form(Form):
                                 render_kw={"placeholder": "e.g. Report on current state \
                                 of knowledge regarding user needs for forecasts at \
                                 different timescales in each sector."})
-    responsible_partner = SelectField(u'*Responsible Partner',
+    responsible_partner = SelectField(u'*Partner',
                                       [validators.NoneOf(('blank'),
                                        message='Please select')])
     month_due = IntegerField(u'Month Due',
@@ -168,7 +168,7 @@ class WP_Deliverables_Form(Form):
     code = StringField(u'Deliverable Code')
     work_package = StringField(u'Work Package')
     description = TextAreaField(u'Description')
-    responsible_partner = StringField(u'Responsible Partner')
+    responsible_partner = StringField(u'Partner')
     month_due = IntegerField(u'Month Due')
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
@@ -181,7 +181,7 @@ class Your_Deliverables_Form(Form):
     code = StringField(u'Deliverable Code')
     work_package = StringField(u'Work Package')
     description = TextAreaField(u'Description')
-    responsible_partner = StringField(u'Responsible Partner')
+    responsible_partner = StringField(u'Partner')
     month_due = IntegerField(u'Month Due')
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
@@ -228,7 +228,7 @@ class Tasks_Form(Form):
                                 [validators.InputRequired()],
                                 render_kw={"placeholder": "e.g. Development of reporting \
 template for baselining the current provision of forecasts."})
-    responsible_partner = SelectField(u'*Responsible Partner',
+    responsible_partner = SelectField(u'*Partner',
                                       [validators.NoneOf(('blank'),
                                        message='Please select')])
     month_due = IntegerField(u'Month Due',
@@ -244,7 +244,7 @@ template for baselining the current provision of forecasts."})
 class Your_Tasks_Form(Form):
     code = StringField(u'Task Code')
     description = TextAreaField(u'Description')
-    responsible_partner = StringField(u'Responsible Partner')
+    responsible_partner = StringField(u'Partner')
     month_due = IntegerField(u'Month Due')
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])

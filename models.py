@@ -49,19 +49,19 @@ class Deliverables(db.Model):
     work_package = db.Column(db.String(), db.ForeignKey('work_packages.code'),
                              nullable=False)
     description = db.Column(db.String(), nullable=False)
-    responsible_partner = db.Column(db.String(),
+    partner = db.Column(db.String(),
                                     db.ForeignKey('partners.name'),
                                     nullable=False)
     month_due = db.Column(db.Integer, nullable=False)
     progress = db.Column(db.String())
     percent = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, code, work_package, description, responsible_partner,
+    def __init__(self, code, work_package, description, partner,
                  month_due, progress, percent):
         self.code = code
         self.work_package = work_package
         self.description = description
-        self.responsible_partner = responsible_partner
+        self.partner = partner
         self.month_due = month_due
         self.progress = progress
         self.percent = percent
@@ -112,7 +112,7 @@ class Tasks(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     code = db.Column(db.String(), nullable=False, unique=True)
     description = db.Column(db.String(), nullable=False)
-    responsible_partner = db.Column(db.String(),
+    partner = db.Column(db.String(),
                                     db.ForeignKey('partners.name'),
                                     nullable=False)
     work_package = db.Column(db.String(), db.ForeignKey('work_packages.code'),
@@ -121,11 +121,11 @@ class Tasks(db.Model):
     progress = db.Column(db.String())
     percent = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, code, description, responsible_partner, work_package,
+    def __init__(self, code, description, partner, work_package,
                  month_due, progress, percent):
         self.code = code
         self.description = description
-        self.responsible_partner = responsible_partner
+        self.partner = partner
         self.work_package = work_package
         self.month_due = month_due
         self.progress = progress

@@ -7,7 +7,7 @@
 .. description: This module was developed by CEMAC as part of the SWIFT
    Project. This is desinged to take existing tab files and add in new
    required columns.
-   :copyright: © 2018 University of Leeds.
+   :copyright: © 2019 University of Leeds.
    :license: MIT.
 Example:
     To use::
@@ -29,4 +29,13 @@ wp = df['tasks'].str.replace('T', 'WP')
 wp = df['tasks'].str[0:5]
 # Add back in and Save
 df['WPs'] = wp
+df = df[['tasks', 'descriptions', 'partner', 'WP', 'month due',
+                                             'progess', 'percent']]
+df.to_csv(file_name, sep='\t', index=False, header=False)
+
+# Update WP to include summary update
+file_name = 'work_packages.tab'
+df = pd.read_csv(file_name, sep='\t', names=['Code', 'Name'])
+# Add new blank column
+df['Status Update'] = ""
 df.to_csv(file_name, sep='\t', index=False, header=False)

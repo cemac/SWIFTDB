@@ -18,6 +18,8 @@
           <th style='width: 30%;'>{{col}}</th>
         {% elif col == "Username" %}
           <th style='width: 10%;'>{{col}}</th>
+        {% elif col == "Country" %}
+          <th style='width: 12%;'>{{col}}</th>
         {% else %}
           <th>{{col}}</th>
         {% endif %}
@@ -39,6 +41,8 @@
             <td style='width: 30%;'>{{row[i]}}</td>
           {% elif colnames[i-1] == "Username" %}
             <td style='width: 10%;'>{{row[i]}}</td>
+          {% elif colnames[i-1] == "Country" %}
+            <td style='width: 12%;'>{{row[i]}}</td>
           {% else %}
             <td>{{row[i]}}</td>
           {% endif %}
@@ -46,12 +50,11 @@
         <td></td>
         <td>
         {% if tableClass == 'Users' %}
-
           <a href=/access/{{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
         {% elif editLink == "edit" %}
-            <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
+          <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
         {% else %}
-            <a href=/{{editLink}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
+          <a href=/{{editLink}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
         {% endif %}
         </td>
         <td>

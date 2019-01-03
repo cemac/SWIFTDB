@@ -151,8 +151,7 @@ class Deliverables_Form(Form):
                                 render_kw={"placeholder": "e.g. Report on current state \
                                 of knowledge regarding user needs for forecasts at \
                                 different timescales in each sector."})
-    responsible_partner = SelectField(u'*Partner',
-                                      [validators.NoneOf(('blank'),
+    partner = SelectField(u'*Partner', [validators.NoneOf(('blank'),
                                        message='Please select')])
     month_due = IntegerField(u'Month Due',
                              [validators.NumberRange(min=0, max=endMonth,
@@ -168,7 +167,7 @@ class WP_Deliverables_Form(Form):
     code = StringField(u'Deliverable Code')
     work_package = StringField(u'Work Package')
     description = TextAreaField(u'Description')
-    responsible_partner = StringField(u'Partner')
+    partner = StringField(u'Partner')
     month_due = IntegerField(u'Month Due')
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
@@ -181,7 +180,7 @@ class Your_Deliverables_Form(Form):
     code = StringField(u'Deliverable Code')
     work_package = StringField(u'Work Package')
     description = TextAreaField(u'Description')
-    responsible_partner = StringField(u'Partner')
+    partner = StringField(u'Partner')
     month_due = IntegerField(u'Month Due')
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
@@ -228,7 +227,7 @@ class Tasks_Form(Form):
                                 [validators.InputRequired()],
                                 render_kw={"placeholder": "e.g. Development of reporting \
 template for baselining the current provision of forecasts."})
-    responsible_partner = SelectField(u'*Partner',
+    partner = SelectField(u'*Partner',
                                       [validators.NoneOf(('blank'),
                                        message='Please select')])
     month_due = IntegerField(u'Month Due',
@@ -244,7 +243,7 @@ template for baselining the current provision of forecasts."})
 class Your_Tasks_Form(Form):
     code = StringField(u'Task Code')
     description = TextAreaField(u'Description')
-    responsible_partner = StringField(u'Partner')
+    partner = StringField(u'Partner')
     month_due = IntegerField(u'Month Due')
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
@@ -270,7 +269,7 @@ def add(tableClass):
     if tableClass == 'Deliverables':
         form.work_package.choices = table_list('Work_Packages', 'code')
     if tableClass == 'Deliverables' or tableClass == 'Tasks':
-        form.responsible_partner.choices = table_list('Partners', 'name')
+        form.partner.choices = table_list('Partners', 'name')
     # Set title:
     title = "Add to "+tableClass.replace("_", " ")
     # If user submits add entry form:
@@ -339,7 +338,7 @@ def edit(tableClass, id):
     if tableClass == 'Deliverables':
         form.work_package.choices = table_list('Work_Packages', 'code')
     if tableClass == 'Deliverables' or tableClass == 'Tasks':
-        form.responsible_partner.choices = table_list('Partners', 'name')
+        form.partner.choices = table_list('Partners', 'name')
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:
@@ -454,7 +453,7 @@ def task_list():
         accessible_tasks = all_tasks
     else:
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
-        accessible_tasks = all_tasks[all_tasks.responsible_partner.isin(user_partners)]
+        accessible_tasks = all_tasks[all_tasks.partner.isin(user_partners)]
     accessible_tasks.fillna(value="", inplace=True)
     # Set title:
     title = "Your Tasks"
@@ -475,7 +474,7 @@ def task_edit(id):
         abort(404)
     # Check user has access to this task:
     if not session['username'] == 'admin' or 'wsdlhy':
-        partner_name = db_row.responsible_partner
+        partner_name = db_row.partner
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
         if partner_name not in user_partners:
             abort(403)
@@ -514,7 +513,7 @@ def deliverables_list():
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
         accessible_wps = all_tasks[all_tasks.work_package.isin(user_wps)]
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
-        accessible_tasks = all_tasks[all_tasks.responsible_partner.isin(user_partners)]
+        accessible_tasks = all_tasks[all_tasks.partner.isin(user_partners)]
         accessible_wps.fillna(value="", inplace=True)
         accessible_data = pd.concat([accessible_tasks, accessible_wps],
                                     join="inner")
@@ -542,7 +541,7 @@ def deliverables_edit(id):
         wp_code = db_row.work_package
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username'])
                                   )['work_package'].tolist()
-        partner_name = db_row.responsible_partner
+        partner_name = db_row.partner
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
         if wp_code not in user_wps and partner_name not in user_partners:
             abort(403)

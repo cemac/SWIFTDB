@@ -49,9 +49,8 @@ class Deliverables(db.Model):
     work_package = db.Column(db.String(), db.ForeignKey('work_packages.code'),
                              nullable=False)
     description = db.Column(db.String(), nullable=False)
-    partner = db.Column(db.String(),
-                                    db.ForeignKey('partners.name'),
-                                    nullable=False)
+    partner = db.Column(db.String(), db.ForeignKey('partners.name'),
+                        nullable=False)
     month_due = db.Column(db.Integer, nullable=False)
     progress = db.Column(db.String())
     percent = db.Column(db.Integer, nullable=False)
@@ -112,8 +111,7 @@ class Tasks(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     code = db.Column(db.String(), nullable=False, unique=True)
     description = db.Column(db.String(), nullable=False)
-    partner = db.Column(db.String(),
-                                    db.ForeignKey('partners.name'),
+    partner = db.Column(db.String(), db.ForeignKey('partners.name'),
                                     nullable=False)
     work_package = db.Column(db.String(), db.ForeignKey('work_packages.code'),
                                     nullable=False)

@@ -137,6 +137,9 @@ class Work_Packages_Form(Form):
     name = StringField(u'*Name',
                        [validators.InputRequired()],
                        render_kw={"placeholder": "e.g. Training"})
+    status = StringField(u'*Work Package Status',
+                       [validators.InputRequired()],
+                       render_kw={"placeholder": "e.g. Overviw of Progress as a whole"})
 
 
 class Deliverables_Form(Form):
@@ -230,6 +233,7 @@ template for baselining the current provision of forecasts."})
     partner = SelectField(u'*Partner',
                                       [validators.NoneOf(('blank'),
                                        message='Please select')])
+    work_package = StringField(u'Work Package')
     month_due = IntegerField(u'Month Due',
                              [validators.NumberRange(min=0, max=endMonth,
                               message="Must be between 0 and "+str(endMonth))])

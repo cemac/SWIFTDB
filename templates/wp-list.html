@@ -18,7 +18,9 @@
       <tr>
         <td>{{row['code']}}</td>
         <td style='width: 20%;' >{{row['name']}}</td>
-        <td style='width: 40%;'>
+        <td style='width: 30%;'>{{row['status']}}</td>
+
+        <td style='width: 20%;'>
           {% if tableClass == 'Users' %}
             <a href=/access/{{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
           {% else %}

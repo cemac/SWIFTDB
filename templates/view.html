@@ -9,49 +9,62 @@
     <tr>
       {% for col in colnames %}
         {% if col == "Description" %}
-        <th style='width: 20%;'>{{col}}</th>
+          <th style='width: 20%;'>{{col}}</th>
         {% elif col == "Progress" %}
-        <th style='width: 30%;'>{{col}}</th>
+          <th style='width: 25%;'>{{col}}</th>
+        {% elif col == "Name" %}
+          <th style='width: 20%;'>{{col}}</th>
+        {% elif col == "Status" %}
+          <th style='width: 30%;'>{{col}}</th>
+        {% elif col == "Username" %}
+          <th style='width: 10%;'>{{col}}</th>
         {% else %}
-        <th>{{col}}</th>
+          <th>{{col}}</th>
         {% endif %}
       {% endfor %}
+      <th></th>
     </tr>
-  </head>
-  <tbody>
-    {% for index, row in data.iterrows() %}
-      <tr>
+    </head>
+    <tbody>
+      {% for index, row in data.iterrows() %}
+        <tr>
         {% for i in range(1,row|length) %}
           {% if colnames[i-1] == "Description" %}
-          <td style='width: 20%;'>{{row[i]}}</td>
+            <td style='width: 20%;'>{{row[i]}}</td>
           {% elif colnames[i-1] == "Progress" %}
-          <td style='width: 30%;'>{{row[i]}}</td>
+            <td style='width: 25%;'>{{row[i]}}</td>
+          {% elif colnames[i-1] == "Name" %}
+            <td style='width: 20%;'>{{row[i]}}</td>
+          {% elif colnames[i-1] == "Status" %}
+            <td style='width: 30%;'>{{row[i]}}</td>
+          {% elif colnames[i-1] == "Username" %}
+            <td style='width: 10%;'>{{row[i]}}</td>
           {% else %}
-          <td>{{row[i]}}</td>
+            <td>{{row[i]}}</td>
           {% endif %}
         {% endfor %}
+        <td></td>
         <td>
-          {% if tableClass == 'Users' %}
-            <a href=/access/{{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
-          {% else %}
-            {% if editLink == "edit" %}
-              <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
-            {% else %}
-              <a href=/{{editLink}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
-            {% endif %}
-          {% endif %}
+        {% if tableClass == 'Users' %}
+
+          <a href=/access/{{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
+        {% elif editLink == "edit" %}
+            <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
+        {% else %}
+            <a href=/{{editLink}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
+        {% endif %}
         </td>
         <td>
-          {% if editLink == "edit" %}
-            <form action=/delete/{{tableClass}}/{{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
-              <input type="hidden" name="_method" value="DELETE">
-              <input type="submit" value="Delete" class="btn btn-danger">
-            </form>
-          {% endif %}
+        {% if editLink == "edit" %}
+          <form action=/delete/{{tableClass}}/{{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
+          <input type="hidden" name="_method" value="DELETE">
+          <input type="submit" value="Delete" class="btn btn-danger">
+          </form>
+        {% endif %}
         </td>
       </tr>
-    {% endfor %}
-  </tbody>
+      {% endfor %}
+    </tbody>
   </table>
 </div>
 

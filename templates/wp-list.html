@@ -9,6 +9,7 @@
     <tr>
       <th>Code</th>
       <th>Name</th>
+      <th>Status</th>
       <th></th>
     </tr>
   </thead>
@@ -17,6 +18,7 @@
       <tr>
         <td>{{row['code']}}</td>
         <td>{{row['name']}}</td>
+        <td>{{row['status']}}</td>
         <td><a href=/wp-summary/{{row['id']}} class="btn btn-success">View Summary</a><td>
       </tr>
     {% endfor %}

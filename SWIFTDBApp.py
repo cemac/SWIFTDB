@@ -166,17 +166,10 @@ class Deliverables_Form(Form):
                             message="Must be between 0 and 100")])
 
 
-class WP_Deliverables_Form(Form):
-    code = StringField(u'Deliverable Code')
-    work_package = StringField(u'Work Package')
-    description = TextAreaField(u'Description')
-    partner = StringField(u'Partner')
-    month_due = IntegerField(u'Month Due')
-    progress = TextAreaField(u'Progress',
-                             validators=[validators.Optional()])
-    percent = IntegerField(u'*Percentage Complete',
-                           [validators.NumberRange(min=0, max=100,
-                            message="Must be between 0 and 100")])
+class Your_Work_Packages_Form(Form):
+    code = StringField(u'*Work Package Code')
+    name = StringField(u'*Name')
+    status = StringField(u'*Work Package Status')
 
 
 class Your_Deliverables_Form(Form):
@@ -373,7 +366,7 @@ def wp_list():
     # Retrieve all work packages:
     all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     # Select only the accessible work packages for this user:
-    if session['username'] == 'admin' or 'wsdlhy':
+    if session['username'] == 'admin' or session['username'] == 'wsdlhy':
         accessible_wps = all_wps
     else:
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
@@ -381,70 +374,38 @@ def wp_list():
     return render_template('wp-list.html', data=accessible_wps)
 
 
-# WP deliverables summary for WP leaders
-@app.route('/wp-summary/<string:id>')
+# WP edit status for WP leaders
+@app.route('/wp-edit/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
-def wp_summary(id):
+def wp_edit(id):
     # Retrieve DB entry:
     db_row = Work_Packages.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
     # Check user has access to this wp:
-    if not session['username'] == 'admin' or 'wsdlhy':
+    if not session['username'] == 'admin' or not session['username'] == 'wsdlhy':
         wp_code = db_row.code
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
         if wp_code not in user_wps:
             abort(403)
-    # Retrieve all deliverables belonging to this work package:
-    data = psql_to_pandas(Deliverables.query.filter_by(work_package=db_row.code).order_by(Deliverables.id))
-    del data['work_package']
-    data.fillna(value="", inplace=True)
-    # Set title:
-    title = "Deliverables for Work Package "+db_row.code+" ("+db_row.name+")"
-    # Set table column names:
-    colnames = [s.replace("_", " ").title() for s in data.columns.values[1:]]
-    return render_template('view.html', title=title, colnames=colnames,
-                           tableClass='Deliverables', editLink="wp-edit",
-                           data=data)
-
-
-# Edit deliverable as WP leader
-@app.route('/wp-edit/<string:id>', methods=['GET', 'POST'])
-@is_logged_in
-def wp_edit(id):
-    # Retrieve DB entry:
-    db_row = Deliverables.query.filter_by(id=id).first()
-    if db_row is None:
-        abort(404)
-    # Check user has access to this deliverable:
-    if not session['username'] == 'admin' or 'wsdlhy':
-        wp_code = db_row.work_package
-        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username'])
-                                  )['work_package'].tolist()
-        if wp_code not in user_wps:
-            abort(403)
     # Get form:
-    form = WP_Deliverables_Form(request.form)
+    form = Your_Work_Packages_Form(request.form)
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:
         for field in form:
             exec("db_row."+field.name+" = field.data")
         db.session.commit()
-        # Retrive id of work package this deliverable belongs to:
-        wp_id = Work_Packages.query.filter_by(code=db_row.work_package).first().id
-        # Return with success:
         flash('Edits successful', 'success')
-        return redirect(url_for('wp_summary', id=wp_id))
+        return redirect(url_for('wp_list'))
     # Pre-populate form fields with existing data:
     for i, field in enumerate(form):
-        if i <= 4:  # Grey out immutable fields
+        if i <= 1 or i is not 3:  # Grey out immutable fields
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
-            exec("field.data = db_row." + field.name)
+            exec("field.data = db_row."+field.name)
     return render_template('alt-edit.html', id=id, form=form,
-                           title="Edit Deliverable", editLink="wp-edit")
-
+                           title="Edit Work Package Status", editLink="wp-edit")
 
 # Tasks for a given user
 @app.route('/task-list')
@@ -453,12 +414,18 @@ def task_list():
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
     # Select only the accessible tasks for this user:
-    if session['username'] == 'admin' or 'wsdlhy':
+    if session['username'] == 'admin' or session['username'] == 'wsdlhy':
         accessible_tasks = all_tasks
     else:
+        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()
+        accessible_wps = all_tasks[all_tasks.work_package.isin(user_wps)]
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
         accessible_tasks = all_tasks[all_tasks.partner.isin(user_partners)]
+        accessible_wps.fillna(value="", inplace=True)
+        accessible_tasks = pd.concat([accessible_tasks, accessible_wps],
+                                    join="inner")
     accessible_tasks.fillna(value="", inplace=True)
+    data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     # Set title:
     title = "Your Tasks"
     # Set table column names:
@@ -477,7 +444,7 @@ def task_edit(id):
     if db_row is None:
         abort(404)
     # Check user has access to this task:
-    if not session['username'] == 'admin' or 'wsdlhy':
+    if not session['username'] == 'admin' or not session['username'] == 'wsdlhy':
         partner_name = db_row.partner
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(username=session['username']))['partner'].tolist()
         if partner_name not in user_partners:
@@ -511,7 +478,7 @@ def deliverables_list():
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Deliverables.query.order_by(Deliverables.id))
     # Select only the accessible tasks for this user:
-    if session['username'] == 'admin' or 'wsdlhy':
+    if session['username'] == 'admin' or session['username'] == 'wsdlhy':
         accessible_data = all_tasks
     else:
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username']))['work_package'].tolist()

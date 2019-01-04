@@ -228,7 +228,9 @@ template for baselining the current provision of forecasts."})
     partner = SelectField(u'*Partner',
                           [validators.NoneOf(('blank'),
                                              message='Please select')])
-    work_package = StringField(u'Work Package')
+    work_package = SelectField(u'*Work Package',
+                               [validators.NoneOf(('blank'),
+                                                  message='Please select')])
     month_due = IntegerField(u'Month Due',
                              [validators.NumberRange(min=0, max=endMonth,
                                                      message="Must be between 0 and " + str(endMonth))])
@@ -243,6 +245,7 @@ class Your_Tasks_Form(Form):
     code = StringField(u'Task Code')
     description = TextAreaField(u'Description')
     partner = StringField(u'Partner')
+    work_package = StringField(u'Work Package')
     month_due = IntegerField(u'Month Due')
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
@@ -265,9 +268,8 @@ def add(tableClass):
         abort(404)
     # Get form (and tweak where necessary):
     form = eval(tableClass + "_Form")(request.form)
-    if tableClass == 'Deliverables':
-        form.work_package.choices = table_list('Work_Packages', 'code')
     if tableClass == 'Deliverables' or tableClass == 'Tasks':
+        form.work_package.choices = table_list('Work_Packages', 'code')
         form.partner.choices = table_list('Partners', 'name')
     # Set title:
     title = "Add to " + tableClass.replace("_", " ")
@@ -334,9 +336,8 @@ def edit(tableClass, id):
         abort(404)
     # Get form (and tweak where necessary):
     form = eval(tableClass + "_Form")(request.form)
-    if tableClass == 'Deliverables':
-        form.work_package.choices = table_list('Work_Packages', 'code')
     if tableClass == 'Deliverables' or tableClass == 'Tasks':
+        form.work_package.choices = table_list('Work_Packages', 'code')
         form.partner.choices = table_list('Partners', 'name')
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
@@ -374,15 +375,18 @@ def wp_list():
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
             username=session['username']))['work_package'].tolist()
         accessible_wps = all_wps[all_wps.code.isin(user_wps)]
-    return render_template('wp-list.html', data=accessible_wps)
+    # Set title:
+    title = "Your Work Packages"
+    return render_template('wp-list.html', editLink="wp-edit",
+                           tableClass='Work_Packages', data=accessible_wps)
 
 
 # WP edit status for WP leaders
-@app.route('/wp-edit/<string:id>', methods=['GET', 'POST'])
+@app.route('/edit/<string:tableClass>/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
-def wp_edit(id):
+def wp_edit(tableClass, id):
     # Retrieve DB entry:
-    db_row = Work_Packages.query.filter_by(id=id).first()
+    db_row = eval(tableClass).query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
     # Check user has access to this wp:
@@ -393,23 +397,26 @@ def wp_edit(id):
         if wp_code not in user_wps:
             abort(403)
     # Get form:
-    form = Your_Work_Packages_Form(request.form)
+    form = eval("Your_"+tableClass+"_Form")(request.form)
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:
         for field in form:
             exec("db_row." + field.name + " = field.data")
         db.session.commit()
+        # Retrive id of work package this deliverable belongs to:
+        wp_id = Work_Packages.query.filter_by(code=db_row.work_package).first().id
         flash('Edits successful', 'success')
         return redirect(url_for('wp_list'))
     # Pre-populate form fields with existing data:
     for i, field in enumerate(form):
-        if i <= 1 or i is not 3:  # Grey out immutable fields
+        if i == 1 or i ==2:  # Grey out immutable fields
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)
-    return render_template('alt-edit.html', id=id, form=form,
-                           title="Edit Work Package Status", editLink="wp-edit")
+    return render_template('alt-edit.html', title=title, tableClass=tableClass,
+                           id=id, form=form)
+
 
 # Tasks for a given user
 
@@ -471,7 +478,7 @@ def task_edit(id):
         return redirect(url_for('task_list'))
     # Pre-populate form fields with existing data:
     for i, field in enumerate(form):
-        if i <= 3:  # Grey out immutable fields
+        if i <= 4:  # Grey out immutable fields
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)
@@ -520,14 +527,12 @@ def deliverables_edit(id):
     if db_row is None:
         abort(404)
     # Check user has access to this deliverable:
-    if not session['username'] == 'admin' or 'wsdlhy':
-        wp_code = db_row.work_package
-        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(username=session['username'])
-                                  )['work_package'].tolist()
+    # Check user has access to this task:
+    if not session['username'] == 'admin' or not session['username'] == 'wsdlhy':
         partner_name = db_row.partner
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(
             username=session['username']))['partner'].tolist()
-        if wp_code not in user_wps and partner_name not in user_partners:
+        if partner_name not in user_partners:
             abort(403)
     # Get form:
     form = Your_Deliverables_Form(request.form)

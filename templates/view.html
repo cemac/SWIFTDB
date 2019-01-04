@@ -50,16 +50,16 @@
         <td></td>
         <td>
           {% if tableClass == 'Users' %}
-          <a href=/access/ {{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
+          <a href=/access/{{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
           {% elif editLink == "edit" %}
-          <a href=/edit/ {{tableClass}}/ {{row['id']}} class="btn btn-primary pull-right">Edit</a>
+          <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
           {% else %}
-          <a href=/ {{editLink}}/ {{row['id']}} class="btn btn-primary pull-right">Edit</a>
+          <a href=/{{editLink}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
           {% endif %}
         </td>
         <td>
           {% if editLink == "edit" %}
-          <form action=/delete/ {{tableClass}}/ {{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
+          <form action=/delete/{{tableClass}}/{{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
             <input type="hidden" name="_method" value="DELETE">
             <input type="submit" value="Delete" class="btn btn-danger">
           </form>

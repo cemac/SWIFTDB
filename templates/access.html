@@ -23,7 +23,7 @@
 <h1>User Access Settings</h1>
 <hr>
 {% from "includes/_formhelpers.html" import render_field %}
-<form action=/access/ {{id}} method="POST">
+<form action=/access/{{id}} method="POST">
   <div class="form-group">
     {{render_field(form.username, class_="form-control")}}
   </div>

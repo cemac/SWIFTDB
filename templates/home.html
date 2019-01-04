@@ -1,11 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <div class="jumbotron text-center">
-    <h1>Welcome to GCRF African SWIFT: Project Magagement</h1>
-    <p class="lead">
+<div class="jumbotron text-center">
+  <h1>Welcome to GCRF African SWIFT: Project Magagement</h1>
+  <p class="lead">
     <p>
-    {% if session.logged_in %}
+      {% if session.logged_in %}
       <p> Work package leaders can review and update progress for all associated deliverables</p>
       <p> Parnter leaders can review and update progress for all associated tasks and deliverables </p>
       <p>You are currently logged in as <b>{{ session.username }}</b></p>
@@ -15,9 +15,9 @@
       <p> Your Deliverables tab will display <b>all</b> deliverables associated with your username.</b></p>
       <p> If you are a work package leader and a partner leader and wish to view deliverables associated with work packages <b>only</b> please use the summary link in the Your Work Packages tab.</b></p>
       {% endif %}
-    {% else %}
+      {% else %}
       <p> Here Work Package and Parnter Leaders can review and update progress for all associated tasks and deliverables</p>
       <p>Please <a href="/login">log in</a> to use this site</p>
-    {% endif %}
-  </div>
+      {% endif %}
+</div>
 {% endblock %}

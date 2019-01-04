@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>SWIFT-PM</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="shortcut icon" href=/static/favicon.ico>
-    <link rel= "stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stylesheetv1.css')}}">
-      {% block styles %}{% endblock %}
-  </head>
-  <!-- Force HTTPS -->
- <!--<script language="JavaScript">
+
+<head>
+  <meta charset="utf-8">
+  <title>SWIFT-PM</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="shortcut icon" href=/static/favicon.ico> <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stylesheetv1.css')}}">
+  {% block styles %}{% endblock %}
+</head>
+<!-- Force HTTPS -->
+<!--<script language="JavaScript">
   var loc = window.location.href+'';
   if (loc.indexOf('http://')==0){
     window.location.href = loc.replace('http://','https://');
   }
 </script>-->
-  <body>
-    {% include 'includes/_header.html' %}
-    {% include 'includes/_navbar.html' %}
-    <div class="container">
-      {% include 'includes/_messages.html' %}
-      {% block body %}{% endblock %}
-    </div>
-    <div style="padding-top: 90px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;"></div>
-    {% include 'includes/_footer.html' %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    {% block scripts %}{% endblock %}
-  </body>
+
+<body>
+  {% include 'includes/_header.html' %}
+  {% include 'includes/_navbar.html' %}
+  <div class="container">
+    {% include 'includes/_messages.html' %}
+    {% block body %}{% endblock %}
+  </div>
+  <div style="padding-top: 90px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;"></div>
+  {% include 'includes/_footer.html' %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% block scripts %}{% endblock %}
+</body>
+
 </html>

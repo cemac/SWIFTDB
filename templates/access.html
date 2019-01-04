@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <SCRIPT language="javascript">
+<SCRIPT language="javascript">
   function checkAll(ele) {
    var checkboxes = document.getElementsByTagName('input');
    if (ele.checked) {
@@ -20,37 +20,37 @@
      }
   }
   </SCRIPT>
-  <h1>User Access Settings</h1>
-  <hr>
-  {% from "includes/_formhelpers.html" import render_field %}
-  <form action=/access/{{id}} method="POST">
-    <div class="form-group">
-      {{render_field(form.username, class_="form-control")}}
-    </div>
+<h1>User Access Settings</h1>
+<hr>
+{% from "includes/_formhelpers.html" import render_field %}
+<form action=/access/ {{id}} method="POST">
+  <div class="form-group">
+    {{render_field(form.username, class_="form-control")}}
+  </div>
+  <br>
+  <div class="form-group">
+    {{form.work_packages.label}}
     <br>
-    <div class="form-group">
-      {{form.work_packages.label}}
-      <br>
-      {% for subfield in form.work_packages %}
-        <td>{{ subfield }}</td>
-        <td>{{ subfield.label }}</td>
-        <br>
-      {% endfor %}
-    </div>
+    {% for subfield in form.work_packages %}
+    <td>{{ subfield }}</td>
+    <td>{{ subfield.label }}</td>
     <br>
-    <div class="form-group">
-      {{form.partners.label}}
-      <br>
-      {% for subfield in form.partners %}
-        <td>{{ subfield }}</td>
-        <td>{{ subfield.label }}</td>
-        <br>
-      {% endfor %}
+    {% endfor %}
+  </div>
+  <br>
+  <div class="form-group">
+    {{form.partners.label}}
+    <br>
+    {% for subfield in form.partners %}
+    <td>{{ subfield }}</td>
+    <td>{{ subfield.label }}</td>
+    <br>
+    {% endfor %}
     <br>
     <th><INPUT type="checkbox" onchange="checkAll(this)" name="chk[]" id="select all" /> </th>
     <td><label for="select all">Select/Deselect All</label></td>
-    </div>
-    <button type="submit" class="btn btn-primary">Update</button>
-  </form>
-  <hr>
+  </div>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+<hr>
 {% endblock %}

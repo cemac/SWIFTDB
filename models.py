@@ -112,9 +112,9 @@ class Tasks(db.Model):
     code = db.Column(db.String(), nullable=False, unique=True)
     description = db.Column(db.String(), nullable=False)
     partner = db.Column(db.String(), db.ForeignKey('partners.name'),
-                                    nullable=False)
+                        nullable=False)
     work_package = db.Column(db.String(), db.ForeignKey('work_packages.code'),
-                                    nullable=False)
+                             nullable=False)
     month_due = db.Column(db.Integer, nullable=False)
     progress = db.Column(db.String())
     percent = db.Column(db.Integer, nullable=False)
@@ -142,7 +142,7 @@ class Users2Partners(db.Model):
     partner = db.Column(db.String(), db.ForeignKey('partners.name'),
                         nullable=False)
     __table_args__ = (db.UniqueConstraint('username', 'partner',
-                      name='_username_partner_uc'),)
+                                          name='_username_partner_uc'),)
 
     def __init__(self, username, partner):
         self.username = username

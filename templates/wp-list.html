@@ -1,32 +1,32 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-  <h1>Your Work Packages</h1>
-  <hr>
-  <div style="overflow-y:auto;">
+<h1>Your Work Packages</h1>
+<hr>
+<div style="overflow-y:auto;">
   <table class="table table-striped">
     <thead>
-    <tr>
-      <th>Code</th>
-      <th style='width: 20%;'>Name</th>
-      <th style='width: 40%;'>Status</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for index, row in data.iterrows() %}
+      <tr>
+        <th>Code</th>
+        <th style='width: 20%;'>Name</th>
+        <th style='width: 40%;'>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for index, row in data.iterrows() %}
       <tr>
         <td>{{row['code']}}</td>
-        <td style='width: 20%;' >{{row['name']}}</td>
+        <td style='width: 20%;'>{{row['name']}}</td>
         <td style='width: 30%;'>{{row['status']}}</td>
-        <td style='width: 20%;'><a href=/{{editLink}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a></td>
+        <td style='width: 20%;'><a href=/ {{editLink}}/ {{row['id']}} class="btn btn-primary pull-right">Edit</a></td>
       </tr>
-    {% endfor %}
-  </tbody>
+      {% endfor %}
+    </tbody>
   </table>
 </div>
-  {% if editLink == "edit" %}
-    <a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>
-  {% endif %}
-  <hr>
+{% if editLink == "edit" %}
+<a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>
+{% endif %}
+<hr>
 {% endblock %}

@@ -140,6 +140,12 @@ class Work_Packages_Form(Form):
     status = StringField(u'*Work Package Status',
                          [validators.InputRequired()],
                          render_kw={"placeholder": "e.g. Overviw of Progress as a whole"})
+    issues = StringField(u'*Issues',
+                         [validators.InputRequired()],
+                         render_kw={"placeholder": "e.g. Highlight any potential issues or risks"})
+    next_deliverable = StringField(u'*Next Quarter Deliverables',
+                         [validators.InputRequired()],
+                         render_kw={"placeholder": "e.g. Upcomming Deliverables Due"})
 
 
 class Deliverables_Form(Form):
@@ -170,7 +176,8 @@ class Your_Work_Packages_Form(Form):
     code = StringField(u'*Work Package Code')
     name = StringField(u'*Name')
     status = StringField(u'*Work Package Status')
-
+    issues = StringField(u'*Issues')
+    next_deliverable = StringField(u'*Next Quarter Deliverables')
 
 class Your_Deliverables_Form(Form):
     code = StringField(u'Deliverable Code')

@@ -2,6 +2,7 @@
 .env
 *.csv
 SWIFTDB.accdb
+migrations/
 new_excel_files
 venv
 .progress.md
@@ -9,5 +10,5 @@ venv
 *~
 swiftprogess
 backups/
+*/*/*.pyc
 __pycache__/
-*/*.pyc

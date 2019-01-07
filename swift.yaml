@@ -4,13 +4,17 @@ channels:
 dependencies:
   - ca-certificates=2018.03.07=0
   - certifi=2018.11.29=py36_0
+  - krb5=1.16.1=h173b8e3_7
   - libedit=3.1.20170329=h6b74fdf_2
   - libffi=3.2.1=hd88cf55_4
   - libgcc-ng=8.2.0=hdf63c60_1
+  - libpq=11.1=h20c2e04_0
   - libstdcxx-ng=8.2.0=hdf63c60_1
   - ncurses=6.1=he6710b0_1
   - openssl=1.1.1a=h7b6447c_0
   - pip=18.1=py36_0
+  - postgresql=11.1=h20c2e04_0
+  - psycopg2=2.7.6.1=py36h1ba5d50_0
   - python=3.6.7=h0371630_0
   - readline=7.0=h7b6447c_5
   - setuptools=40.6.3=py36_0

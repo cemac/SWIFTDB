@@ -2,7 +2,7 @@
 .env
 *.csv
 SWIFTDB.accdb
-migrations/
+migrations/*.pyc
 new_excel_files
 venv
 .progress.md

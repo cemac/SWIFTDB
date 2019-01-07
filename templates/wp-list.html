@@ -8,18 +8,21 @@
     <thead>
       <tr>
         <th>Code</th>
-        <th style='width: 20%;'>Name</th>
-        <th style='width: 40%;'>Status Update</th>
-        <th></th>
+        <th style='width:17%;'>Name</th>
+        <th style='width: 25%;'>Status Update</th>
+        <th style='width: 25%;'>Issues</th>
+        <th style='width: 18%;'>Next Quarter Deliverables</th>
       </tr>
     </thead>
     <tbody>
       {% for index, row in data.iterrows() %}
       <tr>
         <td>{{row['code']}}</td>
-        <td style='width: 20%;'>{{row['name']}}</td>
-        <td style='width: 30%;'>{{row['status']}}</td>
-        <td style='width: 20%;'><a href=/edit/{{tableClass}}/{{index+23}} class="btn btn-primary pull-right">Edit</a></td>
+        <td style='width: 17%;'>{{row['name']}}</td>
+        <td style='width: 25%;'>{{row['status']}}</td>
+        <td style='width: 25%;'>{{row['issues']}}</td>
+        <td style='width: 18%;'>{{row['next_deliverable']}}</td>
+        <td><a href=/edit/{{tableClass}}/{{index+23}} class="btn btn-primary pull-right">Edit</a></td>
       </tr>
       {% endfor %}
     </tbody>

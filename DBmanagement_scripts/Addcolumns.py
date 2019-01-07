@@ -35,7 +35,9 @@ df.to_csv(file_name, sep='\t', index=False, header=False)
 
 # Update WP to include summary update
 file_name = 'work_packages.tab'
-df = pd.read_csv(file_name, sep='\t', names=['Code', 'Name'])
+df = pd.read_csv(file_name, sep='\t', names=['Code', 'Name', 'Status'])
 # Add new blank column
 df['Status Update'] = ""
+df['Issues'] = ""
+df['Next Quarter Deliverables'] = ""
 df.to_csv(file_name, sep='\t', index=False, header=False)

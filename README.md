@@ -25,18 +25,19 @@ Via Pip
 
 or Via anaconda
 
--   anaconda
+-   anaconda (python3)
 
 _Individual python modules are managed in the pip lock file and installed as per installation instructions_
 
 # Installation
 
 -   `pipenv install --three`
+- there after `pipenv shell`
 
 **or**
 
 -   `conda env create -f swift.yaml`
--   `conda activate swift`
+-   `conda activate swift` and thereafter to use
 
 <hr>
 
@@ -44,7 +45,6 @@ _Individual python modules are managed in the pip lock file and installed as per
 
 **first use**
 
--   `pipenv shell`
 -   `initdb -D ~/postgresql_data/`
 -   `postgres -D ~/postgresql_data/ &`
 -   assign:
@@ -73,7 +73,7 @@ python manage.py db upgrade
 
 **thereafter**
 
--   `pipenv shell`
+-   `pipenv shell` or `conda activate swift`
 -   `postgres -D ~/postgresql_data/ &`
 -   assign:
 
@@ -112,7 +112,7 @@ heroku run -a swift-pm python populatePSQL.py
 
 <hr>
 
-# Back ups
+# Backups
 
 For the SWIFT-pm app backups are scheduled daily at 00:00 (GMT) via
 

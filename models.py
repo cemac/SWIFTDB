@@ -28,14 +28,18 @@ class Work_Packages(db.Model):
     code = db.Column(db.String(), nullable=False, unique=True)
     name = db.Column(db.String(), nullable=False)
     status = db.Column(db.String(), nullable=False)
+    issues = db.Column(db.String(), nullable=False)
+    next_deliverable = db.Column(db.String(), nullable=False)
     Deliverables_Rel = db.relationship('Deliverables')
     Tasks_Rel = db.relationship('Tasks')
     Users2Work_Packages_Rel = db.relationship('Users2Work_Packages')
 
-    def __init__(self, code, name, status):
+    def __init__(self, code, name, status, issues, next_deliverable):
         self.code = code
         self.name = name
         self.status = status
+        self.issues = issues
+        self.next_deliverable = next_deliverable
 
     def __repr__(self):
         return '<id {}>'.format(self.id)

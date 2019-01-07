@@ -25,7 +25,8 @@ Via Pip
 
 or Via anaconda
 
--   anaconda (python3)
+- [anaconda (python3)](https://www.anaconda.com/download/)
+- [heroku cli](https://devcenter.heroku.com/articles/heroku-cli)
 
 _Individual python modules are managed in the pip lock file and installed as per installation instructions_
 

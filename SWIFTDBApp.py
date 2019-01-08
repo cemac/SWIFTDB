@@ -429,7 +429,7 @@ def wp_edit(id):
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)
-    return render_template('alt-edit.html', title=title, id=id, form=form)
+    return render_template('alt-edit.html', title="Update Work Package ", id=id, form=form)
 
 
 # Tasks for a given user

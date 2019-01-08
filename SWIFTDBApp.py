@@ -369,6 +369,8 @@ def edit(tableClass, id):
     for i, field in enumerate(form):
         if i == 0:  # Grey out first (immutable) field
             field.render_kw = {'readonly': 'readonly'}
+        if field.name == 'work_package':
+            field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)
     return render_template('edit.html', title=title, tableClass=tableClass,

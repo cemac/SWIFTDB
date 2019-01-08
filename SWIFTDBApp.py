@@ -412,7 +412,7 @@ def wp_edit(id):
         if wp_code not in user_wps:
             abort(403)
     # Get form:
-    form = eval("Your_Work_Packages_Form")(request.form)
+    form = Your_Work_Packages_Form(request.form)
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:

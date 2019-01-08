@@ -709,9 +709,14 @@ def page_not_found(e):
 
 
 @app.errorhandler(403)
-def page_not_found(e):
-    # note that we set the 404 status explicitly
+def Forbidden(e):
+    # note that we set the 403 status explicitly
     return render_template('403.html'), 403
+
+@app.errorhandler(500)
+def Internal_server_error(e):
+    # note that we set the 500 status explicitly
+    return render_template('500.html'), 500
 
 
 if __name__ == '__main__':

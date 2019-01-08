@@ -2,8 +2,8 @@
 SWIFTDBApp.py:
 
 This module was developed by CEMAC as part of the AFRICAN SWIFT Project.
-This is the data base managment tool and flask web app used to run the SWIFT
-project managment website hosted on heroku.
+This is the database management tool and flask web app used to run the SWIFT
+project management website hosted on heroku.
 
 Example:
     To use::
@@ -139,13 +139,13 @@ class Work_Packages_Form(Form):
                        render_kw={"placeholder": "e.g. Training"})
     status = StringField(u'*Work Package Status',
                          [validators.InputRequired()],
-                         render_kw={"placeholder": "e.g. Overviw of Progress as a whole"})
+                         render_kw={"placeholder": "e.g. Overview of Progress as a whole"})
     issues = StringField(u'*Issues',
                          [validators.InputRequired()],
                          render_kw={"placeholder": "e.g. Highlight any potential issues or risks"})
     next_deliverable = StringField(u'*Next Quarter Deliverables',
                          [validators.InputRequired()],
-                         render_kw={"placeholder": "e.g. Upcomming Deliverables Due"})
+                         render_kw={"placeholder": "e.g. Upcomming deliverables due"})
 
 
 class Deliverables_Form(Form):
@@ -175,9 +175,15 @@ class Deliverables_Form(Form):
 class Your_Work_Packages_Form(Form):
     code = StringField(u'*Work Package Code')
     name = StringField(u'*Name')
-    status = StringField(u'*Work Package Status')
-    issues = StringField(u'*Issues')
-    next_deliverable = StringField(u'*Next Quarter Deliverables')
+    status = StringField(u'*Work Package Status',
+                         [validators.InputRequired()],
+                         render_kw={"placeholder": "e.g. Overview of Progress as a whole"})
+    issues = StringField(u'*Issues',
+                         [validators.InputRequired()],
+                         render_kw={"placeholder": "e.g. Highlight any potential issues or risks"})
+    next_deliverable = StringField(u'*Next Quarter Deliverables',
+                         [validators.InputRequired()],
+                         render_kw={"placeholder": "e.g. Upcomming deliverables due"})
 
 class Your_Deliverables_Form(Form):
     code = StringField(u'Deliverable Code')
@@ -219,9 +225,9 @@ class MultiCheckboxField(SelectMultipleField):
 class AccessForm(Form):
     username = StringField('Username')
     work_packages = MultiCheckboxField(
-        'This user is work package leader of and can therefore update progress on deliverables belonging to the following:')
+        'This user is work package leader of and can , therefore, update progress on deliverables belonging to the following:')
     partners = MultiCheckboxField(
-        'This user is partner leader of and can therefore update progress on tasks for which they are the responsible partner:')
+        'This user is partner leader of and can , therefore, update progress on tasks for which they are the responsible partner:')
 
 
 class Tasks_Form(Form):
@@ -389,7 +395,7 @@ def wp_list():
 
 
 # WP edit status for WP leaders
-@app.route('/edit/<string:tableClass>/<string:id>', methods=['GET', 'POST'])
+@app.route('/wp-edit/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
 def wp_edit(tableClass, id):
     # Retrieve DB entry:
@@ -417,7 +423,7 @@ def wp_edit(tableClass, id):
         return redirect(url_for('wp_list'))
     # Pre-populate form fields with existing data:
     for i, field in enumerate(form):
-        if i == 1 or i ==2:  # Grey out immutable fields
+        if i <= 1:  # Grey out immutable fields
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)

@@ -2,12 +2,12 @@
 
 {% block body %}
 <div class="jumbotron text-center">
-  <h1>Welcome to GCRF African SWIFT: Project Magagement</h1>
+  <h1>Welcome to GCRF African SWIFT: Project Management</h1>
   <p class="lead">
     <p>
       {% if session.logged_in %}
       <p> Work package leaders can review and update progress for all associated deliverables</p>
-      <p> Parnter leaders can review and update progress for all associated tasks and deliverables </p>
+      <p> Partner leaders can review and update progress for all associated tasks and deliverables </p>
       <p>You are currently logged in as <b>{{ session.username }}</b></p>
       {% if session.username == "admin" or session.username == "wsdlhy" %}
       <p> Use the <b>view tables menu</b> for full <b>admin</b> edit access</p>

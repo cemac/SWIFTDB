@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}Page Not Found{% endblock %}
+{% block body %}
+<h1>Internal Server Error</h1>
+<p> Hey! You broke the website!
+  <img src="/static/error.jpg" alt="500 error" >
+  <p> Not, really you just caught an error! It would be really helpful to <a href="https://github.com/cemac/SWIFTDB/issues/new/choose">report this here</a>
+    <p> Or shoot me an email telling me the steps to reproduce the problem h.l.burns@leeds.ac.uk
+    <p><a href="{{ url_for('index') }}">return home</a>
+      {% endblock %}

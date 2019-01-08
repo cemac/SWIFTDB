@@ -397,7 +397,7 @@ def wp_list():
 # WP edit status for WP leaders
 @app.route('/wp-edit/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
-def wp_edit(tableClass, id):
+def wp_edit(id):
     # Retrieve DB entry:
     db_row = eval(tableClass).query.filter_by(id=id).first()
     if db_row is None:
@@ -427,8 +427,7 @@ def wp_edit(tableClass, id):
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)
-    return render_template('alt-edit.html', title=title, tableClass=tableClass,
-                           id=id, form=form)
+    return render_template('alt-edit.html', title=title, id=id, form=form)
 
 
 # Tasks for a given user

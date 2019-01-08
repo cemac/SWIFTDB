@@ -545,9 +545,7 @@ def deliverables_edit(id):
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(
             username=session['username']))['partner'].tolist()
         if partner_name not in user_partners:
-            field.render_kw = {'readonly': 'readonly'}
-            if not request.method == 'POST':
-                exec("field.data = db_row." + field.name)
+            abort(403)
     # Get form:
     form = Your_Deliverables_Form(request.form)
     # If user submits edit entry form:

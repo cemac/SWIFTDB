@@ -399,7 +399,7 @@ def wp_list():
 @is_logged_in
 def wp_edit(id):
     # Retrieve DB entry:
-    db_row = eval(tableClass).query.filter_by(id=id).first()
+    db_row = Work_Packages.query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
     # Check user has access to this wp:
@@ -460,7 +460,7 @@ def task_list():
                 for s in accessible_tasks.columns.values[1:]]
     return render_template('view.html', title=title, colnames=colnames,
                            tableClass='Tasks', editLink="task-edit",
-                           data=accessible_tasks)
+                           data=data)
 
 
 # Edit task as non-admin
@@ -545,7 +545,9 @@ def deliverables_edit(id):
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(
             username=session['username']))['partner'].tolist()
         if partner_name not in user_partners:
-            abort(403)
+            field.render_kw = {'readonly': 'readonly'}
+            if not request.method == 'POST':
+                exec("field.data = db_row." + field.name)
     # Get form:
     form = Your_Deliverables_Form(request.form)
     # If user submits edit entry form:

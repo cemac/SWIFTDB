@@ -501,7 +501,7 @@ def task_edit(id):
 
 
 # Tasks for a given user
-@app.route('/deliverables-list/')
+@app.route('/deliverables-list')
 @is_logged_in
 def deliverables_list():
     # Retrieve all work packages:

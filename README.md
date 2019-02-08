@@ -6,7 +6,10 @@
 
  <h1> <center>SWIFT Project Management Database </center> </h1>
 
-[![GitHub release](https://img.shields.io/badge/release-v.1.1-blue.svg)](https://github.com/cemac/SWIFTDB/releases/tag/1.1)
+[![GitHub release](https://img.shields.io/badge/release-v.1.1-blue.svg)](https://github.com/cemac/SWIFTDB/releases/tag/1.1.0)
+
+[![DOI](https://zenodo.org/badge/134688007.svg)](https://zenodo.org/badge/latestdoi/134688007)
+
 
 Repository for the [AfricanSWIFT](https://africanswift.org/) Project Management Tool [(swift-pm)](https://swift-pm.herokuapp.com/). A web app that hosts an editable
 database for the project Management of African SWIFT.

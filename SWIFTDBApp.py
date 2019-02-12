@@ -419,8 +419,6 @@ def wp_edit(id):
         for field in form:
             exec("db_row." + field.name + " = field.data")
         db.session.commit()
-        # Retrive id of work package this deliverable belongs to:
-        wp_id = Work_Packages.query.filter_by(code=db_row.work_package).first().id
         flash('Edits successful', 'success')
         return redirect(url_for('wp_list'))
     # Pre-populate form fields with existing data:
@@ -429,7 +427,8 @@ def wp_edit(id):
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)
-    return render_template('alt-edit.html', title="Update Work Package ", id=id, form=form)
+    return render_template('alt-edit.html', title="Update Work Package ",
+                            id=id, form=form, editLink="wp-edit")
 
 
 # Tasks for a given user

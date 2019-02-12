@@ -8,14 +8,14 @@
   <link rel="shortcut icon" href=/static/favicon.ico> <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stylesheetv2.css')}}">
   {% block styles %}{% endblock %}
 </head>
-<!-- Force HTTPS
+<!-- Force HTTPS -->
 <script language="JavaScript">
   var loc = window.location.href+'';
   if (loc.indexOf('http://')==0){
     window.location.href = loc.replace('http://','https://');
   }
 </script>
--->
+
 <body>
   {% include 'includes/_header.html' %}
   {% include 'includes/_navbar.html' %}

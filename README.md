@@ -146,6 +146,14 @@ heroku run 'pg_dump -xO $DATABASE_URL' --app <app name> | psql myapp_devel
     You may have to alter the paths to your csv files.
 5.  Save the database file, which should now include populated tables
 
+## Alternatives:
+
+```
+# Create a public url
+heroku pg:backups:url --app sushi | cat
+# Download latest dump 
+heroku pg:backups:download
+```
 <hr>
 
 # Web Page

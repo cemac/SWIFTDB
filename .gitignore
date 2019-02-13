@@ -12,4 +12,6 @@ swiftprogess
 backups/
 */*/*.pyc
 __pycache__/
-BACKUP/
+BACKUP/*.csv
+*.tab
+BACKUP/*.dump

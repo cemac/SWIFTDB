@@ -19,8 +19,8 @@ psql SWIFTBAK
 ```
 `ctrl+D` to exit psql command line
 
-# Automatic
+'dumptoexcel.py' hardcoded python tool to produce excel table quickly
+
+# Automatic and generic tools
 
 *coming soon*
-
- 

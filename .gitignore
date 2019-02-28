@@ -5,7 +5,7 @@ SWIFTDB.accdb
 migrations/*.pyc
 new_excel_files
 venv
-progress.md
+Progress.md
 .old_tab_files
 *~
 swiftprogess

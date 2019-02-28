@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 """dumptoexcel.py
 .. module:: S_Box
     :platform: Unix (reccomended)
@@ -16,15 +17,23 @@ Example:
 """
 
 import pandas as pd
+from dateutil.parser import parse
+import argparse
+# READ IN COMMAND LINE ARGUMENTS
 
-df1 = pd.read_csv('deliverables.csv')
-df2 = pd.read_csv('partners.csv')
-df3 = pd.read_csv('tasks.csv')
-df4 = pd.read_csv('users2partners.csv')
-df5 = pd.read_csv('users2work_packages.csv')
-df6 = pd.read_csv('work_packages.csv')
+parser = argparse.ArgumentParser(description="Dump heroku backup to excel")
+parser.add_argument("date", help="Date string, format YYYYMMDD", type=str)
+args = parser.parse_args()
+date = args.date
+#####
+df1 = pd.read_csv('csvs/' + str(date) + '/deliverables.csv')
+df2 = pd.read_csv('csvs/' + str(date) + '/partners.csv')
+df3 = pd.read_csv('csvs/' + str(date) + '/tasks.csv')
+df4 = pd.read_csv('csvs/' + str(date) + '/users2partners.csv')
+df5 = pd.read_csv('csvs/' + str(date) + '/users2work_packages.csv')
+df6 = pd.read_csv('csvs/' + str(date) + '/work_packages.csv')
 
-with pd.ExcelWriter('swiftbak.xlsx') as writer:
+with pd.ExcelWriter('csvs/' + str(date) + 'swiftbak.xlsx') as writer:
     df1.to_excel(writer, sheet_name='deliverables')
     df2.to_excel(writer, sheet_name='partners')
     df3.to_excel(writer, sheet_name='tasks')

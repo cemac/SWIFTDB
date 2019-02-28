@@ -23,4 +23,9 @@ psql SWIFTBAK
 
 # Automatic and generic tools
 
-*coming soon*
+1. Generate a token to access heroku with out password
+
+**NB: make sure .netrc file is only readable by you **
+`heroku auth:token`
+
+2. ./backup.sh

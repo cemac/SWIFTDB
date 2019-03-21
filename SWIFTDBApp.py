@@ -268,9 +268,62 @@ class Your_Tasks_Form(Form):
 
 
 # Index
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def index():
-    return render_template('home.html')
+    if request.method == 'POST':
+        # Get form fields
+        username = request.form['username']
+        password_candidate = request.form['password']
+        # Check trainee accounts first:
+        user = Users.query.filter_by(username=username).first()
+        if user is not None:
+            password = user.password
+            # Compare passwords
+            if password_candidate == password:
+                # Passed
+                user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
+                                          username=session['username'])
+                                          )['work_package'].tolist()
+                user_partners = psql_to_pandas(Users2Partners.query.filter_by(
+                    username=session['username']))['partner'].tolist()
+                session['logged_in'] = True
+                session['username'] = username
+                WP = list(user_wps)
+                Ps = list(user_partners)
+                if len(user_wps) >= 1 and len(user_partners) >=1:
+                    # session['usertype'] = 'both'
+                    flash('You are now logged in as WP Leader and Partner Leader', 'success')
+                elif len(user_wps) >= 1:
+                    # session['usertype'] = 'WPleader'
+                    flash('You are now logged in as WP Leader', 'success')
+                elif len(user_partners) >= 1:
+                    # session['usertype'] = 'Partnerleader'
+                    flash('You are now logged in as Partner Leader', 'success')
+                elif len(user_partners) ==0:
+                    Ps = 'None'
+                elif len(user_wps) ==0:
+                    WP = 'None'
+                return redirect(url_for('index'))
+            else:
+                flash('Incorrect password', 'danger')
+                return redirect(url_for('index'))
+        # Finally check admin account:
+        if username == 'admin':
+            password = app.config['ADMIN_PWD']
+            if password_candidate == password:
+                # Passed
+                session['logged_in'] = True
+                session['username'] = 'admin'
+                # session['usertype'] = 'admin'
+                flash('You are now logged in as admin', 'success')
+                return redirect(url_for('index'))
+            else:
+                flash('Incorrect password', 'danger')
+                return redirect(url_for('index'))
+        # Username not found:
+        flash('Username not found', 'danger')
+        return redirect(url_for('index'))
+    return render_template('home.html',WP=WP, P=Ps)
 
 
 # Add entry
@@ -319,6 +372,7 @@ def view(tableClass):
     # Set title:
     title = "View " + tableClass.replace("_", " ")
     # Set table column names:
+    description = ('Admin access to ' +tableClass.replace("_", " ")'
     colnames = [s.replace("_", " ").title() for s in data.columns.values[1:]]
     return render_template('view.html', title=title, colnames=colnames,
                            tableClass=tableClass, editLink="edit", data=data)
@@ -384,16 +438,19 @@ def wp_list():
     # Retrieve all work packages:
     all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     # Select only the accessible work packages for this user:
-    if session['username'] == 'admin' or session['username'] == 'wsdlhy':
+    if session['username'] == 'admin':
         accessible_wps = all_wps
+        description = 'Admin view (read-only), please use admin menu to edit'
     else:
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
             username=session['username']))['work_package'].tolist()
         accessible_wps = all_wps[all_wps.code.isin(user_wps)]
+        description = 'You are WP Leader for:' + list(accessible_wps)
     # Set title:
     title = "Your Work Packages"
     return render_template('wp-list.html', editLink="wp-edit",
-                           tableClass='Work_Packages', data=accessible_wps)
+                           tableClass='Work_Packages', data=accessible_wps,
+                           description=description)
 
 
 # WP edit status for WP leaders
@@ -405,7 +462,7 @@ def wp_edit(id):
     if db_row is None:
         abort(404)
     # Check user has access to this wp:
-    if not session['username'] == 'admin' or not session['username'] == 'wsdlhy':
+    if not session['username'] == 'admin':
         wp_code = db_row.code
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
             username=session['username']))['work_package'].tolist()
@@ -440,8 +497,9 @@ def task_list():
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
     # Select only the accessible tasks for this user:
-    if session['username'] == 'admin' or session['username'] == 'wsdlhy':
+    if session['username'] == 'admin':
         accessible_tasks = all_tasks
+        description = 'Admin view (read-only), please use admin menu to edit'
     else:
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
             username=session['username']))['work_package'].tolist()
@@ -452,6 +510,7 @@ def task_list():
         accessible_wps.fillna(value="", inplace=True)
         accessible_tasks = pd.concat([accessible_tasks, accessible_wps],
                                      join="inner")
+        description = 'You are Partner Leader for:' + list(user_partners)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     # Set title:
@@ -461,7 +520,7 @@ def task_list():
                 for s in accessible_tasks.columns.values[1:]]
     return render_template('view.html', title=title, colnames=colnames,
                            tableClass='Tasks', editLink="task-edit",
-                           data=data)
+                           data=data, description=description)
 
 
 # Edit task as non-admin
@@ -473,7 +532,7 @@ def task_edit(id):
     if db_row is None:
         abort(404)
     # Check user has access to this task:
-    if not session['username'] == 'admin' or not session['username'] == 'wsdlhy':
+    if not session['username'] == 'admin':
         partner_name = db_row.partner
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(
             username=session['username']))['partner'].tolist()
@@ -508,8 +567,9 @@ def deliverables_list():
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Deliverables.query.order_by(Deliverables.id))
     # Select only the accessible tasks for this user:
-    if session['username'] == 'admin' or session['username'] == 'wsdlhy':
+    if session['username'] == 'admin':
         accessible_data = all_tasks
+        description = 'Admin view (read-only), please use admin menu to edit'
     else:
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
             username=session['username']))['work_package'].tolist()
@@ -520,6 +580,7 @@ def deliverables_list():
         accessible_wps.fillna(value="", inplace=True)
         accessible_data = pd.concat([accessible_tasks, accessible_wps],
                                     join="inner")
+        description = 'You are Partner Leader for:' + list(user_partners)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     title = "Your Deliverables"
@@ -528,7 +589,8 @@ def deliverables_list():
                 accessible_data.columns.values[1:]]
     return render_template('view.html', title=title, colnames=colnames,
                            tableClass='Deliverables',
-                           editLink="deliverables-edit", data=data)
+                           editLink="deliverables-edit", data=data,
+                           description=description)
 
 
 # Edit deliverable as WP leader
@@ -541,7 +603,7 @@ def deliverables_edit(id):
         abort(404)
     # Check user has access to this deliverable:
     # Check user has access to this task:
-    if not session['username'] == 'admin' or not session['username'] == 'wsdlhy':
+    if not session['username'] == 'admin':
         partner_name = db_row.partner
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(
             username=session['username']))['partner'].tolist()

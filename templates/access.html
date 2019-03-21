@@ -32,22 +32,28 @@
   <td><label for="select all">Select All</label></td>
   <div class="form-group">
     {{form.AdminReader.label}}
-    {% for column in form.partners| sort | slice(4) -%}
-    <div class="four columns">
-    {%- for subfield in column -%}
+    <br>
+    {% for subfield in form.partners %}
+    <div class="col-md-2">
+    {% if subfield.label.text == "admin" or subfield.label.text == "ViewAll" %}
     <td>{{ subfield }}</td>
-    {%- endfor -%}
-    </div>
-    {%- endfor %}
+    <td>{{ subfield.label }}</td>
+    {% endif %}
+    <br>
+  </div>
+    {% endfor %}
+
     <br>
   </div>
   <div class="form-group">
     {{form.work_packages.label}}
     <br>
     {% for subfield in form.work_packages %}
+    <div class="col-md-3">
     <td>{{ subfield }}</td>
     <td>{{ subfield.label }}</td>
     <br>
+    </div>
     {% endfor %}
   </div>
   <br>
@@ -55,9 +61,15 @@
     {{form.partners.label}}
     <br>
     {% for subfield in form.partners %}
+    <div class="col-md-4">
+    {% if subfield.label.text == "admin" or subfield.label.text == "ViewAll" %}
+    <br>
+    {% else %}
     <td>{{ subfield }}</td>
     <td>{{ subfield.label }}</td>
     <br>
+    {% endif %}
+  </div>
     {% endfor %}
     <br>
   </div>

@@ -58,6 +58,8 @@
           <a href=/access/{{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
           {% elif editLink == "edit" %}
           <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
+          {% elif editLink == "none" %}
+          <p></p>
           {% else %}
           <a href=/{{editLink}}/{{row['id']}} class="btn btn-primary pull-right">Update</a>
           {% endif %}

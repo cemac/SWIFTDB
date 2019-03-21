@@ -456,7 +456,6 @@ def wp_edit(id):
 
 # Tasks for a given user
 
-
 @app.route('/task-list')
 @is_logged_in
 def task_list():
@@ -486,6 +485,34 @@ def task_list():
                 for s in accessible_tasks.columns.values[1:]]
     return render_template('view.html', title=title, colnames=colnames,
                            tableClass='Tasks', editLink="task-edit",
+                           data=data, description=description)
+
+@app.route('/task-view')
+@is_logged_in
+def task_view():
+    # Retrieve all tasks:
+    all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
+    # Select only the accessible tasks for this user:
+    if session['username'] == 'admin':
+        accessible_tasks = all_tasks
+        description = 'Admin view (read-only), please use admin menu to edit'
+    else:
+        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
+            username=session['username']))['work_package'].tolist()
+        accessible_tasks = all_tasks[all_tasks.work_package.isin(user_wps)]
+        accessible_tasks.fillna(value="", inplace=True)
+        accessible_tasks = pd.concat([accessible_wps],
+                                     join="inner")
+        description = 'Displaying Tasks associated with Work Package: ' +  ", ".join(user_wps)
+    accessible_tasks.fillna(value="", inplace=True)
+    data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
+    # Set title:
+    title = "Your Tasks"
+    # Set table column names:
+    colnames = [s.replace("_", " ").title()
+                for s in accessible_tasks.columns.values[1:]]
+    return render_template('view.html', title=title, colnames=colnames,
+                           tableClass='Tasks', editLink="none",
                            data=data, description=description)
 
 

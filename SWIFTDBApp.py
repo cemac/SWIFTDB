@@ -98,7 +98,7 @@ def is_logged_in_as_admin(f):
     def wrap(*args, **kwargs):
         if 'logged_in' in session and session['username'] == 'admin':
             return f(*args, **kwargs)
-        elif 'logged_in' in session and session['username'] == 'wsdlhy':
+        elif 'logged_in' in session and session['admin'] == 'True':
             return f(*args, **kwargs)
         else:
             flash('Unauthorised, please login as admin', 'danger')
@@ -272,18 +272,23 @@ class Your_Tasks_Form(Form):
 def index():
     WP = 'none'
     Ps = 'none'
-    if request.method == 'GET':
-        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
-                                  username=session['username'])
-                                  )['work_package'].tolist()
-        user_partners = psql_to_pandas(Users2Partners.query.filter_by(
-            username=session['username']))['partner'].tolist()
-        WP =  ", ".join(user_wps)
-        Ps =  ", ".join(user_partners)
-        if len(user_wps[:]) < 1:
-            WP = 'none'
-        if len(user_partners[:]) < 1:
-            Ps = 'none'
+    try:
+        username = session['username']
+        if request.method == 'GET':
+            user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
+                                      username=session['username'])
+                                      )['work_package'].tolist()
+            user_partners = psql_to_pandas(Users2Partners.query.filter_by(
+                username=session['username']))['partner'].tolist()
+            WP =  ", ".join(user_wps)
+            Ps =  ", ".join(user_partners)
+            if len(user_wps[:]) < 1:
+                WP = 'none'
+            if len(user_partners[:]) < 1:
+                Ps = 'none'
+    except:
+        WP = 'none'
+        Ps = 'none'
     return render_template('home.html', WP=WP, Ps=Ps)
 
 
@@ -671,16 +676,19 @@ def login():
                 user_partners = psql_to_pandas(Users2Partners.query.filter_by(
                     username=session['username']))['partner'].tolist()
                 if len(user_wps[:]) >= 1 and len(user_partners[:]) >=1:
-                    # session['usertype'] = 'both'
+                    session['usertype'] = 'both'
                     flash('You are now logged in as both WP Leader and Partner Leader', 'success')
                 elif len(user_wps[:]) >= 1:
-                    # session['usertype'] = 'WPleader'
+                    session['usertype'] = 'WPleader'
                     flash('You are now logged in as WP Leader', 'success')
                 elif len(user_partners[:]) >= 1:
-                    # session['usertype'] = 'Partnerleader'
+                    session['usertype'] = 'Partnerleader'
                     flash('You are now logged in as Partner Leader', 'success')
                 else:
                     flash('You are now logged in', 'success')
+                if 'admin' in user_partners[:]:
+                    session['admin'] = 'True'
+                    flash('You have admin privallages', 'success')
                 return redirect(url_for('index'))
             else:
                 flash('Incorrect password', 'danger')

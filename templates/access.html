@@ -32,6 +32,13 @@
   <td><label for="select all">Select All</label></td>
   <div class="form-group">
     {{form.AdminReader.label}}
+    {% for column in form.partners| sort | slice(4) -%}
+    <div class="four columns">
+    {%- for subfield in column -%}
+    <td>{{ subfield }}</td>
+    {%- endfor -%}
+    </div>
+    {%- endfor %}
     <br>
   </div>
   <div class="form-group">

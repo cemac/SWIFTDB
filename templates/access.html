@@ -31,6 +31,10 @@
   <th><INPUT type="checkbox" onchange="checkAll(this)" name="chk[]" id="select all" /> </th>
   <td><label for="select all">Select All</label></td>
   <div class="form-group">
+    {{form.AdminReader.label}}
+    <br>
+  </div>
+  <div class="form-group">
     {{form.work_packages.label}}
     <br>
     {% for subfield in form.work_packages %}

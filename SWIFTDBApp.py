@@ -268,62 +268,23 @@ class Your_Tasks_Form(Form):
 
 
 # Index
-@app.route('/', methods=["GET", "POST"])
+@app.route('/', methods=["GET"])
 def index():
-    if request.method == 'POST':
-        # Get form fields
-        username = request.form['username']
-        password_candidate = request.form['password']
-        # Check trainee accounts first:
-        user = Users.query.filter_by(username=username).first()
-        if user is not None:
-            password = user.password
-            # Compare passwords
-            if password_candidate == password:
-                # Passed
-                user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
-                                          username=session['username'])
-                                          )['work_package'].tolist()
-                user_partners = psql_to_pandas(Users2Partners.query.filter_by(
-                    username=session['username']))['partner'].tolist()
-                session['logged_in'] = True
-                session['username'] = username
-                WP = list(user_wps)
-                Ps = list(user_partners)
-                if len(user_wps) >= 1 and len(user_partners) >=1:
-                    # session['usertype'] = 'both'
-                    flash('You are now logged in as WP Leader and Partner Leader', 'success')
-                elif len(user_wps) >= 1:
-                    # session['usertype'] = 'WPleader'
-                    flash('You are now logged in as WP Leader', 'success')
-                elif len(user_partners) >= 1:
-                    # session['usertype'] = 'Partnerleader'
-                    flash('You are now logged in as Partner Leader', 'success')
-                elif len(user_partners) ==0:
-                    Ps = 'None'
-                elif len(user_wps) ==0:
-                    WP = 'None'
-                return redirect(url_for('index'))
-            else:
-                flash('Incorrect password', 'danger')
-                return redirect(url_for('index'))
-        # Finally check admin account:
-        if username == 'admin':
-            password = app.config['ADMIN_PWD']
-            if password_candidate == password:
-                # Passed
-                session['logged_in'] = True
-                session['username'] = 'admin'
-                # session['usertype'] = 'admin'
-                flash('You are now logged in as admin', 'success')
-                return redirect(url_for('index'))
-            else:
-                flash('Incorrect password', 'danger')
-                return redirect(url_for('index'))
-        # Username not found:
-        flash('Username not found', 'danger')
-        return redirect(url_for('index'))
-    return render_template('home.html',WP=WP, P=Ps)
+    WP = 'none'
+    Ps = 'none'
+    if request.method == 'GET':
+        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
+                                  username=session['username'])
+                                  )['work_package'].tolist()
+        user_partners = psql_to_pandas(Users2Partners.query.filter_by(
+            username=session['username']))['partner'].tolist()
+        WP =  ", ".join(user_wps)
+        Ps =  ", ".join(user_partners)
+        if len(user_wps[:]) < 1:
+            WP = 'none'
+        if len(user_partners[:]) < 1:
+            Ps = 'none'
+    return render_template('home.html', WP=WP, Ps=Ps)
 
 
 # Add entry
@@ -372,7 +333,7 @@ def view(tableClass):
     # Set title:
     title = "View " + tableClass.replace("_", " ")
     # Set table column names:
-    description = ('Admin access to ' +tableClass.replace("_", " ")'
+    description = ('Admin access to ' + tableClass.replace("_", " "))
     colnames = [s.replace("_", " ").title() for s in data.columns.values[1:]]
     return render_template('view.html', title=title, colnames=colnames,
                            tableClass=tableClass, editLink="edit", data=data)
@@ -445,7 +406,7 @@ def wp_list():
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
             username=session['username']))['work_package'].tolist()
         accessible_wps = all_wps[all_wps.code.isin(user_wps)]
-        description = 'You are WP Leader for:' + list(accessible_wps)
+        description = 'You are WP Leader for: ' +  ", ".join(user_wps)
     # Set title:
     title = "Your Work Packages"
     return render_template('wp-list.html', editLink="wp-edit",
@@ -510,7 +471,7 @@ def task_list():
         accessible_wps.fillna(value="", inplace=True)
         accessible_tasks = pd.concat([accessible_tasks, accessible_wps],
                                      join="inner")
-        description = 'You are Partner Leader for:' + list(user_partners)
+        description = 'You are Partner Leader for: ' +  ", ".join(user_partners)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     # Set title:
@@ -580,7 +541,7 @@ def deliverables_list():
         accessible_wps.fillna(value="", inplace=True)
         accessible_data = pd.concat([accessible_tasks, accessible_wps],
                                     join="inner")
-        description = 'You are Partner Leader for:' + list(user_partners)
+        description = 'You are Partner Leader for: ' + ", ".join(user_partners)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     title = "Your Deliverables"
@@ -689,30 +650,50 @@ def access(id):
 # Login
 @app.route('/login', methods=["GET", "POST"])
 def login():
-    # Attempt to log in:
+    WP='none'
+    Ps='none'
     if request.method == 'POST':
         # Get form fields
         username = request.form['username']
         password_candidate = request.form['password']
-        # Check admin account:
-        if username == 'admin':
-            password = app.config['ADMIN_PWD']
-            if password_candidate == password:
+        # Check trainee accounts first:
+        user = Users.query.filter_by(username=username).first()
+        if user is not None:
+            password = user.password
+            # Compare passwords
+            if sha256_crypt.verify(password_candidate, password):
+                # Passed
                 session['logged_in'] = True
                 session['username'] = username
-                flash('You are now logged in', 'success')
+                user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
+                                          username=session['username'])
+                                          )['work_package'].tolist()
+                user_partners = psql_to_pandas(Users2Partners.query.filter_by(
+                    username=session['username']))['partner'].tolist()
+                if len(user_wps[:]) >= 1 and len(user_partners[:]) >=1:
+                    # session['usertype'] = 'both'
+                    flash('You are now logged in as both WP Leader and Partner Leader', 'success')
+                elif len(user_wps[:]) >= 1:
+                    # session['usertype'] = 'WPleader'
+                    flash('You are now logged in as WP Leader', 'success')
+                elif len(user_partners[:]) >= 1:
+                    # session['usertype'] = 'Partnerleader'
+                    flash('You are now logged in as Partner Leader', 'success')
+                else:
+                    flash('You are now logged in', 'success')
                 return redirect(url_for('index'))
             else:
                 flash('Incorrect password', 'danger')
                 return redirect(url_for('login'))
-        # Check user accounts:
-        user = Users.query.filter_by(username=username).first()
-        if user is not None:
-            password = user.password
-            if sha256_crypt.verify(password_candidate, password):
+        # Finally check admin account:
+        if username == 'admin':
+            password = app.config['ADMIN_PWD']
+            if password_candidate == password:
+                # Passed
                 session['logged_in'] = True
-                session['username'] = username
-                flash('You are now logged in', 'success')
+                session['username'] = 'admin'
+                # session['usertype'] = 'admin'
+                flash('You are now logged in as admin', 'success')
                 return redirect(url_for('index'))
             else:
                 flash('Incorrect password', 'danger')
@@ -720,12 +701,11 @@ def login():
         # Username not found:
         flash('Username not found', 'danger')
         return redirect(url_for('login'))
-    # Already logged in:
     if 'logged_in' in session:
         flash('Already logged in', 'warning')
         return redirect(url_for('index'))
     # Not yet logged in:
-    return render_template('login.html')
+    return render_template('login.html', WP=WP, P=Ps)
 
 
 # Logout

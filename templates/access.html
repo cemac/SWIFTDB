@@ -28,13 +28,32 @@
     {{render_field(form.username, class_="form-control")}}
   </div>
   <br>
+  <th><INPUT type="checkbox" onchange="checkAll(this)" name="chk[]" id="select all" /> </th>
+  <td><label for="select all">Select All</label></td>
+  <br>
+  <div class="form-group">
+    {{form.AdminReader.label}}
+    <br>
+    {% for subfield in form.partners %}
+    {% if subfield.label.text == "admin" or subfield.label.text == "ViewAll" %}
+    <td>{{ subfield }}</td>
+    <td>{{ subfield.label }}</td>
+    <br>
+    {% endif %}
+    {% endfor %}
+
+    <br>
+  </div>
+  <br>
   <div class="form-group">
     {{form.work_packages.label}}
     <br>
     {% for subfield in form.work_packages %}
+    <div class="col-md-3">
     <td>{{ subfield }}</td>
     <td>{{ subfield.label }}</td>
     <br>
+    </div>
     {% endfor %}
   </div>
   <br>
@@ -42,13 +61,17 @@
     {{form.partners.label}}
     <br>
     {% for subfield in form.partners %}
+    <div class="col-md-4">
+    {% if subfield.label.text == "admin" or subfield.label.text == "ViewAll" %}
+    <br>
+    {% else %}
     <td>{{ subfield }}</td>
     <td>{{ subfield.label }}</td>
     <br>
+    {% endif %}
+  </div>
     {% endfor %}
     <br>
-    <th><INPUT type="checkbox" onchange="checkAll(this)" name="chk[]" id="select all" /> </th>
-    <td><label for="select all">Select/Deselect All</label></td>
   </div>
   <button type="submit" class="btn btn-primary">Update</button>
 </form>

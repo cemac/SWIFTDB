@@ -246,7 +246,7 @@ template for baselining the current provision of forecasts."})
     work_package = SelectField(u'*Work Package',
                                [validators.NoneOf(('blank'),
                                                   message='Please select')])
-    month_due = IntegerField(u'Month Due',
+    month_due = IntegerField(u'*Month Due',
                              [validators.NumberRange(min=0, max=endMonth,
                                                      message="Must be between 0 and " + str(endMonth))])
     progress = TextAreaField(u'Progress',
@@ -354,6 +354,10 @@ def delete(tableClass, id):
     db_row = eval(tableClass).query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
+    if tableClass=='Partners' and db_row.name == 'admin':
+        abort(403)
+    if tableClass=='Partners' and db_row.name == 'ViewAll':
+        abort(403)
     # Delete from DB:
     psql_delete(db_row)
     return redirect(url_for('view', tableClass=tableClass))

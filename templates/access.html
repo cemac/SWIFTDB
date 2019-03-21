@@ -28,6 +28,8 @@
     {{render_field(form.username, class_="form-control")}}
   </div>
   <br>
+  <th><INPUT type="checkbox" onchange="checkAll(this)" name="chk[]" id="select all" /> </th>
+  <td><label for="select all">Select All</label></td>
   <div class="form-group">
     {{form.work_packages.label}}
     <br>
@@ -47,8 +49,6 @@
     <br>
     {% endfor %}
     <br>
-    <th><INPUT type="checkbox" onchange="checkAll(this)" name="chk[]" id="select all" /> </th>
-    <td><label for="select all">Select/Deselect All</label></td>
   </div>
   <button type="submit" class="btn btn-primary">Update</button>
 </form>

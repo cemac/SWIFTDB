@@ -6,7 +6,7 @@
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
         {% if session.logged_in %}
-          {% if session.usertype == "both" or session.usertype == "WPleader" or  %}
+          {% if session.usertype == "both" or session.usertype == "WPleader" %}
           <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Work Pakage Leaders<span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -25,6 +25,7 @@
           </ul>
           </li>
           {% endif %}
+        {% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if session.username == "admin" or session.admin == "True"%}

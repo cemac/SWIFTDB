@@ -37,14 +37,10 @@
   <div class="form-group">
     {{form.work_packages.label}}
     <br>
-    {% for column in form.work_packages | sort | slice(4) %}
-    <div class="four columns">
-    {% for subfield in column %}
+    {% for subfield in form.work_packages %}
     <td>{{ subfield }}</td>
     <td>{{ subfield.label }}</td>
     <br>
-    {% endfor %}
-    </div>
     {% endfor %}
   </div>
   <br>

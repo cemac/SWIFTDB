@@ -3,6 +3,8 @@
 {% block body %}
 <h1>Your Work Packages</h1>
 <hr>
+<p> Here is a list of work packages you are assigned WP Leader for.
+<p> You may also view associated tasks and deliverables but only Partner Leaders may update.
 <div style="overflow-y:auto;">
   <table class="table table-striped">
     <thead>
@@ -23,7 +25,7 @@
         <td style='width: 25%;'>{{row['issues']}}</td>
         <td style='width: 18%;'>{{row['next_deliverable']}}</td>
         <td><a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Update</a></td>
-      </tr><!-- NB index + 45 arises from strange database quirk on main site (assume to do with migrations)-->
+      </tr>
       {% endfor %}
     </tbody>
   </table>

@@ -501,8 +501,6 @@ def task_view():
             username=session['username']))['work_package'].tolist()
         accessible_tasks = all_tasks[all_tasks.work_package.isin(user_wps)]
         accessible_tasks.fillna(value="", inplace=True)
-        accessible_tasks = pd.concat([accessible_wps],
-                                     join="inner")
         description = 'Displaying Tasks associated with Work Package: ' +  ", ".join(user_wps)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)

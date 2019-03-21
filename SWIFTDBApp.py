@@ -711,6 +711,8 @@ def login():
                 # Passed
                 session['logged_in'] = True
                 session['username'] = username
+                session['admin'] = 'False'
+                session['reader'] = 'False'
                 user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
                                           username=session['username'])
                                           )['work_package'].tolist()

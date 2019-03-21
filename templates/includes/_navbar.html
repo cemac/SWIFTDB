@@ -12,7 +12,7 @@
           <ul class="dropdown-menu">
           <li><a href="/wp-list">Your Work Packages</a></li>
           <li><a href="/task-view">Your Tasks (read only)</a></li>
-          <li><a href="/deliverables-list">Your Deliverables (read only)</a></li>
+          <li><a href="/deliverables-view">Your Deliverables (read only)</a></li>
           </ul>
           </li>
           {% endif %}
@@ -25,7 +25,7 @@
           </ul>
           </li>
           {% endif %}
-          {% if session.readonly == "true" %}
+          {% if session.reader == "True" %}
           <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View All<span class="caret"></span></a>
           <ul class="dropdown-menu">

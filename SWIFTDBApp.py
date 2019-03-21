@@ -466,20 +466,14 @@ def task_list():
         accessible_tasks = all_tasks
         description = 'Admin view (read-only), please use admin menu to edit'
     else:
-        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
-            username=session['username']))['work_package'].tolist()
-        accessible_wps = all_tasks[all_tasks.work_package.isin(user_wps)]
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(
             username=session['username']))['partner'].tolist()
         accessible_tasks = all_tasks[all_tasks.partner.isin(user_partners)]
-        accessible_wps.fillna(value="", inplace=True)
-        accessible_tasks = pd.concat([accessible_tasks, accessible_wps],
-                                     join="inner")
         description = 'You are Partner Leader for: ' +  ", ".join(user_partners)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     # Set title:
-    title = "Your Tasks"
+    title = "Tasks associated with your partner lead"
     # Set table column names:
     colnames = [s.replace("_", " ").title()
                 for s in accessible_tasks.columns.values[1:]]
@@ -493,9 +487,9 @@ def task_view():
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
     # Select only the accessible tasks for this user:
-    if session['username'] == 'admin':
+    if session['username'] == 'admin' or session['reader'] == 'True':
         accessible_tasks = all_tasks
-        description = 'Admin view (read-only), please use admin menu to edit'
+        description = 'Read-only - Displaying All Tasks'
     else:
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
             username=session['username']))['work_package'].tolist()
@@ -505,7 +499,7 @@ def task_view():
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     # Set title:
-    title = "Your Tasks"
+    title = "Viewable Tasks"
     # Set table column names:
     colnames = [s.replace("_", " ").title()
                 for s in accessible_tasks.columns.values[1:]]
@@ -562,25 +556,47 @@ def deliverables_list():
         accessible_data = all_tasks
         description = 'Admin view (read-only), please use admin menu to edit'
     else:
-        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
-            username=session['username']))['work_package'].tolist()
-        accessible_wps = all_tasks[all_tasks.work_package.isin(user_wps)]
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(
             username=session['username']))['partner'].tolist()
-        accessible_tasks = all_tasks[all_tasks.partner.isin(user_partners)]
-        accessible_wps.fillna(value="", inplace=True)
-        accessible_data = pd.concat([accessible_tasks, accessible_wps],
-                                    join="inner")
+        accessible_data = all_tasks[all_tasks.partner.isin(user_partners)]
         description = 'You are Partner Leader for: ' + ", ".join(user_partners)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
-    title = "Your Deliverables"
+    title = "Deliverables for which you are Partner Leader "
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
                 accessible_data.columns.values[1:]]
     return render_template('view.html', title=title, colnames=colnames,
                            tableClass='Deliverables',
                            editLink="deliverables-edit", data=data,
+                           description=description)
+
+@app.route('/deliverables-view')
+@is_logged_in
+def deliverables_list():
+    # Retrieve all work packages:
+    all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
+    # Retrieve all tasks:
+    all_tasks = psql_to_pandas(Deliverables.query.order_by(Deliverables.id))
+    # Select only the accessible tasks for this user:
+    if session['username'] == 'admin' or session['reader'] == 'True':
+        accessible_tasks = all_tasks
+        description = 'Read-only - Displaying All Tasks'
+    else:
+        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
+            username=session['username']))['work_package'].tolist()
+        accessible_data = all_tasks[all_tasks.work_package.isin(user_wps)]
+        accessible_data.fillna(value="", inplace=True)
+        description = 'You are Work Package Leader for: ' + ", ".join(user_wps)
+    accessible_data.fillna(value="", inplace=True)
+    data = accessible_data.drop_duplicates(keep='first', inplace=False)
+    title = "Viewable Deliverables"
+    # Set table column names:
+    colnames = [s.replace("_", " ").title() for s in
+                accessible_data.columns.values[1:]]
+    return render_template('view.html', title=title, colnames=colnames,
+                           tableClass='Deliverables',
+                           editLink="none", data=data,
                            description=description)
 
 
@@ -714,6 +730,9 @@ def login():
                 if 'admin' in user_partners[:]:
                     session['admin'] = 'True'
                     flash('You have admin privallages', 'success')
+                if 'ViewAll' in user_partners[:]:
+                    session['reader'] = 'True'
+                    flash('You view all access', 'success')
                 return redirect(url_for('index'))
             else:
                 flash('Incorrect password', 'danger')

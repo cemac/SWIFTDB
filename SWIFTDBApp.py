@@ -224,10 +224,12 @@ class MultiCheckboxField(SelectMultipleField):
 
 class AccessForm(Form):
     username = StringField('Username')
+    AdminReader = MultiCheckboxField(
+        'ADMIN or View all Access: (Grant Admin privallages or the ability to view all (read-only))')
     work_packages = MultiCheckboxField(
-        'This user is work package leader of and can , therefore, update progress on deliverables belonging to the following:')
+        'WORK PACKAGE LEADERS: Can update Work Package progress and view associated Task and Deliverables:')
     partners = MultiCheckboxField(
-        'This user is partner leader of and can , therefore, update progress on tasks for which they are the responsible partner:')
+        'PARTNER LEADER: Can update progress on tasks and deliverables for which they are the responsible partner:')
 
 
 class Tasks_Form(Form):
@@ -495,7 +497,7 @@ def task_view():
             username=session['username']))['work_package'].tolist()
         accessible_tasks = all_tasks[all_tasks.work_package.isin(user_wps)]
         accessible_tasks.fillna(value="", inplace=True)
-        description = 'Displaying Tasks associated with Work Package: ' +  ", ".join(user_wps)
+        description = 'Displaying Tasks associated with Work Package(s): ' +  ", ".join(user_wps)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     # Set title:
@@ -587,7 +589,7 @@ def deliverables_view():
             username=session['username']))['work_package'].tolist()
         accessible_data = all_tasks[all_tasks.work_package.isin(user_wps)]
         accessible_data.fillna(value="", inplace=True)
-        description = 'You are Work Package Leader for: ' + ", ".join(user_wps)
+        description = 'Displaying Deliverables associated with Work Package(s): ' + ", ".join(user_wps)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     title = "Viewable Deliverables"

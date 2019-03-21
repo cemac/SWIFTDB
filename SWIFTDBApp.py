@@ -573,7 +573,7 @@ def deliverables_list():
 
 @app.route('/deliverables-view')
 @is_logged_in
-def deliverables_list():
+def deliverables_view():
     # Retrieve all work packages:
     all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     # Retrieve all tasks:

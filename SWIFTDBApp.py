@@ -422,8 +422,31 @@ def wp_list():
                            tableClass='Work_Packages', data=accessible_wps,
                            description=description)
 
+
 # WP list for WP leaders
 @app.route('/wp-view')
+@is_logged_in
+def wp_view():
+    # Retrieve all work packages:
+    all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
+    # Select only the accessible work packages for this user:
+    if session['username'] == 'admin':
+        accessible_wps = all_wps
+        description = 'Admin view (read-only), please use admin menu to edit'
+    else:
+        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
+            username=session['username']))['work_package'].tolist()
+        accessible_wps = all_wps[all_wps.code.isin(user_wps)]
+        description = 'You are WP Leader for: ' +  ", ".join(user_wps)
+    # Set title:
+    title = "Viewable Work Packages"
+    return render_template('wp-list.html', editLink="none",
+                           tableClass='Work_Packages', data=accessible_wps,
+                           description=description)
+
+
+# WP list for WP leaders
+@app.route('/wp-reader')
 @is_logged_in
 def wp_view():
     # Retrieve all work packages:

@@ -640,6 +640,11 @@ def deliverables_list():
         user_partners = psql_to_pandas(Users2Partners.query.filter_by(
             username=session['username']))['partner'].tolist()
         accessible_data = all_tasks[all_tasks.partner.isin(user_partners)]
+        try:
+            user_partners.remove('admin')
+            user_partners.remove('ViewAll')
+        except ValueError:
+            pass
         description = 'You are Partner Leader for: ' + ", ".join(user_partners)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)

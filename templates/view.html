@@ -3,6 +3,10 @@
 {% block body %}
 <h1>{{title}}</h1>
 <p>{{description}} </p>
+{% if tableClass == 'Users' %}
+<p> Add or Delete users and edit user access settings </p>
+<p> To delete a user: first deselect all access settings first </p>
+{% endif %}
 <div style="overflow-y:auto;">
   <table class="table table-striped">
     <thead>

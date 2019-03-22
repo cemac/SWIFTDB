@@ -647,6 +647,7 @@ def deliverables_list():
             pass
         description = 'You are Partner Leader for: ' + ", ".join(user_partners)
     accessible_data.fillna(value="", inplace=True)
+    accessible_data.sort_values(by=["Partner"])
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     title = "Deliverables for which you are Partner Leader "
     # Set table column names:

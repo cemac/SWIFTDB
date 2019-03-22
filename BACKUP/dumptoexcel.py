@@ -28,7 +28,7 @@ args = parser.parse_args()
 date = args.date
 #####
 
-# Remove not allowed characters 
+# Remove not allowed characters
 
 df1 = pd.read_csv('csvs/' + str(date) + '/deliverables.csv')
 df2 = pd.read_csv('csvs/' + str(date) + '/partners.csv')
@@ -37,9 +37,12 @@ df4 = pd.read_csv('csvs/' + str(date) + '/users2partners.csv')
 df5 = pd.read_csv('csvs/' + str(date) + '/users2work_packages.csv')
 df6 = pd.read_csv('csvs/' + str(date) + '/work_packages.csv')
 
+
 def cleandata(df):
-    df = df.applymap(lambda x: x.encode('unicode_escape').decode('utf-8') if isinstance(x, str) else x)
+    df = df.applymap(lambda x: x.encode('unicode_escape').decode(
+        'utf-8') if isinstance(x, str) else x)
     return df
+
 
 df1 = cleandata(df1)
 df2 = cleandata(df2)

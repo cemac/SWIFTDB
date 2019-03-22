@@ -448,7 +448,7 @@ def wp_view():
 # WP list for WP leaders
 @app.route('/wp-reader')
 @is_logged_in
-def wp_view():
+def wp_readers():
     # Retrieve all work packages:
     all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     # Select only the accessible work packages for this user:

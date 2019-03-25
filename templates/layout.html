@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>SWIFT-PM</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/r-2.2.2/datatables.min.css"/
   <link rel="shortcut icon" href=/static/favicon.ico> <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stylesheetv2.css')}}">
   {% block styles %}{% endblock %}
 </head>
@@ -27,6 +28,21 @@
   {% include 'includes/_footer.html' %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/r-2.2.2/datatables.min.js"></script>
+
+  <script>
+  $(function () {
+    $("#example").DataTable();
+    $('#dataTables-example').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+  });
+</script>
   {% block scripts %}{% endblock %}
 </body>
 

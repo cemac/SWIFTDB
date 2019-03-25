@@ -5,23 +5,14 @@
   <meta charset="utf-8">
   <title>SWIFT-PM</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
   <link rel="shortcut icon" href=/static/favicon.ico> <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stylesheetv2.css')}}">
   {% block styles %}{% endblock %}
-  <script type="text/javascript" class="init">
-    $(document).ready(function() {
-      $(#table_id).DataTable("processing": true,
-    "ajax": {url: "/page_test", 
-             dataSrc: ""
-            },);
-    });
-  </script>
 </head>
 <!-- Force HTTPS -->
 <script language="JavaScript">
-  var loc = window.location.href + '';
-  if (loc.indexOf('http://') == 0) {
-    window.location.href = loc.replace('http://', 'https://');
+  var loc = window.location.href+'';
+  if (loc.indexOf('http://')==0){
+    window.location.href = loc.replace('http://','https://');
   }
 </script>
 
@@ -36,7 +27,6 @@
   {% include 'includes/_footer.html' %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
   {% block scripts %}{% endblock %}
 </body>
 

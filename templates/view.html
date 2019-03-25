@@ -7,8 +7,8 @@
 <p> Add or Delete users and edit user access settings </p>
 <p> To delete a user: first deselect all access settings first </p>
 {% endif %}
-
-  <table id="table_id" class="display" style="width:100%">
+<div style="overflow-y:auto;">
+  <table class="table table-striped">
     <thead>
       <tr>
         {% for col in colnames %}
@@ -79,6 +79,7 @@
       {% endfor %}
     </tbody>
   </table>
+</div>
 
 {% if editLink == "edit" %}
 <a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>

@@ -8,12 +8,17 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
   <link rel="shortcut icon" href=/static/favicon.ico> <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stylesheetv2.css')}}">
   {% block styles %}{% endblock %}
+  <script type="text/javascript" class="init">
+    $(document).ready(function() {
+      $(#table_id).DataTable();
+    });
+  </script>
 </head>
 <!-- Force HTTPS -->
 <script language="JavaScript">
-  var loc = window.location.href+'';
-  if (loc.indexOf('http://')==0){
-    window.location.href = loc.replace('http://','https://');
+  var loc = window.location.href + '';
+  if (loc.indexOf('http://') == 0) {
+    window.location.href = loc.replace('http://', 'https://');
   }
 </script>
 

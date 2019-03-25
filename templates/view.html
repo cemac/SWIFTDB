@@ -7,12 +7,7 @@
 <p> Add or Delete users and edit user access settings </p>
 <p> To delete a user: first deselect all access settings first </p>
 {% endif %}
-<script>
-$(document).ready( function () {
-    $('#table_id').DataTable();
-} );
-</script>
-<div style="overflow-y:auto;">
+
   <table class="display" id='table_id'>
     <thead>
       <tr>
@@ -84,7 +79,12 @@ $(document).ready( function () {
       {% endfor %}
     </tbody>
   </table>
-</div>
+
+<script>
+$(document).ready( function () {
+    $().DataTable();
+} );
+</script>
 
 {% if editLink == "edit" %}
 <a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>

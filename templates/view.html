@@ -8,6 +8,12 @@
 <p> To delete a user: first deselect all access settings first </p>
 {% endif %}
 
+<script type="text/javascript" class="init">
+$(document).ready( function () {
+    $().DataTable();
+} );
+</script>
+
   <table class="display" id='table_id'>
     <thead>
       <tr>
@@ -79,12 +85,6 @@
       {% endfor %}
     </tbody>
   </table>
-
-<script>
-$(document).ready( function () {
-    $().DataTable();
-} );
-</script>
 
 {% if editLink == "edit" %}
 <a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>

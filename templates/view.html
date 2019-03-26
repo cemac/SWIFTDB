@@ -7,6 +7,9 @@
 <p> Add or Delete users and edit user access settings </p>
 <p> To delete a user: first deselect all access settings first </p>
 {% endif %}
+{% if editLink == "edit" %}
+<a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>
+{% endif %}
 <div style="overflow-y:auto;">
   <table class="table table-striped" id="myTable">
     <thead>
@@ -23,7 +26,7 @@
         {% elif col == "Issues" %}
         <th style='width: 20%;'>{{col}}</th>
         {% elif col == "Username" %}
-        <th style='width: 10%;'>{{col}}</th>
+        <th style='width: 14%;'>{{col}}</th>
         {% elif col == "Country" %}
         <th style='width: 12%;'>{{col}}</th>
         {% elif col == "Code" %}
@@ -62,7 +65,7 @@
         {% elif colnames[i-1] == "Issues" %}
         <td style='width: 20%;'>{{row[i]}}</td>
         {% elif colnames[i-1] == "Username" %}
-        <td style='width: 10%;'>{{row[i]}}</td>
+        <td style='width: 14%;'>{{row[i]}}</td>
         {% elif colnames[i-1] == "Country" %}
         <td style='width: 12%;'>{{row[i]}}</td>
         {% else %}
@@ -94,9 +97,5 @@
     </tbody>
   </table>
 </div>
-
-{% if editLink == "edit" %}
-<a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>
-{% endif %}
 <hr>
 {% endblock %}

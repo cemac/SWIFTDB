@@ -21,17 +21,18 @@
   }
   </SCRIPT>
 <h1>User Access Settings</h1>
-<p> Users must log out and back in for changes to take effect </p> 
+<p> Users must log out and back in for changes to take effect </p>
 <hr>
 {% from "includes/_formhelpers.html" import render_field %}
 <form action=/access/{{id}} method="POST">
   <div class="form-group">
     {{render_field(form.username, class_="form-control")}}
   </div>
+  <button type="submit" class="btn btn-primary">Update</button>
   <br>
   <th><INPUT type="checkbox" onchange="checkAll(this)" name="chk[]" id="select all" /> </th>
   <td><label for="select all">Select All</label></td>
-  <br>
+  <hr>
   <div class="form-group">
     {{form.AdminReader.label}}
     <br>
@@ -45,10 +46,10 @@
 
     <br>
   </div>
-  <br>
+  <hr>
   <div class="form-group">
     {{form.work_packages.label}}
-    <br>
+    <br><br>
     {% for subfield in form.work_packages %}
     <div class="col-md-3">
     <td>{{ subfield }}</td>
@@ -58,6 +59,7 @@
     {% endfor %}
   </div>
   <br>
+  <hr>
   <div class="form-group">
     {{form.partners.label}}
     <br>
@@ -74,7 +76,6 @@
     {% endfor %}
     <br>
   </div>
-  <button type="submit" class="btn btn-primary">Update</button>
 </form>
 <hr>
 {% endblock %}

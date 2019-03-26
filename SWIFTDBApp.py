@@ -420,7 +420,7 @@ def wp_list():
     title = "Your Work Packages"
     return render_template('wp-list.html', editLink="wp-edit",
                            tableClass='Work_Packages', data=accessible_wps,
-                           description=description)
+                           description=description, title=title)
 
 
 # WP list for WP leaders
@@ -442,7 +442,7 @@ def wp_view():
     title = "Viewable Work Packages"
     return render_template('wp-list.html', editLink="none",
                            tableClass='Work_Packages', data=accessible_wps,
-                           description=description)
+                           description=description, title=title)
 
 
 # WP list for WP leaders
@@ -464,7 +464,7 @@ def wp_readers():
     title = "Viewable Work Packages"
     return render_template('wp-list.html', editLink="none",
                            tableClass='Work_Packages', data=accessible_wps,
-                           description=description)
+                           description=description, title=title)
 
 
 # WP edit status for WP leaders

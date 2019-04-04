@@ -1,4 +1,4 @@
-#!/bin/bash --login
+#!/bin/bash
 #title          :backup.sh
 #description    :A Script to automate the heroku back up to cloud excel sheets
 #author         :CEMAC - Helen
@@ -26,5 +26,5 @@ then
 fi
 ./dumpPSQL.sh
 mv *.csv $folder
-./dumptoexcel.py $(date +%Y%m%d)
+python dumptoexcel.py $(date +%Y%m%d)
 cp -p csvs/$(date +%Y%m%d)swiftbak.xlsx $HOME/public_html/SHARE/SWIFT/

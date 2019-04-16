@@ -39,4 +39,19 @@ dependencies:
   - wheel=0.33.1=py37_0
   - xz=5.2.4=h14c3975_4
   - zlib=1.2.11=h7b6447c_3
+  - pip:
+    - alembic==1.0.9
+    - click==7.0
+    - flask==1.0.2
+    - flask-migrate==2.4.0
+    - flask-script==2.0.6
+    - flask-sqlalchemy==2.3.2
+    - itsdangerous==1.1.0
+    - jinja2==2.10.1
+    - mako==1.0.9
+    - markupsafe==1.1.1
+    - passlib==1.7.1
+    - python-editor==1.0.4
+    - werkzeug==0.15.2
+    - wtforms==2.2.1
 

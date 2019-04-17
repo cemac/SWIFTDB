@@ -1,5 +1,4 @@
 {% extends 'layout.html' %}
-
 {% block body %}
 <h1>{{title}}</h1>
 <p>{{description}} </p>
@@ -9,106 +8,90 @@
 {% if editLink == "edit" %}
 <a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>
 {% endif %}
-<div style="overflow-y:auto;">
-  <table class="table table-striped" id="myTable">
+<div>
+  <table id="myTable"  class="display" style="width:100%">
     <thead>
       <tr>
         {% for col in colnames %}
-        {% if col == "Description" %}
-        <th style='width: 23%;'>{{col}}</th>
-        {% elif col == "Progress" %}
-        <th style='width: 25%;'>{{col}}</th>
-        {% elif col == "Name" %}
-        <th style='width: 15%;'>{{col}}</th>
-        {% elif col == "Status" %}
-        <th style='width: 25%;'>{{col}}</th>
-        {% elif col == "Issues" %}
-        <th style='width: 20%;'>{{col}}</th>
-        {% elif col == "Username" %}
-        <th style='width: 14%;'>{{col}}</th>
-        {% elif col == "Country" %}
-        <th style='width: 12%;'>{{col}}</th>
-        {% elif col == "Code" %}
-        <th onclick="sortTable(0)">
-          <p style="color:blue;">{{col}} &#x21F5; </p>
-        </th>
-        {% elif col == "Percent" %}
-        <th onclick="sortnum(6)">
-          <p style="color:blue;">{{col}}&#x21F5;</p>
-        </th>
-        {% elif col == "Month Due" %}
-        <th onclick="sortnum(4)">
-          <p style="color:blue;">{{col}}&#x21F5;</p>
-        </th>
-        {% elif tableClass == 'Tasks' and col == "Partner" %}
-        <th onclick="sortTable(2)">
-          <p style="color:blue;">{{col}}&#x21F5;</p>
-        </th>
-        {% elif tableClass == 'Tasks' and col == "Work Package" %}
-        <th onclick="sortTable(3)">
-          <p style="color:blue;">{{col}}&#x21F5;</p>
-        </th>
-        {% elif tableClass == 'Deliverables' and col == "Partner" %}
-        <th onclick="sortTable(3)">
-          <p style="color:blue;">{{col}}&#x21F5;</p>
-        </th>
-        {% elif tableClass == 'Deliverables' and col == "Work Package" %}
-        <th onclick="sortTable(1)">
-          <p style="color:blue;">{{col}}&#x21F5;</p>
-        </th>
-        {% else %}
         <th>{{col}}</th>
-        {% endif %}
         {% endfor %}
         <th></th>
+        {% if editLink == "edit" %}
+        <td></td>
+        {% endif %}
       </tr>
     </thead>
     <tbody>
       {% for index, row in data.iterrows() %}
-      <tr>
-        {% for i in range(1,row|length) %}
-        {% if colnames[i-1] == "Description" %}
-        <td style='width: 23%;'>{{row[i]}}</td>
-        {% elif colnames[i-1] == "Progress" %}
-        <td style='width: 25%;'>{{row[i]}}</td>
-        {% elif colnames[i-1] == "Name" %}
-        <td style='width: 15%;'>{{row[i]}}</td>
-        {% elif colnames[i-1] == "Status" %}
-        <td style='width: 25%;'>{{row[i]}}</td>
-        {% elif colnames[i-1] == "Issues" %}
-        <td style='width: 20%;'>{{row[i]}}</td>
-        {% elif colnames[i-1] == "Username" %}
-        <td style='width: 14%;'>{{row[i]}}</td>
-        {% elif colnames[i-1] == "Country" %}
-        <td style='width: 12%;'>{{row[i]}}</td>
-        {% else %}
-        <td>{{row[i]}}</td>
-        {% endif %}
-        {% endfor %}
-        <td></td>
+        <tr>
+          {% for i in range(1,row|length) %}
+            <td>{{row[i]}}</td>
+          {% endfor %}
         <td>
           {% if tableClass == 'Users' %}
-          <a href=/access/ {{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
+            <a href=/access/ {{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
           {% elif editLink == "edit" %}
-          <a href=/edit/ {{tableClass}}/ {{row['id']}} class="btn btn-primary pull-right">Edit</a>
+            <a href=/edit/ {{tableClass}}/ {{row['id']}} class="btn btn-primary pull-right">Edit</a>
           {% elif editLink == "none" %}
-          <p></p>
+             <p> </p>
           {% else %}
-          <a href=/ {{editLink}}/ {{row['id']}} class="btn btn-primary pull-right">Update</a>
+          <a href=/{{editLink}}/{{row['id']}} class="btn btn-primary pull-right">Update</a>
           {% endif %}
         </td>
+
+        {% if editLink == "edit" %}
         <td>
-          {% if editLink == "edit" %}
           <form action=/delete/ {{tableClass}}/ {{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
             <input type="hidden" name="_method" value="DELETE">
             <input type="submit" value="Delete" class="btn btn-danger">
           </form>
-          {% endif %}
         </td>
+        {% endif %}
       </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
 <hr>
+{% endblock %}
+{% block scripts %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+{% if tableClass == 'Deliverables' %}
+<script>
+$(document).ready(function(){
+  $('.dropdown-toggle').dropdown();
+  var table = $('#myTable').DataTable({
+    columnDefs: [
+        {targets: [2,5,7], orderable: false, searchable : false}
+    ],
+      order: [[0, "asc"]]
+  });
+});
+</script>
+{% elif tableClass == 'Tasks' %}
+<script>
+$(document).ready(function(){
+  $('.dropdown-toggle').dropdown();
+  var table = $('#myTable').DataTable({
+    columnDefs: [
+        {targets: [1,5,7], orderable: false, searchable : false}
+    ],
+      order: [[0, "asc"]]
+  });
+});
+</script>
+{% else %}
+<script>
+$(document).ready(function(){
+  $('.dropdown-toggle').dropdown();
+  var table = $('#myTable').DataTable({
+    columnDefs: [
+        {targets: [5,6,7], orderable: false, searchable : false}
+    ],
+      order: [[0, "asc"]]
+  });
+});
+</script>
+{% endif %}
 {% endblock %}

@@ -29,26 +29,40 @@
         {% elif col == "Country" %}
         <th style='width: 12%;'>{{col}}</th>
         {% elif col == "Code" %}
-        <th onclick="sortTable(0)"><p style="color:blue;">{{col}} &#x21F5; </p></th>
+        <th onclick="sortTable(0)">
+          <p style="color:blue;">{{col}} &#x21F5; </p>
+        </th>
         {% elif col == "Percent" %}
-        <th onclick="sortnum(6)"><p style="color:blue;">{{col}}&#x21F5;</p></th>
+        <th onclick="sortnum(6)">
+          <p style="color:blue;">{{col}}&#x21F5;</p>
+        </th>
         {% elif col == "Month Due" %}
-        <th onclick="sortnum(4)"><p style="color:blue;">{{col}}&#x21F5;</p> </th>
+        <th onclick="sortnum(4)">
+          <p style="color:blue;">{{col}}&#x21F5;</p>
+        </th>
         {% elif tableClass == 'Tasks' and col == "Partner" %}
-        <th onclick="sortTable(2)"><p style="color:blue;">{{col}}&#x21F5;</p></th>
+        <th onclick="sortTable(2)">
+          <p style="color:blue;">{{col}}&#x21F5;</p>
+        </th>
         {% elif tableClass == 'Tasks' and col == "Work Package" %}
-        <th onclick="sortTable(3)"><p style="color:blue;">{{col}}&#x21F5;</p></th>
+        <th onclick="sortTable(3)">
+          <p style="color:blue;">{{col}}&#x21F5;</p>
+        </th>
         {% elif tableClass == 'Deliverables' and col == "Partner" %}
-        <th onclick="sortTable(3)"><p style="color:blue;">{{col}}&#x21F5;</p></th>
+        <th onclick="sortTable(3)">
+          <p style="color:blue;">{{col}}&#x21F5;</p>
+        </th>
         {% elif tableClass == 'Deliverables' and col == "Work Package" %}
-        <th onclick="sortTable(1)"><p style="color:blue;">{{col}}&#x21F5;</p></th>
+        <th onclick="sortTable(1)">
+          <p style="color:blue;">{{col}}&#x21F5;</p>
+        </th>
         {% else %}
         <th>{{col}}</th>
         {% endif %}
         {% endfor %}
         <th></th>
       </tr>
-      </thead>
+    </thead>
     <tbody>
       {% for index, row in data.iterrows() %}
       <tr>
@@ -74,18 +88,18 @@
         <td></td>
         <td>
           {% if tableClass == 'Users' %}
-          <a href=/access/{{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
+          <a href=/access/ {{row['id']}} class="btn btn-primary pull-right">Edit Access Settings</a>
           {% elif editLink == "edit" %}
-          <a href=/edit/{{tableClass}}/{{row['id']}} class="btn btn-primary pull-right">Edit</a>
+          <a href=/edit/ {{tableClass}}/ {{row['id']}} class="btn btn-primary pull-right">Edit</a>
           {% elif editLink == "none" %}
           <p></p>
           {% else %}
-          <a href=/{{editLink}}/{{row['id']}} class="btn btn-primary pull-right">Update</a>
+          <a href=/ {{editLink}}/ {{row['id']}} class="btn btn-primary pull-right">Update</a>
           {% endif %}
         </td>
         <td>
           {% if editLink == "edit" %}
-          <form action=/delete/{{tableClass}}/{{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
+          <form action=/delete/ {{tableClass}}/ {{row['id']}} method="post" onsubmit="return confirm('Are you sure?');">
             <input type="hidden" name="_method" value="DELETE">
             <input type="submit" value="Delete" class="btn btn-danger">
           </form>
@@ -97,20 +111,4 @@
   </table>
 </div>
 <hr>
-{% endblock %}
-
-{% block scripts %}
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('.dropdown-toggle').dropdown();
-            var table = $('#upload-table').DataTable({
-              columnDefs: [
-                  {targets: [5,6,7], orderable: false}
-              ],
-                order: [[0, "desc"]]
-            });
-        });
-    </script>
 {% endblock %}

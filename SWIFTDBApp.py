@@ -73,7 +73,7 @@ def psql_delete(row, flashMsg=True):
     except IntegrityError:
         db.session.rollback()
         flash('Integrity Error: Cannot delete, other database entries likely' +
-              'reference this one', 'danger')
+              ' reference this one', 'danger')
     return
 ####################################
 # ######### LOGGED-IN FUNCTIONS ##########
@@ -223,7 +223,7 @@ class MultiCheckboxField(SelectMultipleField):
 class AccessForm(Form):
     username = StringField('Username')
     AdminReader = MultiCheckboxField(
-        'ADMIN or View all Access: (Grant Admin privallages or the ability to view all (read-only)):')
+        'ADMIN or View all Access: (Grant Admin privileges or the ability to view all (read-only)):')
     work_packages = MultiCheckboxField(
         'WORK PACKAGE LEADERS: Can update Work Package progress and view associated Task and Deliverables:')
     partners = MultiCheckboxField(
@@ -847,10 +847,10 @@ def login():
                     flash('You are now logged in', 'success')
                 if 'admin' in user_partners[:]:
                     session['admin'] = 'True'
-                    flash('You have admin privallages', 'success')
+                    flash('You have admin privileges', 'success')
                 if 'ViewAll' in user_partners[:]:
                     session['reader'] = 'True'
-                    flash('You view all access', 'success')
+                    flash('You have view all access', 'success')
                 return redirect(url_for('index'))
             else:
                 flash('Incorrect password', 'danger')

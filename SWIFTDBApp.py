@@ -289,7 +289,7 @@ def index():
     except:
         WP = 'none'
         Ps = 'none'
-    return render_template('home.html', WP=WP, Ps=Ps)
+    return render_template('home.html.j2', WP=WP, Ps=Ps)
 
 
 # Add entry
@@ -320,7 +320,7 @@ def add(tableClass):
         db_row = eval(db_string)
         psql_insert(db_row)
         return redirect(url_for('add', tableClass=tableClass))
-    return render_template('add.html', title=title, tableClass=tableClass,
+    return render_template('add.html.j2', title=title, tableClass=tableClass,
                            form=form)
 
 
@@ -340,7 +340,7 @@ def view(tableClass):
     # Set table column names:
     description = ('Admin access to ' + tableClass.replace("_", " "))
     colnames = [s.replace("_", " ").title() for s in data.columns.values[1:]]
-    return render_template('view.html', title=title, colnames=colnames,
+    return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass=tableClass, editLink="edit", data=data)
 
 
@@ -397,7 +397,7 @@ def edit(tableClass, id):
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)
-    return render_template('edit.html', title=title, tableClass=tableClass,
+    return render_template('edit.html.j2', title=title, tableClass=tableClass,
                            id=id, form=form)
 
 
@@ -418,7 +418,7 @@ def wp_list():
         description = 'You are WP Leader for: ' +  ", ".join(user_wps)
     # Set title:
     title = "Your Work Packages"
-    return render_template('wp-list.html', editLink="wp-edit",
+    return render_template('wp-list.html.j2', editLink="wp-edit",
                            tableClass='Work_Packages', data=accessible_wps,
                            description=description, title=title)
 
@@ -440,7 +440,7 @@ def wp_view():
         description = 'You are WP Leader for: ' +  ", ".join(user_wps)
     # Set title:
     title = "Viewable Work Packages"
-    return render_template('wp-list.html', editLink="none",
+    return render_template('wp-list.html.j2', editLink="none",
                            tableClass='Work_Packages', data=accessible_wps,
                            description=description, title=title)
 
@@ -462,7 +462,7 @@ def wp_readers():
         description = 'You are WP Leader for: ' +  ", ".join(user_wps)
     # Set title:
     title = "Viewable Work Packages"
-    return render_template('wp-list.html', editLink="none",
+    return render_template('wp-list.html.j2', editLink="none",
                            tableClass='Work_Packages', data=accessible_wps,
                            description=description, title=title)
 
@@ -498,7 +498,7 @@ def wp_edit(id):
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)
-    return render_template('alt-edit.html', title="Update Work Package ",
+    return render_template('alt-edit.html.j2', title="Update Work Package ",
                             id=id, form=form, editLink="wp-edit")
 
 
@@ -530,7 +530,7 @@ def task_list():
     # Set table column names:
     colnames = [s.replace("_", " ").title()
                 for s in accessible_tasks.columns.values[1:]]
-    return render_template('view.html', title=title, colnames=colnames,
+    return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Tasks', editLink="task-edit",
                            data=data, description=description)
 
@@ -557,7 +557,7 @@ def task_view():
     # Set table column names:
     colnames = [s.replace("_", " ").title()
                 for s in accessible_tasks.columns.values[1:]]
-    return render_template('view.html', title=title, colnames=colnames,
+    return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Tasks', editLink="none",
                            data=data, description=description)
 
@@ -584,7 +584,7 @@ def task_reader():
     # Set table column names:
     colnames = [s.replace("_", " ").title()
                 for s in accessible_tasks.columns.values[1:]]
-    return render_template('view.html', title=title, colnames=colnames,
+    return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Tasks', editLink="none",
                            data=data, description=description)
 
@@ -620,7 +620,7 @@ def task_edit(id):
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)
-    return render_template('alt-edit.html', id=id, form=form,
+    return render_template('alt-edit.html.j2', id=id, form=form,
                            title="Edit Task", editLink="task-edit")
 
 
@@ -652,7 +652,7 @@ def deliverables_list():
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
                 accessible_data.columns.values[1:]]
-    return render_template('view.html', title=title, colnames=colnames,
+    return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Deliverables',
                            editLink="deliverables-edit", data=data,
                            description=description)
@@ -681,7 +681,7 @@ def deliverables_view():
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
                 accessible_data.columns.values[1:]]
-    return render_template('view.html', title=title, colnames=colnames,
+    return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Deliverables',
                            editLink="none", data=data,
                            description=description)
@@ -710,7 +710,7 @@ def deliverables_reader():
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
                 accessible_data.columns.values[1:]]
-    return render_template('view.html', title=title, colnames=colnames,
+    return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Deliverables',
                            editLink="none", data=data,
                            description=description)
@@ -749,7 +749,7 @@ def deliverables_edit(id):
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)
-    return render_template('alt-edit.html', id=id, form=form,
+    return render_template('alt-edit.html.j2', id=id, form=form,
                            title="Edit Deliverable",
                            editLink="deliverables-edit")
 
@@ -806,7 +806,7 @@ def access(id):
     form.username.data = user.username
     form.work_packages.data = current_work_packages
     form.partners.data = current_partners
-    return render_template('access.html', form=form, id=id)
+    return render_template('access.html.j2', form=form, id=id)
 
 
 # Login
@@ -875,7 +875,7 @@ def login():
         flash('Already logged in', 'warning')
         return redirect(url_for('index'))
     # Not yet logged in:
-    return render_template('login.html', WP=WP, P=Ps)
+    return render_template('login.html.j2', WP=WP, P=Ps)
 
 
 # Logout
@@ -904,7 +904,7 @@ def change_pwd():
         else:
             flash('Current password incorrect', 'danger')
             return redirect(url_for('change_pwd'))
-    return render_template('change-pwd.html', form=form)
+    return render_template('change-pwd.html.j2', form=form)
 
 
 # ssl
@@ -916,26 +916,26 @@ def letsencrypt_check():
 @app.errorhandler(404)
 def page_not_found(e):
     # note that we set the 404 status explicitly
-    return render_template('404.html'), 404
+    return render_template('404.html.j2'), 404
 
 
 @app.errorhandler(403)
 def page_not_found(e):
     # note that we set the 403 status explicitly
-    return render_template('403.html'), 403
+    return render_template('403.html.j2'), 403
 
 
 @app.errorhandler(500)
 def internal_error(error):
     app.logger.error('Server Error: %s', (error))
     db.session.rollback()
-    return render_template('500.html'), 500
+    return render_template('500.html.j2'), 500
 
 
 @app.errorhandler(Exception)
 def unhandled_exception(e):
     app.logger.error('Unhandled Exception: %s', (e))
-    return render_template('500.html'), 500
+    return render_template('500.html.j2'), 500
 
 if __name__ == '__main__':
     app.run()

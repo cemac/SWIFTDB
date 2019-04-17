@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-UK">
 
 <head>
   <meta charset="utf-8">
@@ -16,14 +16,14 @@
   }
 </script>
 <body>
-  {% include 'includes/_header.html' %}
-  {% include 'includes/_navbar.html' %}
+  {% include 'includes/_header.html.j2' %}
+  {% include 'includes/_navbar.html.j2' %}
   <div class="container">
-    {% include 'includes/_messages.html' %}
+    {% include 'includes/_messages.html.j2' %}
     {% block body %}{% endblock %}
   </div>
   <div style="padding-top: 90px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;"></div>
-  {% include 'includes/_footer.html' %}
+  {% include 'includes/_footer.html.j2' %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   {% block scripts %}{% endblock %}

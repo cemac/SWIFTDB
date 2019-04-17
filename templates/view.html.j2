@@ -1,3 +1,4 @@
+<html lang="en">
 {% extends 'layout.html' %}
 {% block body %}
 <h1>{{title}}</h1>
@@ -58,7 +59,7 @@
 <!-- Datatables functionality - must have same columns in thead and tbody
 i.e. account for the edit buttons appearing or dissappearing - I have chosen
 to leave a hidden space for update button and create extra space in the admin
-tables -->
+tables  -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 {% if tableClass == 'Deliverables' %}
@@ -99,3 +100,4 @@ $(document).ready(function(){
 </script>
 {% endif %}
 {% endblock %}
+</html>

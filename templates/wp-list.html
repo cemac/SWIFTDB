@@ -5,26 +5,31 @@
 <hr>
 <p> {{description}} </p>
 <p> You may also view associated tasks and deliverables but only Partner Leaders may update. </p>
-<div style="overflow-y:auto;">
-  <table class="table table-striped">
+<div>
+  <table id="myTable"  class="display" style="width:100%">
     <thead>
       <tr>
         <th>Code</th>
-        <th style='width:17%;'>Name</th>
-        <th style='width: 25%;'>Status Update</th>
-        <th style='width: 25%;'>Issues</th>
-        <th style='width: 18%;'>Next Quarter Deliverables</th>
+        <th>Name</th>
+        <th>Status Update</th>
+        <th>Issues</th>
+        <th>Next Quarter Deliverables</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       {% for index, row in data.iterrows() %}
       <tr>
         <td>{{row['code']}}</td>
-        <td style='width: 17%;'>{{row['name']}}</td>
-        <td style='width: 25%;'>{{row['status']}}</td>
-        <td style='width: 25%;'>{{row['issues']}}</td>
-        <td style='width: 18%;'>{{row['next_deliverable']}}</td>
-        <td><a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Update</a></td>
+        <td>{{row['name']}}</td>
+        <td>{{row['status']}}</td>
+        <td>{{row['issues']}}</td>
+        <td>{{row['next_deliverable']}}</td>
+        <td>
+        {% if editLink == "wp-edit" %}
+        <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Update</a>
+        {% endif %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>
@@ -34,4 +39,19 @@
 <a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>
 {% endif %}
 <hr>
+{% endblock %}
+{% block scripts %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script>
+$(document).ready(function(){
+  $('.dropdown-toggle').dropdown();
+  var table = $('#myTable').DataTable({
+    columnDefs: [
+        {targets: [1,2,3,4,5], orderable: false}
+    ],
+      order: [[0, "asc"]]
+  });
+});
+</script>
 {% endblock %}

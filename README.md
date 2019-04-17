@@ -14,7 +14,14 @@ See [wiki](https://github.com/cemac/SWIFTDB/wiki) for user guide.
 
 ## Requirements
 
-Via Pip
+### Via anaconda
+
+- [anaconda (python3)](https://www.anaconda.com/download/)
+- [heroku cli](https://devcenter.heroku.com/articles/heroku-cli)
+
+_Individual python modules are managed in the pip lock file and installed as per installation instructions_
+
+### Pip
 
 -   pip3 >= 18.0
 -   pipenv
@@ -23,13 +30,6 @@ Via Pip
 -   python-libs
 -   Flaskr
 -   postgresql-10.4
-
-or Via anaconda
-
-- [anaconda (python3)](https://www.anaconda.com/download/)
-- [heroku cli](https://devcenter.heroku.com/articles/heroku-cli)
-
-_Individual python modules are managed in the pip lock file and installed as per installation instructions_
 
 # Installation
 

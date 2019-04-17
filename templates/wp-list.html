@@ -24,7 +24,9 @@
         <td style='width: 25%;'>{{row['status']}}</td>
         <td style='width: 25%;'>{{row['issues']}}</td>
         <td style='width: 18%;'>{{row['next_deliverable']}}</td>
+        {% if editLink == "wp-edit" %}
         <td><a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Update</a></td>
+        {% endif %}
       </tr>
       {% endfor %}
     </tbody>

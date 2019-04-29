@@ -454,7 +454,7 @@ def wp_readers():
     # Select only the accessible work packages for this user:
     if session['username'] == 'admin' or session['reader'] == 'True':
         accessible_wps = all_wps
-        description = 'Admin view (read-only), please use admin menu to edit'
+        description = 'Read Only View of Work Packages'
     else:
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
             username=session['username']))['work_package'].tolist()
@@ -668,7 +668,7 @@ def deliverables_view():
     # Select only the accessible tasks for this user:
     if session['username'] == 'admin':
         accessible_data = all_tasks
-        description = 'Read-only - Displaying All Tasks'
+        description = 'Read-only - Displaying All Deliverables'
     else:
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
             username=session['username']))['work_package'].tolist()

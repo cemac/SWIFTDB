@@ -1,3 +1,5 @@
+from models import Partners, Work_Packages, Deliverables, Users
+from models import Users2Work_Packages, Tasks, Users2Partners
 '''
 SWIFTDBApp.py:
 
@@ -40,8 +42,6 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 
 # Configure postgresql database:
 db = SQLAlchemy(app)
-from models import Users2Work_Packages, Tasks, Users2Partners
-from models import Partners, Work_Packages, Deliverables, Users
 # Set any other parameters:
 endMonth = 51  # End month (from project start month)
 # ~~~~~~ PSQL FUNCTIONS ~~~~~~~ #
@@ -144,8 +144,8 @@ class Work_Packages_Form(Form):
                          [validators.InputRequired()],
                          render_kw={"placeholder": "e.g. Highlight any potential issues or risks"})
     next_deliverable = StringField(u'*Next Quarter Deliverables',
-                         [validators.InputRequired()],
-                         render_kw={"placeholder": "e.g. Upcomming deliverables due"})
+                                   [validators.InputRequired()],
+                                   render_kw={"placeholder": "e.g. Upcomming deliverables due"})
 
 
 class Deliverables_Form(Form):
@@ -180,8 +180,9 @@ class Your_Work_Packages_Form(Form):
                          [validators.InputRequired()],
                          render_kw={"placeholder": "e.g. Highlight any potential issues or risks"})
     next_deliverable = StringField(u'*Next Quarter Deliverables',
-                         [validators.InputRequired()],
-                         render_kw={"placeholder": "e.g. Upcomming deliverables due"})
+                                   [validators.InputRequired()],
+                                   render_kw={"placeholder": "e.g. Upcomming deliverables due"})
+
 
 class Your_Deliverables_Form(Form):
     code = StringField(u'Deliverable Code')
@@ -280,8 +281,8 @@ def index():
                                       )['work_package'].tolist()
             user_partners = psql_to_pandas(Users2Partners.query.filter_by(
                 username=session['username']))['partner'].tolist()
-            WP =  ", ".join(user_wps)
-            Ps =  ", ".join(user_partners)
+            WP = ", ".join(user_wps)
+            Ps = ", ".join(user_partners)
             if len(user_wps[:]) < 1:
                 WP = 'none'
             if len(user_partners[:]) < 1:
@@ -352,9 +353,9 @@ def delete(tableClass, id):
     db_row = eval(tableClass).query.filter_by(id=id).first()
     if db_row is None:
         abort(404)
-    if tableClass=='Partners' and db_row.name == 'admin':
+    if tableClass == 'Partners' and db_row.name == 'admin':
         abort(403)
-    if tableClass=='Partners' and db_row.name == 'ViewAll':
+    if tableClass == 'Partners' and db_row.name == 'ViewAll':
         abort(403)
     # Delete from DB:
     psql_delete(db_row)
@@ -415,7 +416,7 @@ def wp_list():
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
             username=session['username']))['work_package'].tolist()
         accessible_wps = all_wps[all_wps.code.isin(user_wps)]
-        description = 'You are WP Leader for: ' +  ", ".join(user_wps)
+        description = 'You are WP Leader for: ' + ", ".join(user_wps)
     # Set title:
     title = "Your Work Packages"
     return render_template('wp-list.html.j2', editLink="wp-edit",
@@ -437,7 +438,7 @@ def wp_view():
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
             username=session['username']))['work_package'].tolist()
         accessible_wps = all_wps[all_wps.code.isin(user_wps)]
-        description = 'You are WP Leader for: ' +  ", ".join(user_wps)
+        description = 'You are WP Leader for: ' + ", ".join(user_wps)
     # Set title:
     title = "Viewable Work Packages"
     return render_template('wp-list.html.j2', editLink="none",
@@ -459,7 +460,7 @@ def wp_readers():
         user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
             username=session['username']))['work_package'].tolist()
         accessible_wps = all_wps[all_wps.code.isin(user_wps)]
-        description = 'You are WP Leader for: ' +  ", ".join(user_wps)
+        description = 'You are WP Leader for: ' + ", ".join(user_wps)
     # Set title:
     title = "Viewable Work Packages"
     return render_template('wp-list.html.j2', editLink="none",
@@ -499,7 +500,7 @@ def wp_edit(id):
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)
     return render_template('alt-edit.html.j2', title="Update Work Package ",
-                            id=id, form=form, editLink="wp-edit")
+                           id=id, form=form, editLink="wp-edit")
 
 
 # Tasks for a given user
@@ -522,7 +523,7 @@ def task_list():
             user_partners.remove('ViewAll')
         except ValueError:
             pass
-        description = 'You are Partner Leader for: ' +  ", ".join(user_partners)
+        description = 'You are Partner Leader for: ' + ", ".join(user_partners)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     # Set title:
@@ -549,7 +550,8 @@ def task_view():
             username=session['username']))['work_package'].tolist()
         accessible_tasks = all_tasks[all_tasks.work_package.isin(user_wps)]
         accessible_tasks.fillna(value="", inplace=True)
-        description = 'Displaying Tasks associated with Work Package(s): ' +  ", ".join(user_wps)
+        description = 'Displaying Tasks associated with Work Package(s): ' + ", ".join(
+            user_wps)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     # Set title:
@@ -576,7 +578,8 @@ def task_reader():
             username=session['username']))['work_package'].tolist()
         accessible_tasks = all_tasks[all_tasks.work_package.isin(user_wps)]
         accessible_tasks.fillna(value="", inplace=True)
-        description = 'Displaying Tasks associated with Work Package(s): ' +  ", ".join(user_wps)
+        description = 'Displaying Tasks associated with Work Package(s): ' + ", ".join(
+            user_wps)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     # Set title:
@@ -674,7 +677,8 @@ def deliverables_view():
             username=session['username']))['work_package'].tolist()
         accessible_data = all_tasks[all_tasks.work_package.isin(user_wps)]
         accessible_data.fillna(value="", inplace=True)
-        description = 'Displaying Deliverables associated with Work Package(s): ' + ", ".join(user_wps)
+        description = 'Displaying Deliverables associated with Work Package(s): ' + ", ".join(
+            user_wps)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     title = "Viewable Deliverables"
@@ -703,7 +707,8 @@ def deliverables_reader():
             username=session['username']))['work_package'].tolist()
         accessible_data = all_tasks[all_tasks.work_package.isin(user_wps)]
         accessible_data.fillna(value="", inplace=True)
-        description = 'Displaying Deliverables associated with Work Package(s): ' + ", ".join(user_wps)
+        description = 'Displaying Deliverables associated with Work Package(s): ' + ", ".join(
+            user_wps)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     title = "Viewable Deliverables"
@@ -812,8 +817,8 @@ def access(id):
 # Login
 @app.route('/login', methods=["GET", "POST"])
 def login():
-    WP='none'
-    Ps='none'
+    WP = 'none'
+    Ps = 'none'
     if request.method == 'POST':
         # Get form fields
         username = request.form['username']
@@ -834,9 +839,10 @@ def login():
                                           )['work_package'].tolist()
                 user_partners = psql_to_pandas(Users2Partners.query.filter_by(
                     username=session['username']))['partner'].tolist()
-                if len(user_wps[:]) >= 1 and len(user_partners[:]) >=1:
+                if len(user_wps[:]) >= 1 and len(user_partners[:]) >= 1:
                     session['usertype'] = 'both'
-                    flash('You are now logged in as both WP Leader and Partner Leader', 'success')
+                    flash(
+                        'You are now logged in as both WP Leader and Partner Leader', 'success')
                 elif len(user_wps[:]) >= 1:
                     session['usertype'] = 'WPleader'
                     flash('You are now logged in as WP Leader', 'success')
@@ -936,6 +942,7 @@ def internal_error(error):
 def unhandled_exception(e):
     app.logger.error('Unhandled Exception: %s', (e))
     return render_template('500.html.j2'), 500
+
 
 if __name__ == '__main__':
     app.run()

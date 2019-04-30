@@ -4,7 +4,7 @@
 <h1>Change password</h1>
 <hr>
 {% if session.username != 'admin' %}
-{% from "includes/_formhelpers.html" import render_field %}
+{% from "includes/_formhelpers.html.j2" import render_field %}
 <form method="POST" action="">
   <div class="form-group">
     {{render_field(form.current, class_="form-control")}}

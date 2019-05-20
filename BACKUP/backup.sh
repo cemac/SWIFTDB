@@ -9,6 +9,8 @@
 #bash_version   :4.2.46(2)-release
 #============================================================================
 
+orig=${cwd}
+cd $HOME/SWIFTDB2/BACKUP
 source .env
 if [ -e latest.dump ]
 then
@@ -28,3 +30,4 @@ fi
 mv *.csv $folder
 python dumptoexcel.py $(date +%Y%m%d)
 cp -p csvs/$(date +%Y%m%d)swiftbak.xlsx $HOME/public_html/SHARE/SWIFT/
+cd $orig

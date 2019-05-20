@@ -1,5 +1,4 @@
 .directory
-.env
 *.csv
 SWIFTDB.accdb
 migrations/*.pyc

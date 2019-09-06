@@ -913,6 +913,11 @@ def change_pwd():
     return render_template('change-pwd.html.j2', form=form)
 
 
+@app.route('/privacy', methods=["GET"])
+def privacy():
+    return render_template('privacy.html.j2')
+
+
 # ssl
 @app.route('/.well-known/acme-challenge/0pQ9Y9nneRwz6xitl6qTxzdBRC38pHJYgw-ey0JMJgI')
 def letsencrypt_check():

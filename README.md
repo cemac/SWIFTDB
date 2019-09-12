@@ -7,6 +7,7 @@
  <h1> <center>SWIFT Project Management Database </center> </h1>
 
 ![GitHub release](https://img.shields.io/github/release/cemac/SWIFTDB.svg) ![GitHub](https://img.shields.io/github/license/cemac/SWIFTDB.svg) [![DOI](https://zenodo.org/badge/134688007.svg)](https://zenodo.org/badge/latestdoi/134688007) [![GitHub top language](https://img.shields.io/github/languages/top/cemac/SWIFTDB.svg)](https://github.com/cemac/SWIFTDB) [![GitHub issues](https://img.shields.io/github/issues/cemac/SWIFTDB.svg)](https://github.com/cemac/SWIFTDB/issues) [![GitHub last commit](https://img.shields.io/github/last-commit/cemac/SWIFTDB.svg)](https://github.com/cemac/SWIFTDB/commits/master) [![GitHub All Releases](https://img.shields.io/github/downloads/cemac/SWIFTDB/total.svg)](https://github.com/cemac/SWIFTDB/releases)
+[![HitCount](http://hits.dwyl.io/{cemac}/{SWIFTDB}.svg)](http://hits.dwyl.io/{cemac}/{SWIFTDB})
 
 Repository for the [AfricanSWIFT](https://africanswift.org/) Project Management Tool [(swift-pm)](https://swift-pm.herokuapp.com/). A web app that hosts an editable database for the project Management of African SWIFT.
 

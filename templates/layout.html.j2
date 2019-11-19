@@ -3,9 +3,10 @@
 
 <head>
   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SWIFT-PM</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="shortcut icon" href=/static/favicon.ico> <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stylesheetv1.css')}}">
+  <link rel="shortcut icon" href=/static/favicon.ico> <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/stylesheetv2.css')}}">
   {% block styles %}{% endblock %}
 </head>
 <!-- Force HTTPS
@@ -18,11 +19,14 @@
 <body>
   {% include 'includes/_header.html.j2' %}
   {% include 'includes/_navbar.html.j2' %}
-  <div class="container">
+
+
+  <div class="container" style="width:95%; margin:auto;">
     {% include 'includes/_messages.html.j2' %}
     {% block body %}{% endblock %}
-  </div>
-  <div style="padding-top: 90px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px;"></div>
+
+</div>
+  
   {% include 'includes/_footer.html.j2' %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

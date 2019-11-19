@@ -1,0 +1,151 @@
+T-R1.1.1	Development of reporting template for baselining the current provision of forecasts	4		0	WP-R1	UoL	
+T-R1.1.2	Documentations of governance and institutional arrangements for NMSs	14		0	WP-R1	KNUST	
+T-R1.1.3a	Completion of 1.1.1 reporting templates for Ghana	7		0	WP-R1	KNUST	
+T-R1.1.3b	Completion of 1.1.1 reporting templates for Kenya	7		0	WP-R1	KMD	
+T-R1.1.3c	Completion of 1.1.1 reporting templates for Nigeria	7		0	WP-R1	NiMet	
+T-R1.1.3d	Completion of 1.1.1 reporting templates for Senegal	7		0	WP-R1	ANACIM	
+T-R1.1.4	Draft paper reviewing exisiting literature (peer review and grey literature) on user needs for weather and climate information in West Africa and East Africa	9		0	WP-R1	UoL	ERL
+T-R1.2.1	Completion of standard protocols for user surveys and interviews	23		0	WP-R1	ACMAD	
+T-R1.2.2a	Workshops bringing together NMS and user representatives in each partner country (Ghana)	14		0	WP-R1	KNUST	
+T-R1.2.2b	Workshops bringing together NMS and user representatives in each partner country (Kenya)	14		0	WP-R1	KMD	
+T-R1.2.2c	Workshops bringing together NMS and user representatives in each partner country (Nigeria)	17		0	WP-R1	NiMet	
+T-R1.2.2d	Workshops bringing together NMS and user representatives in each partner country (Senegal)	17		0	WP-R1	ANACIM	
+T-R1.2.3a	Pilotting user interviews and surveys in partner countries and identifying country strategy for conducting survey and interview strategy: Phase 1  (Ghana)	15		0	WP-R1	KNUST	
+T-R1.2.3b	Pilotting user interviews and surveys in partner countries and identifying countryfor conducting survey and interview strategy: Phase 1  (Senegal)	15		0	WP-R1	CEH	
+T-R1.2.4a	Pilotting user interviews and surveys in partner countries and identifying country strategy for conducting survey and interview: Phase 2  (Kenya)	17		0	WP-R1	UoN	
+T-R1.2.4b	Pilotting user interviews and surveys in partner countries and identifying country strategy for conducting survey and interview: Phase 2  (Nigeria)	17		0	WP-R1	NiMet	
+T-R1.2.5a	Completion of user interviews and surveys: Phase 1 (Ghana)	27		0	WP-R1	ACMAD	
+T-R1.2.5b	Completion of user interviews and surveys: Phase 1 (Senegal)	24		0	WP-R1	ACMAD	
+T-R1.2.6a	Completion of user interviews and surveys interviews: Phase 2 (Kenya)	27		0	WP-R1	ACMAD	
+T-R1.2.6b	Completion of user interviews and surveys interviews: Phase 2 (Nigeria)	27		0	WP-R1	ACMAD	
+T-R1.2.7	Draft paper reporting on the findings of 1.2.5a, 1.2.5b, 1.2.6a and 1.2.6b.	26		0	WP-R1	ACMAD	
+T-R1.3.1	Table collating evidenced based recommendations for good practice in  forecast communication acquired through Tasks 1.1 and 1.2, and through continued review of the peer review and grey literature.	31		0	WP-R1	UoL	
+T-R1.3.2	Case study examining measureable impact? (e.g. meningitis warnings, fishing fines, crop insurance etc?)	41		0	WP-R1	UoL	
+T-R2.1.1	Archive strategy for radar data	19		0	WP-R2	ANACIM	
+T-R2.1.2	Identify storm characteristics in dense rain gauge network and satellite data	20		0	WP-R2	KNUST	KNUST paper1 (sondes vs AIRS)
+T-R2.1.3	Review of microwave forward simulators	23		0	WP-R2	UoR	
+T-R2.1.5	Develop storm statistics tools for use with satellite data	27		0	WP-R2	UoR	UoR (Stein) paper on storm tracking algorithm; UoR (Hill) paper on model evaluation of tracked storm characteristics
+T-R2.3.1	Select case studies suitable for ensembles evaluation (WP-R7)	33		0	WP-R2	ACMAD	
+T-R2.3.2	Characterise uncertainty in verification statistics	36		0	WP-R2	UoR	UoR/UoL/UKMO paper on CPE use in Testbed; UoR-led paper on CPE verification statistics
+T-R2.3.3	Selection of uniform set of verification metrics for deterministic CP models.	24		0	WP-R2	FUTA	FUTA paper on multi-metric score
+T-R2.3.4	Coordination of analysis of Case Study A (East Africa, MAM 2018/2019)	48		0	WP-R2	UoN	ICPAC planned paper on case study analysis on S2S scales
+T-R2.3.5	Coordination of analysis of Case Study B (West Africa, 18-29 August 2017)	48		0	WP-R2	ACMAD	
+T-R2.3.6	Coordination of analysis of Case Study C (West Africa, 26-29 June 2018)	48		0	WP-R2	GMet	GMet-led case study description paper
+T-R2.3.7	Report on sensitivity of CP models to land surface initialisation.	48		0	WP-R2	CEH	Paper on soil moisture availability impact on evapotranspiration
+T-R2.4.1	Select case studies based on S2S archive	9		0	WP-R2	ICPAC	
+T-R2.4.2	Report on development towards seamless forecasting and evaluation for Tropical Africa.	48		0	WP-R2	UoR	
+T-R2.5.1	Document radar use across Africa for verification	20		0	WP-R2	ANACIM	
+T-R2.5.2	Document best practice of verification of nowcasting.	36		0	WP-R2	UoR	UoL/UoR nowcasting evaluation (UoR UG project)
+T-R2.5.3	Document best practice of verification of warning-based forecasts.	36		0	WP-R2	KMD	KMD planned paper on warning-based forecast evaluation with UKMO
+T-R2.5.4	Document best practice in S2S verification	36		0	WP-R2	ICPAC	ICPAC planned paper on WRF evaluation on S2S scales (onset)
+T-R2.5.5	Document best practice in verification and evaluation of deterministic models (global and CP)	36		0	WP-R2	UoR	ANACIM (Lahat) WRF evaluation paper; NiMet (Lawal and Eniola) published paper on surface temperatures; NiMet (Lawal) planned paper on Cosmo model evaluation; UoL (Beth) paper on HyVic flights, planned submission Jan'20
+T-R2.5.6	Document best practice in verification and evaluation of ensemble models (global and CP)	36		0	WP-R2	UoL	
+T-R2.5.7	Document best practice in verification and evaluation of synoptic charts and forecasts.	36		0	WP-R2	GMet	
+T-R2.6.1	Link up planning with WP-C1 training and test-bed event	24		0	WP-R2	UoR	
+T-R2.6.2	Prepare lecture and exercise materials (Python scripts, sample data)	36		0	WP-R2	UoR	
+T-R2.6.3	Design lesson plan and identify teaching staff	30		0	WP-R2	UoR	
+T-R2.6.4	Online resources post-event	48		0	WP-R2	UoR	
+T-R2.7.1	Identify forecasts used for baseline evaluation and relevant metrics and set reporting intervals	20		0	WP-R2	UoR	
+T-R2.7.2	Document at regular intervals forecast skill and metrics used	42		0	WP-R2	UoR	
+T-R2.7.3	Evaluate uptake of verification practices and metrics at operational centers	48		0	WP-R2	UoR	
+T-R2.8.1	Design and contribution to Kenya demonstration exercise	48		0	WP-R2	KMD	
+T-R2.8.2	Design and contribution to Ghana demonstration exercise	48		0	WP-R2	GMet	
+T-R3.1.1	Hire 2 positions within NCAS.	27		0	WP-R3	NCAS-AP	
+T-R3.1.2	Establish current work in field and hold research forum	26		0	WP-R3	NCAS-AP	
+T-R3.2.1	Report on the current satellite operational products used in African Centres.	13		0	WP-R3	ANACIM	
+T-R3.2.2	Report on  current radar facilities and capabilities in African Centres.	13		0	WP-R3	ANACIM	
+T-R3.3.1	Sort out how to access and use appropriate EUMETSAT data.	24		0	WP-R3	NCAS-AP	
+T-R3.3.2	Determine products and domain required by each centre	22		0	WP-R3	NCAS-AP	
+T-R3.3.3	Set up and deliver system with software, satellite data and images, and documentation tailored for individual centre needs	23		0	WP-R3	NCAS-AP	
+T-R3.4.1	Write new training materials (and/or instructions how to use exisiting material) for using satellite products.	23		0	WP-R3	NCAS-AP	
+T-R3.4.2	Produce web pages.	23		0	WP-R3	NCAS-AP	
+T-R3.4.3	Train the trainers in using satellite products	24		0	WP-R3	NCAS-AP	
+T-R3.4.4	"Learn about the satellite products that will help to understand physical properties of the storms and convey knowledge to African partners.
+"	28		0	WP-R3	NCAS-AP	
+T-R3.5.1	Storms in: Senegal	27		0	WP-R3	ANACIM	
+T-R3.5.2	Ghana	27		0	WP-R3	KNUST	
+T-R3.5.3	Nigeria	27		0	WP-R3	FUTA	
+T-R3.5.4	Kenya	27		0	WP-R3	KMD	
+T-R3.5.5	Africa?	27		0	WP-R3	ACMAD	
+T-R3.5.6	Case studies of use of satellite information in HIW cases over Africa	27		0	WP-R3	NCAS-AP	
+T-R3.5.7	Evaluate co-variation of observed storm statistics	27		0	WP-R3	UoR	
+T-R3.6.1	Design the problem to be solved with advanced computational visualisation tools and implementation	36		0	WP-R3	NCAS-AP	
+T-R3.6.2	Improve existing NWCSAF products	28		0	WP-R3	NCAS-AP	NCAS-paper
+T-R3.6.3a	Implementation of new product	26		0	WP-R3	NCAS-AP	
+T-R3.6.3b	Test of new product using one or more of case studies in T-R3.5.x.	26		0	WP-R3	NCAS-AP	
+T-R3.6.4	Make new product available to African centres. Write documents. Training of key people and set of on-line documents.	26		0	WP-R3	ACMAD	
+T-R3.7.1	Storms in: Senegal	26		0	WP-R3	UCAD	
+T-R3.7.2	Ghana	26		0	WP-R3	KNUST	KNUST paper1 (sondes vs AIRS)
+T-R3.7.3	Nigeria	26		0	WP-R3	FUTA	
+T-R3.7.4	Kenya	26		0	WP-R3	UoN	
+T-R3.7.5	Africa?	26		0	WP-R3	ACMAD	
+T-R3.7.6	Africa?	26		0	WP-R3	NCAS-AP	
+T-R3.7.7	Evaluate co-variation of observed storm statistics	26		0	WP-R3	UoR	Hill et al 
+T-R3.8.1	Production of NRT LSTA maps for use in nowcasting. NRT LSTA maps available in data repository.	14		0	WP-R3	CEH	
+T-R3.8.2	Analysis of persistence of observed land surface variables (LST, LAI) from historical record to inform S2S work. Paper and inclusion in S2S workshop material?	27		0	WP-R3	CEH	
+T-R4.1.1	Documented assessment of nowcasting tools & satellite products available	13		0	WP-R4	ANACIM	
+T-R4.1.2	Documented strategy for access to & development of nowcasting tools	13		0	WP-R4	ANACIM	Fletcher_et_al_testbed_paper, Roberts_et_al_opportunity_paper
+T-R4.2.1	Agreed selection of case-studies (with in-situ data) of high-impact weather affecting African-SWIFT countries for evaluation	31		0	WP-R4	UCAD	
+T-R4.2.2	Agreed metrics of user-relevant high-impact weather for nowcasts	31		0	WP-R4	UCAD	
+T-R4.2.3	Evaluation of an automated nowcasting tool for the case studies, using remotely sensed & in-situ storm properties	51		0	WP-R4	UCAD	Dione: Utility of NWCSAF nowcast products in Africa / FUTA 27728 May / Gmet 26 June 2018, 31 March 2019 / 23 May 2019
+T-R4.2.4	Statistical evaluation of an automated nowcasting tool remotely sensed storm properties, for a selected hindcast period (archiving appropriate data)	51		0	WP-R4	UCAD	Roberts_et_al2 planned 2020. KNUST paper 2 (CI indices)  relevant
+T-R4.3.1	Archive of satellite data+retrievals & tracked storms available, with remotely sensed properties, & corresponding operational analyses or reanalyses, for target period, for analysis of storm behaviour	27		0	WP-R4	NCAS-AP	
+T-R4.3.2	Archive of in-situ data of surface weather for statistical evaluation of nowcasts of surface weather, for target hindcast period	27		0	WP-R4	NCAS-AP	
+T-R4.4.1	Documented base-line of current status of nowcasting within SWIFT centres	23		0	WP-R4	KMD	
+T-R5.1.1	Benchmarking reports on synoptic systems in both observations/reanalysis and models	15		0	WP-R5	NiMet	Benchmarking reports
+T-R5.1.2	Identifying case studies for East and West Africa, which can be used across the whole project	15		0	WP-R5	ACMAD	3 papers across the whole of  SWIFT for each case study (1 paper per case study), Elijah leading the AEW (Case B)
+T-R5.1.3	Identifying the key synoptic features over East Africa	15		0	WP-R5	UoN	1 paper on understaning large-scale controls and drivers of HIW over EA
+T-R5.3.1	Developing objective tracking methods for synoptic scale disturbances in reanalysis and model data	27		0	WP-R5	FUTA	1 paper on new tracking algorythm in WRF and renalysis
+T-R5.3.2	Providing a data set of objectively identified synoptic systems in reanalysis data	27		0	WP-R5	FUTA	for Case Study B in ERAI and ERA5
+T-R5.3.3	Comparing model performance on selected case studies	27		0	WP-R5	FUTA	1 paper on dynamic factors influencing propoagation of AEWs over WA
+T-R5.3.4	Statistical evaluation physical processes of model, analysis and reanalysis data	51		0	WP-R5	UoN	Contribution to paper over EA and to Case Study A
+T-R5.3.5	Discuss new results on the scale interactions between the meso, synoptic and large-scale over West and East Africa at a meeting and, if possible, update or reformulate existing conceptual models	51		0	WP-R5	UoL	Orgnaising meetings and charing discussions
+T-R5.3.6	Testing which aspects of existing synoptic models over West Africa are represented in state-of-the-art NWP models at different horizontal resolutions	51		0	WP-R5	UoL	Testing exitsing conceptual models in reanalysis vs MetUM ensemble simulations (1 paper)
+T-R5.4.1	Controls on HIW through physical process studies in models and observations	51		0	WP-R5	UCAD	1 Paper on controls on HIW through physical process studies in models and observations
+T-R6.1.1	Benchmark current state of knowledge	51		0	WP-R6	UoN	
+T-R6.1.2	"Analysis of observations and reanalysis to identify major drivers of sub-seasonal variability (e.g., MJO, ENSO, QBO, Saharan Heat low, tropical waves, African Monsoon System, land surface)"""	51		0	WP-R6	NCAS-C	
+T-R6.1.3	Identifying case studies for East and West Africa, which can be used across the whole project (e.g. CP ensembles, devlopment of training materials)	15		0	WP-R6	NiMet	
+T-R6.1.4	Analysis of convective permitting ensembles to identify mechanisms of sub-seasonal influence on convective and synoptic scale variability	51		0	WP-R6	NCAS-C	
+T-R6.2.1	Analysis of operational model representation of sub-seasonal drivers of variability	51		0	WP-R6	ACMAD	
+T-R6.2.2	Analysis of regime dependent skill of operational forecast systems	51		0	WP-R6	NCAS-C	
+T-R6.2.3	Developing methods to identify tropical waves in real-time forecasts and reanalysis data	27		0	WP-R6	UCAD	
+T-R6.3.1	Assess forecast skill of operational systems	51		0	WP-R6	NiMet	
+T-R6.5.1	Benchmark current operational practice	51		0	WP-R6	ICPAC	
+T-R6.6.2	Training: Summer Schools	36		0	WP-R6	UoN	
+T-R6.7.1	Training: Testbeds	48		0	WP-R6	ICPAC	
+T-R7.1.1	Benchmarking reports on the state-of-the-art in the evaluation and operational use of CP ensembles.	26		0	WP-R7	UoL	
+T-R7.2.1	Identifying suitable dates for CP ensemble simulations	36		0	WP-R7	UoL	
+T-R7.2.2	Running CP ensemble tests and conducting initial evaluation	15		0	WP-R7	UKMO	
+T-R7.2.3	Running the full set of CP ensemble simulations	39		0	WP-R7	UKMO	
+T-R7.2.4	Development of prototype forecast products for operational forecastering	26		0	WP-R7	UoL	
+T-R7.3.1	CP ensemble model evaluation vs. global/deterministic forecasts and observations	39		0	WP-R7	UoL	Cafaro et al. planned 2020, description/evaluation of ensembles during testbed 2b
+T-R7.4.1	Analysis of storm predictability under different symoptic conditions within an ensemble forecasting framework	51		0	WP-R7	UoL	2* Woodhams et al., planned 2020 and 2021, likely one each on behaviour of ensembles over East and West Africa. Clarke et al., planned 2020-2021, representation of African Easterly Waves in the model
+T-C1.1.1	Create skills matrices.	22		0	WP-C1	UoL	
+T-C1.1.2	Collect skills data N times.	48		0	WP-C1	ACMAD	
+T-C1.2.1	Collect documents describing subject benchmarks for different roles. Identify gaps where benchmarks do not already exist.	24		0	WP-C1	UoL	
+T-C1.2.2	"Agree and document priority syllabus development areas, to include ""hard"" and ""soft"" skills."	24		0	WP-C1	UoL	
+T-C1.2.3	Review priority syllabus development areas.	24		0	WP-C1	UoL	
+T-C1.3.1	Create secondment call, including criteria, process, assessment committee.	25		0	WP-C1	ACMAD	
+T-C1.3.2	Review outcomes of secondments.	36		0	WP-C1	ACMAD	
+T-C1.4.1	Create teaching materials (e.g. powerpoints) from the Forecasters' Handbook chapters.	22		0	WP-C1	ACMAD	
+T-C1.4.2	Create teaching materials from new SWIFT research in WP-R1-7.	48		0	WP-C1	ACMAD	
+T-C1.4.3	Collaborate with Met Office to enhance International Meteorologist training	36		0	WP-C1	UoL	
+T-C1.5.1	Assign responsibilities for coordination of summer schools and forecaster training events, with associated budgets.	6		0	WP-C1	UoL	
+T-C1.8.1	Review outcomes of fellowships.	36		0	WP-C1	UoL	
+T-C2.1.1	Define programme of events in conjunction with partner programmes and organisations.	6		0	WP-C2	UoL	
+T-C2.1.2	Baseline assessment of forecaster-researcher links in relation to Africa.	15		0	WP-C2	ACMAD	
+T-C2.1.3	Define programme, aims, logistics, schedules etc for Testbed 1. Many sub-tasks.	13		0	WP-C2	UoL	
+T-C2.2.1	Washup event Testbed 1.	24		0	WP-C2	UoL	
+T-C2.3.1	Define programme, aims, logistics, schedules etc for Testbed 2. Many sub-tasks.	23		0	WP-C2	ICPAC	
+T-C2.4.1	Washup event Testbed 2.	33		0	WP-C2	ICPAC	
+T-C2.5.1	Define programme, aims, logistics, schedules etc for Testbed 3. Many sub-tasks.	37		0	WP-C2	UoL	
+T-C2.6.1	Washup event Testbed 3.	45		0	WP-C2	UoL	
+T-C2.7.1	Complete planning document for Kenya demonstration exercise in collaboration with stakeholders	27		0	WP-C2	KMD	
+T-C2.7.2	Deliver demonstration exercise Kenya	36		0	WP-C2	KMD	
+T-C2.7.3	Report on evaluation of demonstation exercise Kenya	36		0	WP-C2	KMD	Paper corresponding to deliverable.
+T-C2.8.1	Complete planning document for Ghana demonstration exercise in collaboration with stakeholders	27		0	WP-C2	UoL	
+T-C2.8.2	Deliver demonstration exercise Ghana	39		0	WP-C2	GMet	
+T-C2.8.3	Report on evaluation of demonstation exercise Ghana	39		0	WP-C2	GMet	Paper corresponding to deliverable.
+T-C2.9.1	Report on SWIFT-SAWIDRA forecasting exercise, August-October 2019	26		0	WP-C2	ACMAD	
+T-C2.9.2	Baseline assessment of current SOPs in Africa, and strategy for enhancement of these as part of Testbed 3 and the demonstration exercises.	32		0	WP-C2	ACMAD	
+T-C2.9.3	Position paper or policy brief on recommendations for new Standard Operating Procedures for African weather forecasting and nowcasting.	26		0	WP-C2	ACMAD	Position paper or policy brief

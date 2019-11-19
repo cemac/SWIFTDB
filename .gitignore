@@ -13,6 +13,6 @@ backups/
 __pycache__/
 BACKUP/*.csv
 BACKUP/*/*.xlsx
-*.tab
 BACKUP/*.dump
 BACKUP/staging
+example_data/old_data

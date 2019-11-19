@@ -166,7 +166,7 @@ class Deliverables_Form(Form):
                                                      message="Must be between 0 and " + str(endMonth))])
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
-    percent = IntegerField(u'*Percentage Complete',
+    percent = IntegerField(u'Percentage Complete',
                            [validators.NumberRange(min=0, max=100,
                                                    message="Must be between 0 and 100")])
     papers = TextAreaField(u'Papers',
@@ -195,7 +195,7 @@ class Your_Deliverables_Form(Form):
     month_due = IntegerField(u'Month Due')
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
-    percent = IntegerField(u'*Percentage Complete',
+    percent = IntegerField(u'Percentage Complete',
                            [validators.NumberRange(min=0, max=100,
                                                    message="Must be between 0 and 100")])
     papers = TextAreaField(u'Papers',
@@ -255,7 +255,7 @@ template for baselining the current provision of forecasts."})
                                                      message="Must be between 0 and " + str(endMonth))])
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
-    percent = IntegerField(u'*Percentage Complete',
+    percent = IntegerField(u'Percentage Complete',
                            [validators.NumberRange(min=0, max=100,
                                                    message="Must be between 0 and 100")])
     papers = TextAreaField(u'Papers',
@@ -270,7 +270,7 @@ class Your_Tasks_Form(Form):
     month_due = IntegerField(u'Month Due')
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
-    percent = IntegerField(u'*Percentage Complete',
+    percent = IntegerField(u'Percentage Complete',
                            [validators.NumberRange(min=0, max=100,
                                                    message="Must be between 0 and 100")])
     papers = TextAreaField(u'Papers',
@@ -528,8 +528,11 @@ def task_list():
             username=session['username']))['partner'].tolist()
         accessible_tasks = all_tasks[all_tasks.partner.isin(user_partners)]
         try:
-            user_partners.remove('admin')
             user_partners.remove('ViewAll')
+        except ValueError:
+            pass
+        try:
+            user_partners.remove('admin')
         except ValueError:
             pass
         description = 'You are Partner Leader for: ' + ", ".join(user_partners)
@@ -654,6 +657,9 @@ def deliverables_list():
         accessible_data = all_tasks[all_tasks.partner.isin(user_partners)]
         try:
             user_partners.remove('admin')
+        except ValueError:
+            pass
+        try:
             user_partners.remove('ViewAll')
         except ValueError:
             pass

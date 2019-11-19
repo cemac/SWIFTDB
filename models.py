@@ -58,9 +58,10 @@ class Deliverables(db.Model):
     month_due = db.Column(db.Integer, nullable=False)
     progress = db.Column(db.String())
     percent = db.Column(db.Integer, nullable=False)
+    papers = db.Column(db.String())
 
-    def __init__(self, code, work_package, description, partner,
-                 month_due, progress, percent):
+    def __init__(self, code, work_package, description, month_due, progress,
+                 percent, partner, papers):
         self.code = code
         self.work_package = work_package
         self.description = description
@@ -68,6 +69,7 @@ class Deliverables(db.Model):
         self.month_due = month_due
         self.progress = progress
         self.percent = percent
+        self.papers = papers
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -122,9 +124,10 @@ class Tasks(db.Model):
     month_due = db.Column(db.Integer, nullable=False)
     progress = db.Column(db.String())
     percent = db.Column(db.Integer, nullable=False)
+    papers = db.Column(db.String())
 
-    def __init__(self, code, description, partner, work_package,
-                 month_due, progress, percent):
+    def __init__(self, code, description, month_due, progress,	percent,
+                 work_package, partner,	papers):
         self.code = code
         self.description = description
         self.partner = partner
@@ -132,6 +135,8 @@ class Tasks(db.Model):
         self.month_due = month_due
         self.progress = progress
         self.percent = percent
+        self.papers = papers
+
 
     def __repr__(self):
         return '<id {}>'.format(self.id)

@@ -1,5 +1,4 @@
-from models import Partners, Work_Packages, Deliverables, Users
-from models import Users2Work_Packages, Tasks, Users2Partners
+# -*- coding: utf-8 -*-
 '''
 SWIFTDBApp.py:
 
@@ -17,7 +16,6 @@ Attributes:
 .. CEMAC_stomtracking:
    https://github.com/cemac/SWIFTDB
 '''
-
 from flask import Flask, render_template, flash, redirect, url_for, request
 from flask import g, session, abort
 from wtforms import Form, validators, StringField, SelectField, TextAreaField
@@ -44,6 +42,9 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 # Set any other parameters:
 endMonth = 51  # End month (from project start month)
+
+from models import Partners, Work_Packages, Deliverables, Users
+from models import Users2Work_Packages, Tasks, Users2Partners
 # ~~~~~~ PSQL FUNCTIONS ~~~~~~~ #
 
 
@@ -168,6 +169,8 @@ class Deliverables_Form(Form):
     percent = IntegerField(u'*Percentage Complete',
                            [validators.NumberRange(min=0, max=100,
                                                    message="Must be between 0 and 100")])
+    papers = TextAreaField(u'Papers',
+                             validators=[validators.Optional()])
 
 
 class Your_Work_Packages_Form(Form):
@@ -195,6 +198,8 @@ class Your_Deliverables_Form(Form):
     percent = IntegerField(u'*Percentage Complete',
                            [validators.NumberRange(min=0, max=100,
                                                    message="Must be between 0 and 100")])
+    papers = TextAreaField(u'Papers',
+                             validators=[validators.Optional()])
 
 
 class Users_Form(Form):
@@ -253,6 +258,8 @@ template for baselining the current provision of forecasts."})
     percent = IntegerField(u'*Percentage Complete',
                            [validators.NumberRange(min=0, max=100,
                                                    message="Must be between 0 and 100")])
+    papers = TextAreaField(u'Papers',
+                             validators=[validators.Optional()])
 
 
 class Your_Tasks_Form(Form):
@@ -266,6 +273,8 @@ class Your_Tasks_Form(Form):
     percent = IntegerField(u'*Percentage Complete',
                            [validators.NumberRange(min=0, max=100,
                                                    message="Must be between 0 and 100")])
+    papers = TextAreaField(u'Papers',
+                             validators=[validators.Optional()])
 
 
 # Index

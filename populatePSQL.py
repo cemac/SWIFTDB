@@ -37,20 +37,18 @@ if(ans):
     print("Deleting current data")
     Tasks.query.delete()
     db.session.commit()
-    Users2Work_Packages.query.delete()
-    db.session.commit()
+    # Users2Work_Packages.query.delete()
+    # db.session.commit()
     Deliverables.query.delete()
     db.session.commit()
-    Partners.query.delete()
-    db.session.commit()
-    Work_Packages.query.delete()
-    db.session.commit()
+    # Partners.query.delete()
+    # db.session.commit()
+    # Work_Packages.query.delete()
+    # db.session.commit()
 
     # Copy new data (in normal order):
     print("Copying new data")
-    list = [['partners.tab', Partners],
-            ['work_packages.tab', Work_Packages],
-            ['deliverables.tab', Deliverables],
+    list = [['deliverables.tab', Deliverables],
             ['tasks.tab', Tasks]]
     for l in list:
         with open(l[0], 'r') as f:

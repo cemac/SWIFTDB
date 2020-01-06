@@ -1,54 +1,78 @@
+#
+#                  __    __    __    __
+#                 /  \  /  \  /  \  /  \
+#                /    \/    \/    \/    \
+#███████████████/  /██/  /██/  /██/  /████████████████████████
+#              /  / \   / \   / \   / \  \____
+#             /  /   \_/   \_/   \_/   \    o \__,
+#            / _/                       \_____/  `
+#            |/
+#        ███╗   ███╗ █████╗ ███╗   ███╗██████╗  █████╗
+#        ████╗ ████║██╔══██╗████╗ ████║██╔══██╗██╔══██╗
+#        ██╔████╔██║███████║██╔████╔██║██████╔╝███████║
+#        ██║╚██╔╝██║██╔══██║██║╚██╔╝██║██╔══██╗██╔══██║
+#        ██║ ╚═╝ ██║██║  ██║██║ ╚═╝ ██║██████╔╝██║  ██║
+#        ╚═╝     ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝╚═════╝ ╚═╝  ╚═╝
+#
+#        Supported by @QuantStack
+#
+#        GitHub:  https://github.com/QuantStack/mamba
+#        Twitter: https://twitter.com/QuantStack
+#
+#█████████████████████████████████████████████████████████████
 # This file may be used to create an environment using:
 # $ conda create --name <env> --file <this file>
 # platform: linux-64
-alembic=1.0.9=pypi_0
-blas=1.0=mkl
-ca-certificates=2019.1.23=0
-certifi=2019.3.9=py37_0
-click=7.0=pypi_0
-et_xmlfile=1.0.1=py37_0
-flask=1.0.2=pypi_0
-flask-migrate=2.4.0=pypi_0
-flask-script=2.0.6=pypi_0
-flask-sqlalchemy=2.3.2=pypi_0
-intel-openmp=2019.3=199
-itsdangerous=1.1.0=pypi_0
-jdcal=1.4=py37_0
-jinja2=2.10.1=pypi_0
-krb5=1.16.1=h173b8e3_7
-libedit=3.1.20181209=hc058e9b_0
-libffi=3.2.1=hd88cf55_4
-libgcc-ng=8.2.0=hdf63c60_1
-libgfortran-ng=7.3.0=hdf63c60_0
-libpq=11.2=h20c2e04_0
-libstdcxx-ng=8.2.0=hdf63c60_1
-mako=1.0.9=pypi_0
-markupsafe=1.1.1=pypi_0
-mkl=2019.3=199
-mkl_fft=1.0.10=py37ha843d7b_0
-mkl_random=1.0.2=py37hd81dba3_0
-ncurses=6.1=he6710b0_1
-numpy=1.16.2=py37h7e9f1db_0
-numpy-base=1.16.2=py37hde5b4d6_0
-openpyxl=2.6.1=py37_1
-openssl=1.1.1b=h7b6447c_1
-pandas=0.24.2=py37he6710b0_0
-passlib=1.7.1=pypi_0
-pip=19.0.3=py37_0
-postgresql=11.2=h20c2e04_0
-psycopg2=2.7.6.1=py37h1ba5d50_0
-python=3.7.3=h0371630_0
-python-dateutil=2.8.0=py37_0
-python-editor=1.0.4=pypi_0
-pytz=2018.9=py37_0
-readline=7.0=h7b6447c_5
-setuptools=40.8.0=py37_0
-six=1.12.0=py37_0
-sqlalchemy=1.3.1=py37h7b6447c_0
-sqlite=3.27.2=h7b6447c_0
-tk=8.6.8=hbc83047_0
-werkzeug>=0.15.3
-wheel=0.33.1=py37_0
-wtforms=2.2.1=pypi_0
-xz=5.2.4=h14c3975_4
-zlib=1.2.11=h7b6447c_3
+_libgcc_mutex=0.1
+alembic=1.3.2
+blas=1.0
+ca-certificates=2019.1.23
+certifi=2019.11.28
+click=7.0
+et_xmlfile=1.0.1
+flask=1.1.1
+flask-migrate=2.5.2
+flask-script=2.0.6
+flask-sqlalchemy=2.4.1
+intel-openmp=2019.3
+itsdangerous=1.1.0
+jdcal=1.4.1
+jinja2=2.10.3
+krb5=1.16.1
+libedit=3.1.20181209
+libffi=3.2.1
+libgcc-ng=8.2.0
+libgfortran-ng=7.3.0
+libpq=11.2
+libstdcxx-ng=8.2.0
+mako=1.1.0
+markupsafe=1.1.1
+mkl=2019.4
+mkl-service=2.3.0
+mkl_fft=1.0.15
+mkl_random=1.1.0
+ncurses=6.1
+numpy=1.17.4
+numpy-base=1.17.4
+openpyxl=3.0.2
+openssl=1.1.1d
+pandas=0.25.3
+passlib=1.7.2
+pip=19.3.1
+postgresql=11.2
+psycopg2=2.8.4
+python=3.8.0
+python-dateutil=2.8.1
+python-editor=1.0.4
+pytz=2019.3
+readline=7.0
+setuptools=42.0.2
+six=1.13.0
+sqlalchemy=1.3.11
+sqlite=3.30.1
+tk=8.6.8
+werkzeug=0.16.0
+wheel=0.33.6
+wtforms=2.2.1
+xz=5.2.4
+zlib=1.2.11

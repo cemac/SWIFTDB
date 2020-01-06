@@ -290,6 +290,14 @@ def index():
                                       )['work_package'].tolist()
             user_partners = psql_to_pandas(Users2Partners.query.filter_by(
                 username=session['username']))['partner'].tolist()
+            try:
+                user_partners.remove('admin')
+            except ValueError:
+                pass
+            try:
+                user_partners.remove('ViewAll')
+            except ValueError:
+                pass
             WP = ", ".join(user_wps)
             Ps = ", ".join(user_partners)
             if len(user_wps[:]) < 1:
@@ -855,15 +863,34 @@ def login():
                 user_partners = psql_to_pandas(Users2Partners.query.filter_by(
                     username=session['username']))['partner'].tolist()
                 if len(user_wps[:]) >= 1 and len(user_partners[:]) >= 1:
-                    session['usertype'] = 'both'
-                    flash(
-                        'You are now logged in as both WP Leader and Partner Leader', 'success')
+                    if 'ViewAll' in user_partners[:] or 'admin' in user_partners[:]:
+                        if len(user_wps[:]) >= 1 and len(user_partners[:]) <= 2:
+                            pass
+                        else:
+                            session['usertype'] = 'both'
+                            flash('You are now logged in as both WP Leader and Partner Leader', 'success')
+                    elif 'ViewAll' in user_partners[:] and 'admin' in user_partners[:]:
+                        if len(user_wps[:]) >= 1 and len(user_partners[:]) <= 3:
+                            pass
+                        else:
+                            session['usertype'] = 'both'
+                            flash('You are now logged in as both WP Leader and Partner Leader', 'success')
                 elif len(user_wps[:]) >= 1:
                     session['usertype'] = 'WPleader'
                     flash('You are now logged in as WP Leader', 'success')
                 elif len(user_partners[:]) >= 1:
-                    session['usertype'] = 'Partnerleader'
-                    flash('You are now logged in as Partner Leader', 'success')
+                    if 'ViewAll' in user_partners[:] or 'admin' in user_partners[:]:
+                        if len(user_partners[:]) <= 2:
+                            pass
+                        else:
+                            session['usertype'] = 'Partnerleader'
+                            flash('You are now logged in as Partner Leader', 'success')
+                    elif 'ViewAll' in user_partners[:] and 'admin' in user_partners[:]:
+                        if len(user_partners[:]) <= 3:
+                            pass
+                        else:
+                            session['usertype'] = 'Partnerleader'
+                            flash('You are now logged in as Partner Leader', 'success')
                 else:
                     flash('You are now logged in', 'success')
                 if 'admin' in user_partners[:]:

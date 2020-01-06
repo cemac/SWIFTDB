@@ -75,6 +75,7 @@ def psql_delete(row, flashMsg=True):
         db.session.rollback()
         flash('Integrity Error: Cannot delete, other database entries likely' +
               ' reference this one', 'danger')
+        flash('If trying to delete user please deselect all access settings before removing', 'warning')
     return
 ####################################
 # ######### LOGGED-IN FUNCTIONS ##########

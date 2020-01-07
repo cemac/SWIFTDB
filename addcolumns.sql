@@ -1,0 +1,15 @@
+alter table deliverables add column "paper submission date" VARCHAR;
+alter table deliverables add column "person responsable" VARCHAR;
+alter table deliverables add column "previous report" VARCHAR;
+alter table deliverables add column "last report update" DATE;
+alter table deliverables add column "completion date" DATE;
+alter table tasks add column "paper submission date" VARCHAR;
+alter table tasks add column "person responsable" VARCHAR;
+alter table tasks add column "previous report" VARCHAR;
+alter table tasks add column "last report update" DATE;
+alter table tasks add column "completion date" DATE;
+alter table work_packages add column "previous report" VARCHAR;
+alter table work_packages add column "last report update" DATE;
+select * into tasks_20191201 from tasks;
+select * into wps_20191201 from work_packages;
+select * into deliverables_20191201 from deliverables;

@@ -10,7 +10,7 @@
 <a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>
 {% endif %}
 <div>
-  <table id="myTable"  class="display" style="width:100%">
+  <table id="myTable" class="hover" style="width:100%">
     <thead>
       <tr>
         {% for col in colnames %}
@@ -24,9 +24,9 @@
     </thead>
     <tbody>
       {% for index, row in data.iterrows() %}
-        <tr>
+        <tr style="height: 80px;">
           {% for i in range(1,row|length) %}
-            <td>{{row[i]}}</td>
+            <td style="max-width: 400px;">{{row[i]}}</td>
           {% endfor %}
         <td>
           {% if tableClass == 'Users' %}
@@ -70,7 +70,7 @@ $(document).ready(function(){
     columnDefs: [
         {targets: [2,5,7,8], orderable: false, searchable : false}
     ],
-      order: [[0, "asc"]]
+      order: [[0, "asc"]],
       stateSave: true
   });
 });
@@ -83,8 +83,13 @@ $(document).ready(function(){
     columnDefs: [
         {targets: [1,5,7,8], orderable: false, searchable : false}
     ],
-      order: [[0, "asc"]]
-      stateSave: true
+      order: [[0, "asc"]],
+      stateSave: true,
+      scrollX: true,
+      scrollCollapse: true,
+      fixedColumns:   {
+            heightMatch: 'none'
+        }
   });
 });
 </script>
@@ -96,7 +101,7 @@ $(document).ready(function(){
     columnDefs: [
         {targets: [5,6,7,8], orderable: false, searchable : false}
     ],
-      order: [[0, "asc"]]
+      order: [[0, "asc"]],
       stateSave: true
   });
 });

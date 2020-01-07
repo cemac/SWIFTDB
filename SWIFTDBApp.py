@@ -863,7 +863,12 @@ def login():
                                           )['work_package'].tolist()
                 user_partners = psql_to_pandas(Users2Partners.query.filter_by(
                     username=session['username']))['partner'].tolist()
-                user_allpartners = user_partners
+                if 'admin' in user_partners[:]:
+                    session['admin'] = 'True'
+                    flash('You have admin privileges', 'success')
+                if 'ViewAll' in user_partners[:]:
+                    session['reader'] = 'True'
+                    flash('You have view all access', 'success')
                 try:
                     user_partners.remove('admin')
                 except ValueError:
@@ -883,16 +888,10 @@ def login():
                     flash('You are now logged in as Partner Leader', 'success')
                 else:
                     flash('You are now logged in', 'success')
-                if 'admin' in user_allpartners[:]:
-                    session['admin'] = 'True'
-                    flash('You have admin privileges', 'success')
-                if 'ViewAll' in user_allpartners[:]:
-                    session['reader'] = 'True'
-                    flash('You have view all access', 'success')
-                return redirect(url_for('index'))
             else:
                 flash('Incorrect password', 'danger')
                 return redirect(url_for('login'))
+            return redirect(url_for('index'))
         # Finally check admin account:
         if username == 'admin':
             password = app.config['ADMIN_PWD']

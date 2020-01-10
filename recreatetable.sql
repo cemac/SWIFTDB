@@ -1,3 +1,6 @@
+drop table deliverables;
+drop table tasks;
+
 CREATE TABLE deliverables (
     id integer PRIMARY KEY,
     code character varying NOT NULL,
@@ -14,13 +17,6 @@ CREATE TABLE deliverables (
     date_edited date
 );
 
-CREATE SEQUENCE deliverables_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
 
 CREATE TABLE tasks (
     id integer PRIMARY KEY,
@@ -38,10 +34,13 @@ CREATE TABLE tasks (
     date_edited date
 );
 
-CREATE SEQUENCE tasks_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
+
+alter table work_packages add column "previous_report" VARCHAR;
+alter table work_packages add column "date_edited" DATE;
+update deliverables SET date_edited = '01-12-2019';
+update tasks SET date_edited = '01-12-2019';
+update work_packages SET date_edited = '01-12-2019';
+update work_packages set previous_report = status;
+update work_packages set status = '';
+update deliverables set progress = '';
+update tasks set progress = '';

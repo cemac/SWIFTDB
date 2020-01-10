@@ -27,19 +27,24 @@ class Work_Packages(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     code = db.Column(db.String(), nullable=False, unique=True)
     name = db.Column(db.String(), nullable=False)
+    previous_report = db.Column(db.String(()))
     status = db.Column(db.String())
     issues = db.Column(db.String())
     next_deliverable = db.Column(db.String())
+    date_edited = db.Column(db.Date())
     Deliverables_Rel = db.relationship('Deliverables')
     Tasks_Rel = db.relationship('Tasks')
     Users2Work_Packages_Rel = db.relationship('Users2Work_Packages')
 
-    def __init__(self, code, name, status, issues, next_deliverable):
+    def __init__(self, code, name, previous_report, status, issues,
+                 next_deliverable, date_edited):
         self.code = code
         self.name = name
+        self.previous_report = previous_report
         self.status = status
         self.issues = issues
         self.next_deliverable = next_deliverable
+        self.date_edited = date_edited
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -55,21 +60,31 @@ class Deliverables(db.Model):
     description = db.Column(db.String(), nullable=False)
     partner = db.Column(db.String(), db.ForeignKey('partners.name'),
                         nullable=False)
-    month_due = db.Column(db.Integer, nullable=False)
+    person_responsible = db.Column(db.String())
+    month_due = db.Column(db.Date, nullable=False)
+    previous_report = db.Column(db.String())
     progress = db.Column(db.String())
     percent = db.Column(db.Integer, nullable=False)
     papers = db.Column(db.String())
+    paper_submission_date = db.Column(db.Date())
+    date_edited = db.Column(db.Date())
 
-    def __init__(self, code, work_package, description, month_due, progress,
-                 percent, partner, papers):
+    def __init__(self, code, work_package,  description, partner,
+                 person_responsible, month_due, previous_report, progress,
+                 percent, papers, paper_submission_date,
+                 date_edited):
         self.code = code
         self.work_package = work_package
         self.description = description
         self.partner = partner
+        self.person_responsible = person_responsible
         self.month_due = month_due
+        self.previous_report = previous_report
         self.progress = progress
         self.percent = percent
         self.papers = papers
+        self.paper_submission_date = paper_submission_date
+        self.date_edited = date_edited
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -116,27 +131,36 @@ class Tasks(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     code = db.Column(db.String(), nullable=False, unique=True)
+    work_package = db.Column(db.String(), db.ForeignKey('work_packages.code'),
+                             nullable=False)
     description = db.Column(db.String(), nullable=False)
     partner = db.Column(db.String(), db.ForeignKey('partners.name'),
                         nullable=False)
-    work_package = db.Column(db.String(), db.ForeignKey('work_packages.code'),
-                             nullable=False)
-    month_due = db.Column(db.Integer, nullable=False)
+    person_responsible = db.Column(db.String())
+    month_due = db.Column(db.Date, nullable=False)
+    previous_report = db.Column(db.String())
     progress = db.Column(db.String())
     percent = db.Column(db.Integer, nullable=False)
     papers = db.Column(db.String())
+    paper_submission_date = db.Column(db.Date())
+    date_edited = db.Column(db.Date())
 
-    def __init__(self, code, description, month_due, progress,	percent,
-                 work_package, partner,	papers):
+    def __init__(self, code, work_package, description, partner,
+                 person_responsible, month_due, previous_report, progress,
+                 percent, papers, paper_submission_date,
+                 date_edited):
         self.code = code
+        self.work_package = work_package
         self.description = description
         self.partner = partner
-        self.work_package = work_package
+        self.person_responsible = person_responsible
         self.month_due = month_due
+        self.previous_report = previous_report
         self.progress = progress
         self.percent = percent
         self.papers = papers
-
+        self.paper_submission_date = paper_submission_date
+        self.date_edited = date_edited
 
     def __repr__(self):
         return '<id {}>'.format(self.id)

@@ -52,7 +52,7 @@ $(document).ready(function(){
   $('.dropdown-toggle').dropdown();
   var table = $('#myTable').DataTable({
     columnDefs: [
-        {targets: [1,2,3,4,6], orderable: false},
+        {targets: [1,2,3,4,5,7], orderable: false},
         {render: function (data, type, full, meta) {
                         return "<div style='white-space:normal; width:400px'>" + data + "</div>";
                     },

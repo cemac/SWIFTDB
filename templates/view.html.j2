@@ -69,18 +69,15 @@ $(document).ready(function(){
   var table = $('#myTable').DataTable({
     columnDefs: [
         {targets: [2,6,7,9,11,12], orderable: false, searchable : false},
+
         {render: function (data, type, full, meta) {
                         return "<div style='white-space:normal; width:400px'>" + data + "</div>";
                     },
-                    targets: 6},
-        {render: function (data, type, full, meta) {
-                        return "<div style='white-space:normal; width:400px'>" + data + "</div>";
-                    },
-                    targets: 7},
+                    targets: [6,7]},
         {render: function (data, type, full, meta) {
                         return "<div style='white-space:normal; width:200px'>" + data + "</div>";
                     },
-                    targets: 9}
+                    targets: [2,9]}
     ],
       order: [[0, "asc"]],
       stateSave: true,

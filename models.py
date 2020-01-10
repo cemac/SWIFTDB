@@ -132,12 +132,12 @@ class Tasks(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     code = db.Column(db.String(), nullable=False, unique=True)
+    work_package = db.Column(db.String(), db.ForeignKey('work_packages.code'),
+                             nullable=False)
     description = db.Column(db.String(), nullable=False)
     partner = db.Column(db.String(), db.ForeignKey('partners.name'),
                         nullable=False)
     person_responsible = db.Column(db.String())
-    work_package = db.Column(db.String(), db.ForeignKey('work_packages.code'),
-                             nullable=False)
     month_due = db.Column(db.Date, nullable=False)
     previous_report = db.Column(db.String())
     progress = db.Column(db.String())
@@ -146,7 +146,7 @@ class Tasks(db.Model):
     paper_submission_date = db.Column(db.Date())
     date_edited = db.Column(db.Date())
 
-    def __init__(self, id, code, work_package,  description, partner,
+    def __init__(self, id, code, work_package, description, partner,
                  person_responsible, month_due, previous_report, progress,
                  percent, papers, paper_submission_date,
                  date_edited):

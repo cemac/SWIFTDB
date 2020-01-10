@@ -10,7 +10,7 @@
 <a class="btn btn-success" href="/add/{{tableClass}}" role="button"><b>+</b> Add entry</a>
 {% endif %}
 <div>
-  <table id="myTable" class="hover" style="width:100%">
+  <table id="myTable" class="hover" style="width:100% ">
     <thead>
       <tr>
         {% for col in colnames %}
@@ -62,59 +62,29 @@ to leave a hidden space for update button and create extra space in the admin
 tables  -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-{% if tableClass == 'Deliverables' %}
+{% if tableClass == 'Deliverables' or tableClass == 'Tasks' %}
 <script>
 $(document).ready(function(){
   $('.dropdown-toggle').dropdown();
   var table = $('#myTable').DataTable({
     columnDefs: [
-        {targets: [2,5,7], orderable: false, searchable : false},
+        {targets: [2,6,7,9,11,12], orderable: false, searchable : false},
         {render: function (data, type, full, meta) {
-                        return "<div style='white-space:normal; width:500px'>" + data + "</div>";
+                        return "<div style='white-space:normal; width:400px'>" + data + "</div>";
                     },
-                    targets: 5},
+                    targets: 6},
+        {render: function (data, type, full, meta) {
+                        return "<div style='white-space:normal; width:400px'>" + data + "</div>";
+                    },
+                    targets: 7},
         {render: function (data, type, full, meta) {
                         return "<div style='white-space:normal; width:200px'>" + data + "</div>";
                     },
-                    targets: 2},
-        {render: function (data, type, full, meta) {
-                        return "<div style='white-space:normal; width:200px'>" + data + "</div>";
-                    },
-                    targets: 8}
+                    targets: 9}
     ],
       order: [[0, "asc"]],
       stateSave: true,
       scrollX: true,
-      fixedColumns:   {
-            heightMatch: 'none'
-        }
-  });
-});
-</script>
-{% elif tableClass == 'Tasks' %}
-<script>
-$(document).ready(function(){
-  $('.dropdown-toggle').dropdown();
-  var table = $('#myTable').DataTable({
-    columnDefs: [
-        {targets: [1,5,7], orderable: false, searchable : false},
-        {render: function (data, type, full, meta) {
-                        return "<div style='white-space:normal; width:500px'>" + data + "</div>";
-                    },
-                    targets: 5},
-        {render: function (data, type, full, meta) {
-                        return "<div style='white-space:normal; width:200px'>" + data + "</div>";
-                    },
-                    targets: 1},
-        {render: function (data, type, full, meta) {
-                        return "<div style='white-space:normal; width:200px'>" + data + "</div>";
-                    },
-                    targets: 7}
-    ],
-      order: [[0, "asc"]],
-      stateSave: true,
-      scrollX: true,
-      scrollCollapse: true,
       fixedColumns:   {
             heightMatch: 'none'
         }

@@ -453,7 +453,7 @@ def edit(tableClass, id):
         for field in form:
             if field.name == 'date_edited':
                 now = dt.datetime.now().strftime("%Y-%m-%d")
-                field.data[f] = now
+                field.data = now
             exec("db_row." + field.name + " = field.data")
         db.session.commit()
         # Return with success:

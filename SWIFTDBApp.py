@@ -139,14 +139,17 @@ class Work_Packages_Form(Form):
     name = StringField(u'*Name',
                        [validators.InputRequired()],
                        render_kw={"placeholder": "e.g. Training"})
-    status = StringField(u'*Work Package Status',
-                         [validators.InputRequired()],
+    previous_report = TextAreaField(u'*Previous Update',
+                          [validators.Optional()],
+                          render_kw={"placeholder": "auto filled previous submission"})
+    status = TextAreaField(u'*Work Package Status',
+                         [validators.Optional()],
                          render_kw={"placeholder": "e.g. Overview of Progress as a whole"})
-    issues = StringField(u'*Issues',
-                         [validators.InputRequired()],
+    issues = TextAreaField(u'*Issues',
+                         [validators.Optional()],
                          render_kw={"placeholder": "e.g. Highlight any potential issues or risks"})
-    next_deliverable = StringField(u'*Next Quarter Deliverables',
-                                   [validators.InputRequired()],
+    next_deliverable = TextAreaField(u'*Next Quarter Deliverables',
+                                   [validators.Optional()],
                                    render_kw={"placeholder": "e.g. Upcomming deliverables due"})
 
 
@@ -162,9 +165,13 @@ class Deliverables_Form(Form):
                                 render_kw={"placeholder": "e.g. Report on current state of knowledge regarding user needs for forecasts at different timescales in each sector."})
     partner = SelectField(u'*Partner', [validators.NoneOf(('blank'),
                                                           message='Please select')])
-    month_due = IntegerField(u'Month Due',
-                             [validators.NumberRange(min=0, max=endMonth,
-                                                     message="Must be between 0 and " + str(endMonth))])
+    person_responsible = StringField(u'*Person Responsible',
+                                   [validators.Optional()],
+                                   render_kw={"placeholder": "e.g. Name of person responsible"})
+    month_due = IntegerField(u'Month Due',[validators.InputRequired()],
+                       render_kw={"placeholder": "must be Date String e.g. 01-12-2019"})
+    previous_report = TextAreaField(u'Previous Report',
+                             validators=[validators.Optional()])
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
     percent = IntegerField(u'Percentage Complete',
@@ -172,19 +179,25 @@ class Deliverables_Form(Form):
                                                    message="Must be between 0 and 100")])
     papers = TextAreaField(u'Papers',
                              validators=[validators.Optional()])
+    paper_submission_date = TextAreaField(u'Paper Submission Date',
+                                validators=[validators.Optional()],
+                             render_kw={"placeholder": "must be Date String e.g. 01-12-2019"})
 
 
 class Your_Work_Packages_Form(Form):
     code = StringField(u'*Work Package Code')
     name = StringField(u'*Name')
-    status = StringField(u'*Work Package Status',
-                         [validators.InputRequired()],
+    previous_report = TextAreaField(u'*Previous Update',
+                          [validators.Optional()],
+                          render_kw={"placeholder": "auto filled previous submission"})
+    status = TextAreaField(u'*Work Package Status',
+                         [validators.Optional()],
                          render_kw={"placeholder": "e.g. Overview of Progress as a whole"})
-    issues = StringField(u'*Issues',
-                         [validators.InputRequired()],
+    issues = TextAreaField(u'*Issues',
+                         [validators.Optional()],
                          render_kw={"placeholder": "e.g. Highlight any potential issues or risks"})
-    next_deliverable = StringField(u'*Next Quarter Deliverables',
-                                   [validators.InputRequired()],
+    next_deliverable = TextAreaField(u'*Next Quarter Deliverables',
+                                   [validators.Optional()],
                                    render_kw={"placeholder": "e.g. Upcomming deliverables due"})
 
 
@@ -193,7 +206,10 @@ class Your_Deliverables_Form(Form):
     work_package = StringField(u'Work Package')
     description = TextAreaField(u'Description')
     partner = StringField(u'Partner')
+    person_responsible = StringField(u'*Person Responsible', validators=[validators.Optional()])
     month_due = IntegerField(u'Month Due')
+    previous_report = TextAreaField(u'Previous Report',
+                             validators=[validators.Optional()])
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
     percent = IntegerField(u'Percentage Complete',
@@ -201,6 +217,9 @@ class Your_Deliverables_Form(Form):
                                                    message="Must be between 0 and 100")])
     papers = TextAreaField(u'Papers',
                              validators=[validators.Optional()])
+    paper_submission_date = TextAreaField(u'Paper Submission Date',
+                                validators=[validators.Optional()],
+                             render_kw={"placeholder": "must be Date String e.g. 01-12-2019"})
 
 
 class Users_Form(Form):
@@ -241,6 +260,9 @@ class Tasks_Form(Form):
     code = StringField(u'*Task Code',
                        [validators.InputRequired()],
                        render_kw={"placeholder": "e.g. T-R1.1.1"})
+    work_package = SelectField(u'*Work Package',
+                               [validators.NoneOf(('blank'),
+                                                  message='Please select')])
     description = TextAreaField(u'*Description',
                                 [validators.InputRequired()],
                                 render_kw={"placeholder": "e.g. Development of reporting \
@@ -248,12 +270,23 @@ template for baselining the current provision of forecasts."})
     partner = SelectField(u'*Partner',
                           [validators.NoneOf(('blank'),
                                              message='Please select')])
-    work_package = SelectField(u'*Work Package',
-                               [validators.NoneOf(('blank'),
-                                                  message='Please select')])
-    month_due = IntegerField(u'*Month Due',
-                             [validators.NumberRange(min=0, max=endMonth,
-                                                     message="Must be between 0 and " + str(endMonth))])
+    person_responsible = StringField(u'*Person Responsible',
+                                   [validators.Optional()],
+                                   render_kw={"placeholder": "e.g. Name of person responsible"})
+    month_due = IntegerField(u'Month Due',[validators.InputRequired()],
+                       render_kw={"placeholder": "must be Date String e.g. 01-12-2019"})
+    previous_report = TextAreaField(u'Previous Report',
+                             validators=[validators.Optional()])
+    progress = TextAreaField(u'Progress',
+                             validators=[validators.Optional()])
+    percent = IntegerField(u'Percentage Complete',
+                           [validators.NumberRange(min=0, max=100,
+                                                   message="Must be between 0 and 100")])
+    papers = TextAreaField(u'Papers',
+                             validators=[validators.Optional()])
+    paper_submission_date = TextAreaField(u'Paper Submission Date',
+                                validators=[validators.Optional()],
+                             render_kw={"placeholder": "must be Date String e.g. 01-12-2019"})
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
     percent = IntegerField(u'Percentage Complete',
@@ -266,9 +299,12 @@ template for baselining the current provision of forecasts."})
 class Your_Tasks_Form(Form):
     code = StringField(u'Task Code')
     description = TextAreaField(u'Description')
-    partner = StringField(u'Partner')
     work_package = StringField(u'Work Package')
+    partner = StringField(u'Partner')
+    person_responsible = StringField(u'Person Responsible', validators=[validators.Optional()])
     month_due = IntegerField(u'Month Due')
+    previous_report = TextAreaField(u'Previous Report',
+                             validators=[validators.Optional()])
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
     percent = IntegerField(u'Percentage Complete',
@@ -276,7 +312,16 @@ class Your_Tasks_Form(Form):
                                                    message="Must be between 0 and 100")])
     papers = TextAreaField(u'Papers',
                              validators=[validators.Optional()])
-
+    paper_submission_date = TextAreaField(u'Paper Submission Date',
+                                validators=[validators.Optional()],
+                             render_kw={"placeholder": "must be Date String e.g. 01-12-2019"})
+    progress = TextAreaField(u'Progress',
+                             validators=[validators.Optional()])
+    percent = IntegerField(u'Percentage Complete',
+                           [validators.NumberRange(min=0, max=100,
+                                                   message="Must be between 0 and 100")])
+    papers = TextAreaField(u'Papers',
+                             validators=[validators.Optional()])
 
 # Index
 @app.route('/', methods=["GET"])

@@ -49,10 +49,10 @@ CREATE SEQUENCE tasks_id_seq
 ALTER TABLE ONLY tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regclass);
 alter table work_packages add column "previous_report" VARCHAR;
 alter table work_packages add column "date_edited" DATE;
-update deliverables SET date_edited = '01-12-2019';
-update tasks SET date_edited = '01-12-2019';
 update work_packages SET date_edited = '01-12-2019';
 update work_packages set previous_report = status;
 update work_packages set status = '';
+update deliverables SET date_edited = '01-12-2019';
+update tasks SET date_edited = '01-12-2019';
 update deliverables set progress = '';
 update tasks set progress = '';

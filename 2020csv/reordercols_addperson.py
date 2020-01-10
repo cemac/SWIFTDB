@@ -33,7 +33,7 @@ for f in file_name:
     dfcurrent['person_responsible'] = ''
     dfcurrent['previous_report'] = dfcurrent['progress']
     dfnew = pd.DataFrame()
-    dfnew = dfcurrent[['id', 'code', 'work_package',
+    dfnew = dfcurrent[['code', 'work_package',
                        'description',
                        'partner',
                        'person_responsible',

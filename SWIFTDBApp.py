@@ -300,10 +300,10 @@ template for baselining the current provision of forecasts."})
 
 class Your_Tasks_Form(Form):
     code = StringField(u'Task Code')
-    description = TextAreaField(u'Description')
     work_package = StringField(u'Work Package')
+    description = TextAreaField(u'Description')
     partner = StringField(u'Partner')
-    person_responsible = StringField(u'Person Responsible', validators=[validators.Optional()])
+    person_responsible = StringField(u'*Person Responsible', validators=[validators.Optional()])
     month_due = StringField(u'Month Due')
     previous_report = TextAreaField(u'Previous Report')
     progress = TextAreaField(u'Progress',
@@ -316,14 +316,6 @@ class Your_Tasks_Form(Form):
     paper_submission_date = TextAreaField(u'Paper Submission Date',
                                 validators=[validators.Optional()],
                              render_kw={"placeholder": "must be Date String e.g. 01-12-2019"})
-    progress = TextAreaField(u'Progress',
-                             validators=[validators.Optional()])
-    percent = IntegerField(u'Percentage Complete',
-                           [validators.NumberRange(min=0, max=100,
-                                                   message="Must be between 0 and 100")])
-    papers = TextAreaField(u'Papers',
-                             validators=[validators.Optional()])
-
 
 # Index
 @app.route('/', methods=["GET"])

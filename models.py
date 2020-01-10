@@ -36,7 +36,7 @@ class Work_Packages(db.Model):
     Tasks_Rel = db.relationship('Tasks')
     Users2Work_Packages_Rel = db.relationship('Users2Work_Packages')
 
-    def __init__(self, id, code, name, previous_report, status, issues,
+    def __init__(self, code, name, previous_report, status, issues,
                  next_deliverable, date_edited):
         self.code = code
         self.name = name
@@ -69,11 +69,10 @@ class Deliverables(db.Model):
     paper_submission_date = db.Column(db.Date())
     date_edited = db.Column(db.Date())
 
-    def __init__(self,  id, code, work_package,  description, partner,
+    def __init__(self, code, work_package,  description, partner,
                  person_responsible, month_due, previous_report, progress,
                  percent, papers, paper_submission_date,
                  date_edited):
-        self.id = id
         self.code = code
         self.work_package = work_package
         self.description = description
@@ -146,11 +145,10 @@ class Tasks(db.Model):
     paper_submission_date = db.Column(db.Date())
     date_edited = db.Column(db.Date())
 
-    def __init__(self, id, code, work_package, description, partner,
+    def __init__(self, code, work_package, description, partner,
                  person_responsible, month_due, previous_report, progress,
                  percent, papers, paper_submission_date,
                  date_edited):
-        self.id = id
         self.code = code
         self.work_package = work_package
         self.description = description

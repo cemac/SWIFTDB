@@ -16,8 +16,14 @@ CREATE TABLE deliverables (
     paper_submission_date character varying,
     date_edited date
 );
-
-
+CREATE SEQUENCE deliverables_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE ONLY deliverables ALTER COLUMN id SET DEFAULT nextval('deliverables_id_seq'::regclass);
 CREATE TABLE tasks (
     id integer PRIMARY KEY,
     code character varying NOT NULL,
@@ -33,8 +39,14 @@ CREATE TABLE tasks (
     paper_submission_date character varying,
     date_edited date
 );
-
-
+CREATE SEQUENCE tasks_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+ALTER TABLE ONLY tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regclass);
 alter table work_packages add column "previous_report" VARCHAR;
 alter table work_packages add column "date_edited" DATE;
 update deliverables SET date_edited = '01-12-2019';

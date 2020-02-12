@@ -21,9 +21,6 @@ old = pd.read_csv('yesterday_csv/tasks.csv')
 additions = current.loc[current['date_edited'] == '2020-02-12']
 fix = old.copy()
 for row in additions.itertuples():
-    try:
-        fix.loc[fix.id == row.id] = additions.loc[additions.id == row.id].values
-    except SyntaxError:
         fix = fix.append(additions.loc[additions.id == row.id])
 #fix = fix.fillna(0)
 #fix.percent = fix.percent.astype(int)

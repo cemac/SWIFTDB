@@ -446,10 +446,6 @@ def edit(tableClass, id):
     title = "Edit " + tableClass[:-1].replace("_", " ")
     # Pre-populate form fields with existing data:
     for i, field in enumerate(form):
-        if i == 0:  # Grey out first (immutable) field
-            field.render_kw = {'readonly': 'readonly'}
-        if field.name == 'work_package':
-            field.render_kw = {'readonly': 'readonly'}
         if field.name == 'previous_report':
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':

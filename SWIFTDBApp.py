@@ -202,7 +202,6 @@ class Your_Work_Packages_Form(Form):
                                    render_kw={"placeholder": "e.g. Upcomming deliverables due"})
 
 
-
 class Your_Deliverables_Form(Form):
     code = StringField(u'Deliverable Code')
     work_package = StringField(u'Work Package')
@@ -307,6 +306,7 @@ class Your_Tasks_Form(Form):
     paper_submission_date = StringField(u'Paper Submission Date',
                                 validators=[validators.Optional()],
                              render_kw={"placeholder": "must be Date String e.g. 01-12-2019"})
+
 
 # Index
 @app.route('/', methods=["GET"])
@@ -450,7 +450,7 @@ def edit(tableClass, id):
             field.render_kw = {'readonly': 'readonly'}
         if field.name == 'work_package':
             field.render_kw = {'readonly': 'readonly'}
-        if field.name == 'previous_report' or field.name == 'month_due':
+        if field.name == 'previous_report':
             field.render_kw = {'readonly': 'readonly'}
         if not request.method == 'POST':
             exec("field.data = db_row." + field.name)

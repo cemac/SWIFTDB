@@ -48,7 +48,8 @@ if(ans):
 
     # Copy new data (in normal order):
     print("Copying new data")
-    list = [['deliverables.tab',Deliverables, 'tasks.tab', Tasks]]
+    list = [['deliverables.tab', Deliverables],
+            ['tasks.tab', Tasks]]
     for l in list:
         with open(l[0], 'r') as f:
             reader = csv.reader(f, delimiter='\t')

@@ -585,6 +585,8 @@ def task_list():
         description = 'You are Partner Leader for: ' + ", ".join(user_partners)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d-%m-%Y')
     # Set title:
     title = "Tasks associated with your partner lead"
     # Set table column names:
@@ -613,6 +615,8 @@ def task_view():
             user_wps)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d-%m-%Y')
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:
@@ -641,6 +645,8 @@ def task_reader():
             user_wps)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d-%m-%Y')
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:
@@ -717,6 +723,8 @@ def deliverables_list():
         description = 'You are Partner Leader for: ' + ", ".join(user_partners)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d-%m-%Y')
     title = "Deliverables for which you are Partner Leader "
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
@@ -747,6 +755,8 @@ def deliverables_view():
             user_wps)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d-%m-%Y')
     title = "Viewable Deliverables"
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
@@ -777,6 +787,8 @@ def deliverables_reader():
             user_wps)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d-%m-%Y')
     title = "Viewable Deliverables"
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in

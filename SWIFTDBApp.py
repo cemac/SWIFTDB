@@ -469,6 +469,7 @@ def wp_list():
             username=session['username']))['work_package'].tolist()
         accessible_wps = all_wps[all_wps.code.isin(user_wps)]
         description = 'You are WP Leader for: ' + ", ".join(user_wps)
+    accessible_wps['date_edited'] = pd.to_datetime(accessible_wps['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:
     title = "Your Work Packages"
     return render_template('wp-list.html.j2', editLink="wp-edit",
@@ -513,6 +514,7 @@ def wp_readers():
             username=session['username']))['work_package'].tolist()
         accessible_wps = all_wps[all_wps.code.isin(user_wps)]
         description = 'You are WP Leader for: ' + ", ".join(user_wps)
+    accessible_wps['date_edited'] = pd.to_datetime(accessible_wps['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:
     title = "Viewable Work Packages"
     return render_template('wp-list.html.j2', editLink="none",
@@ -586,7 +588,7 @@ def task_list():
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
-    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d-%m-%Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:
     title = "Tasks associated with your partner lead"
     # Set table column names:
@@ -616,7 +618,7 @@ def task_view():
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
-    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d-%m-%Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:
@@ -646,7 +648,7 @@ def task_reader():
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
-    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d-%m-%Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:
@@ -724,7 +726,7 @@ def deliverables_list():
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
-    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d-%m-%Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     title = "Deliverables for which you are Partner Leader "
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
@@ -756,7 +758,7 @@ def deliverables_view():
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
-    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d-%m-%Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     title = "Viewable Deliverables"
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
@@ -788,7 +790,7 @@ def deliverables_reader():
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
-    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d-%m-%Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     title = "Viewable Deliverables"
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in

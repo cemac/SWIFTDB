@@ -47,11 +47,13 @@
 {% block scripts %}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.20/sorting/date-uk.js"></script>
 <script>
 $(document).ready(function(){
   $('.dropdown-toggle').dropdown();
   var table = $('#myTable').DataTable({
     columnDefs: [
+        {type: 'date-uk', targets: 7 },
         {targets: [1,2,3,4,5,7], orderable: false},
         {render: function (data, type, full, meta) {
                         return "<div style='white-space:normal; width:400px'>" + data + "</div>";

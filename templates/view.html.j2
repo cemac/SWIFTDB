@@ -62,13 +62,17 @@ to leave a hidden space for update button and create extra space in the admin
 tables  -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.20/sorting/date-uk.js"></script>
+<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.20/sorting/stringMonthYear.js"></script>
 {% if tableClass == 'Deliverables' or tableClass == 'Tasks' %}
 <script>
 $(document).ready(function(){
   $('.dropdown-toggle').dropdown();
   var table = $('#myTable').DataTable({
     columnDefs: [
-        {targets: [2,6,7,9,11,12], orderable: false, searchable : false},
+        {type: 'date-uk', targets: 11 },
+        { type: 'stringMonthYear', targets: 5 },
+        {targets: [2,6,7,9,12], orderable: false, searchable : false},
 
         {render: function (data, type, full, meta) {
                         return "<div style='white-space:normal; width:400px'>" + data + "</div>";
@@ -116,6 +120,7 @@ $(document).ready(function(){
   $('.dropdown-toggle').dropdown();
   var table = $('#myTable').DataTable({
     columnDefs: [
+      {type: 'date-uk', targets: 7 },
       {targets: [1,2,3,4,5,6], orderable: false},
         {render: function (data, type, full, meta) {
                         return "<div style='white-space:normal; width:600px'>" + data + "</div>";

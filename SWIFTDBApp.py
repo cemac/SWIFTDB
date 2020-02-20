@@ -20,6 +20,8 @@ from flask import Flask, render_template, flash, redirect, url_for, request
 from flask import g, session, abort
 from wtforms import Form, validators, StringField, SelectField, TextAreaField
 from wtforms import IntegerField, PasswordField, SelectMultipleField, widgets
+from wtforms.fields import DateField
+from wtforms_components import DateRange
 import datetime as dt
 import os
 import pandas as pd
@@ -170,7 +172,8 @@ class Deliverables_Form(Form):
     person_responsible = StringField(u'*Person Responsible',
                                    [validators.Optional()],
                                    render_kw={"placeholder": "e.g. Name of person responsible"})
-    month_due = StringField(u'Month Due',[validators.InputRequired()],
+    month_due = DateField(u'Month Due', validators=[DateRange(min=dt.date(2017, 1, 1),
+                                         max=dt.date(2024, 1, 1))],
                        render_kw={"placeholder": "must be YYYYMMDD Date String e.g. 2019-01-29"})
     previous_report = TextAreaField(u'Previous Report',
                              validators=[validators.Optional()])
@@ -271,7 +274,8 @@ class Tasks_Form(Form):
     person_responsible = StringField(u'*Person Responsible',
                                    [validators.Optional()],
                                    render_kw={"placeholder": "e.g. Name of person responsible"})
-    month_due = StringField(u'Month Due',[validators.InputRequired()],
+    month_due = DateField(u'Month Due', validators=[DateRange(min=dt.date(2017, 1, 1),
+                                         max=dt.date(2024, 1, 1))],
                        render_kw={"placeholder": "must be YYYYMMDD Date String e.g. 2019-01-29"})
     previous_report = TextAreaField(u'Previous Report',
                              validators=[validators.Optional()])

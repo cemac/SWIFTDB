@@ -17,3 +17,4 @@ passlib = "*"
 pandas = "<0.21"
 "psycopg2" = "*"
 certbot = "*"
+WTForms-Components = '*'

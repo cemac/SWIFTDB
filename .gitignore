@@ -16,3 +16,6 @@ BACKUP/*/*.xlsx
 BACKUP/*.dump
 BACKUP/staging
 example_data/old_data
+restoration/*.tab
+restoration/*/*.tab
+restoration/dump.sql

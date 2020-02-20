@@ -412,6 +412,20 @@ def delete(tableClass, id):
         abort(403)
     if tableClass == 'Partners' and db_row.name == 'ViewAll':
         abort(403)
+    if tableClass == 'Users':
+        user = Users.query.filter_by(id=id).first()
+        wps_to_delete = psql_to_pandas(Users2Work_Packages.query.filter_by(
+            username=user.username))['work_package'].tolist()
+        partners_to_delete = psql_to_pandas(Users2Partners.query.filter_by(
+            username=user.username))['partner'].tolist()
+        for wp in wps_to_delete:
+            db_row1 = Users2Work_Packages.query.filter_by(
+                username=user.username, work_package=wp).first()
+            psql_delete(db_row1, flashMsg=False)
+        for p in partners_to_delete:
+            db_row1 = Users2Partners.query.filter_by(
+                username=user.username, partner=p).first()
+            psql_delete(db_row1, flashMsg=False)
     # Delete from DB:
     psql_delete(db_row)
     return redirect(url_for('view', tableClass=tableClass))

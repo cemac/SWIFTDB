@@ -20,6 +20,8 @@ from flask import Flask, render_template, flash, redirect, url_for, request
 from flask import g, session, abort
 from wtforms import Form, validators, StringField, SelectField, TextAreaField
 from wtforms import IntegerField, PasswordField, SelectMultipleField, widgets
+from wtforms.fields import DateField
+from wtforms_components import DateRange
 import datetime as dt
 import os
 import pandas as pd
@@ -170,7 +172,8 @@ class Deliverables_Form(Form):
     person_responsible = StringField(u'*Person Responsible',
                                    [validators.Optional()],
                                    render_kw={"placeholder": "e.g. Name of person responsible"})
-    month_due = StringField(u'Month Due',[validators.InputRequired()],
+    month_due = DateField(u'Month Due', validators=[DateRange(min=dt.date(2017, 1, 1),
+                                         max=dt.date(2024, 1, 1))],
                        render_kw={"placeholder": "must be YYYYMMDD Date String e.g. 2019-01-29"})
     previous_report = TextAreaField(u'Previous Report',
                              validators=[validators.Optional()])
@@ -271,7 +274,8 @@ class Tasks_Form(Form):
     person_responsible = StringField(u'*Person Responsible',
                                    [validators.Optional()],
                                    render_kw={"placeholder": "e.g. Name of person responsible"})
-    month_due = StringField(u'Month Due',[validators.InputRequired()],
+    month_due = DateField(u'Month Due', validators=[DateRange(min=dt.date(2017, 1, 1),
+                                         max=dt.date(2024, 1, 1))],
                        render_kw={"placeholder": "must be YYYYMMDD Date String e.g. 2019-01-29"})
     previous_report = TextAreaField(u'Previous Report',
                              validators=[validators.Optional()])
@@ -408,6 +412,20 @@ def delete(tableClass, id):
         abort(403)
     if tableClass == 'Partners' and db_row.name == 'ViewAll':
         abort(403)
+    if tableClass == 'Users':
+        user = Users.query.filter_by(id=id).first()
+        wps_to_delete = psql_to_pandas(Users2Work_Packages.query.filter_by(
+            username=user.username))['work_package'].tolist()
+        partners_to_delete = psql_to_pandas(Users2Partners.query.filter_by(
+            username=user.username))['partner'].tolist()
+        for wp in wps_to_delete:
+            db_row1 = Users2Work_Packages.query.filter_by(
+                username=user.username, work_package=wp).first()
+            psql_delete(db_row1, flashMsg=False)
+        for p in partners_to_delete:
+            db_row1 = Users2Partners.query.filter_by(
+                username=user.username, partner=p).first()
+            psql_delete(db_row1, flashMsg=False)
     # Delete from DB:
     psql_delete(db_row)
     return redirect(url_for('view', tableClass=tableClass))
@@ -469,6 +487,7 @@ def wp_list():
             username=session['username']))['work_package'].tolist()
         accessible_wps = all_wps[all_wps.code.isin(user_wps)]
         description = 'You are WP Leader for: ' + ", ".join(user_wps)
+    accessible_wps['date_edited'] = pd.to_datetime(accessible_wps['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:
     title = "Your Work Packages"
     return render_template('wp-list.html.j2', editLink="wp-edit",
@@ -513,6 +532,7 @@ def wp_readers():
             username=session['username']))['work_package'].tolist()
         accessible_wps = all_wps[all_wps.code.isin(user_wps)]
         description = 'You are WP Leader for: ' + ", ".join(user_wps)
+    accessible_wps['date_edited'] = pd.to_datetime(accessible_wps['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:
     title = "Viewable Work Packages"
     return render_template('wp-list.html.j2', editLink="none",
@@ -585,6 +605,8 @@ def task_list():
         description = 'You are Partner Leader for: ' + ", ".join(user_partners)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:
     title = "Tasks associated with your partner lead"
     # Set table column names:
@@ -613,6 +635,8 @@ def task_view():
             user_wps)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:
@@ -641,6 +665,8 @@ def task_reader():
             user_wps)
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:
@@ -717,6 +743,8 @@ def deliverables_list():
         description = 'You are Partner Leader for: ' + ", ".join(user_partners)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     title = "Deliverables for which you are Partner Leader "
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
@@ -747,6 +775,8 @@ def deliverables_view():
             user_wps)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     title = "Viewable Deliverables"
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
@@ -777,6 +807,8 @@ def deliverables_reader():
             user_wps)
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     title = "Viewable Deliverables"
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in

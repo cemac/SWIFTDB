@@ -75,10 +75,12 @@ def create_archive(table, tablename):
     table = table.drop_duplicates(keep='first')
     # Counts
     counts = table['code'].value_counts()
+    table = table.reset_index()
     return table, counts
 
 
 workpackagesnew, countswp = create_archive(workpackages, 'work_packages')
+
 workpackagesnew.to_csv('wp_archive.tab', sep='\t', index=False, header=False)
 countswp.to_csv('countswp.tab', sep='\t', index=False, header=False)
 tasksnew, countst = create_archive(tasks, 'tasks')

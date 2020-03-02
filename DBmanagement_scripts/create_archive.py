@@ -15,8 +15,9 @@ workpackages = workpackages[['code', 'status', 'issues',
                             'next_deliverable', 'date_edited']]
 tasks = tasks[['code', 'person_responsible', 'progress',
                'percent', 'papers', 'paper_submission_date', 'date_edited']]
-deliverables = deliverables[['code', 'person_responsible', 'month_due', 'progress',
-               'percent', 'papers', 'paper_submission_date', 'date_edited']]
+deliverables = deliverables[['code', 'person_responsible', 'month_due',
+                             'progress', 'percent', 'papers',
+                             'paper_submission_date', 'date_edited']]
 # go back through backups
 
 
@@ -78,5 +79,13 @@ def create_archive(table, tablename):
 
 
 workpackagesnew, countswp = create_archive(workpackages, 'work_packages')
+workpackagesnew.to_csv('wp_archive.tab', sep='\t', index=False, header=False)
+countswp.to_csv('countswp.tab', sep='\t', index=False, header=False)
 tasksnew, countst = create_archive(tasks, 'tasks')
+tasksnew.to_csv('tasks_archive.tab', sep='\t', index=False, header=False)
+countswp.to_csv('countstasks.tab', sep='\t', index=False, header=False)
 deliverablesnew, countsd = create_archive(deliverables, 'deliverables')
+deliverablesnew.to_csv('deliverables_archive.tab', sep='\t', index=False,
+                       header=False)
+countswp.to_csv('countsdeliverables.tab', sep='\t', index=False,
+                header=False)

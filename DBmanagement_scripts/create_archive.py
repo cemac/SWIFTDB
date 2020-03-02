@@ -76,18 +76,21 @@ def create_archive(table, tablename):
     # Counts
     counts = table['code'].value_counts()
     table = table.reset_index()
+    counts = counts.reset_index()
+    counts = counts.rename(columns={'index': 'code', 'code': 'count'})
     return table, counts
 
 
 workpackagesnew, countswp = create_archive(workpackages, 'work_packages')
-
-workpackagesnew.to_csv('wp_archive.tab', sep='\t', index=False, header=False)
-countswp.to_csv('countswp.tab', sep='\t', index=False, header=False)
-tasksnew, countst = create_archive(tasks, 'tasks')
-tasksnew.to_csv('tasks_archive.tab', sep='\t', index=False, header=False)
-countswp.to_csv('countstasks.tab', sep='\t', index=False, header=False)
 deliverablesnew, countsd = create_archive(deliverables, 'deliverables')
+tasksnew, countst = create_archive(tasks, 'tasks')
+# save to tab files
+workpackagesnew.to_csv('wp_archive.tab', sep='\t', index=False, header=False)
+tasksnew.to_csv('tasks_archive.tab', sep='\t', index=False, header=False)
 deliverablesnew.to_csv('deliverables_archive.tab', sep='\t', index=False,
                        header=False)
-countswp.to_csv('countsdeliverables.tab', sep='\t', index=False,
-                header=False)
+# concatonate counts
+allcounts = countswp.append(countsd)
+allcounts = allcounts.append(countst)
+allcounts.to_csv('counts.tab', sep='\t', index=False,
+                 header=False)

@@ -119,18 +119,16 @@ class Deliverables_Archive(db.Model):
     date_edited = db.Column(db.Date())
     code = db.Column(db.String(), nullable=False, unique=True)
     person_responsible = db.Column(db.String())
-    month_due = db.Column(db.Date, nullable=False)
     progress = db.Column(db.String())
-    percent = db.Column(db.Integer, nullable=False)
+    percent = db.Column(db.Integer)
     papers = db.Column(db.String())
     paper_submission_date = db.Column(db.Date())
 
-    def __init__(self, date_edited, code, person_responsible, month_due,
+    def __init__(self, date_edited, code, person_responsible,
                  progress, percent, papers, paper_submission_date):
         self.date_edited = date_edited
         self.code = code
         self.person_responsible = person_responsible
-        self.month_due = month_due
         self.progress = progress
         self.percent = percent
         self.papers = papers
@@ -223,18 +221,16 @@ class Tasks_Archive(db.Model):
     date_edited = db.Column(db.Date())
     code = db.Column(db.String(), nullable=False, unique=True)
     person_responsible = db.Column(db.String())
-    month_due = db.Column(db.Date, nullable=False)
     progress = db.Column(db.String())
-    percent = db.Column(db.Integer, nullable=False)
+    percent = db.Column(db.Integer)
     papers = db.Column(db.String())
     paper_submission_date = db.Column(db.Date())
 
-    def __init__(self, date_edited, code, person_responsible, month_due,
+    def __init__(self, date_edited, code, person_responsible,
                  progress, percent, papers, paper_submission_date):
         self.date_edited = date_edited
         self.code = code
         self.person_responsible = person_responsible
-        self.month_due = month_due
         self.progress = progress
         self.percent = percent
         self.papers = papers
@@ -268,7 +264,7 @@ class Counts(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     code = db.Column(db.String(), nullable=False, unique=True)
-    counts = db.Column(db.Integer, nullable=False)
+    count = db.Column(db.Integer, nullable=False)
 
     def __init__(self, code, count):
         self.code = code

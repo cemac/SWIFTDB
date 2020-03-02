@@ -15,9 +15,8 @@ workpackages = workpackages[['code', 'status', 'issues',
                             'next_deliverable', 'date_edited']]
 tasks = tasks[['code', 'person_responsible', 'progress',
                'percent', 'papers', 'paper_submission_date', 'date_edited']]
-deliverables = deliverables[['code', 'person_responsible', 'month_due',
-                             'progress', 'percent', 'papers',
-                             'paper_submission_date', 'date_edited']]
+deliverables = deliverables[['code', 'person_responsible', 'progress',
+                             'percent', 'papers', 'paper_submission_date', 'date_edited']]
 # go back through backups
 
 
@@ -55,7 +54,7 @@ def create_archive(table, tablename):
                 wparchive['person_responsible'] = 'not recorded'
                 wparchive['papers'] = 'not recorded'
                 wparchive['paper_submission_date'] = 'not recorded'
-            datestr = wp[15:-18]
+            datestr = wp[15:(15+8)]
             year = datestr[0:4]
             mnt = datestr[4:6]
             day = datestr[6::]

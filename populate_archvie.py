@@ -52,7 +52,7 @@ if(ans):
 
     # Copy new data (in normal order):
     print("Copying new data")
-    list = [['wp_archive', Work_Packages_Archive]
+    list = [['wp_archive.tab', Work_Packages_Archive],
             ['deliverables_archive.tab', Deliverables_Archive],
             ['tasks_archive.tab', Tasks_Archive],
             ['counts.tab', Counts]]

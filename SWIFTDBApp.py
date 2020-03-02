@@ -45,8 +45,9 @@ db = SQLAlchemy(app)
 # Set any other parameters:
 endMonth = 51  # End month (from project start month)
 
-from models import Partners, Work_Packages, Deliverables, Users
+from models import Partners, Work_Packages, Deliverables, Users, Counts
 from models import Users2Work_Packages, Tasks, Users2Partners
+from models import Work_Packages_Archive, Deliverables_Archive, Tasks_Archive
 # ~~~~~~ PSQL FUNCTIONS ~~~~~~~ #
 
 

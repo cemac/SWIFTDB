@@ -173,14 +173,14 @@ class Deliverables_Form(Form):
     person_responsible = StringField(u'*Person Responsible',
                                    [validators.Optional()],
                                    render_kw={"placeholder": "e.g. Name of person responsible"})
-    month_due = DateField(u'Month Due', validators=[DateRange(min=dt.date(2017, 1, 1),
+    month_due = DateField(u'*Month Due', validators=[DateRange(min=dt.date(2017, 1, 1),
                                          max=dt.date(2024, 1, 1))],
                        render_kw={"placeholder": "must be YYYYMMDD Date String e.g. 2019-01-29"})
     previous_report = TextAreaField(u'Previous Report',
                              validators=[validators.Optional()])
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
-    percent = IntegerField(u'Percentage Complete',
+    percent = IntegerField(u'*Percentage Complete',
                            [validators.NumberRange(min=0, max=100,
                                                    message="Must be between 0 and 100")])
     papers = TextAreaField(u'Papers',
@@ -275,14 +275,14 @@ class Tasks_Form(Form):
     person_responsible = StringField(u'*Person Responsible',
                                    [validators.Optional()],
                                    render_kw={"placeholder": "e.g. Name of person responsible"})
-    month_due = DateField(u'Month Due', validators=[DateRange(min=dt.date(2017, 1, 1),
+    month_due = DateField(u'*Month Due', validators=[DateRange(min=dt.date(2017, 1, 1),
                                          max=dt.date(2024, 1, 1))],
                        render_kw={"placeholder": "must be YYYYMMDD Date String e.g. 2019-01-29"})
     previous_report = TextAreaField(u'Previous Report',
                              validators=[validators.Optional()])
     progress = TextAreaField(u'Progress',
                              validators=[validators.Optional()])
-    percent = IntegerField(u'Percentage Complete',
+    percent = IntegerField(u'*Percentage Complete',
                            [validators.NumberRange(min=0, max=100,
                                                    message="Must be between 0 and 100")])
     papers = TextAreaField(u'Papers',
@@ -367,9 +367,21 @@ def add(tableClass):
         formdata = []
         fieldname = []
         db_string = ""
+        archive_string = ""
+        if tableClass == 'Work_Packages':
+            archivelist = ['date_edited', 'code', 'status', 'issues',
+                           'next_deliverable']
+        else:
+            archivelist = ['date_edited', 'code', 'person_responsible',
+                           'progress', 'percent', 'papers',
+                           'paper_submission_date']
         for f, field in enumerate(form):
             formdata.append(field.data)
             fieldname.append(field.name)
+            if field.name in archivelist:
+                archive_string += str(field.name) + "=formdata[" + str(f)+"],"
+            if field.name == "code":
+                code = str(f)
             if field.name == 'date_edited':
                 now = dt.datetime.now().strftime("%Y-%m-%d")
                 formdata[f] = now
@@ -378,27 +390,17 @@ def add(tableClass):
         db_string = tableClass + "(" + db_string[:-1] + ")"
         db_row = eval(db_string)
         psql_insert(db_row)
-        df = pd.DataFrame(columns=fieldname, index=[0])
-        df.iloc[0] = formdata
-        print(df)
+        db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
-            if tableClass == 'Work_Packages':
-                df = df['date_edited', 'code', 'status', 'issues',
-                        'next_deliverable']
-            else:
-                df = df['date_edited', 'code', 'person_responsible',
-                        'progress', 'percent', 'papers',
-                        'paper_submission_date']
-            db_string = ""
-            for i in range(len(df.columns)):
-                print(i)
-                db_string += str(df.columns[i] + '=' + str(df[df.columns[i]].values[0])) + ','
-            db_string = tableClass + '_archive (' + db_string[:-1] + ')'
-            print(db_string)
-            psql_insert(eval(db_string))
+            archive_string = tableClass + "_Archive(" + archive_string[:-1]+")"
+            db_arow = eval(archive_string)
+            psql_insert(db_arow, flashMsg=False)
             db.session.commit()
-            db_string = 'count (code =' + df.code.values[0], ',' + 'count = 1 )'
-            psql_insert(eval(db_string))
+        count_string = ""
+        count_string += "Counts(code =" + str(code) + ", count = 1 )"
+        crow = eval(count_string)
+        psql_insert(crow, flashMsg=False)
+        db.session.commit()
         return redirect(url_for('add', tableClass=tableClass))
     return render_template('add.html.j2', title=title, tableClass=tableClass,
                            form=form)

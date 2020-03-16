@@ -473,16 +473,37 @@ def edit(tableClass, id):
         form.work_package.choices = table_list('Work_Packages', 'code')
         form.partner.choices = table_list('Partners', 'name')
     # If user submits edit entry form:
+    if tableClass == 'Work_Packages':
+        archivelist = ['date_edited', 'code', 'status', 'issues',
+                       'next_deliverable']
+    else:
+        archivelist = ['date_edited', 'code', 'person_responsible',
+                       'progress', 'percent', 'papers',
+                       'paper_submission_date']
+    archive_string = ""
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:
         if tableClass == 'Users':
             form.password.data = sha256_crypt.encrypt(str(form.password.data))
+        print(form.field)
         for field in form:
             if field.name == 'date_edited':
                 now = dt.datetime.now().strftime("%Y-%m-%d")
                 field.data = now
             exec("db_row." + field.name + " = field.data")
+            if field.name in archivelist:
+                archive_string += str(field.name) + "=" + str(field.data)+","
         db.session.commit()
+        if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
+            archive_string = tableClass + "_Archive(" + archive_string[:-1]+")"
+            print(archive_string)
+            db_arow = eval(str(archive_string))
+            psql_insert(db_arow, flashMsg=False)
+            db.session.commit()
+            print('here')
+            db_crow = Counts.query.filter_by(id=id).first()
+            print('here')
+            print(db_crow)
         # Return with success:
         flash('Edits successful', 'success')
         return redirect(url_for('view', tableClass=tableClass))

@@ -465,6 +465,8 @@ def edit(tableClass, id):
         abort(404)
     # Retrieve DB entry:
     db_row = eval(tableClass).query.filter_by(id=id).first()
+    code = db_row.code
+    db_arow = eval(tableClass+"_Archive").query.filter_by(code=code).first()
     if db_row is None:
         abort(404)
     # Get form (and tweak where necessary):
@@ -485,25 +487,21 @@ def edit(tableClass, id):
         # Get each form field and update DB:
         if tableClass == 'Users':
             form.password.data = sha256_crypt.encrypt(str(form.password.data))
-        print(form.field)
         for field in form:
             if field.name == 'date_edited':
                 now = dt.datetime.now().strftime("%Y-%m-%d")
                 field.data = now
             exec("db_row." + field.name + " = field.data")
             if field.name in archivelist:
-                archive_string += str(field.name) + "=" + str(field.data)+","
+                if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
+                    exec("db_arow." + field.name + " = field.data")
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
-            archive_string = tableClass + "_Archive(" + archive_string[:-1]+")"
-            print(archive_string)
-            db_arow = eval(str(archive_string))
-            psql_insert(db_arow, flashMsg=False)
-            db.session.commit()
-            print('here')
-            db_crow = Counts.query.filter_by(id=id).first()
-            print('here')
+            db_crow = Counts.query.filter_by(code=code).first()
             print(db_crow)
+            count = db_crow.count
+            exec("db_crow.count = count+1")
+            print(count+1)
         # Return with success:
         flash('Edits successful', 'success')
         return redirect(url_for('view', tableClass=tableClass))

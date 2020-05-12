@@ -396,11 +396,12 @@ def add(tableClass):
             db_arow = eval(archive_string)
             psql_insert(db_arow, flashMsg=False)
             db.session.commit()
-        count_string = ""
-        count_string += "Counts(code =" + str(code) + ", count = 1 )"
-        crow = eval(count_string)
-        psql_insert(crow, flashMsg=False)
-        db.session.commit()
+            count_string = ""
+            count_string += "Counts(code ='" + str(code) + "', count = 1 )"
+            crow = eval(count_string)
+            print(count_string)
+            psql_insert(crow, flashMsg=False)
+            db.session.commit()
         return redirect(url_for('add', tableClass=tableClass))
     return render_template('add.html.j2', title=title, tableClass=tableClass,
                            form=form)
@@ -494,6 +495,7 @@ def edit(tableClass, id):
             exec("db_row." + field.name + " = field.data")
             if field.name in archivelist:
                 if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
+                    # edits the row but we want to add a row!!
                     exec("db_arow." + field.name + " = field.data")
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:

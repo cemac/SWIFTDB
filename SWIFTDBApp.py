@@ -386,11 +386,14 @@ def add(tableClass):
             db_string += str(field.name) + "=formdata[" + str(f) + "],"
         # Add to DB:
         db_string = tableClass + "(" + db_string[:-1] + ")"
+        print(db_string)
         db_row = eval(db_string)
+        print(db_row)
         psql_insert(db_row)
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
             archive_string = tableClass + "_Archive(" + archive_string[:-1]+")"
+            print(archive_string)
             db_arow = eval(archive_string)
             print(db_arow)
             psql_insert(db_arow, flashMsg=False)

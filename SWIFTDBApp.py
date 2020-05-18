@@ -388,14 +388,14 @@ def add(tableClass):
         db_string = tableClass + "(" + db_string[:-1] + ")"
         print(db_string)
         db_row = eval(db_string)
-        print(db_row)
+        print(eval(db_string))
         psql_insert(db_row)
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
             archive_string = tableClass + "_Archive(" + archive_string[:-1]+")"
             print(archive_string)
             db_arow = eval(archive_string)
-            print(db_arow)
+            print(eval(archive_string))
             psql_insert(db_arow, flashMsg=False)
             db.session.commit()
             count_string = ""

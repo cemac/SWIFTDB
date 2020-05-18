@@ -380,7 +380,6 @@ def add(tableClass):
                 archive_string += str(field.name) + "=formdata[" + str(f)+"],"
             if field.name == "code":
                 code = formdata[0]
-                print(code)
             if field.name == 'date_edited':
                 now = dt.datetime.now().strftime("%Y-%m-%d")
                 formdata[f] = now
@@ -398,7 +397,6 @@ def add(tableClass):
             count_string = ""
             count_string += "Counts(code ='" + str(code) + "', count = 1 )"
             crow = eval(count_string)
-            print(count_string)
             psql_insert(crow, flashMsg=False)
             db.session.commit()
         return redirect(url_for('add', tableClass=tableClass))
@@ -419,8 +417,11 @@ def view(tableClass):
         data['password'] = '********'
     # Set title:
     title = "View " + tableClass.replace("_", " ")
-    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
-    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
+    try:
+        data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+        data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
+    except KeyError:
+        pass
     # Set table column names:
     description = ('Admin access to ' + tableClass.replace("_", " "))
     colnames = [s.replace("_", " ").title() for s in data.columns.values[1:]]

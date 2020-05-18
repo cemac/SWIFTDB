@@ -379,7 +379,7 @@ def add(tableClass):
             if field.name in archivelist:
                 archive_string += str(field.name) + "=formdata[" + str(f)+"],"
             if field.name == "code":
-                code = str(f)
+                code = formdata[0]
                 print(code)
             if field.name == 'date_edited':
                 now = dt.datetime.now().strftime("%Y-%m-%d")

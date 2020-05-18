@@ -13,7 +13,7 @@ Example:
 Attributes:
     endMonth(int): Project length in months
 
-.. CEMAC_stomtracking:
+.. CEMAC_swiftdb:
    https://github.com/cemac/SWIFTDB
 '''
 from flask import Flask, render_template, flash, redirect, url_for, request
@@ -50,11 +50,9 @@ from models import Users2Work_Packages, Tasks, Users2Partners
 from models import Work_Packages_Archive, Deliverables_Archive, Tasks_Archive
 # ~~~~~~ PSQL FUNCTIONS ~~~~~~~ #
 
-
 def psql_to_pandas(query):
     df = pd.read_sql(query.statement, db.session.bind)
     return df
-
 
 def psql_insert(row, flashMsg=True):
     try:
@@ -420,6 +418,8 @@ def view(tableClass):
         data['password'] = '********'
     # Set title:
     title = "View " + tableClass.replace("_", " ")
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     # Set table column names:
     description = ('Admin access to ' + tableClass.replace("_", " "))
     colnames = [s.replace("_", " ").title() for s in data.columns.values[1:]]

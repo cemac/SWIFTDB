@@ -380,6 +380,7 @@ def add(tableClass):
                 archive_string += str(field.name) + "=formdata[" + str(f)+"],"
             if field.name == "code":
                 code = str(f)
+                print(code)
             if field.name == 'date_edited':
                 now = dt.datetime.now().strftime("%Y-%m-%d")
                 formdata[f] = now

@@ -390,13 +390,13 @@ def add(tableClass):
         psql_insert(db_row)
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
-            archive_string = tableClass + "_archive(" + archive_string[:-1]+")"
+            archive_string = tableClass + "_Archive(" + archive_string[:-1]+")"
             db_arow = eval(archive_string)
             print(db_arow)
             psql_insert(db_arow, flashMsg=False)
             db.session.commit()
             count_string = ""
-            count_string += "counts(code ='" + str(code) + "', count = 1 )"
+            count_string += "Counts(code ='" + str(code) + "', count = 1 )"
             crow = eval(count_string)
             print(crow)
             psql_insert(crow, flashMsg=False)

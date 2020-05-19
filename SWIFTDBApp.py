@@ -499,7 +499,7 @@ def edit(tableClass, id):
                 field.data = now
             exec("db_row." + field.name + " = field.data")
             if field.name == "code":
-                    code = formdata[0]
+                    code = field.data
             if field.name in archivelist:
                 if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
                     # edits the row but we want to add a row!!

@@ -498,6 +498,8 @@ def edit(tableClass, id):
                 now = dt.datetime.now().strftime("%Y-%m-%d")
                 field.data = now
             exec("db_row." + field.name + " = field.data")
+            if field.name == "code":
+                    code = formdata[0]
             if field.name in archivelist:
                 if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
                     # edits the row but we want to add a row!!

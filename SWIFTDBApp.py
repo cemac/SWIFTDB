@@ -497,16 +497,17 @@ def edit(tableClass, id):
             if field.name == 'date_edited':
                 now = dt.datetime.now().strftime("%Y-%m-%d")
                 field.data = now
+                print('here 1')
             exec("db_row." + field.name + " = field.data")
             if field.name == "code":
                     code = field.data
             if field.name in archivelist:
                 if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
                     # edits the row but we want to add a row!!
+                    print('here 2')
                     exec("db_arow." + field.name + " = field.data")
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
-            print('here')
             db_crow = Counts.query.filter_by(code=code).first()
             print(db_crow)
             count = db_crow.count

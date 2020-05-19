@@ -507,6 +507,8 @@ def edit(tableClass, id):
             db_arow = eval(archive_string)
             psql_insert(db_arow, flashMsg=False)
             db.session.commit()
+            db_crow2 = psql_to_pandas(Counts.query.filter_by(code=code).first())
+            print(db_crow2)
             db_crow = Counts.query.filter_by(code=code).first()
             count = db_crow.count
             exec("db_crow.count = count+1")

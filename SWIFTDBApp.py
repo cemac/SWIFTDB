@@ -376,30 +376,27 @@ def add(tableClass):
         for f, field in enumerate(form):
             formdata.append(field.data)
             fieldname.append(field.name)
+            if field.name == 'date_edited':
+                now = dt.datetime.now().strftime("%Y-%m-%d")
+                formdata[f] = now
             if field.name in archivelist:
                 archive_string += str(field.name) + "=formdata[" + str(f)+"],"
             if field.name == "code":
                 code = formdata[0]
-            if field.name == 'date_edited':
-                now = dt.datetime.now().strftime("%Y-%m-%d")
-                formdata[f] = now
             db_string += str(field.name) + "=formdata[" + str(f) + "],"
         # Add to DB:
         db_string = tableClass + "(" + db_string[:-1] + ")"
-        print(db_string)
         db_row = eval(db_string)
         psql_insert(db_row)
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
             archive_string = tableClass + "_Archive(" + archive_string[:-1]+")"
-            print(archive_string)
             db_arow = eval(archive_string)
             psql_insert(db_arow, flashMsg=False)
             db.session.commit()
             count_string = ""
             count_string += "Counts(code ='" + str(code) + "', count = 1 )"
             crow = eval(count_string)
-            print(crow)
             psql_insert(crow, flashMsg=False)
             db.session.commit()
         return redirect(url_for('add', tableClass=tableClass))
@@ -497,22 +494,24 @@ def edit(tableClass, id):
             if field.name == 'date_edited':
                 now = dt.datetime.now().strftime("%Y-%m-%d")
                 field.data = now
-                print('here 1')
             exec("db_row." + field.name + " = field.data")
             if field.name == "code":
                     code = field.data
             if field.name in archivelist:
                 if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
                     # edits the row but we want to add a row!!
-                    print('here 2')
-                    exec("db_arow." + field.name + " = field.data")
+                    archive_string += str(field.name) + "= field.data ,"
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
+            archive_string = tableClass + "_Archive(" + archive_string[:-1]+")"
+            db_arow = eval(archive_string)
+            psql_insert(db_arow, flashMsg=False)
+            db.session.commit()
             db_crow = Counts.query.filter_by(code=code).first()
-            print(db_crow)
             count = db_crow.count
             exec("db_crow.count = count+1")
             print(count+1)
+            db.session.commit()
         # Return with success:
         flash('Edits successful', 'success')
         return redirect(url_for('view', tableClass=tableClass))

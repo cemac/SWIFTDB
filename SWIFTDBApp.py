@@ -506,6 +506,7 @@ def edit(tableClass, id):
                     exec("db_arow." + field.name + " = field.data")
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
+            print('here')
             db_crow = Counts.query.filter_by(code=code).first()
             print(db_crow)
             count = db_crow.count

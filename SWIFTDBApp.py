@@ -738,7 +738,7 @@ def task_edit(id):
     # Retrieve DB entry:
     db_row = Tasks.query.filter_by(id=id).first()
     code = db_row.code
-    db_arow = eval(tableClass+"_Archive").query.filter_by(code=code).first()
+    db_arow = eval("Tasks_Archive").query.filter_by(code=code).first()
     if db_row is None:
         abort(404)
     # Check user has access to this task:

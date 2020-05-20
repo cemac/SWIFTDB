@@ -758,16 +758,15 @@ def task_edit(id):
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:
         for field in form:
-            if field.name == 'date_edited':
-                now = dt.datetime.now().strftime("%Y-%m-%d")
-                field.data = now
             exec("db_row." + field.name + " = field.data")
             if field.name in archivelist:
                 archive_string += str(field.name) + "= field.data ,"
         now = dt.datetime.now().strftime("%Y-%m-%d")
         exec("db_row.date_edited = now")
         db.session.commit()
-        archive_string = "Tasks_Archive(" + archive_string[:-1]+")"
+        print('here')
+        archive_string += "date_edited ="+str(now)
+        archive_string = "Tasks_Archive(" + archive_string +")"
         db_arow = eval(archive_string)
         psql_insert(db_arow, flashMsg=False)
         db.session.commit()

@@ -753,7 +753,8 @@ def task_edit(id):
     archivelist = ['date_edited', 'code', 'person_responsible',
                        'progress', 'percent', 'papers',
                        'paper_submission_date']
-    archive_string = ""
+
+    archive_string += "date_edited ="+now +' ,'
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:
@@ -765,8 +766,7 @@ def task_edit(id):
         exec("db_row.date_edited = now")
         db.session.commit()
         print('here')
-        archive_string += "date_edited ="+now
-        archive_string = "Tasks_Archive(" + archive_string +")"
+        archive_string = "Tasks_Archive(" + archive_string[:-1] +")"
         db_arow = eval(archive_string)
         psql_insert(db_arow, flashMsg=False)
         db.session.commit()

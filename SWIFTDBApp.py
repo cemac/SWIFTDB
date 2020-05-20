@@ -765,7 +765,7 @@ def task_edit(id):
         exec("db_row.date_edited = now")
         db.session.commit()
         print('here')
-        archive_string += "date_edited ="+str(now)
+        archive_string += "date_edited ="+now
         archive_string = "Tasks_Archive(" + archive_string +")"
         db_arow = eval(archive_string)
         psql_insert(db_arow, flashMsg=False)

@@ -753,8 +753,8 @@ def task_edit(id):
     archivelist = ['date_edited', 'code', 'person_responsible',
                        'progress', 'percent', 'papers',
                        'paper_submission_date']
-
-    archive_string += "date_edited ="+now +' ,'
+    now = dt.datetime.now().strftime("%Y-%m-%d")
+    archive_string = "date_edited ="+now +' ,'
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:
@@ -762,7 +762,6 @@ def task_edit(id):
             exec("db_row." + field.name + " = field.data")
             if field.name in archivelist:
                 archive_string += str(field.name) + "= field.data ,"
-        now = dt.datetime.now().strftime("%Y-%m-%d")
         exec("db_row.date_edited = now")
         db.session.commit()
         print('here')

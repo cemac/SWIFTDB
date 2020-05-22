@@ -764,7 +764,7 @@ def task_edit(id):
                 archive_string += str(field.name) + "= field.data ,"
         exec("db_row.date_edited = now")
         db.session.commit()
-        print('here')
+        print('archive_string')
         archive_string = "Tasks_Archive(" + archive_string[:-1] +")"
         db_arow = eval(archive_string)
         psql_insert(db_arow, flashMsg=False)

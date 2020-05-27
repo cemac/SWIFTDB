@@ -571,27 +571,21 @@ def wp_view():
                            description=description, title=title)
 
 
-# WP list for WP leaders
+# WP list for read only
 @app.route('/wp-reader')
 @is_logged_in
 def wp_readers():
     # Retrieve all work packages:
     all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
-    # Select only the accessible work packages for this user:
-    if session['username'] == 'admin' or session['reader'] == 'True':
-        accessible_wps = all_wps
-        description = 'Read Only View of Work Packages'
-    else:
-        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
-            username=session['username']))['work_package'].tolist()
-        accessible_wps = all_wps[all_wps.code.isin(user_wps)]
-        description = 'You are WP Leader for: ' + ", ".join(user_wps)
+    accessible_wps = all_wps
+    description = 'Read Only View of Work Packages'
     accessible_wps['date_edited'] = pd.to_datetime(accessible_wps['date_edited']).dt.strftime('%d/%m/%Y')
+    accessible_wps=accessible_wps.drop(columns=['previous_report'])
     # Set title:
     title = "Viewable Work Packages"
     return render_template('wp-list.html.j2', editLink="none",
                            tableClass='Work_Packages', data=accessible_wps,
-                           description=description, title=title)
+                           description=description, title=title,reader=True)
 
 
 # WP edit status for WP leaders
@@ -613,9 +607,7 @@ def wp_edit(id):
             abort(403)
     # Get form:
     form = Your_Work_Packages_Form(request.form)
-    archivelist = ['date_edited', 'code', 'person_responsible',
-                       'progress', 'percent', 'papers',
-                       'paper_submission_date']
+    archivelist = ['date_edited', 'code', 'status', 'issues','next_deliverable']
     now = dt.datetime.now().strftime("%Y-%m-%d")
     archive_string = "date_edited = '"+str(now) +"',"
     # If user submits edit entry form:
@@ -723,20 +715,13 @@ def task_reader():
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
     # Select only the accessible tasks for this user:
-    if session['username'] == 'admin' or session['reader'] == 'True':
-        accessible_tasks = all_tasks
-        description = 'Read-only - Displaying All Tasks'
-    else:
-        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
-            username=session['username']))['work_package'].tolist()
-        accessible_tasks = all_tasks[all_tasks.work_package.isin(user_wps)]
-        accessible_tasks.fillna(value="", inplace=True)
-        description = 'Displaying Tasks associated with Work Package(s): ' + ", ".join(
-            user_wps)
+    accessible_tasks = all_tasks
+    description = 'Read-only - Displaying All Tasks'
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
+    data=data.drop(columns=['previous_report'])
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:
@@ -744,7 +729,7 @@ def task_reader():
                 for s in accessible_tasks.columns.values[1:]]
     return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Tasks', editLink="none",
-                           data=data, description=description)
+                           data=data, description=description, reader=True)
 
 
 # Edit task as non-admin
@@ -882,20 +867,13 @@ def deliverables_reader():
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Deliverables.query.order_by(Deliverables.id))
     # Select only the accessible tasks for this user:
-    if session['username'] == 'admin' or session['reader'] == 'True':
-        accessible_data = all_tasks
-        description = 'Read-only - Displaying All Tasks'
-    else:
-        user_wps = psql_to_pandas(Users2Work_Packages.query.filter_by(
-            username=session['username']))['work_package'].tolist()
-        accessible_data = all_tasks[all_tasks.work_package.isin(user_wps)]
-        accessible_data.fillna(value="", inplace=True)
-        description = 'Displaying Deliverables associated with Work Package(s): ' + ", ".join(
-            user_wps)
+    accessible_data = all_tasks
+    description = 'Read-only - Displaying All Tasks'
     accessible_data.fillna(value="", inplace=True)
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
+    data=data.drop(columns=['previous_report'])
     title = "Viewable Deliverables"
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
@@ -903,7 +881,7 @@ def deliverables_reader():
     return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Deliverables',
                            editLink="none", data=data,
-                           description=description)
+                           description=description, reader=True)
 
 
 # Edit deliverable as WP leader

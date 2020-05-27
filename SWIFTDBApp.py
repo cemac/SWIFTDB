@@ -600,6 +600,8 @@ def wp_readers():
 def wp_edit(id):
     # Retrieve DB entry:
     db_row = Work_Packages.query.filter_by(id=id).first()
+    code = db_row.code
+    db_arow = eval("Tasks_Archive").query.filter_by(code=code).first()
     if db_row is None:
         abort(404)
     # Check user has access to this wp:
@@ -611,13 +613,27 @@ def wp_edit(id):
             abort(403)
     # Get form:
     form = Your_Work_Packages_Form(request.form)
+    archivelist = ['date_edited', 'code', 'person_responsible',
+                       'progress', 'percent', 'papers',
+                       'paper_submission_date']
+    now = dt.datetime.now().strftime("%Y-%m-%d")
+    archive_string = "date_edited = '"+str(now) +"',"
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:
         for field in form:
             exec("db_row." + field.name + " = field.data")
-        now = dt.datetime.now().strftime("%Y-%m-%d")
+            if field.name in archivelist:
+                archive_string += str(field.name) + "= '"+str(field.data) + "',"
         exec("db_row.date_edited = now")
+        db.session.commit()
+        archive_string = "Work_Packages_Archive(" + archive_string[:-1] +")"
+        db_arow = eval(archive_string)
+        psql_insert(db_arow, flashMsg=False)
+        db.session.commit()
+        db_crow = Counts.query.filter_by(code=code).first()
+        count = db_crow.count
+        exec("db_crow.count = count+1")
         db.session.commit()
         flash('Edits successful', 'success')
         return redirect(url_for('wp_list'))
@@ -765,11 +781,8 @@ def task_edit(id):
                 archive_string += str(field.name) + "= '"+str(field.data) + "',"
         exec("db_row.date_edited = now")
         db.session.commit()
-        print(archive_string)
         archive_string = "Tasks_Archive(" + archive_string[:-1] +")"
-        print(archive_string)
         db_arow = eval(archive_string)
-        print(db_arow)
         psql_insert(db_arow, flashMsg=False)
         db.session.commit()
         db_crow = Counts.query.filter_by(code=code).first()
@@ -899,6 +912,8 @@ def deliverables_reader():
 def deliverables_edit(id):
     # Retrieve DB entry:
     db_row = Deliverables.query.filter_by(id=id).first()
+    code = db_row.code
+    db_arow = eval("Tasks_Archive").query.filter_by(code=code).first()
     if db_row is None:
         abort(404)
     # Check user has access to this deliverable:
@@ -911,13 +926,27 @@ def deliverables_edit(id):
             abort(403)
     # Get form:
     form = Your_Deliverables_Form(request.form)
+    archivelist = ['date_edited', 'code', 'person_responsible',
+                       'progress', 'percent', 'papers',
+                       'paper_submission_date']
+    now = dt.datetime.now().strftime("%Y-%m-%d")
+    archive_string = "date_edited = '"+str(now) +"',"
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:
         for field in form:
             exec("db_row." + field.name + " = field.data")
-        now = dt.datetime.now().strftime("%Y-%m-%d")
+            if field.name in archivelist:
+                archive_string += str(field.name) + "= '"+str(field.data) + "',"
         exec("db_row.date_edited = now")
+        db.session.commit()
+        archive_string = "Deliverables_Archive(" + archive_string[:-1] +")"
+        db_arow = eval(archive_string)
+        psql_insert(db_arow, flashMsg=False)
+        db.session.commit()
+        db_crow = Counts.query.filter_by(code=code).first()
+        count = db_crow.count
+        exec("db_crow.count = count+1")
         db.session.commit()
         # Return with success:
         flash('Edits successful', 'success')

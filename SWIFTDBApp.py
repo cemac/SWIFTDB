@@ -754,19 +754,22 @@ def task_edit(id):
                        'progress', 'percent', 'papers',
                        'paper_submission_date']
     now = dt.datetime.now().strftime("%Y-%m-%d")
-    archive_string = "date_edited ="+now +' ,'
+    archive_string = "date_edited = '"+str(now) +"',"
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:
         for field in form:
             exec("db_row." + field.name + " = field.data")
+            print(exec(field.name + " = field.data"))
             if field.name in archivelist:
-                archive_string += str(field.name) + "= field.data ,"
+                archive_string += str(field.name) + "= '"+str(field.data) + "',"
         exec("db_row.date_edited = now")
         db.session.commit()
-        print('archive_string')
+        print(archive_string)
         archive_string = "Tasks_Archive(" + archive_string[:-1] +")"
+        print(archive_string)
         db_arow = eval(archive_string)
+        print(db_arow)
         psql_insert(db_arow, flashMsg=False)
         db.session.commit()
         db_crow = Counts.query.filter_by(code=code).first()

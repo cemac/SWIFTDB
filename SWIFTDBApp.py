@@ -656,7 +656,8 @@ def wp_summary(id):
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:
-    title = "Tasks and Deliverables for Work Package "+str(code)
+    title = "Tasks and Deliverables for Work Package " + str(code)
+    description = 'Displaying summary, please see archive for full fields'
     # Set table column names:
     colnames = [s.replace("_", " ").title()
                 for s in data.columns.values[1:]]

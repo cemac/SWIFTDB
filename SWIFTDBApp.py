@@ -576,7 +576,7 @@ def wp_view():
 @is_logged_in
 def wp_readers():
     # Retrieve all work packages:
-    all_wps = psql_to_pandas(Work_Packages_Archive.query.order_by(Work_Packages.id))
+    all_wps = psql_to_pandas(Work_Packages_Archive.query.order_by(Work_Packages_archive.id))
     accessible_wps = all_wps
     description = 'Read Only View of Work Packages'
     accessible_wps = accessible_wps.sort_values(by='date_edited')
@@ -737,7 +737,7 @@ def task_view():
 @is_logged_in
 def task_reader():
     # Retrieve all tasks:
-    all_tasks = psql_to_pandas(Tasks_Archive.query.order_by(Tasks.id))
+    all_tasks = psql_to_pandas(Tasks_Archive.query.order_by(Tasks_Archive.id))
     # Select only the accessible tasks for this user:
     accessible_tasks = all_tasks
     description = 'Read-only - Displaying All Tasks'
@@ -889,7 +889,7 @@ def deliverables_view():
 @is_logged_in
 def deliverables_reader():
     # Retrieve all tasks:
-    all_tasks = psql_to_pandas(Deliverables_Archive.query.order_by(Deliverables.id))
+    all_tasks = psql_to_pandas(Deliverables_Archive.query.order_by(Deliverables_archive.id))
     # Select only the accessible tasks for this user:
     accessible_data = all_tasks
     description = 'Read-only - Displaying All Tasks'

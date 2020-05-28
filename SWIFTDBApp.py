@@ -738,11 +738,7 @@ def task_view():
 @app.route('/task-reader', methods=['GET', 'POST'])
 @is_logged_in
 def task_reader():
-    form = Dateform()
-    if form.validate_on_submit():
-        arch_date=form.dat.data.strftime('%Y-%m-%d')
-        print(arch_date)
-        return form.dat.data.strftime('%Y-%m-%d')
+    form = Dateform(request.form)
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
     # Select only the accessible tasks for this user:
@@ -753,6 +749,10 @@ def task_reader():
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     data.drop('previous_report',axis=1, inplace=True)
+    if request.method == 'POST' and form.validate():
+        arch_date=form.dat.data.strftime('%Y-%m-%d')
+        print(arch_date)
+        return form.dat.data.strftime('%Y-%m-%d')
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:

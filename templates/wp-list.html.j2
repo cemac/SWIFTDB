@@ -1,3 +1,4 @@
+<html lang="en">
 {% extends 'layout.html.j2' %}
 
 {% block body %}
@@ -36,7 +37,7 @@
         <td>
         {% if editLink == "wp-edit" %}
         <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Update</a>
-        {% elif  editLink == "reader" %}
+        {% elif  editLink == "reader" or editLink == "wp-edit" %}
         <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">View T & D s</a>
         {% endif %}
         </td>
@@ -101,7 +102,7 @@ $(document).ready(function(){
         {type: 'date-uk', targets: 5 },
         {targets: [1,2,3,4,6], orderable: false},
         {render: function (data, type, full, meta) {
-                        return "<div style='white-space:normal; width:60px'>" + data + "</div>";
+                        return "<div style='white-space:normal; width:90px'>" + data + "</div>";
                     },
                     targets: 1},
         {render: function (data, type, full, meta) {
@@ -130,3 +131,4 @@ $(document).ready(function(){
 </script>
 {% endif %}
 {% endblock %}
+</html>

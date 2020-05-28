@@ -62,7 +62,7 @@ $(document).ready(function(){
   var table = $('#myTable').DataTable({
     columnDefs: [
         {type: 'date-uk', targets: 6 },
-        {targets: [1,2,3,4,5,7,8], orderable: false},
+        {targets: [1,2,3,4,5,7], orderable: false},
         {render: function (data, type, full, meta) {
                         return "<div style='white-space:normal; width:400px'>" + data + "</div>";
                     },
@@ -100,7 +100,7 @@ $(document).ready(function(){
     pageLength: 25,
     columnDefs: [
         {type: 'date-uk', targets: 5 },
-        {targets: [1,2,3,4,6], orderable: false},
+        {targets: [1,2,3,4,6,7], orderable: false},
         {render: function (data, type, full, meta) {
                         return "<div style='white-space:normal; width:90px'>" + data + "</div>";
                     },

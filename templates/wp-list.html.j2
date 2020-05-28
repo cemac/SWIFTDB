@@ -3,6 +3,7 @@
 
 {% block body %}
 <h1>{{title}}</h1>
+<input id="datepicker" type="text">
 <hr>
 <p> {{description}} </p>
 <p> You may also view associated tasks and deliverables but only Partner Leaders may update. </p>
@@ -55,6 +56,11 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.20/sorting/date-uk.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
+<script>
+        var datepicker = new ej.calendars.DatePicker({ width: "255px" });
+        datepicker.appendTo('#datepicker');
+    </script>
 {% if reader != 'True' %}
 <script>
 $(document).ready(function(){

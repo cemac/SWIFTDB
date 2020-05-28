@@ -65,6 +65,35 @@ tables  -->
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.20/sorting/date-uk.js"></script>
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.20/sorting/stringMonthYear.js"></script>
 {% if tableClass == 'Deliverables' or tableClass == 'Tasks' %}
+{% if reader == 'True' %}
+<script>
+$(document).ready(function(){
+  $('.dropdown-toggle').dropdown();
+  var table = $('#myTable').DataTable({
+    columnDefs: [
+        {type: 'date-uk', targets: 10 },
+        { type: 'stringMonthYear', targets: 5 },
+        {targets: [2,6,8,9,11], orderable: false, searchable : false},
+
+        {render: function (data, type, full, meta) {
+                        return "<div style='white-space:normal; width:400px'>" + data + "</div>";
+                    },
+                    targets: [6]},
+        {render: function (data, type, full, meta) {
+                        return "<div style='white-space:normal; width:200px'>" + data + "</div>";
+                    },
+                    targets: [2,8]}
+    ],
+      order: [[0, "asc"]],
+      stateSave: true,
+      scrollX: true,
+      fixedColumns:   {
+            heightMatch: 'none'
+        }
+  });
+});
+</script>
+{% else %}
 <script>
 $(document).ready(function(){
   $('.dropdown-toggle').dropdown();
@@ -92,6 +121,7 @@ $(document).ready(function(){
   });
 });
 </script>
+{% endif %}
 {% elif tableClass == 'Users' %}
 <script>
 $(document).ready(function(){

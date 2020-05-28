@@ -722,12 +722,11 @@ def task_reader():
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     data.drop('previous_report',axis=1, inplace=True)
-    print(data.columns.values)
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:
     colnames = [s.replace("_", " ").title()
-                for s in accessible_tasks.columns.values[1:]]
+                for s in data.columns.values[1:]]
     return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Tasks', editLink="none",
                            data=data, description=description, reader=True)
@@ -874,11 +873,11 @@ def deliverables_reader():
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
-    data=data.drop(columns=['previous_report'])
+    data.drop('previous_report',axis=1, inplace=True)
     title = "Viewable Deliverables"
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
-                accessible_data.columns.values[1:]]
+                data.columns.values[1:]]
     return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Deliverables',
                            editLink="none", data=data,

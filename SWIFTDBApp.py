@@ -740,7 +740,9 @@ def task_view():
 def task_reader():
     form = Dateform()
     if form.validate_on_submit():
-        return form.dt.data.strftime('%Y-%m-%d')
+        arch_date=form.dat.data.strftime('%Y-%m-%d')
+        print(arch_date)
+        return form.dat.data.strftime('%Y-%m-%d')
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
     # Select only the accessible tasks for this user:
@@ -757,7 +759,7 @@ def task_reader():
     colnames = [s.replace("_", " ").title()
                 for s in data.columns.values[1:]]
     return render_template('view.html.j2', title=title, colnames=colnames,
-                           tableClass='Tasks', editLink="none", form=form
+                           tableClass='Tasks', editLink="none", form=form,
                            data=data, description=description, reader='True')
 
 

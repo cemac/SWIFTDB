@@ -576,12 +576,11 @@ def wp_view():
 @is_logged_in
 def wp_readers():
     # Retrieve all work packages:
-    all_wps = psql_to_pandas(Work_Packages_Archive.query.order_by(Work_Packages.id))
+    all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     accessible_wps = all_wps
     description = 'Read Only View of Work Packages'
-    accessible_wps = accessible_wps.sort_values(by='date_edited')
-    accessible_wps = accessible_wps.drop_duplicates(subset='code', keep='last', inplace=False)
     accessible_wps['date_edited'] = pd.to_datetime(accessible_wps['date_edited']).dt.strftime('%d/%m/%Y')
+    accessible_wps = accessible_wps.drop(columns=['previous_report'])
     # Set title:
     title = "Viewable Work Packages"
     return render_template('wp-list.html.j2', editLink="reader",
@@ -737,7 +736,7 @@ def task_view():
 @is_logged_in
 def task_reader():
     # Retrieve all tasks:
-    all_tasks = psql_to_pandas(Tasks_Archive.query.order_by(Tasks.id))
+    all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
     # Select only the accessible tasks for this user:
     accessible_tasks = all_tasks
     description = 'Read-only - Displaying All Tasks'
@@ -745,9 +744,7 @@ def task_reader():
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
-    data = data.sort_values(by='date_edited')
-    data = data.drop_duplicates(subset='code', keep='last', inplace=False)
-    #data.drop('previous_report',axis=1, inplace=True)
+    data.drop('previous_report',axis=1, inplace=True)
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:
@@ -888,8 +885,10 @@ def deliverables_view():
 @app.route('/deliverables-reader')
 @is_logged_in
 def deliverables_reader():
+    # Retrieve all work packages:
+    all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     # Retrieve all tasks:
-    all_tasks = psql_to_pandas(Deliverables_Archive.query.order_by(Deliverables.id))
+    all_tasks = psql_to_pandas(Deliverables.query.order_by(Deliverables.id))
     # Select only the accessible tasks for this user:
     accessible_data = all_tasks
     description = 'Read-only - Displaying All Tasks'
@@ -897,8 +896,7 @@ def deliverables_reader():
     data = accessible_data.drop_duplicates(keep='first', inplace=False)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
-    data = data.sort_values(by='date_edited')
-    data = data.drop_duplicates(subset='code', keep='last', inplace=False)
+    data.drop('previous_report',axis=1, inplace=True)
     title = "Viewable Deliverables"
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in

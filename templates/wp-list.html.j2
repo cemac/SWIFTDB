@@ -3,7 +3,12 @@
 
 {% block body %}
 <h1>{{title}}</h1>
-<input id="datepicker" type="text">
+
+{% if reader != 'True' %}
+<div style="text-align:right">
+  Select date to view archive <input id="datepicker" type="text">
+</div>
+<% endif %>
 <hr>
 <p> {{description}} </p>
 <p> You may also view associated tasks and deliverables but only Partner Leaders may update. </p>

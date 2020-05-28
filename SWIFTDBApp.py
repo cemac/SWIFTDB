@@ -647,8 +647,8 @@ def wp_summary(id):
     # Retrieve all tasks:
     db_row = Work_Packages.query.filter_by(id=id).first()
     code = db_row.code
-    all_tasks = psql_to_pandas(Tasks.query.order_by(work_packag=code))
-    all_deliverables = psql_to_pandas(Deliverables.query.order_by(work_packag=code))
+    all_tasks = psql_to_pandas(Tasks.query.filter_by(work_package=code))
+    all_deliverables = psql_to_pandas(Deliverables.query.filter_by(work_package=code))
     all_tasks = pd.concat([all_deliverables, all_tasks])
     accessible_tasks.fillna(value="", inplace=True)
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)

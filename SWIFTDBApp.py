@@ -583,7 +583,7 @@ def wp_readers():
     accessible_wps = accessible_wps.drop(columns=['previous_report'])
     # Set title:
     title = "Viewable Work Packages"
-    return render_template('wp-list.html.j2', editLink="none",
+    return render_template('wp-list.html.j2', editLink="reader",
                            tableClass='Work_Packages', data=accessible_wps,
                            description=description, title=title,reader='True')
 
@@ -721,8 +721,8 @@ def task_reader():
     data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
-    data=data.drop(columns=['previous_report'])
-    print(data.head())
+    data.drop('previous_report',axis=1, inplace=True)
+    print(data.columns.values)
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:

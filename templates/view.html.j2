@@ -2,6 +2,12 @@
 {% extends 'layout.html.j2' %}
 {% block body %}
 <h1>{{title}}</h1>
+{% if reader == 'True' %}
+<div style="text-align:right">
+  <b> Select date to view archive: </b> <input id="datepicker" type="text">
+</div>
+{% endif %}
+<hr>
 <p>{{description}} </p>
 {% if tableClass == 'Users' %}
 <p>Add or Delete users and edit user access settings. To delete a user: first deselect all access settings first </p>
@@ -64,6 +70,11 @@ tables  -->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.20/sorting/date-uk.js"></script>
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.20/sorting/stringMonthYear.js"></script>
+<script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
+<script>
+        var datepicker = new ej.calendars.DatePicker({ width: "255px" });
+        datepicker.appendTo('#datepicker');
+    </script>
 {% if tableClass == 'Deliverables' or tableClass == 'Tasks' %}
 {% if reader == 'True' %}
 <script>

@@ -729,7 +729,7 @@ def task_reader():
                 for s in data.columns.values[1:]]
     return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Tasks', editLink="none",
-                           data=data, description=description, reader=True)
+                           data=data, description=description, reader='True')
 
 
 # Edit task as non-admin
@@ -881,7 +881,7 @@ def deliverables_reader():
     return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Deliverables',
                            editLink="none", data=data,
-                           description=description, reader=True)
+                           description=description, reader='True')
 
 
 # Edit deliverable as WP leader

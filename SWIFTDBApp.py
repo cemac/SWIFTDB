@@ -580,12 +580,12 @@ def wp_readers():
     accessible_wps = all_wps
     description = 'Read Only View of Work Packages'
     accessible_wps['date_edited'] = pd.to_datetime(accessible_wps['date_edited']).dt.strftime('%d/%m/%Y')
-    accessible_wps=accessible_wps.drop(columns=['previous_report'])
+    accessible_wps = accessible_wps.drop(columns=['previous_report'])
     # Set title:
     title = "Viewable Work Packages"
     return render_template('wp-list.html.j2', editLink="none",
                            tableClass='Work_Packages', data=accessible_wps,
-                           description=description, title=title,reader=True)
+                           description=description, title=title,reader='True')
 
 
 # WP edit status for WP leaders
@@ -722,6 +722,7 @@ def task_reader():
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     data=data.drop(columns=['previous_report'])
+    print(data.head())
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:

@@ -11,7 +11,9 @@
       <tr>
         <th>Code</th>
         <th>Name</th>
+        {% if reader != 'True' %}
         <th>Previous Update</th>
+        {% endif %}
         <th>Status Update</th>
         <th>Issues</th>
         <th>Next Quarter Deliverables</th>
@@ -24,7 +26,9 @@
       <tr>
         <td>{{row['code']}}</td>
         <td>{{row['name']}}</td>
+        {% if reader != 'True' %}
         <td>{{row['previous_report']}}</td>
+        {% endif %}
         <td>{{row['status']}}</td>
         <td>{{row['issues']}}</td>
         <td>{{row['next_deliverable']}}</td>
@@ -48,6 +52,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.20/sorting/date-uk.js"></script>
+{% if reader != 'True' %}
 <script>
 $(document).ready(function(){
   $('.dropdown-toggle').dropdown();
@@ -83,4 +88,37 @@ $(document).ready(function(){
   });
 });
 </script>
+{% else %}
+<script>
+$(document).ready(function(){
+  $('.dropdown-toggle').dropdown();
+  var table = $('#myTable').DataTable({
+    columnDefs: [
+        {type: 'date-uk', targets: 6 },
+        {targets: [1,2,3,4,5], orderable: false},
+        {render: function (data, type, full, meta) {
+                        return "<div style='white-space:normal; width:400px'>" + data + "</div>";
+                    },
+                    targets: 2},
+
+        {render: function (data, type, full, meta) {
+                        return "<div style='white-space:normal; width:400px'>" + data + "</div>";
+                    },
+                    targets: 3},
+        {render: function (data, type, full, meta) {
+                        return "<div style='white-space:normal; width:300px'>" + data + "</div>";
+                    },
+                    targets: 4},
+    ],
+      order: [[0, "asc"]],
+      stateSave: true,
+      scrollX: true,
+      scrollCollapse: true,
+      fixedColumns:   {
+            heightMatch: 'none'
+        }
+  });
+});
+</script>
+{% endif %}
 {% endblock %}

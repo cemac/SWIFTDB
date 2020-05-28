@@ -643,7 +643,7 @@ def wp_edit(id):
 
 @app.route('/wp-summary/<string:id>')
 @is_logged_in
-def wp_summary():
+def wp_summary(id):
     # Retrieve all tasks:
     db_row = Work_Packages.query.filter_by(id=id).first()
     code = db_row.code

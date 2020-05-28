@@ -641,6 +641,28 @@ def wp_edit(id):
                            id=id, form=form, editLink="wp-edit")
 
 
+@app.route('/wp-summary/<string:id>')
+@is_logged_in
+def wp_summary():
+    # Retrieve all tasks:
+    db_row = Work_Packages.query.filter_by(id=id).first()
+    code = db_row.code
+    all_tasks = psql_to_pandas(Tasks.query.order_by(work_packag=code))
+    all_deliverables = psql_to_pandas(Deliverables.query.order_by(work_packag=code))
+    all_tasks = pd.concat([all_deliverables, all_tasks])
+    accessible_tasks.fillna(value="", inplace=True)
+    data = accessible_tasks.drop_duplicates(keep='first', inplace=False)
+    data = data.drop(columns=['previous_report'])
+    data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
+    # Set title:
+    title = "Tasks and Deliverables for Work Package "+str(code)
+    # Set table column names:
+    colnames = [s.replace("_", " ").title()
+                for s in data.columns.values[1:]]
+    return render_template('view.html.j2', title=title, colnames=colnames,
+                           tableClass='Tasks', editLink="none", reader='True',
+                           data=data, description=description)
 # Tasks for a given user
 
 @app.route('/task-list')

@@ -732,7 +732,7 @@ def task_view():
                            data=data, description=description)
 
 
-@app.route('/task-reader')
+@app.route('/task-reader', methods=['GET', 'POST'])
 @is_logged_in
 def task_reader():
     # Retrieve all tasks:

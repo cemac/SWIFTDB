@@ -123,6 +123,9 @@ def table_list(tableClass, col):
 
 # ######### FORM CLASSES ##########
 
+class Dateform(Form):
+    dat = DateField('DatePicker', format='%Y-%m-%d')
+
 
 class Partners_Form(Form):
     name = StringField(u'*Partner Name',
@@ -735,6 +738,9 @@ def task_view():
 @app.route('/task-reader', methods=['GET', 'POST'])
 @is_logged_in
 def task_reader():
+    form = Dateform()
+    if form.validate_on_submit():
+        return form.dt.data.strftime('%Y-%m-%d')
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
     # Select only the accessible tasks for this user:
@@ -751,7 +757,7 @@ def task_reader():
     colnames = [s.replace("_", " ").title()
                 for s in data.columns.values[1:]]
     return render_template('view.html.j2', title=title, colnames=colnames,
-                           tableClass='Tasks', editLink="none",
+                           tableClass='Tasks', editLink="none", form=form
                            data=data, description=description, reader='True')
 
 

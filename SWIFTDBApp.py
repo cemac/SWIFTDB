@@ -758,7 +758,8 @@ def task_reader():
         title = "Archive of tasks from " + archive_date
         for ind, row in all_tasks.iterrows():
             code = row.code
-            old_tasks = psql_to_pandas(Tasks_archive.query.filter_by(code=code)
+            print(code)
+            old_tasks = psql_to_pandas(Tasks_Archive.query.filter_by(code=code))
             closest = old_tasks.iloc[old_tasks.date_edited.get_loc(form.dat.data, method='nearest')]
             data.iloc[ind].date_edited = closest.date_edited
             data.iloc[ind].person_responsible = closest.person_responsible

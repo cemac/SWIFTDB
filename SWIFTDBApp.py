@@ -738,7 +738,6 @@ def task_view():
 @is_logged_in
 def task_reader():
     form = Dateform(request.form)
-    print('nor issue reading form')
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
     # Select only the accessible tasks for this user:
@@ -749,15 +748,26 @@ def task_reader():
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     data.drop('previous_report',axis=1, inplace=True)
-    if request.method == 'POST' and form.validate():
-        print(form.dat.data)
-        arch_date = form.dat.data.strftime('%Y-%m-%d')
-        return form.dat.data.strftime('%Y-%m-%d')
     # Set title:
     title = "Viewable Tasks"
     # Set table column names:
     colnames = [s.replace("_", " ").title()
                 for s in data.columns.values[1:]]
+    if request.method == 'POST' and form.validate():
+        archive_date = form.dat.data.strftime('%d-%m-%Y')
+        title = "Archive of tasks from " + archive_date
+        for ind, row in all_tasks.iterrows():
+            code = row.code
+            old_tasks = psql_to_pandas(Tasks_archive.query.filter_by(code=code)
+            closest = old_tasks.iloc[old_tasks.date_edited.get_loc(form.dat.data, method='nearest')]
+            data.iloc[ind].date_edited = closest.date_edited
+            data.iloc[ind].person_responsible = closest.person_responsible
+            data.iloc[ind].progress = closest.progress
+            data.iloc[ind].percent = closest.percent
+            data.iloc[ind].paper_submission_date = closest.paper_submission_date
+        return render_template('view.html.j2', title=title, colnames=colnames,
+                           tableClass='Tasks', editLink="none", form=form,
+                           data=data, description=description, reader='True')
     return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Tasks', editLink="none", form=form,
                            data=data, description=description, reader='True')

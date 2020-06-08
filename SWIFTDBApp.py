@@ -577,6 +577,7 @@ def wp_view():
 @app.route('/wp-reader', methods=["GET", "POST"])
 @is_logged_in
 def wp_readers():
+    form = Dateform(request.form)
     # Retrieve all work packages:
     all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     accessible_wps = all_wps
@@ -603,10 +604,11 @@ def wp_readers():
                 pass
         return render_template('view.html.j2', title=title,  editLink="reader",
                            tableClass='Work_Packages', data=accessible_wps,
-                           description=description, reader='True')
+                           description=description, reader='True',form=form)
     return render_template('wp-list.html.j2', editLink="reader",
                            tableClass='Work_Packages', data=accessible_wps,
-                           description=description, title=title,reader='True')
+                           description=description, title=title,
+                           reader='True',form=form)
 
 
 # WP edit status for WP leaders

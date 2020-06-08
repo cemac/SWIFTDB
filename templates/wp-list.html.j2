@@ -46,9 +46,9 @@
         <td>{{row['date_edited']}}</td>
         <td>
         {% if editLink == "wp-edit" %}
-        <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Update</a>   <a href=/wp-summary/{{row['id']}} class="btn btn-primary pull-right" target="_blank">View T & D s</a>
+        <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Update</a>
         {% elif  editLink == "reader" %}
-        <a href=/wp-summary/{{row['id']}} class="btn btn-primary pull-right">View T & D s</a>
+        <a href=/wp-summary/{{row['id']}} class="btn btn-primary pull-right" target="_blank">View T & D s</a>
         {% endif %}
         </td>
       </tr>

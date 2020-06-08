@@ -664,9 +664,10 @@ def wp_edit(id):
                            id=id, form=form, editLink="wp-edit")
 
 
-@app.route('/wp-summary/<string:id>')
+@app.route('/wp-summary/<string:id>', methods=['GET', 'POST'])
 @is_logged_in
 def wp_summary(id):
+    form = Dateform()
     # Retrieve all tasks:
     db_row = Work_Packages.query.filter_by(id=id).first()
     code = db_row.code
@@ -685,7 +686,7 @@ def wp_summary(id):
     colnames = [s.replace("_", " ").title()
                 for s in data.columns.values[1:]]
     return render_template('view.html.j2', title=title, colnames=colnames,
-                           tableClass='Tasks', editLink="none", reader='True',
+                           tableClass='Summary', editLink="none", reader='False',
                            data=data, description=description)
 # Tasks for a given user
 

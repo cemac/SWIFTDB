@@ -3,13 +3,14 @@
 {% block body %}
 <h1>{{title}}</h1>
 {% if reader == 'True' %}
+{% if tableClass != 'Summary' %}
 <div style="text-align:right">
   <form action ='#' method="POST">
   <b> Select date to view archive: </b> {{ form.dat(class='datepicker') }}
     <input type="submit"/>
-
 </form>
 </div>
+{% endif %}
 {% endif %}
 <hr>
 <p>{{description}} </p>
@@ -79,7 +80,7 @@ tables  -->
         var datepicker = new ej.calendars.DatePicker({ width: "255px" });
         datepicker.appendTo('#datepicker');
     </script>
-{% if tableClass == 'Deliverables' or tableClass == 'Tasks' %}
+{% if tableClass == 'Deliverables' or tableClass == 'Tasks' or tableClass == 'Summary' %}
 {% if reader == 'True' %}
 <script>
 $(document).ready(function(){

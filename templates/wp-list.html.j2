@@ -6,7 +6,11 @@
 
 {% if reader == 'True' %}
 <div style="text-align:right">
-  <b> Select date to view archive: </b> <input id="datepicker" type="text">
+  <form action ='#' method="POST">
+  <b> Select date to view archive: </b> {{ form.dat(class='datepicker') }}
+    <input type="submit"/>
+
+</form>
 </div>
 {% endif %}
 <hr>
@@ -42,7 +46,7 @@
         <td>{{row['date_edited']}}</td>
         <td>
         {% if editLink == "wp-edit" %}
-        <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Update</a>   <a href=/wp-summary/{{row['id']}} class="btn btn-primary pull-right">View T & D s</a>
+        <a href=/wp-edit/{{row['id']}} class="btn btn-primary pull-right">Update</a>   <a href=/wp-summary/{{row['id']}} class="btn btn-primary pull-right" target="_blank">View T & D s</a>
         {% elif  editLink == "reader" %}
         <a href=/wp-summary/{{row['id']}} class="btn btn-primary pull-right">View T & D s</a>
         {% endif %}
@@ -111,7 +115,7 @@ $(document).ready(function(){
     pageLength: 25,
     columnDefs: [
         {type: 'date-uk', targets: 5 },
-        {targets: [1,2,3,4,6,7], orderable: false},
+        {targets: [1,2,3,4,6], orderable: false},
         {render: function (data, type, full, meta) {
                         return "<div style='white-space:normal; width:90px'>" + data + "</div>";
                     },

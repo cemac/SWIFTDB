@@ -683,7 +683,7 @@ def wp_summary(id):
     colnames = [s.replace("_", " ").title()
                 for s in data.columns.values[1:]]
     return render_template('view.html.j2', title=title, colnames=colnames,
-                           tableClass='Tasks', editLink="none", reader='False',
+                           tableClass='Tasks', editLink="none", reader='True',
                            data=data, description=description)
 # Tasks for a given user
 

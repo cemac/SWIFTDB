@@ -758,14 +758,19 @@ def task_reader():
         title = "Archive of tasks from " + archive_date
         for ind, row in all_tasks.iterrows():
             code = row.code
-            print(code)
-            old_tasks = psql_to_pandas(Tasks_Archive.query.filter_by(code=code))
-            closest = old_tasks.iloc[old_tasks.date_edited.get_loc(form.dat.data, method='nearest')]
-            data.iloc[ind].date_edited = closest.date_edited
-            data.iloc[ind].person_responsible = closest.person_responsible
-            data.iloc[ind].progress = closest.progress
-            data.iloc[ind].percent = closest.percent
-            data.iloc[ind].paper_submission_date = closest.paper_submission_date
+            try:
+                old_tasks = psql_to_pandas(Tasks_Archive.query.filter_by(code=code))
+                s = pd.to_datetime(old_tasks['date_edited'])- pd.to_datetime(form.dat.data.strftime('%Y-%m-%d'))
+                idx=s.idxmin()
+                closest = old_tasks.iloc[idx]
+                data.iloc[ind].date_edited = closest.date_edited
+                data.iloc[ind].person_responsible = closest.person_responsible
+                data.iloc[ind].progress = closest.progress
+                data.iloc[ind].percent = closest.percent
+                data.iloc[ind].paper_submission_date = closest.paper_submission_date
+                print('success')
+            except:
+                print('fail')
         return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Tasks', editLink="none", form=form,
                            data=data, description=description, reader='True')

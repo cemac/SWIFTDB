@@ -585,6 +585,25 @@ def wp_readers():
     accessible_wps = accessible_wps.drop(columns=['previous_report'])
     # Set title:
     title = "Viewable Work Packages"
+    if request.method == 'POST' and form.validate():
+        archive_date = form.dat.data.strftime('%d-%m-%Y')
+        title = "Archive of Work Pakages from " + archive_date
+        for ind, row in all_tasks.iterrows():
+            code = row.code
+            try:
+                old_wp = psql_to_pandas(Work_Packages_Archive.query.filter_by(code=code))
+                s = pd.to_datetime(old_wp['date_edited'])- pd.to_datetime(form.dat.data.strftime('%Y-%m-%d'))
+                idx = abs(s).idxmin()
+                closest = old_deliv.iloc[idx]
+                accessible_wps.iloc[ind].date_edited = closest.date_edited
+                accessible_wps.iloc[ind].status = closest.status
+                accessible_wps.iloc[ind].issues = closest.issues
+                accessible_wps.iloc[ind].next_deliverable = closest.next_deliverable
+            except ValueError:
+                pass
+        return render_template('view.html.j2', title=title,  editLink="reader",
+                           tableClass='Work_Packages', data=accessible_wps,
+                           description=description, reader='True')
     return render_template('wp-list.html.j2', editLink="reader",
                            tableClass='Work_Packages', data=accessible_wps,
                            description=description, title=title,reader='True')
@@ -761,16 +780,15 @@ def task_reader():
             try:
                 old_tasks = psql_to_pandas(Tasks_Archive.query.filter_by(code=code))
                 s = pd.to_datetime(old_tasks['date_edited'])- pd.to_datetime(form.dat.data.strftime('%Y-%m-%d'))
-                idx=s.idxmin()
+                idx=abs(s).idxmin()
                 closest = old_tasks.iloc[idx]
                 data.iloc[ind].date_edited = closest.date_edited
                 data.iloc[ind].person_responsible = closest.person_responsible
                 data.iloc[ind].progress = closest.progress
                 data.iloc[ind].percent = closest.percent
                 data.iloc[ind].paper_submission_date = closest.paper_submission_date
-                print('success')
-            except:
-                print('fail')
+            except ValueError:
+                pass
         return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Tasks', editLink="none", form=form,
                            data=data, description=description, reader='True')
@@ -906,7 +924,7 @@ def deliverables_view():
                            description=description)
 
 
-@app.route('/deliverables-reader')
+@app.route('/deliverables-reader', methods=['GET', 'POST'])
 @is_logged_in
 def deliverables_reader():
     # Retrieve all work packages:
@@ -925,6 +943,26 @@ def deliverables_reader():
     # Set table column names:
     colnames = [s.replace("_", " ").title() for s in
                 data.columns.values[1:]]
+    if request.method == 'POST' and form.validate():
+        archive_date = form.dat.data.strftime('%d-%m-%Y')
+        title = "Archive of deliverables from " + archive_date
+        for ind, row in all_tasks.iterrows():
+            code = row.code
+            try:
+                old_deliv = psql_to_pandas(Deliverables_Archive.query.filter_by(code=code))
+                s = pd.to_datetime(old_deliv['date_edited'])- pd.to_datetime(form.dat.data.strftime('%Y-%m-%d'))
+                idx=abs(s).idxmin()
+                closest = old_deliv.iloc[idx]
+                data.iloc[ind].date_edited = closest.date_edited
+                data.iloc[ind].person_responsible = closest.person_responsible
+                data.iloc[ind].progress = closest.progress
+                data.iloc[ind].percent = closest.percent
+                data.iloc[ind].paper_submission_date = closest.paper_submission_date
+            except ValueError:
+                pass
+        return render_template('view.html.j2', title=title, colnames=colnames,
+                           tableClass='Deliverables', editLink="none", form=form,
+                           data=data, description=description, reader='True')
     return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Deliverables',
                            editLink="none", data=data,

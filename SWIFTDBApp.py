@@ -575,7 +575,7 @@ def wp_view():
 
 
 # WP list for read only
-@app.route('/wp-reader')
+@app.route('/wp-reader', methods=["GET", "POST"])
 @is_logged_in
 def wp_readers():
     # Retrieve all work packages:
@@ -739,6 +739,7 @@ def task_view():
 @is_logged_in
 def task_reader():
     form = Dateform(request.form)
+    print('nor issue reading form')
     # Retrieve all tasks:
     all_tasks = psql_to_pandas(Tasks.query.order_by(Tasks.id))
     # Select only the accessible tasks for this user:
@@ -750,8 +751,8 @@ def task_reader():
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     data.drop('previous_report',axis=1, inplace=True)
     if request.method == 'POST' and form.validate():
-        arch_date=form.dat.data.strftime('%Y-%m-%d')
-        print(arch_date)
+        print(form.dat.data)
+        arch_date = form.dat.data.strftime('%Y-%m-%d')
         return form.dat.data.strftime('%Y-%m-%d')
     # Set title:
     title = "Viewable Tasks"

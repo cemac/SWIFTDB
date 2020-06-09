@@ -37,7 +37,7 @@
     {{form.AdminReader.label}}
     <br>
     {% for subfield in form.partners %}
-    {% if subfield.label.text == "admin" or subfield.label.text == "ViewAll" %}
+    {% if subfield.label.text == "admin" %}
     <td>{{ subfield }}</td>
     <td>{{ subfield.label }}</td>
     <br>

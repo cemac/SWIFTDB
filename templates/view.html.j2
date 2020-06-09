@@ -2,6 +2,17 @@
 {% extends 'layout.html.j2' %}
 {% block body %}
 <h1>{{title}}</h1>
+{% if reader == 'True' %}
+{% if tableClass != 'Summary' %}
+<div style="text-align:right">
+  <form action ='#' method="POST">
+  <b> Select date to view archive: </b> {{ form.dat(class='datepicker') }}
+    <input type="submit"/>
+</form>
+</div>
+{% endif %}
+{% endif %}
+<hr>
 <p>{{description}} </p>
 {% if tableClass == 'Users' %}
 <p>Add or Delete users and edit user access settings. To delete a user: first deselect all access settings first </p>
@@ -64,7 +75,42 @@ tables  -->
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.20/sorting/date-uk.js"></script>
 <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/plug-ins/1.10.20/sorting/stringMonthYear.js"></script>
-{% if tableClass == 'Deliverables' or tableClass == 'Tasks' %}
+<script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
+<script>
+        var datepicker = new ej.calendars.DatePicker({ width: "255px" });
+        datepicker.appendTo('#datepicker');
+    </script>
+{% if tableClass == 'Deliverables' or tableClass == 'Tasks' or tableClass == 'Summary' %}
+{% if reader == 'True' %}
+<script>
+$(document).ready(function(){
+  $('.dropdown-toggle').dropdown();
+  var table = $('#myTable').DataTable({
+    columnDefs: [
+        {type: 'date-uk', targets: 10 },
+        { type: 'stringMonthYear', targets: 5 },
+        {targets: [2,6,8,9,11], orderable: false, searchable : false},
+
+        {render: function (data, type, full, meta) {
+                        return "<div style='white-space:normal; width:400px'>" + data + "</div>";
+                    },
+                    targets: [6]},
+        {render: function (data, type, full, meta) {
+                        return "<div style='white-space:normal; width:250px'>" + data + "</div>";
+                    },
+                    targets: [2,8]}
+    ],
+      order: [[0, "asc"]],
+      stateSave: true,
+      scrollX: true,
+      pageLength: 25,
+      fixedColumns:   {
+            heightMatch: 'none'
+        }
+  });
+});
+</script>
+{% else %}
 <script>
 $(document).ready(function(){
   $('.dropdown-toggle').dropdown();
@@ -92,6 +138,7 @@ $(document).ready(function(){
   });
 });
 </script>
+{% endif %}
 {% elif tableClass == 'Users' %}
 <script>
 $(document).ready(function(){

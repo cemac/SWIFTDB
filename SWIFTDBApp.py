@@ -956,11 +956,12 @@ def deliverables_reader():
                 s = pd.to_datetime(old_deliv['date_edited'])- pd.to_datetime(form.dat.data.strftime('%Y-%m-%d'))
                 idx=abs(s).idxmin()
                 closest = old_deliv.iloc[idx]
-                data.iloc[ind].date_edited = closest.date_edited
-                data.iloc[ind].person_responsible = closest.person_responsible
-                data.iloc[ind].progress = closest.progress
-                data.iloc[ind].percent = closest.percent
-                data.iloc[ind].paper_submission_date = closest.paper_submission_date
+                data.iloc[ind].date_edited.replace(closest.date_edited, inplace=True)
+                data.iloc[ind].person_responsible.replace(closest.person_responsible, inplace=True)
+                data.iloc[ind].progress.replace(closest.progress, inplace=True)
+                data.iloc[ind].percent.replace(closest.percent, inplace=True)
+                data.iloc[ind].paper_submission_date.replace(closest.paper_submission_date, inplace=True)
+                print(data.iloc[ind])
             except ValueError:
                 pass
         return render_template('view.html.j2', title=title, colnames=colnames,

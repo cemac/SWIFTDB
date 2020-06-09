@@ -253,7 +253,7 @@ class MultiCheckboxField(SelectMultipleField):
 class AccessForm(Form):
     username = StringField('Username')
     AdminReader = MultiCheckboxField(
-        'ADMIN or View all Access: (Grant Admin privileges or the ability to view all (read-only)):')
+        'ADMIN: (Grant Admin privileges):')
     work_packages = MultiCheckboxField(
         'WORK PACKAGE LEADERS: Can update Work Package progress and view associated Task and Deliverables:')
     partners = MultiCheckboxField(

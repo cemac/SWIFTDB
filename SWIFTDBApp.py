@@ -930,6 +930,7 @@ def deliverables_view():
 @app.route('/deliverables-reader', methods=['GET', 'POST'])
 @is_logged_in
 def deliverables_reader():
+    form = Dateform(request.form)
     # Retrieve all work packages:
     all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     # Retrieve all tasks:
@@ -969,7 +970,7 @@ def deliverables_reader():
                            data=data, description=description, reader='True')
     return render_template('view.html.j2', title=title, colnames=colnames,
                            tableClass='Deliverables',
-                           editLink="none", data=data,
+                           editLink="none", data=data, form=form,
                            description=description, reader='True')
 
 

@@ -596,10 +596,10 @@ def wp_readers():
                 s = pd.to_datetime(old_wp['date_edited'])- pd.to_datetime(form.dat.data.strftime('%Y-%m-%d'))
                 idx = abs(s).idxmin()
                 closest = old_deliv.iloc[idx]
-                accessible_wps.iloc[ind].date_edited = closest.date_edited
-                accessible_wps.iloc[ind].status = closest.status
-                accessible_wps.iloc[ind].issues = closest.issues
-                accessible_wps.iloc[ind].next_deliverable = closest.next_deliverable
+                accessible_wps.at[ind,'date_edited']= closest.date_edited.strftime('%d/%m/%Y')
+                accessible_wps.at[ind,'status'] = closest.status
+                accessible_wps.at[ind,'issues'] = closest.issues
+                accessible_wps.at[ind,'next_deliverable'] = closest.next_deliverable
             except ValueError:
                 pass
         return render_template('view.html.j2', title=title,  editLink="reader",
@@ -785,11 +785,11 @@ def task_reader():
                 s = pd.to_datetime(old_tasks['date_edited'])- pd.to_datetime(form.dat.data.strftime('%Y-%m-%d'))
                 idx=abs(s).idxmin()
                 closest = old_tasks.iloc[idx]
-                data.iloc[ind].date_edited = closest.date_edited
-                data.iloc[ind].person_responsible = closest.person_responsible
-                data.iloc[ind].progress = closest.progress
-                data.iloc[ind].percent = closest.percent
-                data.iloc[ind].paper_submission_date = closest.paper_submission_date
+                data.at[ind,'date_edited']= closest.date_edited.strftime('%d/%m/%Y')
+                data.at[ind,'person_responsible']= closest.person_responsible
+                data.at[ind,'progress']= closest.progress
+                data.at[ind,'percent']= closest.percent
+                data.at[ind,'paper_submission_date']= closest.paper_submission_date
             except ValueError:
                 pass
         return render_template('view.html.j2', title=title, colnames=colnames,
@@ -962,7 +962,6 @@ def deliverables_reader():
                 data.at[ind,'progress']= closest.progress
                 data.at[ind,'percent']= closest.percent
                 data.at[ind,'paper_submission_date']= closest.paper_submission_date
-                print(data.iloc[ind])
             except ValueError:
                 pass
         return render_template('view.html.j2', title=title, colnames=colnames,

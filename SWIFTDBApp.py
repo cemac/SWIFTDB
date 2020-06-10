@@ -481,14 +481,15 @@ def edit(tableClass, id):
         form.partner.choices = table_list('Partners', 'name')
     # If user submits edit entry form:
     if tableClass == 'Work_Packages':
-        archivelist = ['date_edited', 'code', 'status', 'issues',
+        archivelist = ['code', 'status', 'issues',
                        'next_deliverable']
     else:
-        archivelist = ['date_edited', 'code', 'person_responsible',
+        archivelist = ['code', 'person_responsible',
                        'progress', 'percent', 'papers',
                        'paper_submission_date']
-    archive_string = ""
     if request.method == 'POST' and form.validate():
+        now = dt.datetime.now().strftime("%Y-%m-%d")
+        archive_string = "date_edited = '"+str(now) +"',"
         # Get each form field and update DB:
         if tableClass == 'Users':
             form.password.data = sha256_crypt.encrypt(str(form.password.data))
@@ -501,17 +502,12 @@ def edit(tableClass, id):
                     code = field.data
             if field.name in archivelist:
                 if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
-                    # edits the row but we want to add a row!!
-                    archive_string += str(field.name) + "= field.data ,"
+                    archive_string += str(field.name) + "= '"+str(field.data) + "',"
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
             archive_string = tableClass + "_Archive(" + archive_string[:-1]+")"
             db_arow = eval(archive_string)
             psql_insert(db_arow, flashMsg=False)
-            db.session.commit()
-            db_crow = Counts.query.filter_by(code=code).first()
-            count = db_crow.count
-            exec("db_crow.count = count+1")
             db.session.commit()
         # Return with success:
         flash('Edits successful', 'success')
@@ -819,9 +815,9 @@ def task_edit(id):
             abort(403)
     # Get form:
     form = Your_Tasks_Form(request.form)
-    archivelist = ['date_edited', 'code', 'person_responsible',
-                       'progress', 'percent', 'papers',
-                       'paper_submission_date']
+    archivelist = [ 'code', 'person_responsible',
+                    'progress', 'percent', 'papers',
+                    'paper_submission_date']
     now = dt.datetime.now().strftime("%Y-%m-%d")
     archive_string = "date_edited = '"+str(now) +"',"
     # If user submits edit entry form:
@@ -829,7 +825,6 @@ def task_edit(id):
         # Get each form field and update DB:
         for field in form:
             exec("db_row." + field.name + " = field.data")
-            print(exec(field.name + " = field.data"))
             if field.name in archivelist:
                 archive_string += str(field.name) + "= '"+str(field.data) + "',"
         exec("db_row.date_edited = now")
@@ -837,10 +832,6 @@ def task_edit(id):
         archive_string = "Tasks_Archive(" + archive_string[:-1] +")"
         db_arow = eval(archive_string)
         psql_insert(db_arow, flashMsg=False)
-        db.session.commit()
-        db_crow = Counts.query.filter_by(code=code).first()
-        count = db_crow.count
-        exec("db_crow.count = count+1")
         db.session.commit()
         flash('Edits successful', 'success')
         return redirect(url_for('task_list'))
@@ -1003,7 +994,9 @@ def deliverables_edit(id):
         # Get each form field and update DB:
         for field in form:
             exec("db_row." + field.name + " = field.data")
+            print(str(field.data))
             if field.name in archivelist:
+                print(str(field.data))
                 archive_string += str(field.name) + "= '"+str(field.data) + "',"
         exec("db_row.date_edited = now")
         db.session.commit()

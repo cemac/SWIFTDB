@@ -957,10 +957,10 @@ def deliverables_reader():
                 s = pd.to_datetime(old_deliv['date_edited'])- pd.to_datetime(form.dat.data.strftime('%Y-%m-%d'))
                 idx=abs(s).idxmin()
                 closest = old_deliv.iloc[idx]
-                data.at[ind,'date_edited']= closest.date_edited
+                data.at[ind,'date_edited']= closest.date_edited.strftime('%d-%m-%Y')
                 data.at[ind,'person_responsible']= closest.person_responsible
                 data.at[ind,'progress']= closest.progress
-                data.at.[ind,'percent']= closest.percent
+                data.at[ind,'percent']= closest.percent
                 data.at[ind,'paper_submission_date']= closest.paper_submission_date
                 print(data.iloc[ind])
             except ValueError:

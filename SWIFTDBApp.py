@@ -573,20 +573,21 @@ def wp_readers():
     all_wps = psql_to_pandas(Work_Packages.query.order_by(Work_Packages.id))
     accessible_wps = all_wps
     description = 'Read Only View of Work Packages'
+    accessible_wps = accessible_wps.drop_duplicates(keep='first', inplace=False)
     accessible_wps['date_edited'] = pd.to_datetime(accessible_wps['date_edited']).dt.strftime('%d/%m/%Y')
-    accessible_wps = accessible_wps.drop('previous_report',axis=1, inplace=True)
+    accessible_wps.drop('previous_report',axis=1, inplace=True)
     print(accessible_wps.iloc[0])
     # Set title:
     title = "Viewable Work Packages"
     if request.method == 'POST' and form.validate():
         print('post')
-        archive_date = form.dat.data.strftime('%d-%m-%Y')
+        archive_date = form.dat.accessible_wps.strftime('%d-%m-%Y')
         title = "Archive of Work Pakages from " + archive_date
         for ind, row in accessible_wps.iterrows():
             code = row.code
             try:
                 old_wp = psql_to_pandas(Work_Packages_Archive.query.filter_by(code=code))
-                s = pd.to_datetime(old_wp['date_edited'])- pd.to_datetime(form.dat.data.strftime('%Y-%m-%d'))
+                s = pd.to_datetime(old_wp['date_edited'])- pd.to_datetime(form.dat.accessible_wps.strftime('%Y-%m-%d'))
                 idx = abs(s).idxmin()
                 closest = old_deliv.iloc[idx]
                 accessible_wps.at[ind,'date_edited']= closest.date_edited.strftime('%d/%m/%Y')

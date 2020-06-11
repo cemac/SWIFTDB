@@ -574,7 +574,7 @@ def wp_readers():
     accessible_wps = all_wps
     description = 'Read Only View of Work Packages'
     accessible_wps['date_edited'] = pd.to_datetime(accessible_wps['date_edited']).dt.strftime('%d/%m/%Y')
-    accessible_wps = accessible_wps.drop(columns=['previous_report'])
+    accessible_wps = accessible_wps.drop('previous_report',axis=1, inplace=True)
     # Set title:
     title = "Viewable Work Packages"
     if request.method == 'POST' and form.validate():
@@ -664,7 +664,7 @@ def wp_summary(id):
     all_tasks = pd.concat([all_deliverables, all_tasks])
     all_tasks.fillna(value="", inplace=True)
     data = all_tasks.drop_duplicates(keep='first', inplace=False)
-    data = data.drop(columns=['previous_report'])
+    data.drop('previous_report',axis=1, inplace=True)
     data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:

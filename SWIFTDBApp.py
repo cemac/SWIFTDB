@@ -575,9 +575,11 @@ def wp_readers():
     description = 'Read Only View of Work Packages'
     accessible_wps['date_edited'] = pd.to_datetime(accessible_wps['date_edited']).dt.strftime('%d/%m/%Y')
     accessible_wps = accessible_wps.drop('previous_report',axis=1, inplace=True)
+    print(accessible_wps.iloc[0])
     # Set title:
     title = "Viewable Work Packages"
     if request.method == 'POST' and form.validate():
+        print('post')
         archive_date = form.dat.data.strftime('%d-%m-%Y')
         title = "Archive of Work Pakages from " + archive_date
         for ind, row in accessible_wps.iterrows():

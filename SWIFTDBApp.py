@@ -581,7 +581,7 @@ def wp_readers():
     if request.method == 'POST' and form.validate():
         print('post')
         archive_date = form.dat.accessible_wps.strftime('%d-%m-%Y')
-        title = "Archive of Work Pakages from " + archive_date
+        title = "Archive of Work Pakages nearest date edited from " + archive_date
         for ind, row in accessible_wps.iterrows():
             code = row.code
             try:
@@ -671,7 +671,7 @@ def wp_summary(id):
     data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     # Set title:
     title = "Tasks and Deliverables for Work Package " + str(code)
-    description = 'Displaying summary, please see archive for full fields'
+    description = 'Displaying summary'
     # Set table column names:
     colnames = [s.replace("_", " ").title()
                 for s in data.columns.values[1:]]
@@ -767,7 +767,7 @@ def task_reader():
                 for s in data.columns.values[1:]]
     if request.method == 'POST' and form.validate():
         archive_date = form.dat.data.strftime('%d-%m-%Y')
-        title = "Archive of tasks from " + archive_date
+        title = "Archive of tasks nearest date edited from " + archive_date
         for ind, row in all_tasks.iterrows():
             code = row.code
             try:

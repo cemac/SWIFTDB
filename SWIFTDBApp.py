@@ -393,13 +393,8 @@ def add(tableClass):
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
             archive_string = tableClass + "_Archive(" + archive_string[:-1]+")"
-            db_arow = eval(archive_string)
+            db_arow = eval(archive_string.encode('unicode_escape'))
             psql_insert(db_arow, flashMsg=False)
-            db.session.commit()
-            count_string = ""
-            count_string += "Counts(code ='" + str(code) + "', count = 1 )"
-            crow = eval(count_string)
-            psql_insert(crow, flashMsg=False)
             db.session.commit()
         return redirect(url_for('add', tableClass=tableClass))
     return render_template('add.html.j2', title=title, tableClass=tableClass,
@@ -506,7 +501,7 @@ def edit(tableClass, id):
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
             archive_string = tableClass + "_Archive(" + archive_string[:-1]+")"
-            db_arow = eval(archive_string)
+            db_arow = eval(archive_string.encode('unicode_escape'))
             psql_insert(db_arow, flashMsg=False)
             db.session.commit()
         # Return with success:
@@ -639,12 +634,8 @@ def wp_edit(id):
         exec("db_row.date_edited = now")
         db.session.commit()
         archive_string = "Work_Packages_Archive(" + archive_string[:-1] +")"
-        db_arow = eval(archive_string)
+        db_arow = eval(archive_string.encode('unicode_escape'))
         psql_insert(db_arow, flashMsg=False)
-        db.session.commit()
-        db_crow = Counts.query.filter_by(code=code).first()
-        count = db_crow.count
-        exec("db_crow.count = count+1")
         db.session.commit()
         flash('Edits successful', 'success')
         return redirect(url_for('wp_list'))
@@ -823,6 +814,7 @@ def task_edit(id):
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:
+        exec("db_row.previous_report = db_row.progress")
         for field in form:
             exec("db_row." + field.name + " = field.data")
             if field.name in archivelist:
@@ -830,7 +822,8 @@ def task_edit(id):
         exec("db_row.date_edited = now")
         db.session.commit()
         archive_string = "Tasks_Archive(" + archive_string[:-1] +")"
-        db_arow = eval(archive_string)
+        print(archive_string.encode('unicode_escape'))
+        db_arow = eval(archive_string.encode('unicode_escape').decode())
         psql_insert(db_arow, flashMsg=False)
         db.session.commit()
         flash('Edits successful', 'success')
@@ -1001,12 +994,8 @@ def deliverables_edit(id):
         exec("db_row.date_edited = now")
         db.session.commit()
         archive_string = "Deliverables_Archive(" + archive_string[:-1] +")"
-        db_arow = eval(archive_string)
+        db_arow = eval(archive_string.encode('unicode_escape'))
         psql_insert(db_arow, flashMsg=False)
-        db.session.commit()
-        db_crow = Counts.query.filter_by(code=code).first()
-        count = db_crow.count
-        exec("db_crow.count = count+1")
         db.session.commit()
         # Return with success:
         flash('Edits successful', 'success')

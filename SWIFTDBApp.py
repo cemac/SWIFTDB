@@ -626,6 +626,7 @@ def wp_edit(id):
     archive_string = "date_edited = '"+str(now) +"',"
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
+        exec("db_row.previous_report = db_row.status")
         # Get each form field and update DB:
         for field in form:
             exec("db_row." + field.name + " = field.data")
@@ -984,6 +985,7 @@ def deliverables_edit(id):
     archive_string = "date_edited = '"+str(now) +"',"
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
+        exec("db_row.previous_report = db_row.progress")
         # Get each form field and update DB:
         for field in form:
             exec("db_row." + field.name + " = field.data")

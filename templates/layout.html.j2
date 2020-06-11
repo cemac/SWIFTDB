@@ -18,14 +18,14 @@
  </style>
   {% block styles %}{% endblock %}
 </head>
-<!-- Force HTTPS
+<!-- Force HTTPS -->
 <script language="JavaScript">
   var loc = window.location.href+'';
   if (loc.indexOf('http://')==0){
     window.location.href = loc.replace('http://','https://');
   }
 </script>
--->
+
 <body>
   {% include 'includes/_header.html.j2' %}
   {% include 'includes/_navbar.html.j2' %}

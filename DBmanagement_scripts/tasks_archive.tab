@@ -498,41 +498,41 @@ Postponed to Dec 2019"	0	not recorded	not recorded
 2019-07-08	T-R1.2.3a	not recorded	"Activity initially pushed back until after user workshops. As uncertainty exists over precise workshop timing. New completion date is December 2018.
 This was achieved in Ghana but otherwise the plan has changed in that the piloting needs to be integrated with the surveys as part of the same task. In many cases the piloting can be done quite quickly and it doesn't make sense to separate it."	100	not recorded	not recorded
 2019-07-08	T-R1.2.2d	not recorded	Everything is set to hold the Users' workshop on 12th and 13th March, 2019	100	not recorded	not recorded
-2019-11-25	T-R3.5.7	not recorded	Hill (UoR) has performed initial verification of the convective rain rate and RDT categories produced with NWCSAF. The results show where there is value in the nowcasting products and as such we are considering developing this into a short paper. This includes analysis of co-variation of (1) storm size (2) storm intensity (3) storm lifetime and (4) accumulated rainfall. 	50	not recorded	not recorded
-2019-11-25	T-R3.7.7	not recorded	Hill (UoR) has completed work for available case studies (March 2019), see T-R3.5.7. Plans in place to do this work for a longer period focusing on East Africa. Fletcher (UoL) will perform additional analysis using TRMM precipitation radar features database. Once initial results provide direction of research, link up with existing experience and knowledge at UoN (Gitau, Mutemi, a.o.).	10	not recorded	not recorded
-2019-11-25	T-R2.7.2	not recorded	Reports provided by GMet, ANACIM, and KMD. Reporting plans yet to be designed with NiMet (focus on WRF performance).	20	not recorded	not recorded
-2019-11-25	T-R2.6.1	not recorded	Discussion ongoing with WP-C1/2 to plan WP-R2 workshop at the same time as a SWIFT event, likely Testbed 3. Hope is to decide on a date early next year and plan the workshop for late 2021, i.e. >1 year in advance, so that international leading scientists can be invited to speak and chair at the rainfall verification workshop.	70	not recorded	not recorded
-2019-11-25	T-R2.4.2	not recorded	Not yet begun.	0	not recorded	not recorded
 2019-11-25	T-C2.3.1	not recorded	Concept note on the testbed has been developed and circulated to partners. A request for real time S2S data has been made. The Food Security and Nutrition Working Group has been selected as a key S2S forecast user. Forecast products that can be provided (rain total/anomalies or trends from existing conditions, dry and wet spells, etc., and depending on the season and timing, rain onset/cessation) to the selected user has been discussed and frequency of forecast updates (bi-weekly) determined. Access to JASMIN has been granted. Real-time forecast data access granted for 2 years from Nov 2019. Exec and implementation groups setup and initial documents circulated for discussion. Implementation group meeting weekly. Kickoff training week planned for Nov/Dec. 	60	not recorded	not recorded
-2019-11-25	T-R2.6.2	not recorded	Lecture and exercise materials exist from the Kumasi summer school and science meeting. Further materials will be pending on workshop guest speakers and chairs and decision on intended outcomes.	20	not recorded	not recorded
+2019-11-25	T-R6.5.1	not recorded	90% complete. Report available on Wiki in WP6 outputs. Remaining resource for end of project review.  	90	not recorded	not recorded
 2019-11-25	T-R2.6.3	not recorded	No further update. Pending alignment with other SWIFT activities and availability of identified guest speakers and chairs to form an organising committee.	10	not recorded	not recorded
+2019-11-25	T-R2.6.2	not recorded	Lecture and exercise materials exist from the Kumasi summer school and science meeting. Further materials will be pending on workshop guest speakers and chairs and decision on intended outcomes.	20	not recorded	not recorded
+2019-11-25	T-R2.5.2	not recorded	Hill (UoR) has performed initial verification of the convective rain rate and RDT categories produced with NWCSAF. The results show where there is value in the nowcasting products and as such we are considering developing this into a short paper. Hill and Stein (UoR) are supervising an UG student at Reading to further develop nowcasting verification techniques. This will feed into the final report.	30	not recorded	not recorded
+2019-11-25	T-R2.4.2	not recorded	Not yet begun.	0	not recorded	not recorded
+2019-11-25	T-R2.6.1	not recorded	Discussion ongoing with WP-C1/2 to plan WP-R2 workshop at the same time as a SWIFT event, likely Testbed 3. Hope is to decide on a date early next year and plan the workshop for late 2021, i.e. >1 year in advance, so that international leading scientists can be invited to speak and chair at the rainfall verification workshop.	70	not recorded	not recorded
+2019-11-25	T-R2.1.3	not recorded	The report is available on the project web site under the WP-R2 site, together with a presentation delivered at the WP-R2 telecon. The report has been shared with WP-R7 and Met Office partners for further consideration of additional diagnostics. Conclusions are that the OLR diagnostic should be provided instantaneous and at 15 minute intervals. Satellite brightness temperatures are available through the ISCCP simulator and could be requested every 15 minutes; this simulator makes the simulation computationally more expensive, so might not be requested for each model simulation, pending further review and advice. Both diagnostics will allow a like-with-like evaluation against satellite measurements that are used for storm characteristics and nowcasting in WP-R3/4.	100	not recorded	not recorded
+2019-11-25	T-R3.7.7	not recorded	Hill (UoR) has completed work for available case studies (March 2019), see T-R3.5.7. Plans in place to do this work for a longer period focusing on East Africa. Fletcher (UoL) will perform additional analysis using TRMM precipitation radar features database. Once initial results provide direction of research, link up with existing experience and knowledge at UoN (Gitau, Mutemi, a.o.).	10	not recorded	not recorded
+2019-11-25	T-R2.3.2	not recorded	UoR PDRA Carlo Cafaro is analysing the forecast simulations run as part of Testbed-1b (Nairobi, Kenya, April-May 2019). The analysis includes characterising the grid-scale variance in daily rainfall accumulation for global configuration, convection-permitting configuration, and satellite observations. Second steps include the characterisation of spatial agreement between ensemble members and between the ensemble and observations. This work will feed into two planned papers.	30	not recorded	not recorded
+2019-11-25	T-R2.5.5	not recorded	Not yet begun. 	0	not recorded	not recorded
+2019-11-25	T-R2.5.4	not recorded	"ICPAC evaluated the skill of 11 global prediction systems over the Greater Horn of Africa using deterministic (Mean Error, RMSE and correlation) and probabilistic (i.e., RPSS, ROC score, spread-error ratio, attribute and reliability diagrams) verification metrics . The analysis was done for MAM and OND rainfall seasons. Best practices in S2S verification will be documented. 
+"	60	not recorded	not recorded
+2019-11-25	T-R6.7.1	not recorded	Kickoff S2S Testbed successfully conducted from 18th to 22nd Nov 2019 at ICPAC headquarter, Kenya. Initial real-time forecast products have been co-produced and discussed with users during the testbed. 	50	not recorded	not recorded
+2019-11-25	T-R2.7.2	not recorded	Reports provided by GMet, ANACIM, and KMD. Reporting plans yet to be designed with NiMet (focus on WRF performance).	20	not recorded	not recorded
 2019-11-25	T-R2.1.5	not recorded	"1. Some code for objective analysis was made available at the Kumasi science meeting via GitHub.
 2. The storm tracking tool originally designed for the DYMECS project has been updated and documentation, a DOI, and a paper are in preparation. The code is expected to be made publicly available via GitHub March 2020.
 3. Awaiting CP model simulation data to become available to use the storm statistics tools for model evaluation."	60	not recorded	not recorded
-2019-11-25	T-R6.5.1	not recorded	90% complete. Report available on Wiki in WP6 outputs. Remaining resource for end of project review.  	90	not recorded	not recorded
-2019-11-25	T-R2.5.2	not recorded	Hill (UoR) has performed initial verification of the convective rain rate and RDT categories produced with NWCSAF. The results show where there is value in the nowcasting products and as such we are considering developing this into a short paper. Hill and Stein (UoR) are supervising an UG student at Reading to further develop nowcasting verification techniques. This will feed into the final report.	30	not recorded	not recorded
-2019-11-25	T-R2.4.1	not recorded	Complete. MAM 2018 and 2019 rainy seasons have been selected for the case study analysis. MAM 2018 was extremely wet year associated widespread flooding over most parts of Kenya and East Africa. In contrast, MAM 2019 was extremely dry year. The failure of MAM rainfall has caused a devastating impact over the region. In both years, there were two tropical storms/cyclones developed over the Indian Ocean, which make the case study more interesting. Analysis ongoing in collaboration with East Africa partners.	60	not recorded	not recorded
 2019-11-25	T-R2.7.1	not recorded	Three out of four Met partners are now reporting on evaluation and verification. Document for reporting time scales and desired improvements agreed by one Met partner.	60	not recorded	not recorded
-2019-11-25	T-R2.5.4	not recorded	"ICPAC evaluated the skill of 11 global prediction systems over the Greater Horn of Africa using deterministic (Mean Error, RMSE and correlation) and probabilistic (i.e., RPSS, ROC score, spread-error ratio, attribute and reliability diagrams) verification metrics . The analysis was done for MAM and OND rainfall seasons. Best practices in S2S verification will be documented. 
-"	60	not recorded	not recorded
-2019-11-25	T-R2.5.5	not recorded	Not yet begun. 	0	not recorded	not recorded
-2019-11-25	T-R2.3.2	not recorded	UoR PDRA Carlo Cafaro is analysing the forecast simulations run as part of Testbed-1b (Nairobi, Kenya, April-May 2019). The analysis includes characterising the grid-scale variance in daily rainfall accumulation for global configuration, convection-permitting configuration, and satellite observations. Second steps include the characterisation of spatial agreement between ensemble members and between the ensemble and observations. This work will feed into two planned papers.	30	not recorded	not recorded
-2019-11-25	T-R2.1.3	not recorded	The report is available on the project web site under the WP-R2 site, together with a presentation delivered at the WP-R2 telecon. The report has been shared with WP-R7 and Met Office partners for further consideration of additional diagnostics. Conclusions are that the OLR diagnostic should be provided instantaneous and at 15 minute intervals. Satellite brightness temperatures are available through the ISCCP simulator and could be requested every 15 minutes; this simulator makes the simulation computationally more expensive, so might not be requested for each model simulation, pending further review and advice. Both diagnostics will allow a like-with-like evaluation against satellite measurements that are used for storm characteristics and nowcasting in WP-R3/4.	100	not recorded	not recorded
-2019-11-25	T-R6.7.1	not recorded	Kickoff S2S Testbed successfully conducted from 18th to 22nd Nov 2019 at ICPAC headquarter, Kenya. Initial real-time forecast products have been co-produced and discussed with users during the testbed. 	50	not recorded	not recorded
+2019-11-25	T-R3.5.7	not recorded	Hill (UoR) has performed initial verification of the convective rain rate and RDT categories produced with NWCSAF. The results show where there is value in the nowcasting products and as such we are considering developing this into a short paper. This includes analysis of co-variation of (1) storm size (2) storm intensity (3) storm lifetime and (4) accumulated rainfall. 	50	not recorded	not recorded
+2019-11-25	T-R2.4.1	not recorded	Complete. MAM 2018 and 2019 rainy seasons have been selected for the case study analysis. MAM 2018 was extremely wet year associated widespread flooding over most parts of Kenya and East Africa. In contrast, MAM 2019 was extremely dry year. The failure of MAM rainfall has caused a devastating impact over the region. In both years, there were two tropical storms/cyclones developed over the Indian Ocean, which make the case study more interesting. Analysis ongoing in collaboration with East Africa partners.	60	not recorded	not recorded
+2019-12-02	T-R6.1.4	not recorded	Large-scale drivers (ENSO, MJO, IOD, equatorial waves) used in identification of cases. Communicating closely with WP7 to discuss final details of simulations. NCAS-C working on paper investigating the local response to the MJO in 4km CP4A runs to compare to parametrized simulations, work can be extend to convective permitting ensembles.	10	not recorded	not recorded
 2019-12-02	T-R6.1.2	not recorded	Ongoing analysis of influence of MJO on precipitation over each partner country in various stages, (Paper Submitted - Kenya, Paper in preparation  - Senegal, initial analysis Ghana, Nigeria). Initial work on role of equatorial waves for Senegal and early discussions on a regime analysis for Senegal	40	not recorded	not recorded
 2019-12-02	T-R3.5.1	not recorded	Cases selected	10	not recorded	not recorded
-2019-12-02	T-R2.3.7	not recorded	Cases and observations identified, obvious shortcomings in Met Office global model found and shared with Met Office (Andy Hartley). 	25	not recorded	not recorded
-2019-12-02	T-R3.5.4	not recorded	"5 Kenyan cases have been documented awaiting other participant's cases for compilation.
-"	20	not recorded	not recorded
+2019-12-02	T-R4.4.1	not recorded	Reports have been made on nowcasting practices for Kenya and ACMAD.Other participating centers are yet to submit.	20	not recorded	not recorded
 2019-12-02	T-R2.5.3	not recorded	Verification data,verification results and developed and exchange  best verification practices and tested through test beds are ready. 	65	not recorded	not recorded
 2019-12-02	T-R2.5.1	not recorded	The conclusion from a survey in WP3/4 was that no radar data is readily available to use in African SWIFT countries. This has be documented and potentially be turned into a paper.	5	not recorded	not recorded
-2019-12-02	T-R4.4.1	not recorded	Reports have been made on nowcasting practices for Kenya and ACMAD.Other participating centers are yet to submit.	20	not recorded	not recorded
+2019-12-02	T-R3.5.4	not recorded	"5 Kenyan cases have been documented awaiting other participant's cases for compilation.
+"	20	not recorded	not recorded
 2019-12-02	T-R6.2.2	not recorded	Some analysis of the regime dependence (MJO, IOD, ENSO) for forecast skill for weekly rainfall in ECMWF model completed and paper in preparataion.	25	not recorded	not recorded
 2019-12-02	T-C2.7.1	not recorded	not yet	0	not recorded	not recorded
 2019-12-02	T-C1.3.1	not recorded	Secondment call has been created and advertised.	75	not recorded	not recorded
 2019-12-02	T-C2.7.3	not recorded	Ongoing collection of training modules and application of SWIFT prediction methodologies in generating  severe weather forecast guidance products	60	not recorded	not recorded
 2019-12-02	T-C2.7.2	not recorded	Consolidation of training modules 	60	not recorded	not recorded
-2019-12-02	T-R6.1.4	not recorded	Large-scale drivers (ENSO, MJO, IOD, equatorial waves) used in identification of cases. Communicating closely with WP7 to discuss final details of simulations. NCAS-C working on paper investigating the local response to the MJO in 4km CP4A runs to compare to parametrized simulations, work can be extend to convective permitting ensembles.	10	not recorded	not recorded
+2019-12-02	T-R2.3.7	not recorded	Cases and observations identified, obvious shortcomings in Met Office global model found and shared with Met Office (Andy Hartley). 	25	not recorded	not recorded
 2019-12-02	T-C2.3.1	not recorded	"Concept note on the testbed has been developed and circulated to partners. A request for real time S2S data has been made. The Food Security and Nutrition Working Group has been selected as a key S2S forecast user. Forecast products that can be provided (rain total/anomalies or trends from existing conditions, dry and wet spells, etc., and depending on the season and timing, rain onset/cessation) to the selected user has been discussed and frequency of forecast updates (bi-weekly) determined. Access to JASMIN has been granted. Real-time forecast data access granted for 2 years from Nov 2019. Exec and implementation groups was setup and initial documents circulated for discussion. Testbed 2 Implementation/Exec group met weekly in preparation for the kickoff meeting, which was planned to take place in Ngong Town, Kenya, from 18-22 November 2019. 
 Testbed2 kickoff meeting was conducted as planned at the new ICPAC Head Quarter in Ngong, Kenya, 18-22 November 2019, and included joint sessions with another concurrently planned event led by the WISER Support to ICPAC Project and ForPAc partners. "	60	not recorded	not recorded
 2019-12-02	T-R2.5.4	not recorded	"Initially, a survey has been conducted in Regional Climate Centers (ICPAC/ACMAD) and NHMSs in east and West Africa to understand the current S2S verification practices. A report based on the survey has been prepared and uploaded on wiki. Further, ICPAC evaluated the skill of 11 global prediction systems over the Greater Horn of Africa using deterministic (Mean Error, RMSE and correlation) and probabilistic (i.e., RPSS, ROC score, spread-error ratio, attribute and reliability diagrams) verification metrics. Best practices in S2S verification will be documented from the survey and analysis.
@@ -542,7 +542,51 @@ Testbed2 kickoff meeting was conducted as planned at the new ICPAC Head Quarter 
 2019-12-02	T-R1.2.2b	not recorded	"Two workshops held. First in Nairobi Testbed in April 2019 and second workshop held during the S2S testbed at ICPAC Ngong (November, 2019) where KMD (NMHS) interacted with users
 "	100	not recorded	not recorded
 2019-12-02	T-R2.8.1	not recorded	All verification practices and performances of daily weather forecast with different data (rainguages, damage reports, AWS) are being documented to understand what went wrong or was right with the forecast. This will be achieved through exchanges of best verification practices with other operational forecast centres. 	65	not recorded	not recorded
+2019-12-09	T-R5.4.1	not recorded	 A deepth analysis  of physical process leading the extreme rain episode in Linguère (Nord east of Senegal) is performed using rain gauge dataset from ANACIM , Era Interim reanalysis  and five Weather operational  models forecasts (UKMO, NCEP, KMA, Météo France and ECMWF). 	40	not recorded	not recorded
+2019-12-09	T-R6.2.3	not recorded	Here we are firstly interesting on detecting and tracking the African Easterly Waves based on very specific criteria. The link between the detected waves and extremes events are studying using the CHIRPS and TRMM datasets. These extremes events are defined using statistical criteria. 	50	not recorded	not recorded
+2019-12-09	T-R3.3.1	not recorded	"100% complete HRIT files are now downloaded in real time for NWCSAF, netcdf archive is being accumulated. e. It\ufffds now possible to access the data (not in real time) . CEMAC has worked out better ways to download data and have downloaded data for some case studies and Testbed periods. Have approached EUMETSAT and will determine time to visit.\r\nPut back deadline to Month 24. In the meantime AR and JG are downloading archive SEVIRI data (3 years so far, all channels) through the EUMETSAT portal size and number of orders allowed have been increased on request.
+"	100	not recorded	not recorded
+2019-12-09	T-R5.1.1	not recorded	"The work on the benchmarking reports for East and West Africa is in progress.\r\nThe benchmark report on opretaionnal weather forecasting is almost complete. The other one on synoptic systems and HIW over West Africa is already  drafted. Update: The work is finsihed and the reports are being reviewed.
+"	100	not recorded	not recorded
+2019-12-09	T-R4.2.2	not recorded	"WP3/4 has agreed to focus on precipitation, with high winds a lesser priority, as is hail. Metrics will include predicted BTs, satellite rainfall vs satellite rainfall, and satellite rainfall vs in-situ data
+"	100	not recorded	not recorded
+2019-12-09	T-R3.4.2	not recorded	"Web pages have been designed and catalog is online. Jennifer preparing short training for Science Meeting. NCAS webpage hosting catalogue of NWCSAF imagery, NWCSAF WP training website (needs to be updated by Alex Roberts for tutorial to be usable entirely online, enabling local centres to access archived EUMETSAT data). Decide on name for warning product and buy domain?
+"	100	not recorded	not recorded
+2019-12-09	T-R1.2.4a	not recorded	"Activity initially pushed back until after user workshops. As uncertainty exists over precise workshop timing. New completion date is February 2019.\r\nThis is now integrated into the surveys.\r\n\r\nDuring 2018 to early 2018, identification of priority users was by both Universituy of Nairobi and Kenya Meteorological department SWIFT team. For Kenya priority users are (1) The Kenya Electricity Generating Company PLC, (KenGen); (2) Kenya Red Cross. Additional users include the ForPAC Kenya case study analysts for Nairobi flooding and Flooding in Western Kenya. The outcomes of the engagement are in ""testbed1b users report\u201d held in May 2019 as major milestone for WP-R1. The Kenya country strategy for SWIFT demonstration of weather information towards greater impact of SWIFT in Kenya is developed jointly by UoN and KMD. The strategy will be shared during the users session in the annual meeting in July/August 2019 in Kumasi, Ghana.
+"	100	not recorded	not recorded
+2019-12-09	T-R3.8.1	not recorded	"Daytime LST anomaly maps are being produced in NRT over a W African domain (20W-20E,0-20N). \r\nAverage daily LST anomaly maps are automatically uploaded to the SWIFT GWS on JASMIN at\r\n/prj/swift/SEVIRI_LST/imgs_dailymean/lst_anom_daymean_$YYYY$MM$DD.png\r\nThese maps date back to June 2018. From Dec 2018, an E African domain has been added...\r\n/prj/swift/SEVIRI_LST/imgs_dailymean/lst_anom_daymean_EAfrica_$YYYY$MM$DD.png
+"	100	not recorded	not recorded
+2019-12-09	T-R5.1.2	not recorded	"A questionaire to identify suitable case studies is drafted.\r\nCase study list is available. Will be updated throughout project. Elija has selected a list of cases.
+"	100	not recorded	not recorded
+2019-12-09	T-R1.2.4b	not recorded	"Activity initially pushed back until after user workshops. As uncertainty exists over precise workshop timing. New completion date is February 2019.\r\nThis is now integrated into the surveys
+"	100	not recorded	not recorded
+2019-12-09	T-R3.2.1	not recorded	"Report completed. At start of SWIFT  none of the African partners were using the EUMETSAT nowcasting system for forecasts. 
+"	100	not recorded	not recorded
+2019-12-09	T-R4.1.2	not recorded	"NWC SAF identifed as akey tool and working at NCAS in near-real-time with plots being shared online. Documented method for setting up online and shared at SWIFT training in Kumasi  NWC SAF is installed in ANACIM and has to be configured. It is installed in KMD but not working. NWCSAF products being used at KMD.
+"	100	not recorded	not recorded
+2019-12-09	T-R2.1.1	not recorded	"2019-07-25 A survey has been conducted with the African Met and Uni partners as part of WP3/4. The conclusion was that no radar data is readily available to use in SWIFT.
+"	100	not recorded	not recorded
+2019-12-09	T-R3.4.1	not recorded	"100% complete, guide for installation is online. 5% complete. Notes have been made as progress is made.\r\nUpdate: James Groves and Alex Roberts are developing material for Science Meeting. Morne Guiben will also lecture there.
+"	100	not recorded	not recorded
+2019-12-09	T-R3.2.2	not recorded	"Similar to above, but for radar. \r\nThere is no working radar in SWIFT centres.\r\nThe report is now completed.
+"	100	not recorded	not recorded
+2019-12-09	T-R1.1.1	not recorded	Initial version completed Jan 31st 2018. Amended and finalised on 9th Feb 2018 (based on Met Office feedback)	100	not recorded	not recorded
+2019-12-09	T-R1.2.3b	not recorded	"In collaboration with Leeds and ANACIM we have drafted a plan for the workshop that follows the Ghana approach. We are now working on a stakeholder meeting for 13-14 March 2019 that will engage with national users followed by an in depth discussion with technical users. These plans are well developed and we will be followed by a workshop report in April/May 2019.\r\nThis task has been integrated into the surveys as more efficient.
+"	100	not recorded	not recorded
+2019-12-09	T-R1.1.4	not recorded	"Draft completed June 2018, final deliverable report submitted on 12 July 2018
+"	100	not recorded	not recorded
+2019-12-09	T-R3.6.2	not recorded	Some experience gained with current products and ideas from improvements have been discussed. Postponed to February 2020.	10	not recorded	not recorded
+2019-12-09	T-R1.1.2	not recorded	"Work ongoing. Revised planned completion date November 2018.\r\nThis Task has been restructured to be incorporated into the 4 national workshops.\r\nThe data was not available easily in advance of the workshops.
+"	100	not recorded	not recorded
+2019-12-09	T-R1.1.3a	not recorded	"Final version received 13th April 2018
+"	100	not recorded	not recorded
 2019-12-09	T-R4.2.1	not recorded	A database  of case studies of extreme rainfall with significant socio-economic impacts over Senegal have been set up. These case studies are  from the Civil Protection Department of Senegal and the associated rainfall are validated with  rain gauge data from ANACIM and satellite observation data (TRMM, CHIRPS and CMORPH). A composite analysis is performed in order to characterize the main synoptic features associated with such events.  In parallel, role of some large scale drivers (SST patterns and tropical modes) in the selected case studies events is analysed . 	45	not recorded	not recorded
+2019-12-09	T-R1.1.3c	not recorded	"Final version received 5th  May 2018
+"	100	not recorded	not recorded
+2019-12-09	T-R1.2.1	not recorded	"Delayed due to desire to use outputs of the  user-provider workshops in developing protocols. However, due to unavoidable delays holding the workshops, this task will now proceed regardless. New target month is October 2018. Philip Antwi-Agyei to take leadership until ACMAD post appointed.\r\nDelayed further, but needs finalising in Kumasi to develop comparability between approaches across the 4 countries.\r\n
+"	100	not recorded	not recorded
+2019-12-09	T-R1.2.2a	not recorded	"Users' Workshop at Ghana was held on 8 - 9th November, 2018. Report already submitted
+"	100	not recorded	not recorded
 2019-12-09	T-R3.6.3a	not recorded	Postponed to February 2020.	0	not recorded	not recorded
 2019-12-09	T-R1.2.2c	not recorded	"Everything is set to hold the Users' workshop on 26th and 27th March, 2019\r\nAll 4 workshops complete.
 "	100	not recorded	not recorded
@@ -550,91 +594,47 @@ Testbed2 kickoff meeting was conducted as planned at the new ICPAC Head Quarter 
 "	100	not recorded	not recorded
 2019-12-09	T-R1.2.3a	not recorded	"Activity initially pushed back until after user workshops. As uncertainty exists over precise workshop timing. New completion date is December 2018.\r\nThis was achieved in Ghana but otherwise the plan has changed in that the piloting needs to be integrated with the surveys as part of the same task. In many cases the piloting can be done quite quickly and it doesn't make sense to separate it.
 "	100	not recorded	not recorded
-2019-12-09	T-R1.2.3b	not recorded	"In collaboration with Leeds and ANACIM we have drafted a plan for the workshop that follows the Ghana approach. We are now working on a stakeholder meeting for 13-14 March 2019 that will engage with national users followed by an in depth discussion with technical users. These plans are well developed and we will be followed by a workshop report in April/May 2019.\r\nThis task has been integrated into the surveys as more efficient.
-"	100	not recorded	not recorded
-2019-12-09	T-R3.3.2	not recorded	"Update 8/11/19: NWCSAF domains to meet SWIFT partner needs, covers all Africa (when combined with Southern African products. Update 12/9/19. SEVIRI data in netcdf format has been downloaded for case studies, but Jennifer has found that data is not on a regular grid. Jennifer will regrid. Deadline change to month 25 please. Domains have been decided for download. Consultation will be with WP in June telecon and Science Meeting.\r\nPut deadline to month 22.
-"	100	not recorded	not recorded
-2019-12-09	T-R1.2.4a	not recorded	"Activity initially pushed back until after user workshops. As uncertainty exists over precise workshop timing. New completion date is February 2019.\r\nThis is now integrated into the surveys.\r\n\r\nDuring 2018 to early 2018, identification of priority users was by both Universituy of Nairobi and Kenya Meteorological department SWIFT team. For Kenya priority users are (1) The Kenya Electricity Generating Company PLC, (KenGen); (2) Kenya Red Cross. Additional users include the ForPAC Kenya case study analysts for Nairobi flooding and Flooding in Western Kenya. The outcomes of the engagement are in ""testbed1b users report\u201d held in May 2019 as major milestone for WP-R1. The Kenya country strategy for SWIFT demonstration of weather information towards greater impact of SWIFT in Kenya is developed jointly by UoN and KMD. The strategy will be shared during the users session in the annual meeting in July/August 2019 in Kumasi, Ghana.
-"	100	not recorded	not recorded
-2019-12-09	T-R3.3.1	not recorded	"100% complete HRIT files are now downloaded in real time for NWCSAF, netcdf archive is being accumulated. e. It\ufffds now possible to access the data (not in real time) . CEMAC has worked out better ways to download data and have downloaded data for some case studies and Testbed periods. Have approached EUMETSAT and will determine time to visit.\r\nPut back deadline to Month 24. In the meantime AR and JG are downloading archive SEVIRI data (3 years so far, all channels) through the EUMETSAT portal size and number of orders allowed have been increased on request.
-"	100	not recorded	not recorded
-2019-12-09	T-R3.4.2	not recorded	"Web pages have been designed and catalog is online. Jennifer preparing short training for Science Meeting. NCAS webpage hosting catalogue of NWCSAF imagery, NWCSAF WP training website (needs to be updated by Alex Roberts for tutorial to be usable entirely online, enabling local centres to access archived EUMETSAT data). Decide on name for warning product and buy domain?
-"	100	not recorded	not recorded
-2019-12-09	T-R4.2.2	not recorded	"WP3/4 has agreed to focus on precipitation, with high winds a lesser priority, as is hail. Metrics will include predicted BTs, satellite rainfall vs satellite rainfall, and satellite rainfall vs in-situ data
-"	100	not recorded	not recorded
-2019-12-09	T-R5.1.1	not recorded	"The work on the benchmarking reports for East and West Africa is in progress.\r\nThe benchmark report on opretaionnal weather forecasting is almost complete. The other one on synoptic systems and HIW over West Africa is already  drafted. Update: The work is finsihed and the reports are being reviewed.
-"	100	not recorded	not recorded
-2019-12-09	T-R3.8.1	not recorded	"Daytime LST anomaly maps are being produced in NRT over a W African domain (20W-20E,0-20N). \r\nAverage daily LST anomaly maps are automatically uploaded to the SWIFT GWS on JASMIN at\r\n/prj/swift/SEVIRI_LST/imgs_dailymean/lst_anom_daymean_$YYYY$MM$DD.png\r\nThese maps date back to June 2018. From Dec 2018, an E African domain has been added...\r\n/prj/swift/SEVIRI_LST/imgs_dailymean/lst_anom_daymean_EAfrica_$YYYY$MM$DD.png
-"	100	not recorded	not recorded
-2019-12-09	T-R6.2.3	not recorded	Here we are firstly interesting on detecting and tracking the African Easterly Waves based on very specific criteria. The link between the detected waves and extremes events are studying using the CHIRPS and TRMM datasets. These extremes events are defined using statistical criteria. 	50	not recorded	not recorded
-2019-12-09	T-R1.1.4	not recorded	"Draft completed June 2018, final deliverable report submitted on 12 July 2018
-"	100	not recorded	not recorded
-2019-12-09	T-R5.4.1	not recorded	 A deepth analysis  of physical process leading the extreme rain episode in Linguère (Nord east of Senegal) is performed using rain gauge dataset from ANACIM , Era Interim reanalysis  and five Weather operational  models forecasts (UKMO, NCEP, KMA, Météo France and ECMWF). 	40	not recorded	not recorded
-2019-12-09	T-R1.1.1	not recorded	Initial version completed Jan 31st 2018. Amended and finalised on 9th Feb 2018 (based on Met Office feedback)	100	not recorded	not recorded
-2019-12-09	T-R1.1.2	not recorded	"Work ongoing. Revised planned completion date November 2018.\r\nThis Task has been restructured to be incorporated into the 4 national workshops.\r\nThe data was not available easily in advance of the workshops.
-"	100	not recorded	not recorded
-2019-12-09	T-R1.1.3a	not recorded	"Final version received 13th April 2018
-"	100	not recorded	not recorded
-2019-12-09	T-R1.1.3c	not recorded	"Final version received 5th  May 2018
-"	100	not recorded	not recorded
 2019-12-09	T-R1.1.3d	not recorded	"Final version received 27th  April 2018\r\nCompleted
 "	100	not recorded	not recorded
-2019-12-09	T-R1.2.1	not recorded	"Delayed due to desire to use outputs of the  user-provider workshops in developing protocols. However, due to unavoidable delays holding the workshops, this task will now proceed regardless. New target month is October 2018. Philip Antwi-Agyei to take leadership until ACMAD post appointed.\r\nDelayed further, but needs finalising in Kumasi to develop comparability between approaches across the 4 countries.\r\n
-"	100	not recorded	not recorded
-2019-12-09	T-R1.2.2a	not recorded	"Users' Workshop at Ghana was held on 8 - 9th November, 2018. Report already submitted
-"	100	not recorded	not recorded
-2019-12-09	T-R5.3.1	not recorded	"An objective tracking method has beeen developed and was presented at the last teleconference for WP-R5.
-"	100	not recorded	not recorded
-2019-12-09	T-R4.2.3	not recorded	We have not started to use the nowcast tools for the case studies because we are still in the setup process. However we intend to use it to validate the case studies already selected.	0	not recorded	not recorded
-2019-12-09	T-R7.2.4	not recorded	Due at end of TB3.	50	not recorded	not recorded
-2019-12-09	T-C1.1.1	not recorded	Skill matrices created	100	not recorded	not recorded
-2019-12-09	T-R7.3.1	not recorded	Carlo Cafaro and Beth Woodhams will perform this task.  Deadline on track. Currently being performed on runs from testbed 1b period. Further work will begin on this once model simulations are completed.	0	not recorded	not recorded
-2019-12-09	T-R7.2.2	not recorded	100% complete. Test simulation now exists. Sam Clarke, who starts 20th Aug 2018 will analyse the test simulation to check everything is working ok, then we will start running further simulations. Initial tests successful and the simulations were successfully evaluated in Testbed 1. Report on Testbed 1 will include some details of the evaluation.	100	not recorded	not recorded
-2019-12-09	T-R7.2.3	not recorded	5% complete. One test simulation is complete. Once this is analysed and the case study dates finalised it will be much quicker to run the rest. Deadline on track. Simulation strategy decided and simulations to begin in September 2019.	5	not recorded	not recorded
-2019-12-09	T-C1.2.2	not recorded	Complete	100	not recorded	not recorded
-2019-12-09	T-C1.5.1	not recorded	Completed	100	not recorded	not recorded
-2019-12-09	T-C2.1.1	not recorded	Postpone to September 2018. Periodic updates.First programme now finalised with budget and available on Redmine.	100	not recorded	not recorded
-2019-12-09	T-C2.1.3	not recorded	Started and meeting regarding event aims and objectives held in September 2018.\r\nTestbed 1a completed. Planning document draft 1 ready. Planning team meeting regularly before T-1b in April.	100	not recorded	not recorded
-2019-12-09	T-C2.2.1	not recorded	Not yet begun.\r\nThis will be incorporated in the 2nd week of the project meeting.	100	not recorded	not recorded
-2019-12-09	T-R5.1.3	not recorded	"Report on synoptic Systems and High Impact Weather over Eastern Africa completed. The report has since been submitted to the package leadership
+2019-12-09	T-R3.6.3b	not recorded	Postponed to February 2020.	0	not recorded	not recorded
+2019-12-09	T-R3.3.2	not recorded	"Update 8/11/19: NWCSAF domains to meet SWIFT partner needs, covers all Africa (when combined with Southern African products. Update 12/9/19. SEVIRI data in netcdf format has been downloaded for case studies, but Jennifer has found that data is not on a regular grid. Jennifer will regrid. Deadline change to month 25 please. Domains have been decided for download. Consultation will be with WP in June telecon and Science Meeting.\r\nPut deadline to month 22.
 "	100	not recorded	not recorded
 2019-12-09	T-R4.3.2	not recorded	Partners doing evaluation for their countries will use their own archives.	0	not recorded	not recorded
+2019-12-09	T-C1.5.1	not recorded	Completed	100	not recorded	not recorded
+2019-12-09	T-C1.2.2	not recorded	Complete	100	not recorded	not recorded
 2019-12-09	T-C1.1.2	not recorded	First tranche of African researcher skills data collection completed in August 2018	100	not recorded	not recorded
-2019-12-09	T-R3.6.3b	not recorded	Postponed to February 2020.	0	not recorded	not recorded
 2019-12-09	T-R4.3.1	not recorded	3 of the cross-cutting case-studies archived. Continuing to increase archive. Complete.	100	not recorded	not recorded
-2019-12-09	T-R1.2.4b	not recorded	"Activity initially pushed back until after user workshops. As uncertainty exists over precise workshop timing. New completion date is February 2019.\r\nThis is now integrated into the surveys
+2019-12-09	T-R7.2.3	not recorded	5% complete. One test simulation is complete. Once this is analysed and the case study dates finalised it will be much quicker to run the rest. Deadline on track. Simulation strategy decided and simulations to begin in September 2019.	5	not recorded	not recorded
+2019-12-09	T-R7.2.2	not recorded	100% complete. Test simulation now exists. Sam Clarke, who starts 20th Aug 2018 will analyse the test simulation to check everything is working ok, then we will start running further simulations. Initial tests successful and the simulations were successfully evaluated in Testbed 1. Report on Testbed 1 will include some details of the evaluation.	100	not recorded	not recorded
+2019-12-09	T-C2.2.1	not recorded	Not yet begun.\r\nThis will be incorporated in the 2nd week of the project meeting.	100	not recorded	not recorded
+2019-12-09	T-C2.1.1	not recorded	Postpone to September 2018. Periodic updates.First programme now finalised with budget and available on Redmine.	100	not recorded	not recorded
+2019-12-09	T-R7.3.1	not recorded	Carlo Cafaro and Beth Woodhams will perform this task.  Deadline on track. Currently being performed on runs from testbed 1b period. Further work will begin on this once model simulations are completed.	0	not recorded	not recorded
+2019-12-09	T-C2.1.3	not recorded	Started and meeting regarding event aims and objectives held in September 2018.\r\nTestbed 1a completed. Planning document draft 1 ready. Planning team meeting regularly before T-1b in April.	100	not recorded	not recorded
+2019-12-09	T-R7.2.4	not recorded	Due at end of TB3.	50	not recorded	not recorded
+2019-12-09	T-R4.2.3	not recorded	We have not started to use the nowcast tools for the case studies because we are still in the setup process. However we intend to use it to validate the case studies already selected.	0	not recorded	not recorded
+2019-12-09	T-R5.3.1	not recorded	"An objective tracking method has beeen developed and was presented at the last teleconference for WP-R5.
 "	100	not recorded	not recorded
-2019-12-09	T-R3.2.1	not recorded	"Report completed. At start of SWIFT  none of the African partners were using the EUMETSAT nowcasting system for forecasts. 
+2019-12-09	T-R5.1.3	not recorded	"Report on synoptic Systems and High Impact Weather over Eastern Africa completed. The report has since been submitted to the package leadership
 "	100	not recorded	not recorded
-2019-12-09	T-R3.2.2	not recorded	"Similar to above, but for radar. \r\nThere is no working radar in SWIFT centres.\r\nThe report is now completed.
-"	100	not recorded	not recorded
-2019-12-09	T-R3.4.1	not recorded	"100% complete, guide for installation is online. 5% complete. Notes have been made as progress is made.\r\nUpdate: James Groves and Alex Roberts are developing material for Science Meeting. Morne Guiben will also lecture there.
-"	100	not recorded	not recorded
-2019-12-09	T-R2.1.1	not recorded	"2019-07-25 A survey has been conducted with the African Met and Uni partners as part of WP3/4. The conclusion was that no radar data is readily available to use in SWIFT.
-"	100	not recorded	not recorded
-2019-12-09	T-R4.1.2	not recorded	"NWC SAF identifed as akey tool and working at NCAS in near-real-time with plots being shared online. Documented method for setting up online and shared at SWIFT training in Kumasi  NWC SAF is installed in ANACIM and has to be configured. It is installed in KMD but not working. NWCSAF products being used at KMD.
-"	100	not recorded	not recorded
-2019-12-09	T-R5.1.2	not recorded	"A questionaire to identify suitable case studies is drafted.\r\nCase study list is available. Will be updated throughout project. Elija has selected a list of cases.
-"	100	not recorded	not recorded
-2019-12-09	T-R3.6.2	not recorded	Some experience gained with current products and ideas from improvements have been discussed. Postponed to February 2020.	10	not recorded	not recorded
+2019-12-09	T-C1.1.1	not recorded	Skill matrices created	100	not recorded	not recorded
+2019-12-16	T-R6.3.1	not recorded	Initial analysis of S2S skill underway. Ongoing analysis across partners. Eniola/Lawal papers publishedx2. Felipe draft paper. Hussen draft paper. Further analysis to be informed by testbed2, regular skill analysis as part of testbed2. Elisabeth and Caroline monsoon onset in S2S models.  	30	not recorded	not recorded
+2019-12-16	T-R3.7.3	not recorded	Poor power and internet facility are constituting serious problems.  However, the necessary workplan has been structured but this task can only be commenced after the completion of the  case studies analysis.	0	not recorded	not recorded
+2019-12-16	T-R2.3.6	not recorded	All the work package researchers have submitted some aspect of their task to the PI who is coordinating. Examples are the introduction, abstract, methodology and some past satellite pictures for the write up.    	35	not recorded	not recorded
+2019-12-16	T-R5.3.2	not recorded	Irregular power supply and internet are still major problems.  however, WRF model runs have been completed and results are being checked with ongoing analysis.	35	not recorded	not recorded
+2019-12-16	T-R2.3.3	not recorded	The modification is expected to be completed by end of January 2020 but further refinement will be carried out for ease of use and acceptability	50	not recorded	not recorded
+2019-12-16	T-R2.1.2	not recorded	100% Complete. Draft of Report has been submitted to the WP-R2 lead, Thorwald Stein.	100	not recorded	not recorded
+2019-12-16	T-R2.8.2	not recorded	"The programme with Opus was short down after the project coordinator was fired by her bosses. However the project with the Ministry of Food and Agriculture is on course. That's the GASIP Project where GMet is providing the Agricultural Extension  Officer and Peasant Farmers over the Northern Ghana Now-casting, Daily and Weekly Forecast through SMS. 
+(GASIP is Ghana Agricultural Sector Improvement Project) funded by IFAD."	46	not recorded	not recorded
+2019-12-16	T-R3.5.2	not recorded	100% Complete. Case/Statistical Studies of evolution of storms using satellite products.	100	not recorded	not recorded
+2019-12-16	T-R3.5.3	not recorded	Good cases of high impact events between 18th and 27th August 2017 were identified and downloading of data for these is almost completed and analysis has commenced.  We had earlier studied high impact weather events but their dates were different from the eventually accepted case studies	30	not recorded	not recorded
 2019-12-16	T-R2.5.7	not recorded	Due to verification and evaluation done on GMet forecast and the analyses of the Synoptic charts we have increase the frequency of the forecast from once a day to thrice a day. Even though the models are performing very well there are times that it fails. Skill test score is been done to improve on the skill of the individual forecasters 	55	not recorded	not recorded
 2019-12-16	T-R3.7.4	not recorded	"The new NWCSAF nowcast products started becoming available following Nairobi Testbeds 1a and 1b in January and April/May 2019. In Kenya and East Africa the new NWCSAF products are increasing being used for:
 i)	Operational weather monitoring, analysis and prediction at the Kenya Meteorological Department (KMD) since May 2019 to date.
 ii)	University level training at University of Nairobi (Kenya) and Rwanda. These uses started in August 2019.
 
 "	60	not recorded	not recorded
-2019-12-16	T-R3.5.2	not recorded	100% Complete. Case/Statistical Studies of evolution of storms using satellite products.	100	not recorded	not recorded
-2019-12-16	T-R3.5.3	not recorded	Good cases of high impact events between 18th and 27th August 2017 were identified and downloading of data for these is almost completed and analysis has commenced.  We had earlier studied high impact weather events but their dates were different from the eventually accepted case studies	30	not recorded	not recorded
-2019-12-16	T-R3.7.3	not recorded	Poor power and internet facility are constituting serious problems.  However, the necessary workplan has been structured but this task can only be commenced after the completion of the  case studies analysis.	0	not recorded	not recorded
-2019-12-16	T-R2.1.2	not recorded	100% Complete. Draft of Report has been submitted to the WP-R2 lead, Thorwald Stein.	100	not recorded	not recorded
-2019-12-16	T-R2.3.3	not recorded	The modification is expected to be completed by end of January 2020 but further refinement will be carried out for ease of use and acceptability	50	not recorded	not recorded
-2019-12-16	T-R6.3.1	not recorded	Initial analysis of S2S skill underway. Ongoing analysis across partners. Eniola/Lawal papers publishedx2. Felipe draft paper. Hussen draft paper. Further analysis to be informed by testbed2, regular skill analysis as part of testbed2. Elisabeth and Caroline monsoon onset in S2S models.  	30	not recorded	not recorded
-2019-12-16	T-R5.3.2	not recorded	Irregular power supply and internet are still major problems.  however, WRF model runs have been completed and results are being checked with ongoing analysis.	35	not recorded	not recorded
-2019-12-16	T-R2.8.2	not recorded	"The programme with Opus was short down after the project coordinator was fired by her bosses. However the project with the Ministry of Food and Agriculture is on course. That's the GASIP Project where GMet is providing the Agricultural Extension  Officer and Peasant Farmers over the Northern Ghana Now-casting, Daily and Weekly Forecast through SMS. 
-(GASIP is Ghana Agricultural Sector Improvement Project) funded by IFAD."	46	not recorded	not recorded
-2019-12-16	T-R2.3.6	not recorded	All the work package researchers have submitted some aspect of their task to the PI who is coordinating. Examples are the introduction, abstract, methodology and some past satellite pictures for the write up.    	35	not recorded	not recorded
-2019-12-16	T-C2.8.2	not recorded	Testbed 1 was successfully undertaking and was followed by Testbed 2 (S2S) which just ended last month November at Nairobi and GMet is yet to start with the demonstration exercises suggested  	35	not recorded	not recorded
 2019-12-16	T-C2.8.3	not recorded	JASMIN account has been successfully set up and access duly granted. We now have operational code to run TAMSAT-ALERT soil moisture forecast'   	30	not recorded	not recorded
+2019-12-16	T-C2.8.2	not recorded	Testbed 1 was successfully undertaking and was followed by Testbed 2 (S2S) which just ended last month November at Nairobi and GMet is yet to start with the demonstration exercises suggested  	35	not recorded	not recorded
 2019-12-16	T-R6.1.3	not recorded	Case studies are still being collated. Majority of case studies that we presently have are from Senegal and Niger Republic. Nigerian partners are also collating. We will then reach out to other partners from Ghana and Kenya for appropriate contributions.	40	not recorded	not recorded
 2019-12-16	T-R6.6.2	not recorded	First SWIFT summer school, held in partnership with few other partnerships/projects was held in July 2019 at KNUST –Ghana. A report is under preparation under coordination of UoN, not only to contain what was done and how, but lessons learned to enable better preparation and higher impact for the next SWIFT summer schools. By itself, the KNUST summer school success exceeded 70%.	70	not recorded	not recorded
 2019-12-23	T-R2.4.1	not recorded	Complete. MAM 2018 and 2019 rainy seasons have been selected for the case study analysis. MAM 2018 was extremely wet year associated widespread flooding over most parts of Kenya and East Africa. In contrast, MAM 2019 was extremely dry year. The failure of MAM rainfall has caused a devastating impact over the region. In both years, there were two tropical storms/cyclones developed over the Indian Ocean, which make the case study more interesting. Analysis ongoing in collaboration with East Africa partners.	100	not recorded	not recorded
@@ -642,30 +642,30 @@ ii)	University level training at University of Nairobi (Kenya) and Rwanda. These
 Testbed2 kickoff meeting was conducted as planned at the new ICPAC Head Quarter in Ngong, Kenya, 18-22 November 2019, and included joint sessions with another concurrently planned event led by the WISER Support to ICPAC Project and ForPAc partners. "	100	not recorded	not recorded
 2019-12-23	T-R6.5.1	not recorded	"90% complete. Report available on Wiki in WP6 outputs. Remaining resource for end of project review.  
 Complete now."	100	not recorded	not recorded
-2020-01-17	T-C1.4.2	Elijah Adefisan	A unit of the Case Study Committee is responsible for archiving plots and tangible results to for teaching and training purposes.	25		
-2020-01-17	T-C1.3.1	Elijah Adefisan	Completed	100		
 2020-01-17	T-C1.4.1	Elijah Adefisan	Lectures from eight chapters already created, sent to the respective lead author for approval.	80		
+2020-01-17	T-C1.4.2	Elijah Adefisan	A unit of the Case Study Committee is responsible for archiving plots and tangible results to for teaching and training purposes.	25		
+2020-01-17	T-C1.3.2	Elijah Adefisan	Deadline for application is 27th of January, 2020	0		
+2020-01-17	T-C1.3.1	Elijah Adefisan	Completed	100		
 2020-01-17	T-R2.3.1	Elijah Adefisan	Case studies already selected, a committee was set up to monitor the progress. Analysis and draft abstracts are in progress.	100		
 2020-01-17	T-C1.1.2	Elijah Adefisan	Completed	100		
-2020-01-17	T-C1.3.2	Elijah Adefisan	Deadline for application is 27th of January, 2020	0		
 2020-01-17	T-R6.7.1	Zewdu Segele	Discussion on the action plans for the rest of the testbed has been done. Initial forecast  products are currently being produced in conjunction with the FNSWG coordinator.  Report summarising the workshop proceedings has also been done.	50	Planned paper  focusing on the co-production with the FNSWG  will be produced at the end of the testbed. 	
 2020-01-17	T-R2.5.4	Hussen Seid	Computation of the moisture fluxes from ERA5 conducted for all the seasons for early and late cessation to verify if the in-house WRF model can distinguish moisture fluxes during early and late onset. 	60	ICPAC planned paper on WRF evaluation on S2S scales (onset)	
-2020-01-19	T-C1.2.3	Elijah Adefisan	Task transferred to ACMAD (Adefisan). Syllabus details collated from all partners with teaching role, and gaps synthesised. Report due. Extend deadline to 1 February 2020.	80	Paper in planning, to be led by Elijah Adefisan.	
-2020-01-19	T-C2.8.1	Benjamin Lamptey	First draft has been prepared. Postpone deadline to 1 March 2020.	0		
 2020-01-19	T-C1.2.1	Doug Parker	Skills framswork designed on the basis of (a) University of Leeds role descriptions for Academic Staff, (b) Met Office framework for role descriptions and (c) WMO BIP-M guidelines. A wider analysis of roles was not thought to be valuable, given the diversity of contexts in different institutions. The resulting Skills Framework is being used to plan staff development in SWIFT.	100	It would be possible to include the Skills Framework in a summary paper on SWIFT and capability-building in Meteorology.	
-2020-01-19	T-R3.3.3	Jennifer Fletcher	This seems now to be a very ambitious Task! NWC-SAF data are available on the web from Leeds, and training has been given in Kumasi on accessing the data directly from EUMETCAST. But there is a long way to go.	20		
+2020-01-19	T-C1.2.3	Elijah Adefisan	Task transferred to ACMAD (Adefisan). Syllabus details collated from all partners with teaching role, and gaps synthesised. Report due. Extend deadline to 1 February 2020.	80	Paper in planning, to be led by Elijah Adefisan.	
 2020-01-19	T-R3.4.3	Jennifer Fletcher	NWC-SAF training has been given in Testbed 1 and the Kumasi Science Meeting in 2019. But there is a lot more to do. The plan and deadline need extending.	20		
+2020-01-19	T-C2.8.1	Benjamin Lamptey	First draft has been prepared. Postpone deadline to 1 March 2020.	0		
+2020-01-19	T-R3.3.3	Jennifer Fletcher	This seems now to be a very ambitious Task! NWC-SAF data are available on the web from Leeds, and training has been given in Kumasi on accessing the data directly from EUMETCAST. But there is a long way to go.	20		
+2020-01-20	T-R2.4.1	Masilin Gudoshava	Selection of case studies is completed. Analysis ongoing in collaboration with East Africa partners.	100	"Planned paper on Case Studies of Extreme Climate Events over East Africa. 
+"	
 2020-01-20	T-R2.5.4	Hussen Seid	A working paper on 'Skill of Monthly Precipitation Forecasts from Global Prediction Systems over the Greater Horn of Africa' being prepared.	60	Evaluation of the Skill of Monthly Precipitation Forecasts from Global Prediction Systems over the Greater Horn of Africa	
 2020-01-20	T-R2.4.1	Masilin Gudoshava	Selection of case studies is completed. Analysis ongoing in collaboration with East Africa partners.	100	"Planned paper on Case Studies of Extreme Climate Events over East Africa. 
 "	
-2020-01-20	T-R2.4.1	Masilin Gudoshava	Selection of case studies is completed. Analysis ongoing in collaboration with East Africa partners.	100	"Planned paper on Case Studies of Extreme Climate Events over East Africa. 
-"	
 2020-01-21	T-R3.3.3	Jennifer Fletcher	"NWC-SAF data are available on the web from Leeds, and training has been given in Kumasi on accessing the data directly from EUMETCAST. This is in hand but some centres are yet to receive dishes and more training and experience is needed in accessing and using the data. KNUST have succeeded in getting their dish working. 
 Needs a realistic deadline to be useful. E.g. Some partners have this capability by end of summer 2020 following training at Science Meeting."	20		
 2020-01-21	T-R3.3.3	Jennifer Fletcher	"NWC-SAF data are available on the web from Leeds, and training has been given in Kumasi on accessing the data directly from EUMETCAST. This is in hand but some centres are yet to receive dishes and more training and experience is needed in accessing and using the data. KNUST have succeeded in getting their dish working. 
 Needs a realistic deadline to be useful. E.g. Some partners have this capability by end of summer 2020 following training at Science Meeting."	20		
-2020-01-21	T-R3.1.2	Jennifer Fletcher	To be discussed with Thorwald. Try to do in 2020. Push deadline to end of 2020.	0		
 2020-01-21	T-R3.1.1	Alan Blyth	Alex and Jennifer in post. 3rd post ready to advertise	100		
+2020-01-21	T-R3.1.2	Jennifer Fletcher	To be discussed with Thorwald. Try to do in 2020. Push deadline to end of 2020.	0		
 2020-01-22	T-R7.2.3	Stu Webster	95% complete. Almost 100Tb of data has been archived. Only a few runs left on the supercomputer out of the full list of case study ensembles.	95		
 2020-02-03	T-R3.7.2	Marian Osei	Work has began on understanding storm helicity dynamics using SWIFT case study storms	1		
 2020-02-03	T-R3.5.2	Marian Osei	"1. Manuscript on ""intercomparison of AIRS and radiosonde profiles of temperature and relative humidity over West Africa"" has been submitted to the Journal of Earth and Space Sciences (ESS)
@@ -674,25 +674,25 @@ Needs a realistic deadline to be useful. E.g. Some partners have this capability
 2020-02-03	T-R3.5.2	Marian Osei	"1. Manuscript on ""intercomparison of AIRS and radiosonde profiles of temperature and relative humidity over West Africa"" has been submitted to the Journal of Earth and Space Sciences (ESS)
 2. Manuscript on statistical analysis of thunderstorm convective indices for monitoring of thunderstorm initiation is currently being prepared.
 3. Manuscript on lightning occurrence in mesoscale convective systems over West Africa is also currently being prepared"	100	1. KNUST paper1 (sondes vs AIRS)	30-01-2020
+2020-02-12	T-R3.5.1	Ousmane Ndiaye	"Lead author (Abdoulahat DIOP) and institutional lead authors have been assigned, cases suggested by ACMAD. 
+"	15		
+2020-02-12	T-R3.7.2	Jennifer Fletcher	"Jennifer Fletcher has begun looking at TRMM PR statistics over tropical Africa and plans to connect to Meteosat observations in novel ways, leading to 1-2 papers.
+"	5	Fletcher et al	
 2020-02-12	T-R3.1.2	Jennifer Fletcher	To be discussed with Thorwald. Try to do in 2020. Push deadline to end of 2020.	5		
 2020-02-12	T-R4.2.1	Abdou Lahat Dieng	"ACMAD have supplied a list of cases and institutional leads on the multi-case study paper are reviewing them. 60%. All institutions have cases identified, but list needs compilation, requested before WP34 meeting on 26 Sept 2019.
 "	70	In preparation: Studying of synoptic conditions related to HIW events	
 2020-02-12	T-R3.5.4	Bernard Chanzu	"23 May 2019 Case study identified. 5 Kenyan cases have been documented awaiting other participant's cases for compilation.\r\n
 "	20	No papers yet	
-2020-02-12	T-R3.7.1	Jennifer Fletcher	"UoR PDRA Peter Hill is carrying this out with contributions by J. Fletcher
+2020-02-12	T-R3.7.3	Marian Osei	"Marian is working on this
 "	20		
-2020-02-12	T-R3.5.1	Ousmane Ndiaye	"Lead author (Abdoulahat DIOP) and institutional lead authors have been assigned, cases suggested by ACMAD. 
-"	15		
 2020-02-12	T-R3.5.3	Jerome Omotosho	"Work has started on various case studies of high impact and/or widespread storms.  A particular high impact event which occurred between 23rd - 28th May 2018 and affected both Nigeria and Ghana, is being focused for detailed analysis.  Data for these are already being downloaded for the critical analysis.  Hoever, accessibility to satellite and radr products has and is a constraint.
 "	30	Papers for Journal publications are expected to be ready by end February 2020	
-2020-02-12	T-R3.7.2	Jennifer Fletcher	"Jennifer Fletcher has begun looking at TRMM PR statistics over tropical Africa and plans to connect to Meteosat observations in novel ways, leading to 1-2 papers.
-"	5	Fletcher et al	
+2020-02-12	T-R3.7.1	Jennifer Fletcher	"UoR PDRA Peter Hill is carrying this out with contributions by J. Fletcher
+"	20		
 2020-02-12	T-R3.4.3	Jennifer Fletcher	"NWC-SAF training has been given in Testbed 1 and the Kumasi Science Meeting in 2019. But there is a lot more to do. The plan and deadline need extending. 
 
 Online training is complete and training was carried out in SWIFT 2019 science meeting, will be repeated in 2020 if desired. Slack chanel being setup for NWCSAF setup trouble shooting. Jennifer can correspond with Leif regarding python-based code for satellite data access.\r\nPut back the deadline for review in month 24. Training using NWCSAF-GEO delivered at Ghana WP training (AR and JG), also South African Weatehr Service session on nowcasting methods (Morne Gjiben)
 "	80		
-2020-02-12	T-R3.7.3	Marian Osei	"Marian is working on this
-"	20		
 2020-02-24	T-R3.4.3	Jennifer Fletcher	"NWC-SAF training has been given in Testbed 1 and the Kumasi Science Meeting in 2019. But there is a lot more to do. The plan and deadline need extending.
 Integrate the planning into Testbed 3 preparation."	20		
 2020-02-24	T-R3.5.4	Bernard Chanzu	"23 May 2019 Case study identified. 5 Kenyan cases have been documented awaiting other participant's cases for compilation.\r\n
@@ -701,47 +701,47 @@ Integrate the planning into Testbed 3 preparation."	20
 
 Online training is complete and training was carried out in SWIFT 2019 science meeting, will be repeated in 2020 if desired. Slack chanel being setup for NWCSAF setup trouble shooting. Jennifer can correspond with Leif regarding python-based code for satellite data access.\r\nPut back the deadline for review in month 24. Training using NWCSAF-GEO delivered at Ghana WP training (AR and JG), also South African Weatehr Service session on nowcasting methods (Morne Gjiben)
 "	80		
-2020-02-25	T-R3.6.4	Elijah Adefisan	SEE T-R4.1.1.2 NWCSAF now avilable online from NCAS, with cocumentation online and sahred in Kumasi on how to set this up.	0		
 2020-02-25	T-R3.5.3	Jerome Omotosho	"Work has started on various case studies of high impact and/or widespread storms.  A particular high impact event which occurred between 23rd - 28th May 2018 and affected both Nigeria and Ghana, is being focused for detailed analysis.  Data for these are already being downloaded for the critical analysis.  Hoever, accessibility to satellite and radr products has and is a constraint.
 "	30	Papers for Journal publications are expected to be ready by end February 2020	
-2020-02-25	T-R3.4.4	Jennifer Fletcher	Delete this task as it is too vague. Some progress has been made	10		
-2020-02-25	T-R3.7.9	Marian Osei	"Marian is working on this
-"	20		
-2020-02-25	T-R3.5.5	Elijah Adefisan	This has been replaced with T-R3.5.1, please delete this. Not yet started	0		
 2020-02-25	T-R3.5.1	Ousmane Ndiaye	"Lead author (Abdoulahat DIOP) and institutional lead authors have been assigned, cases suggested by ACMAD. 
 "	15		
 2020-02-25	T-R3.6.2	Alex Roberts	We are a long way from doing this. Have met with Hamish Carr twice. No concrete plans to design a new project yet as we are still mainly focused on existing product (NWC SAF). Need to push the deadline back 12 months to M34, or delete altogether (AB) and focus on improving existing product. Zhiqiang investigating NWCSAF code for precip and with Ralph wil do for RDT and CI. Dialogue started with NWCSAF development team.  AR Involved with ongoing work with UK Met Office and School of Computing and School of Engineering investigating use of Convolutional Neural Networks for forward prediction of Satellite imagery. AR Investigating current Sat data processing and possible image processing methods that can be used for feature identification (priority on reduced latency). NOTE AB 11/11/19. Having gained experience of the needs of African partners, their challenges, and of the NWCSAF products, the view is that emphasis should be placed on improving the existing products (Change T-R3.6.2) and using them extensively. Furthermore, we did not fully appreciate when writing these tasks the challenges of getting the current system up and running in the African institutes and using the products for analysing case studies. We therefore propose that TASKS TR3.6.3 to T-R3.7.7 be deleted. The emphasis will be on T-R3.5.1 to T-R3.5.7 -- i.e. the case studies with the *existing* NWC SAF products.	10	NCAS-paper	
-2020-02-25	T-R3.5.6	Jennifer Fletcher	Case studies of use of satellite information in HIW cases over Africa. Data has been downloaded but not yet used due to issue with grid. 15% complete on 12/9.2019. Jennifer will coordinate this at the Science Meeting.\r\nPlease edit description to be: Case studies of use of satellite information in HIW cases over Africa.	15		
-2020-02-25	T-R3.7.7	Jennifer Fletcher	"UoR PDRA Peter Hill is carrying this out with contributions by J. Fletcher
-"	20		
 2020-02-25	T-R3.7.8	Jennifer Fletcher	"Jennifer Fletcher has begun looking at TRMM PR statistics over tropical Africa and plans to connect to Meteosat observations in novel ways, leading to 1-2 papers.
 "	5	Fletcher et al	
-2020-02-26	T-R6.1.4	Linda Hirons	Analysis of CP4 simulations continuing	20	"Hirons et al. Diurnal Cycle of East African Rainfall in convective permitting simulations 
-Hirons et al. Representation of MJO Impacts over Africa in Convective Permitting Simulations. "	
+2020-02-25	T-R3.7.7	Jennifer Fletcher	"UoR PDRA Peter Hill is carrying this out with contributions by J. Fletcher
+"	20		
+2020-02-25	T-R3.4.4	Jennifer Fletcher	Delete this task as it is too vague. Some progress has been made	10		
+2020-02-25	T-R3.5.5	Elijah Adefisan	This has been replaced with T-R3.5.1, please delete this. Not yet started	0		
+2020-02-25	T-R3.6.4	Elijah Adefisan	SEE T-R4.1.1.2 NWCSAF now avilable online from NCAS, with cocumentation online and sahred in Kumasi on how to set this up.	0		
+2020-02-25	T-R3.5.6	Jennifer Fletcher	Case studies of use of satellite information in HIW cases over Africa. Data has been downloaded but not yet used due to issue with grid. 15% complete on 12/9.2019. Jennifer will coordinate this at the Science Meeting.\r\nPlease edit description to be: Case studies of use of satellite information in HIW cases over Africa.	15		
+2020-02-25	T-R3.7.9	Marian Osei	"Marian is working on this
+"	20		
 2020-02-26	T-R6.1.2	Steve Woolnough	Work continuting	40	"Gitau  et al.: MJO and IOD influence on synoptic patters over East Africa (submitted)
 Niang et al:  Role of the MJO in onset of the West African Monsoon (to be submitted Q1 2020)"	
 2020-02-26	T-R6.2.2	Felipe Andrade	Paper draft near completion	25		
+2020-02-26	T-R6.1.4	Linda Hirons	Analysis of CP4 simulations continuing	20	"Hirons et al. Diurnal Cycle of East African Rainfall in convective permitting simulations 
+Hirons et al. Representation of MJO Impacts over Africa in Convective Permitting Simulations. "	
 2020-03-05	T-R3.7.10	Marian Osei	"Marian is working on this
 "	20		
 2020-03-05	T-R3.7.9	Jennifer Fletcher	"Jennifer Fletcher has begun looking at TRMM PR statistics over tropical Africa and plans to connect to Meteosat observations in novel ways, leading to 1-2 papers.
 "	5	Fletcher et al	
 2020-03-05	T-R3.7.8	Jennifer Fletcher	"UoR PDRA Peter Hill is carrying this out with contributions by J. Fletcher
 "	20		
+2020-04-24	T-C2.4.1	Zewdu Segele	Wash-up event is scheduled at the end of the 2 year S2S testbed, which will be in October/November 2020	0		
 2020-04-24	T-R6.7.1	Zewdu Segele	"Discussion on the action plans for the rest of the testbed has been done. Initial forecast  products are currently being produced in conjunction with the FSNWG coordinator.  Report summarising the workshop proceedings has also been done.
 Weekly bulletin with tailored forecasts  is being produced for the FSNWG. "	50	Planned paper  focusing on the co-production with the FNSWG  will be produced at the end of the testbed. 	
-2020-04-24	T-C2.4.1	Zewdu Segele	Wash-up event is scheduled at the end of the 2 year S2S testbed, which will be in October/November 2020	0		
-2020-04-27	T-R2.5.4	Hussen Seid	A working paper on 'Skill of Monthly Precipitation Forecasts from Global Prediction Systems over the Greater Horn of Africa' being prepared.	70	Evaluation of the Skill of Monthly Precipitation Forecasts from Global Prediction Systems over the Greater Horn of Africa	
 2020-04-27	T-R6.7.1	Zewdu Segele	"Discussion on the action plans for the rest of the testbed has been done. Initial forecast  products are currently being produced in conjunction with the FSNWG coordinator.  Report summarising the workshop proceedings has also been done.
 Weekly bulletin with tailored forecasts  is being produced for the FSNWG. "	55	Planned paper  focusing on the co-production with the FNSWG  will be produced at the end of the testbed. 	
+2020-04-27	T-R2.5.4	Hussen Seid	A working paper on 'Skill of Monthly Precipitation Forecasts from Global Prediction Systems over the Greater Horn of Africa' being prepared.	70	Evaluation of the Skill of Monthly Precipitation Forecasts from Global Prediction Systems over the Greater Horn of Africa	
+2020-04-28	T-R3.5.4	Bernard Chanzu	"verification of stage
+"	60	paper in progress	May 2020
+2020-04-28	T-R2.5.3	David Koros	work on testing of various methods going own	70	KMD planned paper on warning-based forecast evaluation with UKMO	30-102020
 2020-04-28	T-C2.7.2	Bernard Chanzu	UoN will report on the task. the task was moved to UoN	60	Internal reports	
 2020-04-28	T-C2.7.1	Bernard Chanzu	planning document was produced but still issues on implementation	10		
-2020-04-28	T-R4.4.1	Ronald Barette	work on documenting concluded	100	Handbook on East Africa Weather Forecasting is under development.	
-2020-04-28	T-R2.5.3	David Koros	work on testing of various methods going own	70	KMD planned paper on warning-based forecast evaluation with UKMO	30-102020
 2020-04-28	T-R6.1.4	Linda Hirons	Analysis of CP4 simulations continuing: diurnal cycle over EA during OND short rains. Diurnal moist static energy analysis. 	25	"Hirons et al. Diurnal Cycle of East African Rainfall in convective permitting simulations 
 Hirons et al. Representation of MJO Impacts over Africa in Convective Permitting Simulations. "	
 2020-04-28	T-R2.8.1	David Koros	some issues on implementation still pending. the leadership was transferred to UoN Wilson Gitau	65	Internal reports and datasets available	
-2020-04-28	T-R3.5.4	Bernard Chanzu	"verification of stage
-"	60	paper in progress	May 2020
+2020-04-28	T-R4.4.1	Ronald Barette	work on documenting concluded	100	Handbook on East Africa Weather Forecasting is under development.	
 2020-04-29	T-C2.8.2	Jesse Nii Noi Ashong and Nana Kofi Opoku	"1. Run weekly forecast (weeks 1,2 &3) at sub-seasonal level over Ghana and its neighboring countries. Currently up to date 
 2. Case studies on some rainfall events in Ghana, 2019
 3. Keeps dairy for forecasts send to users and log in feedback every 3 months-up to date  "	75		
@@ -761,9 +761,9 @@ Hirons et al. Representation of MJO Impacts over Africa in Convective Permitting
 Gudoshava and Seid Endris - Examining the contribution of S2S drivers to forecast quality within different operational models 
 Dione et al. Paper - Employing different statistical methods to assess the regime dependent skill. 
 "	
+2020-04-30	T-C2.8.1	Benjamin Lamptey	"First draft has been prepared. Postpone deadline to 1 March 2020.
+April 2020: postpone to after Science meetings 2020 to enable plans to be refined, and respond to Covid."	20		
+2020-04-30	T-R1.3.1	Elias Nkiaka	Incorporated in ERL paper.	100		
 2020-04-30	T-C2.5.1	Jennifer Fletcher	Jennifer Fletcher taking over the lead of this.	10		
 2020-04-30	T-C1.4.3	Doug Parker	With the retirement of John Ward it's not so clear where to go with this. Doug should discuss with Caroline Bain and Andy Hartley.	0		
 2020-04-30	T-R4.3.2	Alex Roberts	New approach - delete this Task.	0		
-2020-04-30	T-R1.3.1	Elias Nkiaka	Incorporated in ERL paper.	100		
-2020-04-30	T-C2.8.1	Benjamin Lamptey	"First draft has been prepared. Postpone deadline to 1 March 2020.
-April 2020: postpone to after Science meetings 2020 to enable plans to be refined, and respond to Covid."	20		

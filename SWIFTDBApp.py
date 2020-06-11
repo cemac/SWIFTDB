@@ -588,7 +588,7 @@ def wp_readers():
                 old_wp = psql_to_pandas(Work_Packages_Archive.query.filter_by(code=code))
                 s = pd.to_datetime(old_wp['date_edited'])- pd.to_datetime(form.dat.data.strftime('%Y-%m-%d'))
                 idx = abs(s).idxmin()
-                closest = old_deliv.iloc[idx]
+                closest = old_wp.iloc[idx]
                 accessible_wps.at[ind,'date_edited']= closest.date_edited.strftime('%d/%m/%Y')
                 accessible_wps.at[ind,'status'] = closest.status
                 accessible_wps.at[ind,'issues'] = closest.issues

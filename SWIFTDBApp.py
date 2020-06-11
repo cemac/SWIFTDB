@@ -580,7 +580,7 @@ def wp_readers():
     if request.method == 'POST' and form.validate():
         archive_date = form.dat.data.strftime('%d-%m-%Y')
         title = "Archive of Work Pakages from " + archive_date
-        for ind, row in all_tasks.iterrows():
+        for ind, row in accessible_wps.iterrows():
             code = row.code
             try:
                 old_wp = psql_to_pandas(Work_Packages_Archive.query.filter_by(code=code))

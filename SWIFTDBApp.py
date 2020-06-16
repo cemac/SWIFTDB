@@ -465,8 +465,9 @@ def edit(tableClass, id):
         abort(404)
     # Retrieve DB entry:
     db_row = eval(tableClass).query.filter_by(id=id).first()
-    code = db_row.code
-    db_arow = eval(tableClass+"_Archive").query.filter_by(code=code).first()
+    if tableClass != 'Partners':
+        code = db_row.code
+        db_arow = eval(tableClass+"_Archive").query.filter_by(code=code).first()
     if db_row is None:
         abort(404)
     # Get form (and tweak where necessary):
@@ -483,6 +484,9 @@ def edit(tableClass, id):
                        'progress', 'percent', 'papers',
                        'paper_submission_date']
     if request.method == 'POST' and form.validate():
+        if tableClass != 'Partners':
+            # Get each form field and update DB:
+            exec("db_row.previous_report = db_row.progress")
         now = dt.datetime.now().strftime("%Y-%m-%d")
         archive_string = "date_edited = '"+str(now) +"',"
         # Get each form field and update DB:
@@ -595,7 +599,7 @@ def wp_readers():
                 accessible_wps.at[ind,'next_deliverable'] = closest.next_deliverable
             except ValueError:
                 pass
-        return render_template('view.html.j2', title=title,  editLink="reader",
+        return render_template('wp-list.html.j2', title=title,  editLink="reader",
                            tableClass='Work_Packages', data=accessible_wps,
                            description=description, reader='True',form=form)
     return render_template('wp-list.html.j2', editLink="reader",

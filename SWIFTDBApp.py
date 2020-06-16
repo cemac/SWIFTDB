@@ -484,9 +484,12 @@ def edit(tableClass, id):
                        'progress', 'percent', 'papers',
                        'paper_submission_date']
     if request.method == 'POST' and form.validate():
-        if tableClass != 'Partners':
-            # Get each form field and update DB:
-            exec("db_row.previous_report = db_row.progress")
+        if tableClass not in ['Partners', 'Users']:
+            if tableClass == 'Work_Packages':
+                exec("db_row.previous_report = db_row.status")
+            else:
+                #  Get each form field and update DB:
+                exec("db_row.previous_report = db_row.progress")
         now = dt.datetime.now().strftime("%Y-%m-%d")
         archive_string = "date_edited = '"+str(now) +"',"
         # Get each form field and update DB:

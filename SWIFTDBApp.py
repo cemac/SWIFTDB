@@ -836,11 +836,16 @@ def task_edit(id):
             if field.name == "previous_report":
                 continue
             exec("db_row." + field.name + " = field.data")
-            if field.name in archivelist:
-                archive_string += str(field.name) + r"= field.data ,"
         exec("db_row.date_edited = now")
         db.session.commit()
-
+        for f, field in enumerate(form):
+            formdata.append(field.data)
+            fieldname.append(field.name)
+            if field.name == 'date_edited':
+                now = dt.datetime.now().strftime("%Y-%m-%d")
+                formdata[f] = now
+            if field.name in archivelist:
+                archive_string += str(field.name) + "=formdata[" + str(f)+"],"
         archive_string = "Tasks_Archive(" + archive_string[:-1] +")"
         print(str(archive_string))
         db_arow = eval(archive_string)

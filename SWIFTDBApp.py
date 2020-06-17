@@ -496,6 +496,8 @@ def edit(tableClass, id):
         if tableClass == 'Users':
             form.password.data = sha256_crypt.encrypt(str(form.password.data))
         for field in form:
+            if field.name == "previous_report":
+                continue
             if field.name == 'date_edited':
                 now = dt.datetime.now().strftime("%Y-%m-%d")
                 field.data = now
@@ -638,6 +640,8 @@ def wp_edit(id):
         exec("db_row.previous_report = db_row.status")
         # Get each form field and update DB:
         for field in form:
+            if field.name == "previous_report":
+                continue
             exec("db_row." + field.name + " = field.data")
             if field.name in archivelist:
                 archive_string += str(field.name) + "= '"+str(field.data) + "',"
@@ -826,6 +830,8 @@ def task_edit(id):
         # Get each form field and update DB:
         exec("db_row.previous_report = db_row.progress")
         for field in form:
+            if field.name == "previous_report":
+                continue
             exec("db_row." + field.name + " = field.data")
             if field.name in archivelist:
                 archive_string += str(field.name) + "= '"+str(field.data) + "',"

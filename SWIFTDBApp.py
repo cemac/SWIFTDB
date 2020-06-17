@@ -835,11 +835,11 @@ def task_edit(id):
         formdata = []
         fieldname = []
         for f, field in enumerate(form):
+            formdata.append(field.data)
+            fieldname.append(field.name)
             if field.name == "previous_report":
                 continue
             exec("db_row." + field.name + " = field.data")
-            formdata.append(field.data)
-            fieldname.append(field.name)
             if field.name == 'date_edited':
                 now = dt.datetime.now().strftime("%Y-%m-%d")
                 formdata[f] = now

@@ -838,6 +838,8 @@ def task_edit(id):
             exec("db_row." + field.name + " = field.data")
         exec("db_row.date_edited = now")
         db.session.commit()
+        formdata = []
+        fieldname = []
         for f, field in enumerate(form):
             formdata.append(field.data)
             fieldname.append(field.name)

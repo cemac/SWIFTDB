@@ -832,15 +832,12 @@ def task_edit(id):
     if request.method == 'POST' and form.validate():
         # Get each form field and update DB:
         exec("db_row.previous_report = db_row.progress")
-        for field in form:
-            if field.name == "previous_report":
-                continue
-            exec("db_row." + field.name + " = field.data")
-        exec("db_row.date_edited = now")
-        db.session.commit()
         formdata = []
         fieldname = []
         for f, field in enumerate(form):
+            if field.name == "previous_report":
+                continue
+            exec("db_row." + field.name + " = field.data")
             formdata.append(field.data)
             fieldname.append(field.name)
             if field.name == 'date_edited':
@@ -848,8 +845,9 @@ def task_edit(id):
                 formdata[f] = now
             if field.name in archivelist:
                 archive_string += str(field.name) + "=formdata[" + str(f)+"],"
+        exec("db_row.date_edited = now")
+        db.session.commit()
         archive_string = "Tasks_Archive(" + archive_string[:-1] +")"
-        print(str(archive_string))
         db_arow = eval(archive_string)
         psql_insert(db_arow, flashMsg=False)
         db.session.commit()

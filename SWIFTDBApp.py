@@ -837,12 +837,13 @@ def task_edit(id):
                 continue
             exec("db_row." + field.name + " = field.data")
             if field.name in archivelist:
-                archive_string += str(field.name) + "= '"+str(field.data) + "',"
+                archive_string += str(field.name) + r"= field.data ,"
         exec("db_row.date_edited = now")
         db.session.commit()
+
         archive_string = "Tasks_Archive(" + archive_string[:-1] +")"
         print(str(archive_string))
-        db_arow = eval(str(archive_string))
+        db_arow = eval(archive_string)
         psql_insert(db_arow, flashMsg=False)
         db.session.commit()
         flash('Edits successful', 'success')

@@ -416,6 +416,9 @@ def view(tableClass):
     title = "View " + tableClass.replace("_", " ")
     try:
         data['month_due'] = pd.to_datetime(data['month_due']).dt.strftime('%b %Y')
+    except KeyError:
+        pass
+    try:
         data['date_edited'] = pd.to_datetime(data['date_edited']).dt.strftime('%d/%m/%Y')
     except KeyError:
         pass

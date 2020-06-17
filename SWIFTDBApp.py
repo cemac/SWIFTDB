@@ -505,15 +505,22 @@ def edit(tableClass, id):
                 now = dt.datetime.now().strftime("%Y-%m-%d")
                 field.data = now
             exec("db_row." + field.name + " = field.data")
-            if field.name == "code":
-                    code = field.data
-            if field.name in archivelist:
-                if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
-                    archive_string += str(field.name) + "= '"+str(field.data) + "',"
         db.session.commit()
         if tableClass in ['Work_Packages', 'Deliverables', 'Tasks']:
-            archive_string = tableClass + "_Archive(" + archive_string[:-1]+")"
-            db_arow = eval(archive_string.encode('unicode_escape'))
+            formdata = []
+            fieldname = []
+            for f, field in enumerate(form):
+                formdata.append(field.data)
+                fieldname.append(field.name)
+                if field.name == "previous_report":
+                    continue
+                if field.name == 'date_edited':
+                    now = dt.datetime.now().strftime("%Y-%m-%d")
+                    formdata[f] = now
+                if field.name in archivelist:
+                    archive_string += str(field.name) + "=formdata[" + str(f)+"],"
+            archive_string = tableClass+ "_Archive(" + archive_string[:-1] +")"
+            db_arow = eval(archive_string)
             psql_insert(db_arow, flashMsg=False)
             db.session.commit()
         # Return with success:
@@ -642,16 +649,23 @@ def wp_edit(id):
     if request.method == 'POST' and form.validate():
         exec("db_row.previous_report = db_row.status")
         # Get each form field and update DB:
-        for field in form:
+        formdata = []
+        fieldname = []
+        for f, field in enumerate(form):
+            formdata.append(field.data)
+            fieldname.append(field.name)
             if field.name == "previous_report":
                 continue
             exec("db_row." + field.name + " = field.data")
+            if field.name == 'date_edited':
+                now = dt.datetime.now().strftime("%Y-%m-%d")
+                formdata[f] = now
             if field.name in archivelist:
-                archive_string += str(field.name) + "= '"+str(field.data) + "',"
+                archive_string += str(field.name) + "=formdata[" + str(f)+"],"
         exec("db_row.date_edited = now")
         db.session.commit()
         archive_string = "Work_Packages_Archive(" + archive_string[:-1] +")"
-        db_arow = eval(archive_string.encode('unicode_escape'))
+        db_arow = eval(archive_string)
         psql_insert(db_arow, flashMsg=False)
         db.session.commit()
         flash('Edits successful', 'success')
@@ -1010,18 +1024,23 @@ def deliverables_edit(id):
     # If user submits edit entry form:
     if request.method == 'POST' and form.validate():
         exec("db_row.previous_report = db_row.progress")
-        # Get each form field and update DB:
-        for field in form:
+        formdata = []
+        fieldname = []
+        for f, field in enumerate(form):
+            formdata.append(field.data)
+            fieldname.append(field.name)
             if field.name == "previous_report":
                 continue
             exec("db_row." + field.name + " = field.data")
+            if field.name == 'date_edited':
+                now = dt.datetime.now().strftime("%Y-%m-%d")
+                formdata[f] = now
             if field.name in archivelist:
-                print(str(field.data))
-                archive_string += str(field.name) + "= '"+str(field.data) + "',"
+                archive_string += str(field.name) + "=formdata[" + str(f)+"],"
         exec("db_row.date_edited = now")
         db.session.commit()
         archive_string = "Deliverables_Archive(" + archive_string[:-1] +")"
-        db_arow = eval(archive_string.encode('unicode_escape'))
+        db_arow = eval(archive_string)
         psql_insert(db_arow, flashMsg=False)
         db.session.commit()
         # Return with success:

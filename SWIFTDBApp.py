@@ -997,8 +997,9 @@ def deliverables_edit(id):
         exec("db_row.previous_report = db_row.progress")
         # Get each form field and update DB:
         for field in form:
+            if field.name == "previous_report":
+                continue
             exec("db_row." + field.name + " = field.data")
-            print(str(field.data))
             if field.name in archivelist:
                 print(str(field.data))
                 archive_string += str(field.name) + "= '"+str(field.data) + "',"

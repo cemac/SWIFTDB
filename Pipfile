@@ -18,3 +18,4 @@ pandas = "<0.21"
 "psycopg2" = "*"
 certbot = "*"
 WTForms-Components = '*'
+jinja2 = "2.11.3"
